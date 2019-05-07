@@ -1,0 +1,111 @@
+@charset "utf-8";
+body{
+    background-image: url("../_img/b.jpg");
+    background-repeat: no-repeat;
+    padding: 0;
+    margin: 0;
+}
+
+#log{
+    width: 300px;
+	padding: 4%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+    background:rgb(216,235,252); 
+    border-radius: 10%;
+	text-align: center;
+}
+
+#pre{
+    width: 300px;
+	padding: 6%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+#pre h2{
+    font-weight: 2%;
+    font-size: 14pt;
+    font-family: 'Times New Roman', Times, serif;
+    text-align:bold;  
+}
+
+input[type="text"], input[type="password"]{
+    border:0;
+    background: none;
+    display: block;
+    margin: 2% auto;
+    border: 2px solid rgb(246,250,254);
+    padding: 4% 4%;
+    width:80%;
+    outline: none;
+    background:rgb(246,250,254);
+    border-radius: 24px;
+    transition: 0.25s;
+    
+}
+
+#pre input[type="text"]{
+    margin-top:15%; 
+}
+
+input[type="text"]:focus, input[type="password"]:focus{
+    border-color: dodgerblue;
+    
+}
+
+#log a{
+    color:red;
+}
+
+#log input[type="submit"]{
+    border:0;
+    background: none;
+    display: block;
+    margin: 9% auto; 
+    text-align: center;
+    border:2px solid rgb(0,102,255);
+    padding: 4% 8%;
+    outline: none;
+    background:rgb(0,102,255);
+    color: white;
+    border-radius: 24px;
+    cursor: pointer;
+}
+
+#pre input[type="submit"]{
+    border:0;
+    background: none;
+    display: block;
+    margin: 9% auto; 
+    text-align: center;
+    border:2px solid #2ecc71;
+    padding: 4% 8%;
+    outline: none;
+    background: #2ecc71; 
+    color: white;
+    border-radius: 24px;
+    cursor: pointer;
+}
+
+#pre input[type="submit"]:hover{
+    border-color:rgb(0,141,40); 
+    background: rgb(0,141,40);
+}
+
+
+
+#rodape{
+    position: relative;
+    margin-top:50%;
+    text-align: justify; 
+}
+
+#rodape p{
+    margin: 2%;
+}
