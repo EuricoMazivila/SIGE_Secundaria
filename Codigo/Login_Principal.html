@@ -4,29 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login_Pre_Matricula</title>
     <link rel="stylesheet" href="_css/bootstrap.min.css">
     <link rel="stylesheet" href="_css/estilo.css">
     <link rel="stylesheet" href="fontawesome-free-5.8.1-web/css/fontawesome.css"> 
     <script src="_js/jquery.js"></script>
     <script src="_js/bootstrap.js"></script>
+    <title>Login</title>
 </head>
 <body>
     <div class="modal-dialog text-center">
-        <div class="col-sm-11">
-            <div class="modal-content pre_matricula" id="pre_matricula">
+        <div class="col-sm-9 main-section">
+            <div class="modal-content form-input" id="principal">
                 <div class="col-12">
-                    <div class="col-12 intro" >
-                        <h1>Introduza a referência de acesso</h1>
+                    <div class="col-12 bem">
+                        <h2>Bem Vindo</h2>
                     </div>
                     <form class="col-12" method="POST">
-                        <div class="form-group form-group_sc"> 
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group form-group_sc"> 
-                            <button type="submit" class="btn btn-success">Entrar</button>
-                        </div>     
-                    </form>
+                     <div class="form-group form-group_pr">
+                         <input type="text" class="form-control" placeholder="Usuario">
+                     </div>
+                     <div class="form-group form-group_pr">
+                         <input type="password" class="form-control" placeholder="Senha">
+                     </div>
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                    </form> 
+                </div>
+                <div class="col-12 esqueceu">
+                        <a href="#">Esqueceu Password?</a>
                 </div>
             </div>
         </div>
@@ -41,6 +45,5 @@
             </div>
         </div>
     </footer>
-    
 </body>
 </html>
