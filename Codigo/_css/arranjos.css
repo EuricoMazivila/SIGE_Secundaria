@@ -1,0 +1,22 @@
+body{
+	padding: 0;
+	margin: 0;
+}
+#formulario{
+	padding: 5%; 
+	}
+.colMargin{
+	float: right;
+	margin-right: 5%;
+	margin-bottom: 5%;
+}
+.colRigth{
+	float: left;
+}
+.myBag{
+	background: green;
+}
+.a1{
+	width: %;
+	margin 5%;
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/arranjos.css">
+    <script src="js/bootstrap.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/popper.js"></script>
+    <title>Morada Pre-Matricula Formulario </title>
+</head>
+
+<body>
+    <header>
+        <div class="col-sm-12 col-md-10 col-lg-8 contaneir-fluid">
+            SIGA
+        </div>
+    </header>
+    <!--Dsenhando formulario-->
+    <div class="row justify-content-center mb-5">
+
+        <div class="col-sm-12 col-md-10 col-lg-8">
+            <!--inicio do formulario-->
+            <form id="formulario">
+                <fieldset>
+                    <legend>Morada</legend>
+                    <div class="form-row ">
+                        <div class="form-group col-sm-6 espacamentoPadrao">
+                            <label for="inputProvincia">Provincia</label>
+                            <input list="Provincia" class="form-control " id="inputProvincia" placeholder="Seleciona a Provincia">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="inputDistrito">Distrito</label>
+                            <input list="Distrito" class="form-control" id="inputDistrito" placeholder="Seleciona o Distrito">
+                        </div>
+                    </div>
+                    <!--Segunda linha-->
+                    <div class="form-row">
+                        <div class="form-group col-sm-6">
+                            <label for="inputAvenida">AV/Rua</label>
+                            <input list="Avenidas" class="form-control" id="inputAvenida" placeholder="Seleciona a Avenida">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="inputBairro">Bairro</label>
+                            <input list="Bairros" class="form-control" id="inputBairro" placeholder="Seleciona o Bairro">
+                        </div>
+                    </div>
+                    <!--Terceira linha-->
+                    <div class="form-row">
+                        <div class="form-group col-sm-6">
+                            <label for="inputQuarterao">Quarterao Nr</label>
+                            <input type="number" class="form-control" id="inputQuarterao" placeholder="Introduza Numero de Quarterao">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="inputCasa">Casa Nr</label>
+                            <input type="number" class="form-control" id="inputCasa" placeholder="Introduza Numero da casa">
+                        </div>
+                    </div>
+                </fieldset>
+                <!--Sexta Linha-->
+                <fieldset>
+                    <legend>Contacto</legend>
+                    <div class="form-row">
+                        <div class="form-group col-sm-6">
+                            <label for="inputTel">Numero de Telefone</label>
+                            <input type="number" class="form-control" id="inputTel" placeholder="Introduza Numero de Telefone">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="inputEmail">Email</label>
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Introduza o email">
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <!--     <div class="form-row btn-group btn-group-lg">-->
+            <div class="form-row btn-group btn-group-lg colMargin">
+                <a tabindex="0" target="_blank" class="btn btn-secondary ml-2" role="button" data-toggle="popover" data-placement="right" data-trigger="focus" title="Maecenas felis massa" data-content="Cras porttitor tellus et erat ultricies, in congue mauris rhoncus.">Anterior</a>
+                <a tabindex="0" target="_blank" class="btn btn-success ml-2" role="button" data-toggle="popover" data-placement="right" data-trigger="focus" title="Maecenas felis massa" data-content="Cras porttitor tellus et erat ultricies, in congue mauris rhoncus.">Proximo</a>
+            </div>
+
+
+
+
+
+        </div>
+
+
+        <!--Datalist de Provincia-->
+        <datalist id="Provincia">
+            <option value="Maputo">
+            <option value="Gaza">
+        </datalist>
+        <!--Datalist de Distito-->
+        <datalist id="Distrito">
+            <option value="Maracuene">
+            <option value="Manhica">
+        </datalist>
+        <!--Datalist de Bairros-->
+        <datalist id="Bairros">
+            <option value="Mateque">
+            <option value="Zona Verde">
+            <option value="Benfica">
+        </datalist>
+        <!--Datalist de Avenidas-->
+        <datalist id="Avenidas">
+            <option value="FPLM">
+            <option value="de Mocambique">
+            <option value="Marginal">
+        </datalist>
+
+</body>
+
+</html>
