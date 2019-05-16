@@ -45,11 +45,11 @@ footer {
 
 #centro {
 	background-color: #F6FBFB;
-	/*padding-bottom: 0%;
+	padding-bottom: 0%;
+	margin-bottom:-100%; 
 	padding-top: 5%;
 	margin-right: -1%;
-	*/
-
+	position: fixed;
 	
 }
 
@@ -61,11 +61,6 @@ footer {
 	padding-bottom: 10%;
 	padding-right: 6%;
 	border-radius: 35%;
-}
-
-.c {
-	margin-right: -1%;
-
 }
 
 #menu {
@@ -102,4 +97,8 @@ footer {
 	-moz-transform: scale(1.1);
 	-webkit-transform: scale(1.1);
 	transform: scale(1.1);
+}
+
+.d{
+	margin-top: -5%;
 }
