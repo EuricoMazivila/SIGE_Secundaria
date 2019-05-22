@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 22-Maio-2019 às 12:12
+-- Generation Time: 22-Maio-2019 às 14:55
 -- Versão do servidor: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -121,8 +121,7 @@ CREATE TABLE `aluno_turma` (
 CREATE TABLE `bi` (
   `numero_bi` varchar(13) NOT NULL,
   `local_emissao` varchar(35) NOT NULL,
-  `Data_emissao` date NOT NULL,
-  `Valido_ate` date NOT NULL
+  `Data_emissao` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
