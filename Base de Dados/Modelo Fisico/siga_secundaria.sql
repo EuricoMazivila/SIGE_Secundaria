@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 17-Maio-2019 às 16:47
+-- Generation Time: 22-Maio-2019 às 12:12
 -- Versão do servidor: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -115,6 +115,19 @@ CREATE TABLE `aluno_turma` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `bi`
+--
+
+CREATE TABLE `bi` (
+  `numero_bi` varchar(13) NOT NULL,
+  `local_emissao` varchar(35) NOT NULL,
+  `Data_emissao` date NOT NULL,
+  `Valido_ate` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `candidato`
 --
 
@@ -192,11 +205,14 @@ CREATE TABLE `encarregado_residencia` (
 
 CREATE TABLE `filiacao` (
   `codFil` int(11) NOT NULL,
-  `nome_completo` varchar(35) NOT NULL,
-  `telefone` int(11) NOT NULL,
-  `local_trabalho` varchar(35) NOT NULL,
-  `profissao` varchar(35) NOT NULL,
-  `tipo_progenitor` enum('Mae','Pai') DEFAULT NULL
+  `nome_pai` varchar(35) NOT NULL,
+  `nome_mae` varchar(35) NOT NULL,
+  `telefone_pai` int(11) NOT NULL,
+  `telefone_mae` int(11) NOT NULL,
+  `local_trabalho_pai` varchar(35) NOT NULL,
+  `local_trabalho_mae` varchar(35) NOT NULL,
+  `profissao_pai` varchar(35) NOT NULL,
+  `profissao_mae` varchar(35) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -284,7 +300,7 @@ CREATE TABLE `pessoa` (
   `provincia_nascimento` varchar(35) NOT NULL,
   `distrito_nascimento` date NOT NULL,
   `data_nascimento` date NOT NULL,
-  `bi` varchar(13) NOT NULL,
+  `numero_bi` varchar(13) NOT NULL,
   `emitido` varchar(35) NOT NULL,
   `sexo` enum('Femenino','Masculino') DEFAULT NULL,
   `cedula` int(11) NOT NULL
@@ -382,6 +398,12 @@ ALTER TABLE `aluno_turma`
   ADD KEY `codT` (`codT`);
 
 --
+-- Indexes for table `bi`
+--
+ALTER TABLE `bi`
+  ADD PRIMARY KEY (`numero_bi`);
+
+--
 -- Indexes for table `candidato`
 --
 ALTER TABLE `candidato`
@@ -469,7 +491,8 @@ ALTER TABLE `matricula`
 -- Indexes for table `pessoa`
 --
 ALTER TABLE `pessoa`
-  ADD PRIMARY KEY (`nuit`);
+  ADD PRIMARY KEY (`nuit`),
+  ADD KEY `numero_bi` (`numero_bi`);
 
 --
 -- Indexes for table `pessoa_residencia`
@@ -647,6 +670,12 @@ ALTER TABLE `funcionario_matricula`
 ALTER TABLE `funcionario_turma`
   ADD CONSTRAINT `funcionario_turma_ibfk_1` FOREIGN KEY (`codF`) REFERENCES `funcionario` (`codF`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `funcionario_turma_ibfk_2` FOREIGN KEY (`codT`) REFERENCES `turma` (`codT`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `pessoa`
+--
+ALTER TABLE `pessoa`
+  ADD CONSTRAINT `pessoa_ibfk_1` FOREIGN KEY (`numero_bi`) REFERENCES `bi` (`numero_bi`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `pessoa_residencia`
