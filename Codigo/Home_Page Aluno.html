@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home Page Aluno</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="bootstrap/_css/bootstrap.css">
+	<link rel="stylesheet" href="_css/estilo_.css">
+	<link rel="stylesheet" href="_css/MenLateral.css">
+    <link href="fontawesome-free-5.8.2-web/css/all.css" rel="stylesheet"> 
+    <script src="jquery/jquery.js"></script>
+    <script src="bootstrap/_js/bootstrap.js"></script>
+
+    <script type="text/javascript">
+
+	var count = 0;
+	var x = [];
+
+    	function openNav() {
+    		getTela();
+    		if (count%2==0) {
+
+    			document.getElementById("usuu").style.visibility = "visible";
+    			document.getElementById("txt1").style.visibility = "visible";
+    			document.getElementById("txt2").style.visibility = "visible";
+    			document.getElementById("txt3").style.visibility = "visible";
+    			document.getElementById("txt4").style.visibility = "visible";
+    			document.getElementById("txt5").style.visibility = "visible";
+    			document.getElementById("txt6").style.visibility = "visible";
+    			document.getElementById("txt7").style.visibility = "visible";
+    			document.getElementById("txt8").style.visibility = "visible";
+  				document.getElementById("mySidebar").style.width = x[0];
+  				document.getElementById("setaa").style.display = "inline";
+  				document.getElementById("set").style.display = "none";
+  				count++;
+  			}
+
+  			else
+  				closeNav();
+		}
+
+		function closeNav() {
+			document.getElementById("usuu").style.visibility = "hidden";
+			document.getElementById("txt1").style.visibility = "hidden";
+			document.getElementById("txt2").style.visibility = "hidden";
+			document.getElementById("txt3").style.visibility = "hidden";
+			document.getElementById("txt4").style.visibility = "hidden";
+			document.getElementById("txt5").style.visibility = "hidden";
+			document.getElementById("txt6").style.visibility = "hidden";
+			document.getElementById("txt7").style.visibility = "hidden";
+			document.getElementById("txt8").style.visibility = "hidden";
+  			document.getElementById("mySidebar").style.width = x[1];
+  			document.getElementById("setaa").style.display = "none";
+  			document.getElementById("set").style.display = "inline";
+  			count++;
+		}
+
+		function getTela()   {
+
+			if (screen.width>200 && screen.width<768) {
+				x[0] = "70%";
+				x[1] = "20%";
+				return x;
+			}
+
+			else if (screen.width>=768 && screen.width<800) {
+				x[0] = "35%";
+				x[1] = "15%";
+				return x;
+			}
+
+			else {
+				x[0] = "20%";
+				x[1] = "5%";
+			}
+		}
+
+	</script>
+
+</head>
+<body>
+
+ <div class="row"> <!--header -->
+	
+	<header class="fixed-top">
+	<nav class="navbar navbar-expand-lg  bg-nav navbar-light col-md-12" role="navigation"> 
+
+		<div id="bar">
+			<i class="fas fa-caret-right" id="set"></i>
+			<i class="fas fa-caret-left" id="setaa"></i>
+			<button class="btn-Menu" onclick="openNav()">
+				<span id="bu" style="font-size: 130%">
+					<i class="fas fa-bars"></i>
+				</span>
+			</button>
+
+		</div>
+
+		<div class="navbar-header">
+			<a class="navbar-brand h1 mb-0" href="#">SIGA</a>
+		</div>
+
+			<span style="font-size: 130%" id="bel">  <!--icone de bell -->
+				<i class="fas fa-bell"></i>
+			</span>
+
+			<span style="font-size: 130%" id="env">  <!--icone de envelope  -->
+				<i class="fas fa-envelope"></i>
+			 </span>
+			
+			<div class="form-group">
+  					<select class="form-control">
+  						<option>Ricardo</option>
+   						<option>Sobre nos</option>
+    					<option>Sair</option>
+  					</select>
+			</div>
+	</nav>	
+	</header>
+</div> 
+
+
+<div class="row container">
+		
+		<div class="area">
+			
+		</div><nav class="main-menu">
+            <ul>
+                <li>
+                    <a>
+                        <i class="fa fa-home fa-2x"></i>
+                        <span class="nav-text">
+                           Home
+                        </span>
+                    </a>
+                  
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                    	<i class="fa fa-user-circle fa-2x"></i>
+                        <span class="nav-text">
+                            Meu perfil
+                        </span>
+                    </a>
+                    
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                    	<i class="fa fa-money-bill-alt fa-2x"></i>
+                        <span class="nav-text">
+                            Pagamentos
+                        </span>
+                    </a>
+                    
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                    	<i class="fa fa-users fa-2x"></i>
+                        <span class="nav-text">
+                            Funcionários
+                        </span>
+                    </a>
+                   
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-bar-chart-o fa-2x"></i>
+                        <span class="nav-text">
+                            Graphs and Statistics
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-font fa-2x"></i>
+                        <span class="nav-text">
+                           Quotes
+                        </span>
+                    </a>
+                </li>
+                <li>
+                   <a href="#">
+                       <i class="fa fa-table fa-2x"></i>
+                        <span class="nav-text">
+                            Tables
+                        </span>
+                    </a>
+                </li>
+                <li>
+                   <a href="#">
+                        <i class="fa fa-map-marker fa-2x"></i>
+                        <span class="nav-text">
+                            Maps
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                       <i class="fa fa-info fa-2x"></i>
+                        <span class="nav-text">
+                            Documentation
+                        </span>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="logout">
+                <li>
+                   <a href="#">
+                         <i class="fa fa-power-off fa-2x"></i>
+                        <span class="nav-text">
+                            Logout
+                        </span>
+                    </a>
+                </li>  
+            </ul>
+        </nav>
+
+
+
+		<div class="centro col-md-12">  <!--div para parte central -->
+
+			<div class="row"> 
+				<ol class="breadcrumb bg-white col-md-12 col-sm-2"> 
+					<li><a href="">Home</a></li> 
+					<li><a href="">Next</a></li>
+					<small id="lect">Ano lectivo 2019</small>
+				</ol>
+			</div>
+		</div>
+</div>
+
+<div class="row">	<!--Rodape-->
+<footer class="fixed-bottom col-lg-12">
+	<p id="pp">&copy;Copyright 2019 | SIGA YOUNG | Sobre Nós</p>
+</footer>
+</div>
+
+</body> 
+</html>
+
+<!--
+
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSite">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSite">
+		</div>
+
+	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+
+<div id="mySidebar" class="sidebar"> 	
+
+		<div id="usuu">
+			<p>
+        		<span style="font-size: 250%">
+					<i class="fas fa-user"></i>
+				</span>
+				Ricardo Mazivila
+			</p><hr>
+		</div>
+
+
+	<ul class="nav flex-column">  <!--Itens do sidebar 
+  			<li class="nav-item">
+    			<a class="nav-link" href="#"><i class="fas fa-home"></i>&nbsp;&nbsp;&nbsp;
+    				<span id="txt1">Home</span>
+    			</a>
+  			</li>
+
+  			<li class="nav-item">
+    			<a class="nav-link" href="#"><i class="fas fa-user-circle"></i>&nbsp;&nbsp;&nbsp;
+    				<span id="txt2">Meu perfil</span>
+    			</a>
+  			</li>
+
+  			<li class="nav-item">
+   				 <a class="nav-link" href="#"><i class="fas fa-money-bill-alt"></i>&nbsp;&nbsp;&nbsp;
+   				 	<span id="txt3">Pagamentos</span>
+   				 </a>
+  			</li>
+
+  			<li class="nav-item">
+    			<a class="nav-link" href="#"><i class="fas fa-users"></i>&nbsp;&nbsp;&nbsp;
+    				<span id="txt4">Funcionários</span>
+    			</a>
+  			</li>
+
+  			<li class="nav-item">
+    			<a class="nav-link" href="#"><i class="fas fa-chart-bar"></i>&nbsp;&nbsp;&nbsp;
+    				<span id="txt5">Estatísticas</span></a>
+  			</li>
+
+  			<li class="nav-item">
+    			<a class="nav-link" href="#"><i class="fas fa-desktop"></i>&nbsp;&nbsp;&nbsp;<span id="txt6">Gestão</span></a>
+  			</li>
+
+  			<li class="nav-item">
+    			<a class="nav-link" href="#"><i class="fas fa-info"></i>&nbsp;&nbsp;&nbsp;<span id="txt7">Ajuda & Suporte</span></a>
+  			</li>
+
+  			<li class="nav-item">
+    			<a class="nav-link" href="#"><i class="fas fa-cogs"></i>&nbsp;&nbsp;&nbsp;<span id="txt8">Definições</span></a>
+  			</li>,
+		</ul>
+
+		</div>  
+
+-->

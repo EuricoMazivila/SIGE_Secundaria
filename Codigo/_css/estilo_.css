@@ -1,0 +1,157 @@
+.centro {
+    background-color: #F6FBFB;
+    padding-bottom: 80%;
+    position: fixed;
+    margin-top: 4.7%;
+    width: 150%;
+    top: 0;
+}
+
+.centro {
+    right: 0;
+    float: right;
+    bottom: 0;
+}
+
+
+#lect {
+    font-family: cambria math;
+    font-size: 100%;
+    margin-left: 80%;
+}
+
+#set, #setaa  {
+    color: #ffffff;
+}
+
+#setaa {
+    display: none;
+}
+
+#txt1, #txt2, #txt3, #txt4, #txt5, #txt6, #txt7, #txt8 {
+    visibility: hidden;
+}
+
+.navbar-header .navbar-brand {
+    color: white;
+    background-color: #126b7b;
+    font-family: informal roman;
+    font-weight: bold;
+}
+
+.btn-Menu {
+    background-color: transparent;
+    border: none;
+}
+
+.fixed-bottom {
+    background-color: #126b7b;
+    font-family: Comic Sans MS;
+    height: 5%;
+}
+
+#pp {
+    text-align: center;
+    font-size: 80%;
+    color: #ffffff;
+}
+
+.nav-item:hover {
+    background-color: #126b7b;
+    color: black;
+}
+
+hr {
+    background-color: #ffffff;
+}
+
+#usuu {
+    visibility: hidden;
+}
+
+.nav .nav-item .nav-link  {
+    color: #ffffff;
+    font-size: 130%;
+}
+
+.form-group .form-control {
+    height: 2%;
+    margin-top: 3%;
+}
+
+span, p{
+    color: #ffffff;
+}
+
+.breadcrumb > li + li:before { 
+    color: #CCCCCC; 
+    content: "/ "; 
+    padding: 0 5px;
+}
+
+.breadcrumb {
+    padding-left: 10%;
+
+}
+
+@media (max-width: 575px)  {
+    .centro {
+        margin-top: 16%;
+        width: 80%;
+    }
+
+    #lect {
+        font-size: 90%;
+        margin-left: 60%;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 800px)  {
+    .centro {
+        margin-top: 30%;
+        width:20%;
+    }
+
+    #lect {
+        font-size: 20%;
+        margin-left: 0%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 999px)  {
+
+    #bel {
+        margin-left: 50%;        
+    }
+
+    #env {
+      margin-right: 10%;
+      margin-left: 5%;  
+    }
+}
+ 
+@media (min-width: 1000px) and (max-width: 1399px){
+
+     #bel {
+        margin-left: 50%;        
+
+    }
+
+    #env {
+      margin-right: 8%;
+      margin-left:15%;  
+    }
+}
+
+@media (min-width: 1400px) {
+
+     #bel {
+        margin-left: 50%;        
+
+    }
+
+    #env {
+      margin-right: 15%;
+      margin-left:15%;  
+    }
+}

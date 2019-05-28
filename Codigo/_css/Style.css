@@ -1,104 +1,94 @@
-body {
-	padding: 0;
-	margin:0;
-}
 
-
-label {
-	font-size: 200%;
-	font-family: informal Roman;
-	font-weight: bold;
+#env {
+	margin-left: 3%;
+	margin-right: 3%;
 	color: #ffffff;
 }
 
-header {
-	background-color: #9ECBF4;
-	padding-bottom: 0.3%;
+#bel {
+	margin-left: 80%;
 }
 
-footer {
-	background-color: #9ECBF4;
-	padding-top: 1%;
-	padding-bottom: 1%;
+#set, #setaa  {
+	margin-left: 3%;
+	color: #ffffff;
 }
 
-#text, #ano, #men {
+#usuu {
+	visibility: hidden;
+}
+
+
+#setaa {
+	display: none;
+}
+
+span, p {
+	color: #ffffff;
+}
+
+p {
 	font-family: Comic Sans MS;
-	font-size: 100%;
-	margin-left: 1%;
-	font-weight: bold;
-	color: #000000;
+	margin-left: 2%;
 }
 
-#men {
-	font-weight: normal; 
-	margin-right: 15%;
+span hover: {
+	color:#000000;
 }
 
-.seleciona {
-
-	padding-top: 0.5%;
-	padding-bottom: 0.5%;
-	padding-left: 10%;
-	padding-right: 20%;
+button {
+	background-color: transparent;
+	border: none;
 }
 
-#centro {
+.centro {
 	background-color: #F6FBFB;
-	padding-bottom: 0%;
-	margin-bottom:-100%; 
-	padding-top: 5%;
-	margin-right: -1%;
+	padding-bottom: 80%;
+}
+
+.fixed-bottom {
+	background-color: #126b7b;
+	font-family: Comic Sans MS;
+	height: 5%;
+}
+
+#pp {
+	text-align: center;
+	color: #ffffff;
+}
+
+#txt1, #txt2, #txt3, #txt4, #txt5, #txt6, #txt7, #txt8 {
+	visibility: hidden;
+}
+
+.navbar-header .navbar-brand {
+	color: white;
+	font-size: 150%;
+	background-color: #126b7b;
+	font-family: informal roman;
+	margin-left: 50%;
+	font-weight: bold;
+}
+
+ .nav .nav-item .nav-link  {
+	color: white;
+	font-size: 130%;
+}
+
+.nav-item:hover {
+	background-color: #126b7b;
+	color: black;
+}
+
+.nav-item   {
+	margin: 2%;
+}
+
+ul {
 	position: fixed;
-	
 }
 
-#panel {
-	margin-top: 1%;
-	margin-right: 30%;
-	margin-left: 30%;
-	background-color: blue;
-	padding-bottom: 10%;
-	padding-right: 6%;
-	border-radius: 35%;
+hr {
+	background-color: #ffffff;
 }
 
-#menu {
-	margin-top: 5%;
-	margin-left: 30%;
-	padding-bottom:10%;
-}
-
-#cim {
-	margin-bottom: 2%;
-}
-
-.progress-percentage {
-	font-size: 80%;
-	color: "green";
-}
-
-.progress-text {
-	font-size: 80%;
-}
-
-.thumbnail {
-	overflow: hidden;
-}
-
-.thumbnail img {
-	max-width: 100%;
-	-moz-transition: all 0.3s;
-	-webkit-transition: all 0.3s;
-	transition: all 0.3s;
-}
-
-.thumbnail:hover img {
-	-moz-transform: scale(1.1);
-	-webkit-transform: scale(1.1);
-	transform: scale(1.1);
-}
-
-.d{
-	margin-top: -5%;
-}
