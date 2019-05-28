@@ -5296,6 +5296,105 @@
 							"propertyLabel": {
 								"$ref": "AAAAAAFqwL1ENhAScvs="
 							}
+						},
+						{
+							"_type": "UMLUseCaseSubjectView",
+							"_id": "AAAAAAFq5DRZkKdXyDM=",
+							"_parent": {
+								"$ref": "AAAAAAFqwK8ck9ISxn4="
+							},
+							"model": {
+								"$ref": "AAAAAAFq5DRZjKdVu9g="
+							},
+							"subViews": [
+								{
+									"_type": "UMLNameCompartmentView",
+									"_id": "AAAAAAFq5DRZlKdYTzg=",
+									"_parent": {
+										"$ref": "AAAAAAFq5DRZkKdXyDM="
+									},
+									"model": {
+										"$ref": "AAAAAAFq5DRZjKdVu9g="
+									},
+									"subViews": [
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFq5DRZlKdZego=",
+											"_parent": {
+												"$ref": "AAAAAAFq5DRZlKdYTzg="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"left": 32,
+											"top": -16,
+											"height": 13
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFq5DRZlKdazmQ=",
+											"_parent": {
+												"$ref": "AAAAAAFq5DRZlKdYTzg="
+											},
+											"font": "Arial;13;1",
+											"left": 157,
+											"top": 7,
+											"width": 839,
+											"height": 13,
+											"text": "Diagrama de Casos Modulo"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFq5DRZlKdbrH8=",
+											"_parent": {
+												"$ref": "AAAAAAFq5DRZlKdYTzg="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"left": 32,
+											"top": -16,
+											"width": 80.9072265625,
+											"height": 13,
+											"text": "(from Model1)"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFq5DRZlKdc1SI=",
+											"_parent": {
+												"$ref": "AAAAAAFq5DRZlKdYTzg="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"left": 32,
+											"top": -16,
+											"height": 13,
+											"horizontalAlignment": 1
+										}
+									],
+									"font": "Arial;13;0",
+									"left": 152,
+									"width": 849,
+									"height": 25,
+									"stereotypeLabel": {
+										"$ref": "AAAAAAFq5DRZlKdZego="
+									},
+									"nameLabel": {
+										"$ref": "AAAAAAFq5DRZlKdazmQ="
+									},
+									"namespaceLabel": {
+										"$ref": "AAAAAAFq5DRZlKdbrH8="
+									},
+									"propertyLabel": {
+										"$ref": "AAAAAAFq5DRZlKdc1SI="
+									}
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 152,
+							"width": 849,
+							"height": 617,
+							"nameCompartment": {
+								"$ref": "AAAAAAFq5DRZlKdYTzg="
+							}
 						}
 					]
 				},
@@ -5778,6 +5877,14 @@
 							}
 						}
 					]
+				},
+				{
+					"_type": "UMLUseCaseSubject",
+					"_id": "AAAAAAFq5DRZjKdVu9g=",
+					"_parent": {
+						"$ref": "AAAAAAFqwK8ck9IRt04="
+					},
+					"name": "Diagrama de Casos Modulo"
 				}
 			]
 		}
