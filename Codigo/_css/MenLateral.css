@@ -24,8 +24,9 @@ overflow:visible;
 background:#0a8485;
 border-right:1px solid #e5e5e5;
 position:absolute;
-height:91%;
-bottom: 0;
+height:86%;
+bottom: 5%;
+top:9.5%;
 left:0;
 width:60px;
 overflow:hidden;
@@ -36,13 +37,14 @@ z-index:1000;
 }
 
 .main-menu>ul {
-margin:7px 0;
+margin: 10% 0;
 }
 
 .main-menu li {
 position:relative;
 display:block;
 width:250px;
+margin-top:5%;
 }
 
 .main-menu li>a {

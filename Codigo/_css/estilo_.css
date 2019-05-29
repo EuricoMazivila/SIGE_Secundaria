@@ -91,7 +91,30 @@ span, p{
 
 .breadcrumb {
     padding-left: 10%;
+}
 
+.alunos {
+    border:solid;
+    padding: 5% 10% ;
+}
+
+.funcionarios {
+    border:solid;
+    padding: 5% 10% ;
+}
+
+.orcamento {
+    border:solid;
+    padding: 5% 10% ;
+}
+
+.msg {
+    color: black;
+    margin-top: 2%;
+}
+
+table {
+    height: 20%;
 }
 
 @media (max-width: 575px)  {
