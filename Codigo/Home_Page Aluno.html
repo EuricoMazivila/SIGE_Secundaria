@@ -7,75 +7,12 @@
 	<link rel="stylesheet" href="bootstrap/_css/bootstrap.css">
 	<link rel="stylesheet" href="_css/estilo_.css">
 	<link rel="stylesheet" href="_css/MenLateral.css">
-    <link href="fontawesome-free-5.8.2-web/css/all.css" rel="stylesheet"> 
-    <script src="jquery/jquery.js"></script>
-    <script src="bootstrap/_js/bootstrap.js"></script>
-
-    <script type="text/javascript">
-
-	var count = 0;
-	var x = [];
-
-    	function openNav() {
-    		getTela();
-    		if (count%2==0) {
-
-    			document.getElementById("usuu").style.visibility = "visible";
-    			document.getElementById("txt1").style.visibility = "visible";
-    			document.getElementById("txt2").style.visibility = "visible";
-    			document.getElementById("txt3").style.visibility = "visible";
-    			document.getElementById("txt4").style.visibility = "visible";
-    			document.getElementById("txt5").style.visibility = "visible";
-    			document.getElementById("txt6").style.visibility = "visible";
-    			document.getElementById("txt7").style.visibility = "visible";
-    			document.getElementById("txt8").style.visibility = "visible";
-  				document.getElementById("mySidebar").style.width = x[0];
-  				document.getElementById("setaa").style.display = "inline";
-  				document.getElementById("set").style.display = "none";
-  				count++;
-  			}
-
-  			else
-  				closeNav();
-		}
-
-		function closeNav() {
-			document.getElementById("usuu").style.visibility = "hidden";
-			document.getElementById("txt1").style.visibility = "hidden";
-			document.getElementById("txt2").style.visibility = "hidden";
-			document.getElementById("txt3").style.visibility = "hidden";
-			document.getElementById("txt4").style.visibility = "hidden";
-			document.getElementById("txt5").style.visibility = "hidden";
-			document.getElementById("txt6").style.visibility = "hidden";
-			document.getElementById("txt7").style.visibility = "hidden";
-			document.getElementById("txt8").style.visibility = "hidden";
-  			document.getElementById("mySidebar").style.width = x[1];
-  			document.getElementById("setaa").style.display = "none";
-  			document.getElementById("set").style.display = "inline";
-  			count++;
-		}
-
-		function getTela()   {
-
-			if (screen.width>200 && screen.width<768) {
-				x[0] = "70%";
-				x[1] = "20%";
-				return x;
-			}
-
-			else if (screen.width>=768 && screen.width<800) {
-				x[0] = "35%";
-				x[1] = "15%";
-				return x;
-			}
-
-			else {
-				x[0] = "20%";
-				x[1] = "5%";
-			}
-		}
-
-	</script>
+  <link href="fontawesome-free-5.8.2-web/css/all.css" rel="stylesheet"> 
+  <script src="jquery/jquery.js"></script>
+  <script src="bootstrap/_js/bootstrap.js"></script>
+  <script src="_js/highcharts.js"></script>
+  <script src="_js/modules/exporting.js"></script>
+  <script src="_js/modules/export-data.js"></script>
 
 </head>
 <body>
@@ -235,45 +172,108 @@
 
 			</div>
 
-			<div class="row">
-				<span class="msg col-md-2 offset-md-1">Disciplinas</span>
-				<span class="msg col-md-3 offset-md-2">Avaliacoes mensais</span>
-<<<<<<< HEAD
-				<span class="msg col-md-2 ">Bolsas Academicas</span>
-=======
-				<span class="msg col-md-1 offset-md-1">Bolsas Academicas</span>
->>>>>>> 3bc50c904d237f5c928c13c5c2ef29a4db5efb58
-			</div>
+      <div class = "row">
 
-			<div class="row" border="1">
+        <div class="col-md-11 offset-md-1">
+        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
-				<table border="1" class = "col-md-2 offset-md-1">
+    <script type="text/javascript">
+      Highcharts.chart('container', {
+      chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Monthly Average Rainfall'
+    },
+    subtitle: {
+        text: 'Source: WorldClimate.com'
+    },
+    xAxis: {
+        categories: [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec'
+        ],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Rainfall (mm)'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [{
+        name: 'Tokyo',
+        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+
+    }, {
+        name: 'New York',
+        data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+
+    }, {
+        name: 'London',
+        data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
+
+    }, {
+        name: 'Berlin',
+        data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
+
+    }]
+});
+    </script>
+    </div>
+        
+
+
+
+      </div>
+
+		<!--	<div class="row" border="1">
+
+				<table border="1" class = "col-md-2 bg-white offset-md-1">
     				<tr>
-      					<td>1000000</td>
-   					<tr>
+      					<td>Matematica</td>
+            </tr>
+            
   				</table>
-
-  				<table border="1" class = "col-md-3 offset-md-1">
+    			
+  				<table border="1" class = "col-md-2 bg-white offset-md-1">
     				<tr>
-      					<td>frhrtr</td>
+      					<td>India licenciatura</td>
+   					</tr>
    					<tr>
+      					<td>Brazil bacharelato</td>
+   					</tr>
+   					<tr>
+      					<td>Angola mestrado</td>
+   					</tr>
   				</table>
+			</div> -->
 
-  				<table border="1" class = "col-md-2 offset-md-1">
-    				<tr>
-      					<td>frhrtr</td>
-   					</tr>
-   					<tr>
-      					<td>frhrtr</td>
-   					</tr>
-   					<tr>
-      					<td>frhrtr</td>
-   					</tr>
-   					<tr>
-      					<td>frhrtr</td>
-   					</tr>
-  				</table>
-			</div>
+
 
 		</div> 
 </div>
