@@ -2,8 +2,8 @@
 .fa-2x {
 font-size: 2em;
 color: white;
-
 }
+
 .fa {
 position: relative;
 display: table-cell;
@@ -122,6 +122,43 @@ background: #e2e2e2;
 width: 100%;
 height: 100%;
 }
+
+.main-menu li ul {
+  position: absolute;
+  height: auto;
+  min-width: 200px;
+  padding: 0;
+  margin: 0;
+  background: #0a8485;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 300ms linear;
+  -o-transition: all 300ms linear;
+  -ms-transition: all 300ms linear;
+  -moz-transition: all 300ms linear;
+  -webkit-transition: all 300ms linear;
+  z-index: 1000;
+  left:280px;
+  top: 0px;
+  border-left: 4px solid #126b7b;
+}
+
+.main-menu li:hover > ul,
+.main-menu li ul li:hover > ul {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  left:250px;
+}
+
+.main-menu li ul li a {
+  padding: 10px;
+  text-align: left;
+  border: 0;
+  border-bottom: 1px solid #EEE;
+  height: auto;
+}
+
 @font-face {
   font-family: 'Titillium Web';
   font-style: normal;

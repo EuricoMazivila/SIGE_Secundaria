@@ -1,16 +1,21 @@
-.centro {
-    background-color: #F6FBFB;
+.centro, .centroo {
+    
     padding-bottom: 80%;
-    position: fixed;
     margin-top: 4.7%;
     width: 150%;
     top: 0;
-}
-
-.centro {
     right: 0;
     float: right;
     bottom: 0;
+    position: fixed;
+}
+
+.centro {
+    background-color: #F6FBFB;
+}
+
+.centroo {
+    background-color: #ffffff;
 }
 
 
@@ -20,28 +25,11 @@
     margin-left: 80%;
 }
 
-#set, #setaa  {
-    color: #ffffff;
-}
-
-#setaa {
-    display: none;
-}
-
-#txt1, #txt2, #txt3, #txt4, #txt5, #txt6, #txt7, #txt8 {
-    visibility: hidden;
-}
-
 .navbar-header .navbar-brand {
     color: white;
     background-color: #126b7b;
     font-family: informal roman;
     font-weight: bold;
-}
-
-.btn-Menu {
-    background-color: transparent;
-    border: none;
 }
 
 .fixed-bottom {
@@ -52,26 +40,7 @@
 
 #pp {
     text-align: center;
-    font-size: 80%;
-    color: #ffffff;
-}
-
-.nav-item:hover {
-    background-color: #126b7b;
-    color: black;
-}
-
-hr {
-    background-color: #ffffff;
-}
-
-#usuu {
-    visibility: hidden;
-}
-
-.nav .nav-item .nav-link  {
-    color: #ffffff;
-    font-size: 130%;
+    font-size: 90%;
 }
 
 .form-group .form-control {
@@ -79,8 +48,17 @@ hr {
     margin-top: 3%;
 }
 
-span, p{
+span, #pp{
     color: #ffffff;
+}
+
+#bel, #env {
+    font-size: 130%;
+}
+
+.centere {
+    color:#275e54;
+    font-size: 350%;
 }
 
 .breadcrumb > li + li:before { 
@@ -89,32 +67,24 @@ span, p{
     padding: 0 5px;
 }
 
+.table {
+    margin-top: 3%;
+}
+
 .breadcrumb {
     padding-left: 10%;
 }
 
-.alunos {
-    border:solid;
-    padding: 5% 10% ;
+.alunos, .turmas, .orcamento, .faltas, .testes, .media {
+    background-color: #ffffff;
+    padding-right: 15%;
+    padding-top: 0.5%;
 }
 
-.funcionarios {
-    border:solid;
-    padding: 5% 10% ;
-}
-
-.orcamento {
-    border:solid;
-    padding: 5% 10% ;
-}
-
-.msg {
-    color: black;
-    margin-top: 2%;
-}
-
-table {
-    height: 20%;
+#containerB, #containerP {
+    width: 102%;
+    height: 96%; 
+    padding-top: 5%;  
 }
 
 @media (max-width: 575px)  {

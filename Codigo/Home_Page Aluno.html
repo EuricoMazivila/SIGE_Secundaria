@@ -7,12 +7,31 @@
 	<link rel="stylesheet" href="bootstrap/_css/bootstrap.css">
 	<link rel="stylesheet" href="_css/estilo_.css">
 	<link rel="stylesheet" href="_css/MenLateral.css">
-  <link href="fontawesome-free-5.8.2-web/css/all.css" rel="stylesheet"> 
+  <link href="fontawesome-free-5.8.2-web/css/all.css" rel="stylesheet">
+  <link href="_css/main.css">
+  <link href="_css/main - Daygrid.css"> 
   <script src="jquery/jquery.js"></script>
   <script src="bootstrap/_js/bootstrap.js"></script>
   <script src="_js/highcharts.js"></script>
   <script src="_js/modules/exporting.js"></script>
   <script src="_js/modules/export-data.js"></script>
+  <script src="_js/main.js"></script>
+  <script src="_js/main - Daygrid.js"></script>
+  
+  <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          plugins: [ 'dayGrid']
+        });
+
+        calendar.render();
+      });
+
+    </script>
+ 
 
 </head>
 <body>
@@ -26,17 +45,17 @@
 			<a class="navbar-brand h1 mb-0" href="#">SIGA</a>
 		</div>
 
-			<span style="font-size: 130%" id="bel">  <!--icone de bell -->
+			<span id="bel">  <!--icone de bell -->
 				<i class="fas fa-bell"></i>
 			</span>
 
-			<span style="font-size: 130%" id="env">  <!--icone de envelope  -->
+			<span id="env">  <!--icone de envelope  -->
 				<i class="fas fa-envelope"></i>
 			 </span>
 			
 			<div class="form-group">
   					<select class="form-control">
-  						<option>Ricardo</option>
+  						<option>Barato</option>
    						<option>Sobre nos</option>
     					<option>Sair</option>
   					</select>
@@ -50,7 +69,7 @@
 		
 		<div class="area">
 			
-		</div><nav class="main-menu">
+		</div><nav class="main-menu"> <!--Sidebar -->
             <ul>
 
             	 <li class="has-subnav">
@@ -59,15 +78,16 @@
                     </a>
                 </li>
 
-                <li>
-                    <a>
+                <li class="has-subnav">
+                    <a href="#">
                         <i class="fa fa-home fa-2x"></i>
                         <span class="nav-text">
-                           Home
+                            Home
                         </span>
                     </a>
-                  
+                    
                 </li>
+                
                 <li class="has-subnav">
                     <a href="#">
                     	<i class="fa fa-user-circle fa-2x"></i>
@@ -75,42 +95,55 @@
                             Meu perfil
                         </span>
                     </a>
+
+                    <ul>
+                      <li>
+                        <a href="Marcar_matricula.html">
+                          <i class="fa fa-user fa-2x"></i>
+                          <span class="nav-text">
+                              Perfil Publico
+                          </span>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a href="Marcar_matricula.html">
+                          <i class="fa fa-user-secret fa-2x"></i>
+                          <span class="nav-text">
+                              Perfil privado
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
                     
                 </li>
                 <li class="has-subnav">
                     <a href="#">
-                    	<i class="fa fa-money-bill-alt fa-2x"></i>
+                    	<i class="fa fa-edit fa-2x"></i>
                         <span class="nav-text">
-                            Pagamentos
+                            Avaliações 
                         </span>
                     </a>
                     
                 </li>
                 <li class="has-subnav">
                     <a href="#">
-                    	<i class="fa fa-users fa-2x"></i>
+                    	<i class="fa fa-paperclip fa-2x"></i>
                         <span class="nav-text">
-                            Funcionários
+                            Matrícula 
                         </span>
                     </a>
                    
                 </li>
                 <li>
                     <a href="#">
-                    	<i class="fa fa-chart-bar fa-2x"></i>
+                    	<i class="fa fa-users fa-2x"></i>
                         <span class="nav-text">
-                            Estatísticas
+                            Professores
                         </span>
                     </a>
                 </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-desktop fa-2x"></i>
-                        <span class="nav-text">
-                           Gestão
-                        </span>
-                    </a>
-                </li>
+                
                 <li>
                    <a href="#">
                        <i class="fa fa-info fa-2x"></i>
@@ -139,7 +172,7 @@
                     </a>
                 </li>  
             </ul>
-        </nav>  <!--Sidebar -->
+        </nav>  
     </div>
 
 		<div class="centro col-md-12">  <!--div para parte central -->
@@ -154,101 +187,80 @@
 
 			<div class="row">
 				
-				<div class="alunos col-md-1 offset-md-1">
+				<div class="faltas col-md-1 offset-md-2">
 
-					
+          <div class="row">
+            <span class="centere col-md-1">  
+              <i class="fas fa-user-times"></i>
+            </span>
 
+          <i class="col-md-5">Faltas</i>
+
+          </div>
 				</div>
 
-				<div class="funcionarios col-md-1 offset-md-1">
-
+				<div class="testes col-md-1 offset-md-1">
+          <span class="centere"> 
+            <i class="fas fa-pencil-ruler"></i>
+          </span>
+          <p>Testes realizados</p>
 					
 				</div>
 
-				<div class="orcamento col-md-1 offset-md-1">
+				<div class="media col-md-1 offset-md-1">
 
+          <span class="centere"> 
+            <i class="fas fa-balance-scale"></i>
+          </span>
+          <p>Média trimestral</p>
 					
 				</div>
 
 			</div>
 
-      <div class = "row">
+      <div class="row">
+        <table class="table table-bordered bg-white col-md-2 offset-md-2">
+            <tr>
+              <th>Disciplinas</td>
+            </tr>
 
-        <div class="col-md-11 offset-md-1">
-        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            <tr>
+              <td>Portugues</td>
+            </tr>
 
-    <script type="text/javascript">
-      Highcharts.chart('container', {
-      chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'Monthly Average Rainfall'
-    },
-    subtitle: {
-        text: 'Source: WorldClimate.com'
-    },
-    xAxis: {
-        categories: [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec'
-        ],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Rainfall (mm)'
-        }
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0
-        }
-    },
-    series: [{
-        name: 'Tokyo',
-        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+            <tr>
+              <td>Fisica</td>
+            </tr>
 
-    }, {
-        name: 'New York',
-        data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+            <tr>
+              <td>Quimica</td>
+            </tr>
 
-    }, {
-        name: 'London',
-        data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
+             <tr>
+              <td>Biologia</td>
+            </tr>
+        </table>
 
-    }, {
-        name: 'Berlin',
-        data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
-
-    }]
-});
-    </script>
-    </div>
+        <div id='calendar' class="col-md-3 offset-md-1"></div>
         
 
+        <table class="table table-hover bg-white col-md-2 offset-md-1">
+            <tr>
+              <th>Bolsas academicas</th>
+            </tr>
 
+            <tr>
+              <td>Russia 2019 licenciatura</td>
+            </tr>
 
+            <tr>
+              <td>Japao 2019 bacharelato</td>
+            </tr>
+          
+        </table>
+
+      </div>
+        
       </div>
 
 		<!--	<div class="row" border="1">
@@ -310,51 +322,3 @@
 				Ricardo Mazivila
 			</p><hr>
 		</div>
-
-
-	<ul class="nav flex-column">  <!--Itens do sidebar 
-  			<li class="nav-item">
-    			<a class="nav-link" href="#"><i class="fas fa-home"></i>&nbsp;&nbsp;&nbsp;
-    				<span id="txt1">Home</span>
-    			</a>
-  			</li>
-
-  			<li class="nav-item">
-    			<a class="nav-link" href="#"><i class="fas fa-user-circle"></i>&nbsp;&nbsp;&nbsp;
-    				<span id="txt2">Meu perfil</span>
-    			</a>
-  			</li>
-
-  			<li class="nav-item">
-   				 <a class="nav-link" href="#"><i class="fas fa-money-bill-alt"></i>&nbsp;&nbsp;&nbsp;
-   				 	<span id="txt3">Pagamentos</span>
-   				 </a>
-  			</li>
-
-  			<li class="nav-item">
-    			<a class="nav-link" href="#"><i class="fas fa-users"></i>&nbsp;&nbsp;&nbsp;
-    				<span id="txt4">Funcionários</span>
-    			</a>
-  			</li>
-
-  			<li class="nav-item">
-    			<a class="nav-link" href="#"><i class="fas fa-chart-bar"></i>&nbsp;&nbsp;&nbsp;
-    				<span id="txt5">Estatísticas</span></a>
-  			</li>
-
-  			<li class="nav-item">
-    			<a class="nav-link" href="#"><i class="fas fa-desktop"></i>&nbsp;&nbsp;&nbsp;<span id="txt6">Gestão</span></a>
-  			</li>
-
-  			<li class="nav-item">
-    			<a class="nav-link" href="#"><i class="fas fa-info"></i>&nbsp;&nbsp;&nbsp;<span id="txt7">Ajuda & Suporte</span></a>
-  			</li>
-
-  			<li class="nav-item">
-    			<a class="nav-link" href="#"><i class="fas fa-cogs"></i>&nbsp;&nbsp;&nbsp;<span id="txt8">Definições</span></a>
-  			</li>,
-		</ul>
-
-		</div>  
-
--->

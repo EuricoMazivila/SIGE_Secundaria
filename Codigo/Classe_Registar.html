@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registar classe</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap/_css/bootstrap.css">
+    <link rel="stylesheet" href="_css/estilo_.css">
+    <link rel="stylesheet" href="_css/MenLateral.css">
+  <link href="fontawesome-free-5.8.2-web/css/all.css" rel="stylesheet"> 
+  <script src="jquery/jquery.js"></script>
+  <script src="bootstrap/_js/bootstrap.js"></script>
+  <script src="_js/highcharts.js"></script>
+  <script src="_js/modules/exporting.js"></script>
+  <script src="_js/modules/export-data.js"></script>
+
+</head>
+<body>
+
+ <div class="row"> <!--header -->
+    
+    <header class="fixed-top">
+    <nav class="navbar navbar-expand-lg  bg-nav navbar-light col-md-12" role="navigation"> 
+
+        <div class="navbar-header">
+            <a class="navbar-brand h1 mb-0" href="#">SIGA</a>
+        </div>
+
+            <span id="bel">  <!--icone de bell -->
+                <i class="fas fa-bell"></i>
+            </span>
+
+            <span id="env">  <!--icone de envelope  -->
+                <i class="fas fa-envelope"></i>
+             </span>
+            
+            <div class="form-group">
+                    <select class="form-control">
+                        <option>Ricardo</option>
+                        <option>Sobre nos</option>
+                        <option>Sair</option>
+                    </select>
+            </div>
+    </nav>  
+    </header>
+</div> 
+
+
+<div class="row container">
+        
+        <div class="area">
+            
+        </div>
+      <nav class="main-menu"> <!--Sidebar -->
+            <ul>
+
+               <li class="has-subnav">
+                    <a href="#">
+                       <i class="fa fa-list fa-2x"></i>
+                    </a>
+                </li>
+
+                <li class="has-subnav">
+                    <a href="Home_Page Director.html">
+                        <i class="fa fa-home fa-2x"></i>
+                        <span class="nav-text">
+                            Home
+                        </span>
+                    </a>
+                    
+                </li>
+                
+                <li class="has-subnav">
+                    <a href="#">
+                      <i class="fa fa-user-circle fa-2x"></i>
+                        <span class="nav-text">
+                            Meu perfil
+                        </span>
+                    </a>
+                    
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                      <i class="fa fa-money-bill-alt fa-2x"></i>
+                        <span class="nav-text">
+                            Pagamentos
+                        </span>
+                    </a>
+                    
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                      <i class="fa fa-users fa-2x"></i>
+                        <span class="nav-text">
+                            Funcionários
+                        </span>
+                    </a>
+                   
+                </li>
+                <li>
+                    <a href="#">
+                      <i class="fa fa-chart-bar fa-2x"></i>
+                        <span class="nav-text">
+                            Estatísticas
+                        </span>
+                    </a>
+
+                    <ul>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-puzzle-piece fa-2x"></i>
+                          <span class="nav-text">
+                              Gerais
+                          </span>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-user-friends fa-2x"></i>
+                          <span class="nav-text">
+                              Funcionários
+                          </span>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-pencil-alt fa-2x"></i>
+                          <span class="nav-text">
+                              Alunos
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="fa fa-desktop fa-2x"></i>
+                        <span class="nav-text">
+                           Gestão
+                        </span>
+                    </a>
+
+                    <ul>
+                      <li>
+                        <a href="Marcar_matricula.html">
+                          <i class="fa fa-edit fa-2x"></i>
+                          <span class="nav-text">
+                              Marcar  matricula
+                          </span>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a href="Disciplina_Registar.html">
+                          <i class="fa fa-plus-square fa-2x"></i>
+                          <span class="nav-text">
+                              Adicionar disciplina
+                          </span>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a href="Classe_Registar.html">
+                          <i class="fa fa-anchor fa-2x"></i>
+                          <span class="nav-text">
+                              Adicionar classe
+                          </span>
+                        </a>
+                      </li>
+                      
+
+
+                    </ul>
+
+
+                </li>
+
+                <li>
+                   <a href="#">
+                       <i class="fa fa-info fa-2x"></i>
+                        <span class="nav-text">
+                            Ajuda & Suporte
+                        </span>
+                    </a>
+                </li>
+                <li>
+                   <a href="#">
+                        <i class="fa fa-cogs fa-2x"></i>
+                        <span class="nav-text">
+                            Definições
+                        </span>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="logout">
+                <li>
+                   <a href="#">
+                         <i class="fa fa-power-off fa-2x"></i>
+                        <span class="nav-text">
+                            Logout
+                        </span>
+                    </a>
+                </li>  
+            </ul>
+        </nav>  
+    </div>
+
+        <div class="centroo col-md-12">  <!--div para parte central -->
+
+              <div class="container-fluid padding">
+                <form method="POST" role="form">
+                  <fieldset class="offset-1 mt-5">
+                    <legend>Insira as Informacoes do Nivel</legend>
+                  <div class="form-group col-xs-12 col-sm-6 col-md-4 mt-4">
+                    <label for="inputCodigo">Codigo</label>
+                    <input type="text" class="form-control " id="inputCodigo">
+                  </div>
+                  <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                    <label for="inputNivel">Nome do Nivel</label>
+                    <input type="text" class="form-control" id="inputNivel">
+                  </div>
+                  <button class="btn btn-primary col-md-1 offset-1">Gravar</button>
+                </fieldset>    
+                </form>
+              </div>
+        </div> 
+</div>
+
+
+<div class="row">   <!--Rodape-->
+<footer class="fixed-bottom col-lg-12">
+    <p id="pp">&copy;Copyright 2019 | SIGA YOUNG | Sobre Nós</p>
+</footer>
+</div>
+
+</body> 
+</html>
+
