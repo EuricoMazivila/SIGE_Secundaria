@@ -10,6 +10,11 @@
     position: fixed;
 }
 
+#calendar {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
 .centro {
     background-color: #F6FBFB;
 }
