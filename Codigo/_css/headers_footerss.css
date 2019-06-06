@@ -1,0 +1,55 @@
+.navbar-header{
+    background-color: #126b7b;
+    padding: 0.3%;
+    margin-left:-2%;
+    margin-right: -2%;
+}
+
+.siga{
+    color: white;
+    font-weight: bold;
+    font-family: "informal roman";
+    font-size:130%;
+    margin-left:2%;
+}
+
+.siga:hover{
+    color: white;
+    text-decoration: none;
+}
+
+.step{
+    margin-top:-5%;
+}
+
+#stp1{
+    margin-left:4%;
+}
+
+#stp2{
+    margin-left:3%;
+}
+
+#stp3{
+    margin-left:5%;
+}
+
+#stp4{
+    margin-left:4%;
+}
+
+#stp5{
+    margin-left:4%;
+}
+
+#stp6{
+    margin-left:4%;
+}
+
+/*footer*/
+.rodape{
+    background-color: #126b7b;
+    font-family: Comic Sans MS;
+    height: 5%;
+}
+

@@ -23,8 +23,8 @@
         useURLhash: true, // Enable selection of the step based on url hash
         showStepURLhash: true, // Show url hash based on step
         lang: { // Language variables for button
-            next: 'Next',
-            previous: 'Previous'
+            next: 'Proximo',
+            previous: 'Voltar'
         },
         toolbarSettings: {
             toolbarPosition: 'bottom', // none, top, bottom, both
@@ -159,8 +159,8 @@
             }
 
             // Create the toolbar buttons
-            var btnNext = this.options.toolbarSettings.showNextButton !== false ? $('<button></button>').text(this.options.lang.next).addClass('btn btn-secondary sw-btn-next').attr('type', 'button') : null;
-            var btnPrevious = this.options.toolbarSettings.showPreviousButton !== false ? $('<button></button>').text(this.options.lang.previous).addClass('btn btn-secondary sw-btn-prev').attr('type', 'button') : null;
+            var btnNext = this.options.toolbarSettings.showNextButton !== false ? $('<button></button>').text(this.options.lang.next).addClass('btn btn-info sw-btn-next').attr('type', 'button') : null;
+            var btnPrevious = this.options.toolbarSettings.showPreviousButton !== false ? $('<button></button>').text(this.options.lang.previous).addClass('btn btn-info sw-btn-prev').attr('type', 'button') : null;
             var btnGroup = $('<div></div>').addClass('btn-group mr-2 sw-btn-group').attr('role', 'group').append(btnPrevious, btnNext);
 
             // Add extra toolbar buttons
@@ -210,11 +210,11 @@
                     toolbarBottom.append(btnGroup.clone(true));
 
                     if (btnGroupExtra !== null) {
-                        if (this.options.toolbarSettings.toolbarButtonPosition === 'start') {
-                            toolbarBottom.prepend(btnGroupExtra.clone(true));
-                        } else {
-                            toolbarBottom.append(btnGroupExtra.clone(true));
-                        }
+                      if (this.options.toolbarSettings.toolbarButtonPosition === 'start') {
+                          toolbarBottom.prepend(btnGroupExtra.clone(true));
+                      } else {
+                          toolbarBottom.append(btnGroupExtra.clone(true));
+                      }
                     }
                     this.container.after(toolbarBottom);
                     break;

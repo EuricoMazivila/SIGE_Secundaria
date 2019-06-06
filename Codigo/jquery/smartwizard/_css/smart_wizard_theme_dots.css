@@ -11,44 +11,37 @@
  */
 
 /* SmartWizard Theme: Dots */
-.sw-theme-dots {
+.sw-theme-dots{
 }
-
 .sw-theme-dots .sw-container {
     min-height: 300px;
 }
-
 .sw-theme-dots .step-content {
     padding: 10px 0;
     border: none;
     background-color: #FFF;
     text-align: left;
 }
-
-.sw-theme-dots .sw-toolbar {
+.sw-theme-dots .sw-toolbar{
     background: #fff;
     border-radius: 0 !important;
     padding-left: 10px;
     padding-right: 10px;
     margin-bottom: 0 !important;
 }
-
-.sw-theme-dots .sw-toolbar-top {
+.sw-theme-dots .sw-toolbar-top{
     border-bottom-color: #ddd !important;
 }
-
-.sw-theme-dots .sw-toolbar-bottom {
+.sw-theme-dots .sw-toolbar-bottom{
     border-top-color: #ddd !important;
     border-bottom-color: #ddd !important;
 }
-
-.sw-theme-dots > ul.step-anchor {
+.sw-theme-dots > ul.step-anchor{
     position: relative;
     background: #fff;
     border: 0px solid #ccc !important;
     list-style: none;
 }
-
 .sw-theme-dots > ul.step-anchor:before {
     content: " ";
     position: absolute;
@@ -61,12 +54,11 @@
     z-order: 0;
     z-index: 95;
 }
-
-.sw-theme-dots > ul.step-anchor > li {
+.sw-theme-dots > ul.step-anchor > li{
     border: none;
 }
 /* Anchors styles */
-.sw-theme-dots > ul.step-anchor > li > a {
+.sw-theme-dots > ul.step-anchor > li > a{
     position: relative;
     text-align: center;
     font-weight: bold;
@@ -74,11 +66,10 @@
     border: none;
     color: #ccc;
     text-decoration: none;
-    outline-style: none;
+    outline-style:none;
     z-index: 96;
     display: block;
 }
-
 .sw-theme-dots > ul.step-anchor > li > a:before {
     content: ' ';
     position: absolute;
@@ -95,8 +86,7 @@
     text-decoration: none;
     z-index: 98;
 }
-
-.sw-theme-dots > ul.step-anchor > li > a:after {
+.sw-theme-dots > ul.step-anchor > li > a:after  {
     content: ' ';
     position: relative;
     left: 43%;
@@ -109,37 +99,31 @@
     border-radius: 50%;
     z-index: 99;
 }
-
-.sw-theme-dots > ul.step-anchor > li > a:hover {
+.sw-theme-dots > ul.step-anchor > li > a:hover  {
     color: #ccc;
     background: transparent;
 }
-
-.sw-theme-dots > ul.step-anchor > li > a:focus {
+.sw-theme-dots > ul.step-anchor > li > a:focus{
     color: #ccc;
     border: none;
 }
-
 .sw-theme-dots > ul.step-anchor > li.clickable > a:hover {
     color: #999;
 }
 /* Active anchors */
-.sw-theme-dots > ul.step-anchor > li.active > a {
+.sw-theme-dots > ul.step-anchor > li.active > a{
     color: #5bc0de;
 }
-
-.sw-theme-dots > ul.step-anchor > li.active > a:hover {
+.sw-theme-dots > ul.step-anchor > li.active > a:hover{
     border: none;
 }
-
 .sw-theme-dots > ul.step-anchor > li.active > a:after {
     background: #5bc0de;
 }
 /* Done anchors */
-.sw-theme-dots > ul.step-anchor > li.done > a {
+.sw-theme-dots > ul.step-anchor > li.done > a{
     color: #5cb85c;
 }
-
 .sw-theme-dots > ul.step-anchor > li.done > a:after {
     background: #5cb85c;
 }
@@ -147,7 +131,6 @@
 .sw-theme-dots > ul.step-anchor > li.danger > a {
     color: #d9534f;
 }
-
 .sw-theme-dots > ul.step-anchor > li.danger > a:after {
     background: #d9534f;
 }
@@ -155,7 +138,6 @@
 .sw-theme-dots > ul.step-anchor > li.disabled > a, .sw-theme-dots > ul.step-anchor > li.disabled > a:hover {
     color: #eee !important;
 }
-
 .sw-theme-dots > ul.step-anchor > li.disabled > a:after {
     background: #eee;
 }
@@ -173,13 +155,13 @@
         margin-right: 10px;
     }
 
-    .sw-theme-dots > ul.step-anchor > li {
+    .sw-theme-dots > ul.step-anchor > li{
         margin-left: 20px;
         display: block;
         clear: both;
     }
 
-    .sw-theme-dots > ul.step-anchor > li > a {
+    .sw-theme-dots > ul.step-anchor > li > a{
         text-align: left;
         margin-left: 0;
         display: block;
@@ -191,8 +173,7 @@
         margin-right: 10px;
         display: block;
     }
-
-    .sw-theme-dots > ul.step-anchor > li > a:after {
+    .sw-theme-dots > ul.step-anchor > li > a:after  {
         top: -38px;
         left: -31px;
         margin-right: 10px;
