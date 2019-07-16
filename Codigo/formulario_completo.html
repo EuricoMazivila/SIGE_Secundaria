@@ -1,36 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="bootstrap/_css/bootstrap.css" rel="stylesheet">
-    <link href="jquery/smartwizards/_css/smart_wizard.css" rel="stylesheet"/>
-    <link href="_css/headers_footerss.css" rel="stylesheet">
-    <link rel="stylesheet" href="fontawesome/css/fontawesome.css">
-    
-    
+    <link href="jquery/smartwizards/_css/smart_wizard.css" rel="stylesheet" />
+    <link href="_css/steps.css" rel="stylesheet">
+    <link rel="stylesheet" href="fontawesome-free-5.8.2-web/css/fontawesome.css">
+
     <!-- Optional SmartWizard theme -->
-    <link href="jquery/smartwizard/_css/smart_wizard_theme_circles.css" rel="stylesheet"/>
+    <link href="jquery/smartwizard/_css/smart_wizard_theme_circles.css" rel="stylesheet" />
     <link href="jquery/smartwizard/_css/smart_wizard_theme_arrows.css" rel="stylesheet" />
     <link href="jquery/smartwizard/_css/smart_wizard_theme_dots.css" rel="stylesheet" />
-    
+
     <!--Css de Fileinput-->
-    <link rel="stylesheet" href="fileinput/css/fileinput.css">
-    <title>Incremento</title>
+    <link rel="stylesheet" href="fileinput/_css/fileinput.css">
+    <title>Pre Matricula</title>
 </head>
+
 <body>
-    <!--Cabecalho -->
-    <div class="row">
-        <header class="fixed-top col-md-12">
-            <div class="navbar-header">
-                <a class="mb-0 siga" href="#">SIGA</a>
-            </div>
-        </header>
-    </div>    
-    
     <div class="container">
-        <form method="POST" id="myForm" role="form" data-toggle="validator">
+        <form method="POST" id="myForm" action="" role="form" data-toggle="validator">
             <br />
             <!-- SmartWizard html -->
             <div id="smartwizard" class="mt-5 offset-1">
@@ -41,90 +33,112 @@
                     <li id="stp4"><a class="step" href="#step-4">Encarregado<br><small>Passo 4</small></a></li>
                     <li id="stp5"><a class="step" href="#step-5">Matricula<br><small>Passo 5</small></a></li>
                     <li id="stp6"><a class="step" href="#step-6">Outros Dados<br><small>Passo 6</small></a></li>
-                </ul>  
+                </ul>
                 <div>
                     <div id="step-1" class="mt-4">
-                        <div class="container-fluid padding"> 
+                        <div class="container-fluid padding">
                             <div id="form-step-0" role="form" data-toggle="validator">
                                 <!--Primeira Linha-->
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputSobrenome">Apelido</label>
-                                        <input type="text" name="" id="inputSobrenome" class="form-control" required placeholder="Introduza o Apelido">
-                                        <div class="help-block with-errors"></div>
+                                        <input type="text" name="_Apelido" id="inputSobrenome" class="form-control"
+                                            required placeholder="Introduza o Apelido">
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12  col-sm-12 col-md-4 offset-1">
-                                        <label for="inputNome">Nome</label>
-                                        <input type="text" name="" id="inputNome" class="form-control" required placeholder="Introduza o Nome">
-                                        <div class="help-block with-errors"></div>
+                                        <label for="inputNome">Outros Nome</label>
+                                        <input type="text" name="_Nome" id="inputNome" class="form-control" required
+                                            placeholder="Introduza o Nome">
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
-                                </div>    
+                                </div>
                                 <!--Segunda Linha-->
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputNacionalidade">Nacionalidade</label>
-                                        <input list="Nacionalidade" class="form-control" id="inputNacionalidade" required
-                                                placeholder="Seleciona a Nacionalidade">
-                                        <div class="help-block with-errors"></div>        
+                                        <input list="Nacionalidade" class="form-control" name="_pais"
+                                            id="inputNacionalidade" required placeholder="Seleciona a Nacionalidade">
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputProvincia">Província de Nascimento</label>
-                                        <input list="Provincia" class="form-control" id="inputProvincia" required
-                                        placeholder="Seleciona a Provincia">
-                                        <div class="help-block with-errors"></div>
+                                        <input list="Provincia" class="form-control" name="_provincia"
+                                            id="inputProvincia" required placeholder="Seleciona a Provincia">
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
                                 <!--Terceira Linha-->
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputDistrito">Distrito de Nascimento</label>
-                                        <input list="Distrito" class="form-control" id="inputDistrito" required
-                                                    placeholder="Seleciona o Distrito">
-                                        <div class="help-block with-errors"></div>             
+                                        <input list="Distrito" class="form-control" name="_distrito" id="inputDistrito"
+                                            required placeholder="Seleciona o Distrito">
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputDataNascimnto">Data de Nascimento</label>
-                                        <input type="date" name="" id="inputDataNascimnto" name="" class="form-control" required> 
-                                        <div class="help-block with-errors"></div>
+                                        <input type="date" name="" id="inputDataNascimnto" name="_Data_Nascimento"
+                                            class="form-control" required>
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
                                 <!--Quarta Linha-->
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputBI">Tipo de Documento de Identificação</label>
-                                        <input list="BI" class="form-control" id="inputBI" required
-                                                    placeholder="Seleciona o Documento de Identificacao">
-                                        <div class="help-block with-errors"></div>            
+                                        <select class="form-control" name="_tipoBi" id="inputBI" required
+                                            placeholder="Seleciona o Documento de Identificacao">
+                                            <option>BI</option>
+                                            <option>Cedula</option>
+                                            <option>Carta de conducao</option>
+                                            <option>Passaporte</option>
+                                        </select>
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputBinr">Documento de Identificação Nr</label>
-                                        <input type="number" class="form-control" name=" " id="inputBinr"  required placeholder="Introduza o nr do documento de identificacao">
-                                        <div class="help-block with-errors"></div>
-                                    </div> 
+                                        <input type="number" class="form-control" name="_nrBI" id="inputBinr" required
+                                            placeholder="Introduza o nr do documento de identificacao">
+                                        <div class="help-block with-errors text-danger"></div>
+                                    </div>
                                 </div>
                                 <!--Quinta Linha-->
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputArquivo">Arquivo de Identificação</label>
-                                        <input list="EmissaoBI" class="form-control" id="inputArquivo" required
-                                                    placeholder="Local de emissão do BI">
-                                        <div class="help-block with-errors"></div>            
+                                        <input list="EmissaoBI" class="form-control" name="_arquivo" id="inputArquivo"
+                                            required placeholder="Local de emissão do BI">
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputDataEm">Data de Emissão</label>
-                                        <input type="date" name="" id="inputDataEm" class="form-control" required>
-                                        <div class="help-block with-errors"></div>
+                                        <input type="date" name="_DataEmissao" id="inputDataEm" class="form-control"
+                                            required>
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
                                 <!--Sexta Linha-->
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputSexo">Sexo</label>
-                                        <input list="Sexo" class="form-control" id="inputSexo" required
-                                                    placeholder="Selecione o Sexo">
-                                        <div class="help-block with-errors"></div>            
+                                        <select class="form-control" name="_Sexo" id="inputSexo" required
+                                            placeholder="Selecione o Sexo">
+                                            <option value="M">Masculino</option>
+                                            <option value="F">Femenino</option>
+                                        </select>
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
-                                </div>   
+                                    <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
+                                        <label for="inputEstado">Estado Civil</label>
+                                        <select class="form-control" name="_Estado_Civil" id="inputEstado" required
+                                            placeholder="Selecione Estado civil">
+                                            <option value="Casado">Casado</option>
+                                            <option value="Solteiro">Solteiro</option>
+                                        </select>
+                                        <div class="help-block with-errors text-danger"></div>
+                                    </div>
+                                </div>
                                 <!---->
                             </div>
                         </div>
@@ -148,65 +162,62 @@
                             <option value="Maracuene">
                             <option value="Manhica">
                         </datalist>
-                        <!--Datalist de Tipo de BI-->
-                        <datalist id="BI">
-                            <option value="BI">
-                            <option value="NUIT">
-                            <option value="Cedula">
-                            <option value="Passaporte">
-                        </datalist>
-                        <!--Datalist de Sexo-->
-                        <datalist id="Sexo">
-                            <option value="Masculino">
-                            <option value="Femenino">
-                        </datalist>
+
                     </div>
 
                     <!--Passo 2-->
                     <div id="step-2">
-                        <div class="container-fluid padding"> 
+                        <div class="container-fluid padding">
                             <div id="form-step-1" role="form" data-toggle="validator">
                                 <fieldset>
                                     <legend>Morada</legend>
                                     <hr class="light">
-                                    <!--Primeira Linha-->    
+                                    <!--Primeira Linha-->
                                     <div class="row">
                                         <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                             <label for="inputProvincia">Província</label>
-                                            <input list="Provincia" class="form-control " id="inputProvincia" required placeholder="Seleciona a Província">
-                                            <div class="help-block with-errors"></div>
+                                            <input list="Provincia" class="form-control" name="_provinciaM"
+                                                id="inputProvincia" required placeholder="Seleciona a Província">
+                                            <div class="help-block with-errors text-danger"></div>
                                         </div>
                                         <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                             <label for="inputDistrito">Distrito</label>
-                                            <input list="Distrito" class="form-control" id="inputDistrito" required placeholder="Seleciona o Distrito">
-                                            <div class="help-block with-errors"></div>
+                                            <input list="Distrito" class="form-control" name="_distritoM"
+                                                id="inputDistrito" required placeholder="Seleciona o Distrito">
+                                            <div class="help-block with-errors text-danger"></div>
                                         </div>
                                     </div>
 
                                     <!--Segunda Linha-->
                                     <div class="row">
+                                        <!--Tirar-->
                                         <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                             <label for="inputAvenida">AV/Rua</label>
-                                            <input list="Avenidas" class="form-control" id="inputAvenida" required placeholder="Seleciona a Avenida">
-                                            <div class="help-block with-errors"></div>
+                                            <input list="Avenidas" class="form-control" name="_avenida"
+                                                id="inputAvenida" required placeholder="Seleciona a Avenida">
+                                            <div class="help-block with-errors text-danger"></div>
                                         </div>
                                         <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                             <label for="inputBairro">Bairro</label>
-                                            <input list="Bairros" class="form-control" id="inputBairro" required placeholder="Seleciona o Bairro">
-                                            <div class="help-block with-errors"></div>
+                                            <input list="Bairros" class="form-control" name="_bairroM" id="inputBairro"
+                                                required placeholder="Seleciona o Bairro">
+                                            <div class="help-block with-errors text-danger"></div>
                                         </div>
                                     </div>
                                     <!--Terceira Linha-->
                                     <div class="row">
                                         <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                             <label for="inputQuarterao">Quarteirão Nr</label>
-                                            <input type="number" class="form-control" id="inputQuarterao" required placeholder="Introduza Numero de Quarteirão">
-                                            <div class="help-block with-errors"></div>
+                                            <input type="number" class="form-control" name="_quarterao"
+                                                id="inputQuarterao" required
+                                                placeholder="Introduza Numero de Quarteirão">
+                                            <div class="help-block with-errors text-danger"></div>
                                         </div>
                                         <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                             <label for="inputCasa">Casa Nr</label>
-                                            <input type="number" class="form-control" id="inputCasa" required placeholder="Introduza Numero da casa">
-                                            <div class="help-block with-errors"></div>
+                                            <input type="number" class="form-control" name="_nrCasa" id="inputCasa"
+                                                required placeholder="Introduza Numero da casa">
+                                            <div class="help-block with-errors text-danger"></div>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -217,19 +228,20 @@
                                     <div class="row">
                                         <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                             <label for="inputTel">Número de Telefone</label>
-                                            <input type="number" class="form-control" id="inputTel" required placeholder="Introduza Numero de Telefone">
-                                            <div class="help-block with-errors"></div>    
+                                            <input type="number" class="form-control" name="_nr_Tell" id="inputTel"
+                                                required placeholder="Introduza Numero de Telefone">
+                                            <div class="help-block with-errors text-danger"></div>
                                         </div>
                                         <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                             <label for="inputEmail">Email</label>
-                                            <input type="email" class="form-control" id="inputEmail" required placeholder="Introduza o email">
-                                            <div class="help-block with-errors"></div>
+                                            <input type="email" class="form-control" name="_email" id="inputEmail"
+                                                placeholder="Introduza o email">
                                         </div>
                                     </div>
-                                </fieldset>    
+                                </fieldset>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                     <!--Passo 3-->
                     <div id="step-3" class="mt-4">
                         <div class="container-fluid padding">
@@ -238,26 +250,30 @@
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputNomep">Nome do Pai</label>
-                                        <input type="text" class="form-control" name="" id="inputNomep" required placeholder="Introduza ">
-                                        <div class="help-block with-errors"></div>
+                                        <input type="text" class="form-control" name="_nomePai" id="inputNomep" required
+                                            placeholder="Introduza ">
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputTelP">Telefone</label>
-                                        <input type="number" class="form-control" name="" id="inputTelp" required placeholder="Introduza ">
-                                        <div class="help-block with-errors"></div>
+                                        <input type="number" class="form-control" name="_telefonePai" id="inputTelp"
+                                            required placeholder="Introduza ">
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
-                                </div>    
+                                </div>
                                 <!--Segunda Linha-->
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputLocp">Local de Trabalho</label>
-                                        <input type="text" class="form-control" name="" id="inputLocp"  required placeholder="Introduza ">
-                                        <div class="help-block with-errors"></div>
+                                        <input type="text" class="form-control" name="_localTrabPai" id="inputLocp"
+                                            required placeholder="Introduza ">
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputProfp">Profissão</label>
-                                        <input type="text" class="form-control" name="" id="inputProfp" required placeholder="Introduza ">
-                                        <div class="help-block with-errors"></div>
+                                        <input type="text" class="form-control" name="_profissaoPai" id="inputProfp"
+                                            required placeholder="Introduza ">
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
 
@@ -265,13 +281,15 @@
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputNomem">Nome da Mãe</label>
-                                        <input type="text" class="form-control" name="" id="inputNomem" required placeholder="Introduza ">
-                                        <div class="help-block with-errors"></div>
+                                        <input type="text" class="form-control" name="_nomeMae" id="inputNomem" required
+                                            placeholder="Introduza ">
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputTelm">Telefone</label>
-                                        <input type="number" class="form-control" name="" id="inputTelm" required placeholder="Introduza ">
-                                        <div class="help-block with-errors"></div>
+                                        <input type="number" class="form-control" name="_telefoneMae" id="inputTelm"
+                                            required placeholder="Introduza ">
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
 
@@ -279,17 +297,19 @@
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputLocm">Local de Trabalho</label>
-                                        <input type="text" class="form-control" name="" id="inputLocm" required placeholder="Introduza ">
-                                        <div class="help-block with-errors"></div>
+                                        <input type="text" class="form-control" name="_localTrabMae" id="inputLocm"
+                                            required placeholder="Introduza ">
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputProfm">Profissão</label>
-                                        <input type="text" class="form-control" name="" id="inputProfm" required placeholder="Introduza ">
-                                        <div class="help-block with-errors"></div>
+                                        <input type="text" class="form-control" name="_profissaoMae" id="inputProfm"
+                                            required placeholder="Introduza ">
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
 
-                                <!--Quinta Linha-->
+                                <!--Quinta Linha
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="enc">O Encarregado é</label>
@@ -301,6 +321,7 @@
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
+                                -->
                             </div>
                         </div>
                     </div>
@@ -313,49 +334,72 @@
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputNomeenc">Nome do Encarregado</label>
-                                        <input type="text" class="form-control" name="" required id="inputNomeenc" placeholder="Introduza ">
-                                        <div class="help-block with-errors"></div>
+                                        <input type="text" class="form-control" name="_nomeEnc" required
+                                            id="inputNomeenc" placeholder="Introduza ">
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputTelEnc">Telefone</label>
-                                        <input type="number" class="form-control" name="" required id="inputTelEnc" placeholder="Introduza ">
-                                        <div class="help-block with-errors"></div>
+                                        <input type="number" class="form-control" name="_telefoneEnc" required
+                                            id="inputTelEnc" placeholder="Introduza ">
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
 
                                 <!--Segunda Linha-->
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
-                                        <label for="inputres">Residência/Bairro</label>
-                                        <select class="form-control" id="inputres" required aria-placeholder="Selecione uma opcao">
-                                            <option>Selecione uma opcao x</option>
-                                        </select>
-                                        <div class="help-block with-errors"></div>
+                                        <label for="inputprovincEnc">Provincia de Residencia</label>
+
+                                        <input list="Bairro" class="form-control" name="_provinciaEnc"
+                                            id="inputprovincEnc" required placeholder="Selecione uma opcao">
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
+                                    <!--Tirar-->
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
-                                        <label for="inputAv">Av/Rua</label>
-                                        <select class="form-control" required id="inputAv">
+                                        <label for="inputDistritoEnc">Distrito de Residencia</label>
+                                        <select class="form-control" required id="inputDistritoEnc">
                                             <option>Exemplo</option>
                                         </select>
-                                        <div class="help-block with-errors"></div>
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
 
                                 <!--Terceira Linha-->
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
+                                        <label for="inputres">Bairro</label>
+                                        <input list="Bairro" class="form-control" name="_moradaEnc" id="inputres"
+                                            required placeholder="Selecione uma opcao">
+                                        <div class="help-block with-errors text-danger"></div>
+                                    </div>
+                                    <!--Tirar-->
+                                    <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
+                                        <label for="inputAv">Av/Rua</label>
+                                        <select class="form-control" required id="inputAv">
+                                            <option>Exemplo</option>
+                                        </select>
+                                        <div class="help-block with-errors text-danger"></div>
+                                    </div>
+                                </div>
+
+                                <!--Quarta Linha-->
+                                <div class="row">
+                                    <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputLocenc">Local de Trabalho</label>
-                                        <input type="text" class="form-control" name="" required id="inputLocenc" placeholder="Introduza ">  
-                                        <div class="help-block with-errors"></div>
+                                        <input type="text" class="form-control" name="_localTrabEnc" required
+                                            id="inputLocenc" placeholder="Introduza ">
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputProfenc">Profissão</label>
-                                        <input type="text" class="form-control" name="" required id="inputProfenc" placeholder="Introduza ">
-                                        <div class="help-block with-errors"></div>
+                                        <input type="text" class="form-control" name="_profissaoEnc" required
+                                            id="inputProfenc" placeholder="Introduza ">
+                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
-                            </div>  
-                        </div>        
+                            </div>
+                        </div>
                     </div>
                     <!---->
                     <!--Passo 5-->
@@ -374,15 +418,16 @@
                                                         <label for="inputDadm">Pretende-se Matricular na classe</label>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-3">
-                                                        <select class="form-control" required id="inputDadm">
+                                                        <select class="form-control" name="_classe" required
+                                                            id="inputDadm">
                                                             <option>8</option>
                                                             <option>9</option>
                                                             <option>10</option>
                                                         </select>
-                                                        <div class="help-block with-errors"></div>
-                                                    </div>     
+                                                        <div class="help-block with-errors text-danger"></div>
+                                                    </div>
                                                 </div>
-                                            </div>    
+                                            </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-6">
                                             <div class="form-group offset-1">
@@ -391,16 +436,16 @@
                                                         <label for="inputSec">Secção a matricular-se</label>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-3">
-                                                        <select class="form-control" required id="inputSec">
+                                                        <select class="form-control" name="_seccao" id="inputSec">
                                                             <option>A</option>
                                                             <option>B</option>
-                                                            <option>C</option> 
+                                                            <option>C</option>
                                                         </select>
-                                                        <div class="help-block with-errors"></div>
+                                                        <div class="help-block with-errors text-danger"></div>
                                                     </div>
-                                                </div>    
+                                                </div>
                                             </div>
-                                        </div>    
+                                        </div>
                                     </div>
                                 </fieldset>
                                 <fieldset class="mt-5">
@@ -414,12 +459,13 @@
                                                         <label for="inputCla">Classe</label>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-6">
-                                                        <select class="form-control" required id="inputCla">
+                                                        <select class="form-control" name="_classeAnte" required
+                                                            id="inputCla">
                                                             <option>7</option>
                                                             <option>8</option>
-                                                            <option>9</option> 
+                                                            <option>9</option>
                                                         </select>
-                                                        <div class="help-block with-errors"></div>
+                                                        <div class="help-block with-errors text-danger"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -431,8 +477,9 @@
                                                         <label for="inputTurm">Turma</label>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-6">
-                                                        <input type="text"  required class="form-control" id="inputTurm">
-                                                        <div class="help-block with-errors"></div>
+                                                        <input type="text" name="_turmaAnte" required
+                                                            class="form-control" id="inputTurm">
+                                                        <div class="help-block with-errors text-danger"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -444,8 +491,9 @@
                                                         <label for="inputNr">Nr</label>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-6">
-                                                        <input type="number" id="inputNr" required name="" class="form-control">
-                                                        <div class="help-block with-errors"></div>
+                                                        <input type="number" id="inputNr" name="_numeroAnte" required
+                                                            name="" class="form-control">
+                                                        <div class="help-block with-errors text-danger"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -457,12 +505,9 @@
                                                         <label for="inputAn">Ano</label>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-6">
-                                                        <select class="form-control" required id="inputAn">
-                                                            <option>2010</option>
-                                                            <option>2011</option>
-                                                            <option>2012</option> 
-                                                        </select>
-                                                        <div class="help-block with-errors"></div>
+                                                        <input type="number" class="form-control" name="_ano" required
+                                                            id="inputAn">
+                                                        <div class="help-block with-errors text-danger"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -476,14 +521,15 @@
                                                         <label for="inputEns">Ensino</label>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-6">
-                                                        <select class="form-control" required id="inputEns">
+                                                        <select class="form-control" name="_ensino" required
+                                                            id="inputEns">
                                                             <option>Primário </option>
-                                                            <option>Secundário</option> 
+                                                            <option>Secundário</option>
                                                         </select>
-                                                        <div class="help-block with-errors"></div>
-                                                    </div>     
+                                                        <div class="help-block with-errors text-danger"></div>
+                                                    </div>
                                                 </div>
-                                            </div>    
+                                            </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-6">
                                             <div class="form-group offset-1">
@@ -492,14 +538,15 @@
                                                         <label for="inputEsc">Na Escola</label>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-8">
-                                                        <select class="form-control" required id="inputEsc">
-                                                            <option>Escola</option> 
+                                                        <select class="form-control" name="_escolaAnte" required
+                                                            id="inputEsc">
+                                                            <option>Escola</option>
                                                         </select>
-                                                        <div class="help-block with-errors"></div>
+                                                        <div class="help-block with-errors text-danger"></div>
                                                     </div>
-                                                </div>    
+                                                </div>
                                             </div>
-                                        </div>    
+                                        </div>
                                     </div>
                                 </fieldset>
                             </div>
@@ -519,7 +566,8 @@
                                         <div class="col-xs-12 col-sm-12 col-md-4">
                                             <div class="form-group offset-1">
                                                 <label for="inputImagem"></label>
-                                                <div id="kv-avatar-errors-2" class="center-block" style="width:500px;display:none"></div>
+                                                <div id="kv-avatar-errors-2" class="center-block"
+                                                    style="width:500px;display:none"></div>
                                                 <div class="text-center">
                                                     <div class="kv-avatar">
                                                         <div class="file-loading">
@@ -527,7 +575,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>    
+                                            </div>
                                         </div>
                                         <div class="ofsset-1">
                                             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -537,11 +585,12 @@
                                                             <label for="inputSbi">BI</label>
                                                         </div>
                                                         <div class="col-xs-12 col-sm-12 col-md-6">
-                                                            <input type="file" class="form-control" name="" id="inputSbi">
+                                                            <input type="file" class="form-control" name="userBi"
+                                                                id="inputSbi">
                                                         </div>
-                                                    </div>    
+                                                    </div>
                                                 </div>
-                                            </div> 
+                                            </div>
                                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group offset-1">
                                                     <div class="row">
@@ -549,13 +598,13 @@
                                                             <label for="inputScert">Certificado de Habilitações</label>
                                                         </div>
                                                         <div class="col-xs-12 col-sm-12 col-md-6">
-                                                            <input type="file" class="form-control" name="" id="inputScert">
+                                                            <input type="file" class="form-control"
+                                                                name="userCertificado" id="inputScert">
                                                         </div>
                                                     </div>
-                                                </div> 
+                                                </div>
                                             </div>
                                         </div>
-                                            
                                     </div>
                                 </fieldset>
                                 <fieldset class="mt-5">
@@ -569,7 +618,8 @@
                                                         <label for="inputSofd">Sofre de Alguma doença</label>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-3">
-                                                        <select class="form-control" id="inputSofd" aria-placeholder="Selecione uma opcao">
+                                                        <select class="form-control" name="_sofre_doenca" id="inputSofd"
+                                                            aria-placeholder="Selecione uma opcao">
                                                             <option>Sim</option>
                                                             <option>Não</option>
                                                         </select>
@@ -580,22 +630,23 @@
                                         <div class="col-xs-12 col-sm-12 col-md-4">
                                             <div class="form-group offset-1">
                                                 <label for="inputInd">Em caso afirmativo indique-a</label>
-                                                <textarea class="form-control" rows="5" cols="10" id="inputInd"></textarea>
+                                                <textarea class="form-control" rows="5" name="_se_sim" cols="10"
+                                                    id="inputInd"></textarea>
                                             </div>
                                         </div>
-                                    </div>    
+                                    </div>
                                 </fieldset>
                             </div>
                         </div>
                     </div>
                     <!---->
                 </div>
-            <!---->    
+                <!---->
             </div>
         </form>
     </div>
     <!--Rodape-->
-    <footer class="fixed-bottom rodape ">
+    <footer class="mt-4">
         <div class="conatiner-fluid padding">
             <div class="row text-center">
                 <div class="col-lg-12">
@@ -607,24 +658,25 @@
 
 
     <!--Javascript de Bootstrap-->
-    <script src="bootstrap/_js/bootstrap.js"></script>    
+    <script src="bootstrap/_js/bootstrap.js"></script>
     <!-- Include jQuery -->
     <script src="jquery/jquery.js"></script>
-    <script src="_js/validator.js"></script> 
+    <script src="_js/validator.js"></script>
     <script src="jquery/smartwizard/_js/jquery.smartWizard.js"></script>
     <script src="_js/popper.js"></script>
     <script src="_js/steps_pre_matricula.js"></script>
-    <script src="fontawesome/js/all.js"></script>
-    
+    <script src="fontawesome-free-5.8.2-web/js/all.js"></script>
+
     <!--Include FileInput Javascript-->
-    <script src="fileinput/js/fileinput.js"></script> 
+    <script src="fileinput/_js/fileinput.js"></script>
     <!-- the fileinput plugin initialization -->
     <script src="_js/fileinput.js"></script>
 
-<!--
+    <!--
     <script src="fileinput/js/plugins/piexif.min.js"><script>
     <script src="fileinput/js/plugins/purify.min.js"><script>
     <script src="fileinput/js/plugins/sortable.min.js"><script>
     -->
 </body>
+
 </html>

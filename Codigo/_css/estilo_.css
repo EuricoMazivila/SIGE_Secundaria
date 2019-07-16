@@ -7,7 +7,6 @@
     right: 0;
     float: right;
     bottom: 0;
-    position: fixed;
 }
 
 #calendar {
@@ -24,11 +23,8 @@
 }
 
 
-#lect {
-    font-family: cambria math;
-    font-size: 100%;
-    margin-left: 80%;
-}
+
+
 
 .navbar-header .navbar-brand {
     color: white;
@@ -43,6 +39,10 @@
     height: 5%;
 }
 
+#inputCodigo, #inputNivel {
+    padding-bottom: 10%;
+}
+
 #pp {
     text-align: center;
     font-size: 90%;
@@ -53,7 +53,7 @@
     margin-top: 3%;
 }
 
-span, #pp{
+.nav-text, #pp, #bel, #env {
     color: #ffffff;
 }
 
@@ -66,30 +66,43 @@ span, #pp{
     font-size: 350%;
 }
 
-.breadcrumb > li + li:before { 
-    color: #CCCCCC; 
-    content: "/ "; 
-    padding: 0 5px;
+th {
+    background-color: #ebe5e6;
 }
 
+
+
+.fas {
+    color: white;
+}
+
+h3 {
+    padding-top: 2%;
+}
 .table {
     margin-top: 3%;
 }
 
-.breadcrumb {
-    padding-left: 10%;
-}
 
 .alunos, .turmas, .orcamento, .faltas, .testes, .media {
     background-color: #ffffff;
     padding-right: 15%;
-    padding-top: 0.5%;
+    padding-top: 0%;
+    padding-bottom: 0%;
 }
 
 #containerB, #containerP {
     width: 102%;
     height: 96%; 
-    padding-top: 5%;  
+    padding-top: 2%;  
+}
+
+#containerC {
+
+    width: 40%;
+    height: 40%; 
+    padding-top: 2%;
+
 }
 
 @media (max-width: 575px)  {
@@ -98,10 +111,7 @@ span, #pp{
         width: 80%;
     }
 
-    #lect {
-        font-size: 90%;
-        margin-left: 60%;
-    }
+
 }
 
 @media (min-width: 576px) and (max-width: 800px)  {
@@ -110,10 +120,7 @@ span, #pp{
         width:20%;
     }
 
-    #lect {
-        font-size: 20%;
-        margin-left: 0%;
-    }
+    
 }
 
 @media (min-width: 768px) and (max-width: 999px)  {
