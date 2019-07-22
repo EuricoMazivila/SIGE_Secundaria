@@ -1,72 +1,39 @@
-<?php 
-	require_once("conexao.php");
 
-	// Chamada do procedimento contar
-	
-	//Estágio 1: Preparação
-	$query="Call contar()";
-	$stmt=$conexao->prepare($query);
-	if(!$stmt){
-		echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
-	}
+<?php
+ include_once('DAO/conexao.php');
 
-	// Estágio 2: execução
-	if(!$stmt->execute()){
-		echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
-	}
+	//atualizado por candido
+$executar= mysqli_query($conexao, "SELECT * FROM `estatistica_alunos`");
+$json = [];
+if($executar->num_rows>0){ //verifica o numero de linhas
+	while($linha=mysqli_fetch_array($executar)){
+		$json[]= [(int)$linha['classe'],(int)$linha['Total_Alunos']];
+	}}
 
-	// Estágio 3: Obtenção de dados
-	$res=$stmt->get_result();
-	if(!$res){
-		echo "A Obtenção do conjunto de resultados falhou: (" . $stmt->errno . ")" . $stmt->error;
-	}
-	$json = [];
+/*===codigo do exemplo=======
 
-	$linhas=$res->num_rows;
-	for($j=0; $j<$linhas; ++$j){
-		$res->data_seek($j);
-		$linha=$res->fetch_assoc();
-		echo "Usuario : ". $linha['numero'] . '<br><br>'; //Resultado do procedimento
-		
-	}
+$stmt = $dbcon->prepare("SELECT * from alunos");    		
+$stmt->execute();
+$json = [];
 
-	$stmt->close();
-	$conexao->close();
+while ($row=$stmt->fetch(PDO::FETCH_ASSOC)) {
+	extract($row);
+	$json[]= [(int)$classe,(int)50];                 		
+}*/
+echo json_encode($json);
+ 
 
 
-	//Busca de Todos os dados da tabela Alunos
-	function alunos(){
-		//Estágio 1: Preparação
-		$query="SELECT * from alunos";
-		$stmt=$conexao->prepare($query);
-		if(!$stmt){
-			echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
-		}
+/*===Meu codigo====
 
-		// Estágio 2: execução
-		if(!$stmt->execute()){
-			echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
-		}
+$stmt = $dbcon->prepare("select conta()");                 chama funcao
+$stmt->execute();
+$json = [];
 
-		// Estágio 3: Obtenção de dados
-		$res=$stmt->get_result();
-		if(!$res){
-			echo "A Obtenção do conjunto de resultados falhou: (" . $stmt->errno . ")" . $stmt->error;
-		}
+while ($row=$stmt->fetch(PDO::FETCH_ASSOC)) {
+	extract($row);
+	$json[]= [(int)$conta(),(int)50];                    quero que apareca o retorno da funcao ai no $conta
+}
+echo json_encode($json);*/
 
-		$linhas=$res->num_rows;
-		for($j=0; $j<$linhas; ++$j){
-			$res->data_seek($j);
-			$linha=$res->fetch_assoc();
-			echo "Usuario : ". $linha['nome'] . '<br><br>';
-			echo "Email : ". $linha['sexo'] . '<br><br>';
-			echo "Senha : ". $linha['classe'] . '<br><br>';
-		}
-
-		$stmt->close();
-		$conexao->close();
-	}	
-
-
-	
-
+//por continuar

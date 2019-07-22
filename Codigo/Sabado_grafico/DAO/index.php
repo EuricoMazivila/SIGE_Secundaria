@@ -1,51 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Quinta-feira</title>
-	<meta charset="utf-8">
-
-	<script src="_js/jquery.js"></script>
-	<script src="_js/highcharts.js"></script>
-  	<script src="_js/modules/exporting.js"></script>
-  	<script src="_js/modules/export-data.js"></script>
-</head>
-<body>
-
-	<div id="centro" style="width: 100%;height: 400px;"></div>
-
-	<script type="text/javascript">
-		
-		$(document).ready(function(){
-			var options = {
-				chart: {
-					renderTo: 'centro',
-					type: 'column'
-				},
-
-				series:[{}]
-			};
-
-			$.getJSON('Saturday.php', function(data){ 
-				options.series[0].data = data;
-				var chart = new Highcharts.Chart(options);
-			});
-		}); 
-
-
-
-	</script>
-
-
-<!--Outros detalhes-->
-<?php
-
-include_once('DAO/conexao.php');
+<?php 
+include ('conexao.php');
 ?>
-	<div>
 
-	
-        <h1>estatistica_alunos</h1>
-            <table border="1">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="" method="post">
+        <label for="estado">estatistica_alunos</label>
+            <table>
             <thead>
             <tr>
                 <th>Classe</th>
@@ -70,12 +40,12 @@ include_once('DAO/conexao.php');
                 </table>
                 
 
- 
-	</div>
-
-	<div>
- 		<h1>estatitica_vnculo_professor </h1>
-            <table border="1">
+    </form>
+</br>
+</br>
+    <form action="" method="post">
+        <label for="estado">estatitica_vnculo_professor</label>
+            <table>
             <thead>
             <tr>
                 <th>Vinculo</th>
@@ -101,7 +71,10 @@ include_once('DAO/conexao.php');
                 </table>
                 
 
-  
-	</div>
+    </form>
+    
+
+
 </body>
+
 </html>
