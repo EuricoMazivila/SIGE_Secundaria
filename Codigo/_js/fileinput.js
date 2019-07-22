@@ -15,7 +15,7 @@ $("#avatar-2").fileinput({
     removeTitle: 'Cancel or reset changes',
     elErrorContainer: '#kv-avatar-errors-2',
     msgErrorClass: 'alert alert-block alert-danger',
-    defaultPreviewContent: '<img src="upload/default-avatar.jpg" alt="Your Avatar"><h6 class="text-muted">Click to select</h6>',
+    defaultPreviewContent: '<img src="uploads/default-avatar.jpg" alt="Your Avatar"><h6 class="text-muted">Click to select</h6>',
     layoutTemplates: {main2: '{preview} ' +  btnCust + ' {remove} {browse}'},
     allowedFileExtensions: ["jpeg","jpg", "png", "gif"]
 });

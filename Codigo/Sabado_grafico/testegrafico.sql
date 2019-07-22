@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 20, 2019 at 01:42 PM
--- Server version: 10.1.34-MariaDB
+-- Generation Time: 22-Jul-2019 às 11:25
+-- Versão do servidor: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -27,7 +27,9 @@ DELIMITER $$
 -- Procedures
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `contar` ()  begin
-select count(*) from alunos where classe = 10;
+DECLARE numero int;
+select count(*) into numero from alunos where classe = 10;
+SELECT numero;
 end$$
 
 --
@@ -44,7 +46,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `alunos`
+-- Estrutura da tabela `alunos`
 --
 
 CREATE TABLE `alunos` (
@@ -54,7 +56,7 @@ CREATE TABLE `alunos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `alunos`
+-- Extraindo dados da tabela `alunos`
 --
 
 INSERT INTO `alunos` (`nome`, `sexo`, `classe`) VALUES
@@ -74,7 +76,7 @@ INSERT INTO `alunos` (`nome`, `sexo`, `classe`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `professores`
+-- Estrutura da tabela `professores`
 --
 
 CREATE TABLE `professores` (
@@ -83,7 +85,7 @@ CREATE TABLE `professores` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `professores`
+-- Extraindo dados da tabela `professores`
 --
 
 INSERT INTO `professores` (`nome`, `vinculo`) VALUES
