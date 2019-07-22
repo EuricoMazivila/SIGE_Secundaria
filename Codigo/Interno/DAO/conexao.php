@@ -2,7 +2,7 @@
 $hostname="localhost";
 $user="root";
 $password="";
-$database="sige_secundaria";
+$database="sige";
 $conexao= new mysqli($hostname,$user,$password,$database);
 
 if($conexao->connect_error)
