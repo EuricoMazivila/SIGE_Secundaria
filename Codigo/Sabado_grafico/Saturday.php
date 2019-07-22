@@ -1,45 +1,72 @@
-
 <?php 
+	require_once("conexao.php");
 
-$dbhost = 'localhost';
-$dbname = 'testegrafico';
-$dbuser = 'root';
-$dbpass = '';
+	// Chamada do procedimento contar
+	
+	//Estágio 1: Preparação
+	$query="Call contar()";
+	$stmt=$conexao->prepare($query);
+	if(!$stmt){
+		echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
+	}
 
-try {
+	// Estágio 2: execução
+	if(!$stmt->execute()){
+		echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
+	}
 
-	$dbcon = new PDO("mysql:host={$dbhost};dbname={$dbname}",$dbuser,$dbpass);
-	$dbcon->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}
+	// Estágio 3: Obtenção de dados
+	$res=$stmt->get_result();
+	if(!$res){
+		echo "A Obtenção do conjunto de resultados falhou: (" . $stmt->errno . ")" . $stmt->error;
+	}
+	$json = [];
 
-catch(PDOException $ex) {
-	dle($ex->getMessage());
-}
+	$linhas=$res->num_rows;
+	for($j=0; $j<$linhas; ++$j){
+		$res->data_seek($j);
+		$linha=$res->fetch_assoc();
+		echo "Usuario : ". $linha['numero'] . '<br><br>'; //Resultado do procedimento
+		
+	}
 
-
-
-//===codigo do exemplo=======
-
-$stmt = $dbcon->prepare("SELECT * from alunos");    		
-$stmt->execute();
-$json = [];
-
-while ($row=$stmt->fetch(PDO::FETCH_ASSOC)) {
-	extract($row);
-	$json[]= [(int)$classe,(int)50];                 		
-}
-echo json_encode($json);
- 
+	$stmt->close();
+	$conexao->close();
 
 
-/*===Meu codigo====
+	//Busca de Todos os dados da tabela Alunos
+	function alunos(){
+		//Estágio 1: Preparação
+		$query="SELECT * from alunos";
+		$stmt=$conexao->prepare($query);
+		if(!$stmt){
+			echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
+		}
 
-$stmt = $dbcon->prepare("select conta()");                 chama funcao
-$stmt->execute();
-$json = [];
+		// Estágio 2: execução
+		if(!$stmt->execute()){
+			echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
+		}
 
-while ($row=$stmt->fetch(PDO::FETCH_ASSOC)) {
-	extract($row);
-	$json[]= [(int)$conta(),(int)50];                    quero que apareca o retorno da funcao ai no $conta
-}
-echo json_encode($json);*/
+		// Estágio 3: Obtenção de dados
+		$res=$stmt->get_result();
+		if(!$res){
+			echo "A Obtenção do conjunto de resultados falhou: (" . $stmt->errno . ")" . $stmt->error;
+		}
+
+		$linhas=$res->num_rows;
+		for($j=0; $j<$linhas; ++$j){
+			$res->data_seek($j);
+			$linha=$res->fetch_assoc();
+			echo "Usuario : ". $linha['nome'] . '<br><br>';
+			echo "Email : ". $linha['sexo'] . '<br><br>';
+			echo "Senha : ". $linha['classe'] . '<br><br>';
+		}
+
+		$stmt->close();
+		$conexao->close();
+	}	
+
+
+	
+
