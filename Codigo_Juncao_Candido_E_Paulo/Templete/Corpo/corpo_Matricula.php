@@ -1,8 +1,8 @@
 <!--Aqui e continuacao do menuT-->
 <div class="row">
     <ol class="breadcrumb col-12">
-        <li class="offset-sm-1"><a href="Home_Page Director.html">Home</a></li>
-        <li><a href="Matriculas.html">Matriculas</a></li>
+        <li class="offset-sm-1"><a href="#">Home</a></li>
+        <li><a href="Matricula.php">Matriculas</a></li>
         <small id="lect">Ano lectivo <?php echo date('Y');?></small>
     </ol>
 </div>
@@ -166,22 +166,30 @@
 </div>
 
 <div class="">
-    <nav class="menu-small">
+   
+<nav class="menu-small">
         <ul>
             <li>
                 <a href="#top">
-                    Tabela
+                    <span class="i-color-white">
+                    <i class="fa fa-table fa-2x i-tamanho"></i>
+                    </span>
+               
                 </a>
             </li>
             <li>
                 <a href="#containerP">
-                    <i class="fa fa-chart-bar fa-2x"></i>
+                <span class="i-color-white">
+                    <i class="fa fa-chart-bar fa-2x i-tamanho"></i>
+                    </span>
                 </a>
             </li>
 
             <li>
                 <a href="#containerB">
-                    <i class="fa fa-chart-pie fa-2x"></i>
+                <span class="i-color-white  ">
+                    <i class="fa fa-chart-pie fa-2x i-tamanho"></i>
+                    </span>
                 </a>
             </li>
         </ul>

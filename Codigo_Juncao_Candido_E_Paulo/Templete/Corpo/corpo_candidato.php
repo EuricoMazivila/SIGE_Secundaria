@@ -1,7 +1,7 @@
 <!--Aqui e continuacao do menuT-->
 <div class="row">
     <ol class="breadcrumb col-12">
-        <li class="offset-sm-1"><a href="Home_page Secretaria11.html">Home</a></li>
+        <li class="offset-sm-1"><a href="#">Home</a></li>
         <li><a href="Candidato.php">Gestao de candidatos</a></li>
         <small id="lect">Ano lectivo <?php echo date('Y');?></small>
     </ol>
@@ -37,7 +37,7 @@
                     
                 </div>
                 <!--Serve para da espacamento-->
-                <div class="offset-sm-2 offset-md-4">
+                <div class="offset-6  offset-sm-2 offset-md-4">
 
                 </div>
                 <div class="form-group col-6 col-sm-5 col-md-3">
@@ -49,7 +49,7 @@
                     </a>
                 </div>
                 
-                <div class="form-group col-6 offset-6 col-md-3 col-sm-5 offset-sm-7 offset-md-9">
+                <div class="form-group col-6 offset-sm-6 col-md-3 col-sm-5 offset-sm-7 offset-md-9">
                     <a class="btn btn-default btn-block  text-left btn-primary" href="">
                         <span class="i-color-white"> <i class="fas fa-print "></i>
                             Imprimir
@@ -88,12 +88,12 @@
 
         </div>
 
-        <div class="col-md-5">
+        <div class="col-md-6">
             <div id="containerP" class="contaGrafico">
                 <script src="_js/Grafico_Pizza.js"></script>
             </div>
         </div>
-        <div class="col-md-5 offset-sm-2">
+        <div class="col-md-6">
             <div id="containerB" class="contaGrafico">
                 <script src="_js/Grafico_Barras.js"></script>
             </div>
@@ -106,18 +106,25 @@
         <ul>
             <li>
                 <a href="#top">
-                    Tabela
+                <span class="i-color-white  ">
+                    <i class="fa fa-table fa-2x i-tamanho"></i>
+                    </span>
+               
                 </a>
             </li>
             <li>
                 <a href="#containerP">
-                    <i class="fa fa-chart-bar fa-2x"></i>
+                <span class="i-color-white">
+                    <i class="fa fa-chart-bar fa-2x i-tamanho"></i>
+                    </span>
                 </a>
             </li>
 
             <li>
                 <a href="#containerB">
-                    <i class="fa fa-chart-pie fa-2x"></i>
+                <span class="i-color-white  ">
+                    <i class="fa fa-chart-pie fa-2x i-tamanho"></i>
+                    </span>
                 </a>
             </li>
         </ul>

@@ -4,7 +4,7 @@
                         <div class="navbar-collapse menu-color i-color-white" id="menu-Candidado">
                             <ul class="nav navbar-nav nav-justified " role="menu">
                                 <li class="text-left">
-                                    <a class="btn btn-default btn-lg btn-block text-left" href="">
+                                    <a class="btn btn-default btn-lg btn-block text-left" href="#">
                                         <span class="i-color-white">
                                             <i class="fa fa-home fa-2x i-tamanho"></i>
                                             Home
@@ -12,7 +12,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class=" btn btn-default btn-lg btn-block text-left" href="" role="button">
+                                    <a class=" btn btn-default btn-lg btn-block text-left" href="#" role="button">
                                         <span class="i-color-white">
                                             <i class="fa fa-user-circle fa-2x i-tamanho"></i>
                                             Meu perfil
@@ -20,7 +20,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class=" btn btn-default btn-lg btn-block text-left" href="" role="button">
+                                    <a class=" btn btn-default btn-lg btn-block text-left" href="#" role="button">
                                         <span class="i-color-white">
                                             <i class="fa fa-money-bill-alt fa-2x i-tamanho"></i>
                                             Pagamentos
@@ -28,7 +28,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class=" btn btn-default btn-lg btn-block text-left" href="" role="button">
+                                    <a class=" btn btn-default btn-lg btn-block text-left" href="#" role="button">
                                         <span class="i-color-white">
                                             <i class="fa fa-users fa-2x i-tamanho"></i>
 
@@ -40,7 +40,7 @@
                                 <div class="menu-sm">
                                     <li class="dropdown menu-sm">
                                         <a class="btn btn-default btn-lg btn-block text-left dropdown-toggle"
-                                            data-toggle="dropdown" href="">
+                                            data-toggle="dropdown" href="#">
                                             <span class="i-color-white">
                                                 <i class="fa fa-chart-bar fa-2x i-tamanho"></i>
                                                 Estatísticas
@@ -51,7 +51,7 @@
                                             aria-labelledby="dropdownMenu1">
                                             <li>
                                                 <a class="btn btn-default btn-lg btn-block  text-left"
-                                                    href="step0.php">
+                                                    href="#">
                                                     <span class="i-color-white">
                                                         <i class="fa fa-puzzle-piece fa-2x i-tamanho"></i>
 
@@ -93,24 +93,13 @@
                                         <ul class="dropdown-menu navbar-right menu-color"
                                             aria-labelledby="dropdownMenu1">
                                             <li>
-                                                <a class="btn btn-default btn-lg btn-block  text-left" href="">
+                                                <a class="btn btn-default btn-lg btn-block  text-left" href="Matricula.php">
                                                     <span class="i-color-white">
                                                         <i class="fa fa-edit fa-2x i-tamanho"></i>
                                                         Matricula
                                                     </span>
                                                     <span class="caret i-tamanho"></span>
                                                 </a>
-                                                <ul class="dropdown-menu navbar-right menu-color"
-                                                    aria-labelledby="dropdownMenu1">
-                                                    <li>
-                                                        <a class="btn btn-default btn-lg btn-block  text-left" href="">
-                                                            <span class="i-color-white">
-                                                                <i class="fa fa-female fa-2x i-tamanho"></i>
-                                                                Marcar matricula
-                                                            </span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
                                             </li>
                                             <li class="has-subnav">
                                                 <a class="btn btn-default btn-lg btn-block  text-left" href="">
@@ -135,7 +124,7 @@
                                 </div>
 
                                 <li class="has-subnav menu-md">
-                                    <a class="btn btn-default btn-lg btn-block text-left" href="">
+                                    <a class="btn btn-default btn-lg btn-block text-left" href="#">
                                         <span class="i-color-white">
                                             <i class="fa fa-chart-bar fa-2x i-tamanho"></i>
                                             Estatísticas
@@ -144,7 +133,7 @@
                                     </a>
                                     <ul class="nav navbar-nav nav-justified" aria-labelledby="dropdownMenu1">
                                         <li>
-                                            <a class="btn btn-default btn-lg btn-block  text-left" href="step0.php">
+                                            <a class="btn btn-default btn-lg btn-block  text-left" href="">
                                                 <span class="i-color-white">
                                                     <i class="fa fa-puzzle-piece fa-2x i-tamanho"></i>
 
@@ -186,22 +175,13 @@
                                     </a>
                                     <ul class="nav navbar-nav nav-justified">
                                         <li>
-                                            <a class="btn btn-default btn-lg btn-block  text-left" href="">
+                                            <a class="btn btn-default btn-lg btn-block  text-left" href="Matricula.php">
                                                 <span class="i-color-white">
                                                     <i class="fa fa-edit fa-2x i-tamanho"></i>
                                                     Matricula
                                                 </span>
                                             </a>
-                                            <ul class="nav navbar-nav nav-justified">
-                                                <li>
-                                                    <a class="btn btn-default btn-lg btn-block  text-left" href="">
-                                                        <span class="i-color-white">
-                                                            <i class="fa fa-female fa-2x i-tamanho"></i>
-                                                            Marcar matricula
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                           
                                         </li>
                                         <li class="has-subnav">
                                             <a class="btn btn-default btn-lg btn-block  text-left" href="">
