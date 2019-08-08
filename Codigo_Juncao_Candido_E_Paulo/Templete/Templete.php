@@ -10,14 +10,20 @@
 
 <head>
     <!--Aqui Fica o metadados-->
-    <?php include_once($metadados);?>
+    <?php 
+        if($metadados!='')
+        include_once($metadados);
+    ?>
 </head>
 
 <body>
 
     <!--Aqui Fica o nav Bar-->
     <div>
-        <?php include_once($navBar); ?>
+        <?php  
+            if($navBar!='')
+                include_once($navBar); 
+        ?>
     </div>
 
     <!--Aqui Fica o Menu-->
