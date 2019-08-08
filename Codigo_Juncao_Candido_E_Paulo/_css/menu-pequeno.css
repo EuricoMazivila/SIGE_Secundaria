@@ -1,9 +1,10 @@
+
 .menu-small {
     position:fixed;
     height:150px;
-    bottom: 5%;
-    top:80px;
-    right: 20px;
+    bottom: 0%;
+    top:160px;
+    right: 3px;
     width:50px;
     border-radius: 15px 0px 0px 15px;
     background:#0a8485;
@@ -23,8 +24,6 @@
   .menu-small:hover,nav.menu-small.expanded {
   overflow:visible;
   }
-  
-
   
   .menu-small>ul {
   margin: 10% 0;
