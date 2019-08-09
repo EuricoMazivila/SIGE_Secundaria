@@ -1,13 +1,13 @@
 
 
-#pesquisar:focus {
+.pesquisa:focus {
   color: none;
   border:none;
   outline: 0;
   box-shadow: none;
 }
 
-#pesquisar {
+.pesquisa {
     margin: 1% 0% 1% 0%;
     border: none;
 }

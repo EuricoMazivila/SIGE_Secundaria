@@ -10,54 +10,55 @@
 
 <head>
     <!--Aqui Fica o metadados-->
-    <?php include_once($metadados);?>   
+    <?php include_once($metadados);?>
 </head>
 
 <body>
-     
+
     <!--Aqui Fica o nav Bar-->
     <div>
         <?php include_once($navBar); ?>
     </div>
+
     <!--Aqui Fica o Menu-->
     <div>
-    <div class="top-margin">
+        <div class="top-margin">
             <div class="menuS collapse">
-        <?php 
-        if($menu!='')
-        include_once($menu);?>
-    </div>
-   
-    <!--Aqui Fica o corpo da pagina-->
-    <div class="menuT top-margin">
-        <?php
-        if($corpo!=''){
-            include_once($corpo);
-        }
-        ?>
-    </div>
-     <!--Aqui Fica o rodape-->
-     <div>
-     
-        <?php 
-        if($rodape!='')
-        include_once($rodape);?>
-    </div>
-    <script>
-        $('.btn-menu').click(function () {
-            $('.menuS').fadeToggle(5);
-            $('.menuT').fadeToggle(4);
-        });
+                <?php 
+                    if($menu!='')
+                        include_once($menu);
+                ?>
+            </div>
 
-       
-    </script>
-     <!--Aqui ficam os Script Adicionais-->
-    <?php
-    if($scriptAdd!='')
-        include_once($scriptAdd);
-    ?>
-    
+            <!--Aqui Fica o corpo da pagina-->
+            <div class="menuT top-margin">
+                <?php
+                    if($corpo!=''){
+                        include_once($corpo);
+                    }
+                    ?>
+            </div>
 
- </body>
-  </html>
+            <!--Aqui Fica o rodape-->
+            <div>
+                <?php 
+                    if($rodape!='')
+                    include_once($rodape);?>
+            </div>
 
+            <script>
+                $('.btn-menu').click(function () {
+                    $('.menuS').fadeToggle(5);
+                    $('.menuT').fadeToggle(4);
+                });
+            </script>
+
+            <!--Aqui ficam os Script Adicionais-->
+            <?php
+                if($scriptAdd!='')
+                    include_once($scriptAdd);         
+            ?>
+
+</body>
+
+</html>

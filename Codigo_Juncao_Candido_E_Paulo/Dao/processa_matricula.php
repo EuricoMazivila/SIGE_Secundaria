@@ -9,8 +9,8 @@
         busca_matricula();
     }
 
-    if(isset($_POST['ano_mat']) || isset($_POST['classe'])){
-        busca_alunos_matriculados();
+    if(isset($_POST['nome_aluno']) || isset($_POST['ano_mat']) || isset($_POST['classe'])){
+       busca_alunos_matriculados();
     }
 
     //Validacao dos dados Preenchidos em Campos de formulario 
@@ -150,7 +150,7 @@
         require_once("conexao.php");
 
         //Estágio 1: Preparação
-        $query="SELECT codal,nome,data from alunos_matriculados where year(data) like ? and classe like ? ";
+        $query="SELECT codal,nome,data from alunos_matriculados where nome like ? and year(data) like ? and classe like ? ";
         $stmt=$conexao->prepare($query);
         if(!$stmt){
             echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
@@ -162,8 +162,11 @@
         
         $classe=filtraEntrada($conexao,$_POST['classe']);
         $classe="%{$classe}%";
+
+        $nome=filtraEntrada($conexao,$_POST['nome_aluno']);
+        $nome="%{$nome}%";
         
-        $bind=$stmt->bind_param("ss",$ano,$classe);
+        $bind=$stmt->bind_param("sss",$nome,$ano,$classe);
 
         if(!$bind){
             echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;

@@ -20,10 +20,10 @@
         <form>
             <div class="form-row">
                 <div class="form-group col-2 col-md-1">
-                    <label for="selecAnoo">Ano </label>
+                    <label for="ano_mat">Ano </label>
                 </div>
                 <div class="col-4 col-md-3">
-                    <select name="ano" id="selecAnoo" class="form-control">
+                    <select name="ano_mat" id="ano_mat" class="form-control">
                         <?php
                         //Completa os anos automaticamente
                         $ano=date('Y');
@@ -38,10 +38,10 @@
                 </div>
 
                 <div class="form-group col-2 col-md-1 offset-md-4">
-                    <label for="selectClasee">Classe </label>
+                    <label for="classe">Classe </label>
                 </div>
                 <div class="col-4 col-md-3">
-                    <select name="ano" id="selectClasee" class="form-control">
+                    <select name="classe" id="classe" class="form-control">
                         <?php
                         //Completa as classe automaticamente
                         for ($i=8; $i <=12 ; $i++) {
@@ -51,16 +51,14 @@
                     </select>
                 </div>
             </div>
-
-
-        </form>
-        <div class="offset-sm-1 col-sm-10 mt-2">
+            <div class="offset-sm-1 col-sm-10 mt-2">
                 <div class="pesq form-row">
                     <i class="fa fa-search form-group col-1"></i>
-                    <input class="form-group col-11" id="pesquisar" name="nome_candidato" type="search" required
+                    <input class="form-group col-11 pesquisa" id="nome_aluno" name="nome_aluno" type="search" required
                         placeholder="Pesquise nome do aluno">
                 </div>
             </div>
+        </form>
         <div class="table-responsive" id="resultado">
             <table class="table table-hover">
                 <thead>
@@ -71,16 +69,44 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php
+                        require_once("Dao/conexao.php");
+                        
+                        //Estágio 1: Preparação
+                        $query="SELECT codal,nome,data from alunos_matriculados"; /*where ano=year(curdate())*/;
+                        
+                        $stmt=$conexao->prepare($query);
+                        if(!$stmt){
+                            echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
+                        }
+                
+                        // Estágio 2: execução
+                        if(!$stmt->execute()){
+                            echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
+                        }
+                
+                        // Estágio 3: Obtenção de dados    
+                        $res=$stmt->get_result();
+                        if(!$res){
+                            echo "A Obtenção do conjunto de resultados falhou: (" . $stmt->errno . ")" . $stmt->error;
+                        }
+            
+                        $linhas=$res->num_rows;
+                    
+                        for($j=0; $j<$linhas; ++$j){
+                            $res->data_seek($j);
+                            $linha=$res->fetch_assoc();
+                    ?>
                     <tr>
-                        <td>84666</td>
-                        <td>Titos Junior</td>
-                        <td>25/02/2019</td>
+                        <td><?php echo $linha['codal']?></td>
+                        <td><?php echo $linha['nome']?></td>
+                        <td><?php echo $linha['data']?></td>
                     </tr>
-                    <tr>
-                        <td>14366</td>
-                        <td>Hamilton Titos</td>
-                        <td>09/01/2019</td>
-                    </tr>
+                    <?php 
+                        } 
+                        $stmt->close();
+                        $conexao->close();
+                    ?>         
                 </tbody>
             </table>
         </div>

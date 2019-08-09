@@ -8,7 +8,6 @@
 </div>
 
 <div class="container">
-
     <div class="page-header" id="top">
         <h3 class="mt-2 offset-sm-1">Gestão de candidatos</h3>
         <hr>
@@ -61,7 +60,7 @@
             <div class="offset-sm-1 col-sm-10 mt-2">
                 <div class="pesq form-row">
                     <i class="fa fa-search form-group col-1"></i>
-                    <input class="form-group col-11" id="pesquisar" name="nome_candidato" type="search" required
+                    <input class="form-group col-11 pesquisa" id="nome_candidato" name="nome_candidato" type="search" required
                         placeholder="Pesquise nome do candidato">
                 </div>
             </div>
@@ -77,6 +76,45 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php   
+                        require_once("Dao/conexao.php");
+                        
+                        //Estágio 1: Preparação
+                        $query="SELECT codCand,nome_completo,classe_matricular,turno from candidato_aluno where ano>year(curdate())";
+                        $stmt=$conexao->prepare($query);
+                        if(!$stmt){
+                            echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
+                        }
+                
+                        // Estágio 2: execução
+                        if(!$stmt->execute()){
+                            echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
+                        }
+                
+                        // Estágio 3: Obtenção de dados    
+                        $res=$stmt->get_result();
+                        if(!$res){
+                            echo "A Obtenção do conjunto de resultados falhou: (" . $stmt->errno . ")" . $stmt->error;
+                        }
+            
+                        $linhas=$res->num_rows;
+                    
+                        for($j=0; $j<$linhas; ++$j){
+                            $res->data_seek($j);
+                            $linha=$res->fetch_assoc();
+                    ?>
+                    <tr>
+                        <td><?php echo $linha['codCand']?></td>
+                        <td><?php echo $linha['nome_completo']?></td>
+                        <td><?php echo $linha['turno']?></td>
+                        <td><?php echo $linha['classe_matricular']?></td>
+                    </tr>
+                    <?php 
+                        } 
+                        $stmt->close();
+                        $conexao->close();
+                        
+                    ?>
                 </tbody>
             </table>
         </div>
@@ -85,24 +123,23 @@
         <div class="mt-5 col-12 ">
             <h3 class="text-center">Graficos Estatisticos</h3>
             <hr>
-
         </div>
 
         <div class="col-md-6">
             <div id="containerP" class="contaGrafico">
-                <script src="_js/Grafico_Pizza.js"></script>
+                
             </div>
         </div>
         <div class="col-md-6">
             <div id="containerB" class="contaGrafico">
-                <script src="_js/Grafico_Barras.js"></script>
+                
             </div>
         </div>
     </div>
 </div>
 
 <div class="">
-    <nav class="menu-small">
+    <nav class="menu-small menu-md">
         <ul>
             <li>
                 <a href="#top">
@@ -132,7 +169,13 @@
 </div>
 <div>
     <div id="containerB" style=""></div>
-    <script src="_js/Grafico_Barras.js"></script>
+    
 </div>
 
 </div>
+
+<script src="_js/Grafico_Barras.js"></script>
+
+<script src="_js/Grafico_Pizza.js"></script>
+
+<script src="_js/Grafico_Barras.js"></script>
