@@ -167,7 +167,7 @@
 
 <div class="">
    
-<nav class="menu-small">
+<nav class="menu-small menu-md">
         <ul>
             <li>
                 <a href="#top">

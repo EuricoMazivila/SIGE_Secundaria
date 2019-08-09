@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="_css/estilo_.css">
     <link rel="stylesheet" href="_css/Testando.css">
     <link rel="stylesheet" type="text/css" href="_css/Popup.css">
+    <link rel="stylesheet" href="_css/menu-pequeno.css">
     <!--Links Novos--->
     <link rel="stylesheet" href="_css/main-menu.css">
     <link rel="stylesheet" href="_css/pesquisasDiv.css">
