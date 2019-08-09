@@ -1,8 +1,8 @@
 <?php
-    $titulo='Matricula_Step 1'; //esse e o titulo
+    $titulo='Matricula_Step 2'; //esse e o titulo
     $metadados='metadados.php';//esse e o metadados
     $menu='main_menu_Secretaria.php';//esse e o menu
-    $corpo='Corpo/corpo_Matricula_Step 1.php';//esse e o corpo
+    $corpo='Corpo/corpo_Matricula_Step 2.php';//esse e o corpo
     $navBar='navbar.php';//essa e o nav bar
     $rodape='footer.php';//especificar a url do footer
     $scriptAdd='';
