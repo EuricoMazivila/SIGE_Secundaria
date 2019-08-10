@@ -16,7 +16,7 @@
     <div class="form-row">
     	<div class="pesq row offset-sm-1 col-sm-6 mt-2">
             <i class="fa fa-search form-group col-1"></i>
-            <input class="form-group col-11" id="pesquisar" name="nome_candidato" type="search" required placeholder="Pesquise nome do pré-matriculado">
+            <input class="form-group col-11 pesquisa" id="pesquisar" name="nome_candidato" type="search" required placeholder="Pesquise nome do pré-matriculado">
         </div>
 
         <a class="btn btn-primary offset-sm-3 col-sm-1 mt-2" href="">

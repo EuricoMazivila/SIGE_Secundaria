@@ -9,5 +9,4 @@
 
     //Aqui pode ficar as dependencias de hader como verificar se ja fez login
     include('Templete/Templete.php');
-    
 ?>

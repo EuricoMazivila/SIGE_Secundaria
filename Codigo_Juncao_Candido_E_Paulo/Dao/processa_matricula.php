@@ -184,8 +184,8 @@
         }
 
         $linhas=$res->num_rows;
-        echo "<div class='row'> <div class='mt-3 table-responsive'>";
-        echo "<table class='table table-hover'>
+        echo "<div class='row'> <div class='table-responsive offset-md-1'>";
+        echo "<table class='table table-hover col-sm-8 col-md-10'>
             <thead>
                 <tr>
                     <th>Código</th>
