@@ -11,7 +11,7 @@
 </head>
 <body>
 
-	<div id="centro" style="width: 100%;height: 400px;"></div>
+	<div id="centro" style="width: 100%;height: 400px;">dgdg</div>
 
 	<script type="text/javascript">
 		
@@ -27,6 +27,7 @@
 
 			$.getJSON('Saturday.php', function(data){ 
 				options.series[0].data = data;
+                
 				var chart = new Highcharts.Chart(options);
 			});
 		}); 
@@ -42,7 +43,7 @@
 include_once('DAO/conexao.php');
 ?>
 	<div>
-
+gdgdgd
 	
         <h1>estatistica_alunos</h1>
             <table border="1">
