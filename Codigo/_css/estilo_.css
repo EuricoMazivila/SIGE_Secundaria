@@ -1,3 +1,4 @@
+
 .centro, .centroo {
     
     padding-bottom: 80%;
@@ -22,9 +23,11 @@
     background-color: #ffffff;
 }
 
-
-
-
+#lect {
+    font-family: cambria math;
+    font-size: 100%;
+    margin-left: 80%;
+}
 
 .navbar-header .navbar-brand {
     color: white;
@@ -70,7 +73,11 @@ th {
     background-color: #ebe5e6;
 }
 
-
+.breadcrumb > li + li:before { 
+    color: #CCCCCC; 
+    content: "/ "; 
+    padding: 0 5px;
+}
 
 .fas {
     color: white;
@@ -83,6 +90,9 @@ h3 {
     margin-top: 3%;
 }
 
+.breadcrumb {
+    padding-left: 10%;
+}
 
 .alunos, .turmas, .orcamento, .faltas, .testes, .media {
     background-color: #ffffff;
@@ -111,7 +121,10 @@ h3 {
         width: 80%;
     }
 
-
+    #lect {
+        font-size: 90%;
+        margin-left: 60%;
+    }
 }
 
 @media (min-width: 576px) and (max-width: 800px)  {
@@ -120,7 +133,10 @@ h3 {
         width:20%;
     }
 
-    
+    #lect {
+        font-size: 20%;
+        margin-left: 0%;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 999px)  {
