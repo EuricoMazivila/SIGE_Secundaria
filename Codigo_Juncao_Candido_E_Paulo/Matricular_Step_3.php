@@ -5,7 +5,7 @@
     $corpo='Corpo/corpo_Matricula_Step 3.php';//esse e o corpo
     $navBar='navbar.php';//essa e o nav bar
     $rodape='footer.php';//especificar a url do footer
-    $scriptAdd='';
+    $scriptAdd='scripts_add_Matricula3.php';
     //Aqui pode ficar as dependencias de hader como verificar se ja fez login
     include('Templete/Templete.php');
 ?>
