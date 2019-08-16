@@ -1,6 +1,4 @@
-.i-color-white{
-    color: #fff;
-}
+
 .menu-color{
     background:#0a8485;
 }
@@ -11,14 +9,7 @@
 
 .menu { width: 100%; 
     height: 100%; position: fixed; background-color: rgba(0,0,0,0.9); top: 0; left: 0;}
-.i-tamanho{
-    height: 45px;
-    margin-right: 10px;
-    width: 45px;
-    text-align: center;
-    align-content: center;
-    vertical-align: middle;    
-}
+
 #menu-Candidado{
    
     top: 10px;
