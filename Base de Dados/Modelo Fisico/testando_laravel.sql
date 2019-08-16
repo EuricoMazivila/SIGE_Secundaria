@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 16-Ago-2019 às 07:55
+-- Generation Time: 16-Ago-2019 às 08:04
 -- Versão do servidor: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `sige`
+-- Database: `testando_laravel`
 --
 
 DELIMITER $$
@@ -269,7 +269,7 @@ DELIMITER ;
 CREATE TABLE `aluno` (
   `codAl` int(11) NOT NULL,
   `codP` int(11) NOT NULL,
-  `turno` enum('diurno','nocturno','','') NOT NULL,
+  `turno` enum('diurno','nocturno') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `codCand` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -346,7 +346,7 @@ CREATE TABLE `aluno_matricula` (
   `codAl` int(11) NOT NULL,
   `codMatr` int(11) NOT NULL,
   `data` date NOT NULL,
-  `tipo` enum('Novo ingresso','Renovacao','','') NOT NULL DEFAULT 'Novo ingresso'
+  `tipo` enum('Novo ingresso','Renovacao') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Novo ingresso'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -386,7 +386,7 @@ DELIMITER ;
 CREATE TABLE `bairro` (
   `codbairro` int(11) NOT NULL,
   `coddist` int(11) NOT NULL,
-  `bairro` varchar(50) NOT NULL
+  `bairro` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -404,22 +404,10 @@ INSERT INTO `bairro` (`codbairro`, `coddist`, `bairro`) VALUES
 
 CREATE TABLE `bi` (
   `codP` int(11) NOT NULL,
-  `bi` varchar(13) NOT NULL,
-  `local_emissao` varchar(50) NOT NULL,
+  `bi` varchar(13) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `local_emissao` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `data_emissao` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `bi`
---
-
-INSERT INTO `bi` (`codP`, `bi`, `local_emissao`, `data_emissao`) VALUES
-(19, '1990P717P0202', 'Cidade de Maputo', '2018-09-12'),
-(21, '1990P717P0902', 'Cidade de Maputo', '2018-09-12'),
-(28, '2323232323', 'Cidade de Maputo', '2019-07-09'),
-(27, '2323232323s', 'Cidade de Maputo', '2019-07-15'),
-(7, '3333333333333', 'Cidade de Maputo', '2019-07-02'),
-(8, '3333333333334', 'Cidade de Maputo', '2019-07-02');
 
 -- --------------------------------------------------------
 
@@ -429,13 +417,13 @@ INSERT INTO `bi` (`codP`, `bi`, `local_emissao`, `data_emissao`) VALUES
 
 CREATE TABLE `candidato_aluno` (
   `codCand` int(11) NOT NULL,
-  `nome_completo` varchar(50) NOT NULL,
-  `classe_anterior` enum('7','8','9','10','11','12') NOT NULL,
-  `classe_matricular` enum('8','9','10','11','12','') NOT NULL,
-  `turno` enum('diurno','nocturno','a distancia','') NOT NULL,
+  `nome_completo` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `classe_anterior` enum('7','8','9','10','11','12') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `classe_matricular` enum('8','9','10','11','12') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `turno` enum('diurno','nocturno','a distancia') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `codEscola` int(11) NOT NULL,
-  `senha` varchar(32) NOT NULL,
-  `estado` enum('Matriculado','Pre Matriculado','Nao Matriculado','') NOT NULL DEFAULT 'Nao Matriculado',
+  `senha` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `estado` enum('Matriculado','Pre Matriculado','Nao Matriculado') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Nao Matriculado',
   `ano` year(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -444,15 +432,48 @@ CREATE TABLE `candidato_aluno` (
 --
 
 INSERT INTO `candidato_aluno` (`codCand`, `nome_completo`, `classe_anterior`, `classe_matricular`, `turno`, `codEscola`, `senha`, `estado`, `ano`) VALUES
-(4, 'Candido Barato', '8', '9', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Pre Matriculado', 2019),
-(5, 'Joao Teste', '8', '9', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Pre Matriculado', 2019),
-(6, 'Ricardo Manhice', '8', '8', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Pre Matriculado', 2019),
-(7, 'Claudio Bucene', '8', '8', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Nao Matriculado', 2019),
-(8, 'Helena', '8', '8', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Nao Matriculado', 2019),
-(9, 'Jorge', '11', '12', 'nocturno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Nao Matriculado', 2020),
-(11, 'Rosa', '10', '11', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Nao Matriculado', 2020),
-(12, 'Maria', '7', '8', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Nao Matriculado', 2020),
-(13, 'Euro Euro', '9', '10', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Pre Matriculado', 2020);
+(4, 'Candido Barato', '8', '9', 'diurno', 4, 'x?ر?X%H?-??X???', 'Pre Matriculado', 2019),
+(5, 'Joao Teste', '8', '9', 'diurno', 4, 'x?ر?X%H?-??X???', 'Pre Matriculado', 2019),
+(6, 'Ricardo Manhice', '8', '8', 'diurno', 4, 'x?ر?X%H?-??X???', 'Pre Matriculado', 2019),
+(7, 'Claudio Bucene', '8', '8', 'diurno', 4, 'x?ر?X%H?-??X???', 'Nao Matriculado', 2019),
+(8, 'Helena', '8', '8', 'diurno', 4, 'x?ر?X%H?-??X???', 'Nao Matriculado', 2019),
+(9, 'Jorge', '11', '12', 'nocturno', 4, 'x?ر?X%H?-??X???', 'Nao Matriculado', 2020),
+(11, 'Rosa', '10', '11', 'diurno', 4, 'x?ر?X%H?-??X???', 'Nao Matriculado', 2020),
+(12, 'Maria', '7', '8', 'diurno', 4, 'x?ر?X%H?-??X???', 'Nao Matriculado', 2020),
+(13, 'Euro Euro', '9', '10', 'diurno', 4, 'x?ر?X%H?-??X???', 'Pre Matriculado', 2020);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `candidato_alunos`
+--
+
+CREATE TABLE `candidato_alunos` (
+  `codCand` int(11) NOT NULL,
+  `nome_completo` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `classe_anterior` enum('7','8','9','10','11','12') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `classe_matricular` enum('8','9','10','11','12') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `turno` enum('diurno','nocturno','a distancia') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `codEscola` int(11) NOT NULL,
+  `senha` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `estado` enum('Matriculado','Pre Matriculado','Nao Matriculado') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Nao Matriculado',
+  `ano` year(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `candidato_alunos`
+--
+
+INSERT INTO `candidato_alunos` (`codCand`, `nome_completo`, `classe_anterior`, `classe_matricular`, `turno`, `codEscola`, `senha`, `estado`, `ano`) VALUES
+(4, 'Candido Barato', '8', '9', 'diurno', 4, 'x?ر?X%H?-??X???', 'Pre Matriculado', 2019),
+(5, 'Joao Teste', '8', '9', 'diurno', 4, 'x?ر?X%H?-??X???', 'Pre Matriculado', 2019),
+(6, 'Ricardo Manhice', '8', '8', 'diurno', 4, 'x?ر?X%H?-??X???', 'Pre Matriculado', 2019),
+(7, 'Claudio Bucene', '8', '8', 'diurno', 4, 'x?ر?X%H?-??X???', 'Nao Matriculado', 2019),
+(8, 'Helena', '8', '8', 'diurno', 4, 'x?ر?X%H?-??X???', 'Nao Matriculado', 2019),
+(9, 'Jorge', '11', '12', 'nocturno', 4, 'x?ر?X%H?-??X???', 'Nao Matriculado', 2020),
+(11, 'Rosa', '10', '11', 'diurno', 4, 'x?ر?X%H?-??X???', 'Nao Matriculado', 2020),
+(12, 'Maria', '7', '8', 'diurno', 4, 'x?ر?X%H?-??X???', 'Nao Matriculado', 2020),
+(13, 'Euro Euro', '9', '10', 'diurno', 4, 'x?ر?X%H?-??X???', 'Pre Matriculado', 2020);
 
 -- --------------------------------------------------------
 
@@ -485,7 +506,7 @@ INSERT INTO `candidato_matricula` (`codCand`, `codMatr`, `data`) VALUES
 CREATE TABLE `chefia` (
   `codTrab` int(11) NOT NULL,
   `data_nomea` date NOT NULL,
-  `cargo` varchar(50) NOT NULL
+  `cargo` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -496,8 +517,8 @@ CREATE TABLE `chefia` (
 
 CREATE TABLE `classe` (
   `codClass` int(11) NOT NULL,
-  `classe` enum('8','9','10','11','12') NOT NULL,
-  `turno` enum('diurno','nocturno','a distancia','') NOT NULL
+  `classe` enum('8','9','10','11','12') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `turno` enum('diurno','nocturno','a distancia') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -525,8 +546,8 @@ INSERT INTO `classe` (`codClass`, `classe`, `turno`) VALUES
 CREATE TABLE `dados_escola_anterior` (
   `codDados` int(11) NOT NULL,
   `codAl` int(11) NOT NULL,
-  `classe_anterior` enum('7','8','9','10','11','12') NOT NULL,
-  `turma` varchar(5) NOT NULL,
+  `classe_anterior` enum('7','8','9','10','11','12') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `turma` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `numero` int(11) NOT NULL,
   `ano` year(4) NOT NULL,
   `codEscola` int(11) NOT NULL
@@ -551,7 +572,7 @@ INSERT INTO `dados_escola_anterior` (`codDados`, `codAl`, `classe_anterior`, `tu
 CREATE TABLE `distrito` (
   `coddist` int(11) NOT NULL,
   `codProv` int(11) NOT NULL,
-  `distrito` varchar(50) NOT NULL
+  `distrito` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -574,10 +595,10 @@ INSERT INTO `distrito` (`coddist`, `codProv`, `distrito`) VALUES
 CREATE TABLE `encarregado` (
   `codEnc` int(11) NOT NULL,
   `codAl` int(11) NOT NULL,
-  `nome_completo` varchar(50) NOT NULL,
+  `nome_completo` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `numero_telefone` int(11) NOT NULL,
-  `local_trabalho` varchar(50) NOT NULL,
-  `profissao` varchar(50) NOT NULL
+  `local_trabalho` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `profissao` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -598,9 +619,9 @@ INSERT INTO `encarregado` (`codEnc`, `codAl`, `nome_completo`, `numero_telefone`
 
 CREATE TABLE `escola` (
   `codEscola` int(11) NOT NULL,
-  `nome_escola` varchar(50) NOT NULL,
-  `nivel` enum('primaria','secundaria','misto','') NOT NULL,
-  `tipo` enum('publica','privada','','') NOT NULL,
+  `nome_escola` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nivel` enum('primaria','secundaria','misto') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipo` enum('publica','privada') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `coddist` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -620,14 +641,14 @@ INSERT INTO `escola` (`codEscola`, `nome_escola`, `nivel`, `tipo`, `coddist`) VA
 CREATE TABLE `filiacao` (
   `codFil` int(11) NOT NULL,
   `codAl` int(11) NOT NULL,
-  `nome_pai` varchar(50) NOT NULL,
+  `nome_pai` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `telefone_pai` int(11) NOT NULL,
-  `local_trabalho_pai` varchar(50) NOT NULL,
-  `profissao_pai` varchar(50) NOT NULL,
-  `nome_mae` varchar(50) NOT NULL,
+  `local_trabalho_pai` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `profissao_pai` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nome_mae` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `telefone_mae` int(11) NOT NULL,
-  `local_trabalho_mae` varchar(50) NOT NULL,
-  `profissao_mae` varchar(50) NOT NULL
+  `local_trabalho_mae` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `profissao_mae` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -649,7 +670,7 @@ INSERT INTO `filiacao` (`codFil`, `codAl`, `nome_pai`, `telefone_pai`, `local_tr
 CREATE TABLE `funcionario` (
   `codTrab` int(11) NOT NULL,
   `codP` int(11) NOT NULL,
-  `carreira` varchar(50) NOT NULL
+  `carreira` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -662,7 +683,7 @@ CREATE TABLE `matricula` (
   `codMatr` int(11) NOT NULL,
   `dataI` date NOT NULL,
   `dataF` date NOT NULL,
-  `estado` enum('Em espera','Activa','Terminada','') NOT NULL DEFAULT 'Em espera',
+  `estado` enum('Em espera','Activa','Terminada') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Em espera',
   `total_vagas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -685,7 +706,7 @@ INSERT INTO `matricula` (`codMatr`, `dataI`, `dataF`, `estado`, `total_vagas`) V
 --
 CREATE TABLE `matriculas_marcadas` (
 `classe` enum('8','9','10','11','12')
-,`turno` enum('diurno','nocturno','a distancia','')
+,`turno` enum('diurno','nocturno','a distancia')
 ,`total_vagas` int(11)
 ,`total_vagas_preenchidas` int(11)
 ,`ano` year(4)
@@ -782,12 +803,62 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2019_08_02_073528_create_aluno_table', 0),
+(2, '2019_08_02_073528_create_aluno_classe_table', 0),
+(3, '2019_08_02_073528_create_aluno_matricula_table', 0),
+(4, '2019_08_02_073528_create_bairro_table', 0),
+(5, '2019_08_02_073528_create_bi_table', 0),
+(6, '2019_08_02_073528_create_candidato_aluno_table', 0),
+(7, '2019_08_02_073528_create_candidato_matricula_table', 0),
+(8, '2019_08_02_073528_create_chefia_table', 0),
+(9, '2019_08_02_073528_create_classe_table', 0),
+(10, '2019_08_02_073528_create_dados_escola_anterior_table', 0),
+(11, '2019_08_02_073528_create_distrito_table', 0),
+(12, '2019_08_02_073528_create_encarregado_table', 0),
+(13, '2019_08_02_073528_create_escola_table', 0),
+(14, '2019_08_02_073528_create_filiacao_table', 0),
+(15, '2019_08_02_073528_create_funcionario_table', 0),
+(16, '2019_08_02_073528_create_matricula_table', 0),
+(17, '2019_08_02_073528_create_matricula_classe_table', 0),
+(18, '2019_08_02_073528_create_pais_table', 0),
+(19, '2019_08_02_073528_create_password_resets_table', 0),
+(20, '2019_08_02_073528_create_pessoa_table', 0),
+(21, '2019_08_02_073528_create_provincia_table', 0),
+(22, '2019_08_02_073528_create_residencia_encarregado_table', 0),
+(23, '2019_08_02_073528_create_residencia_pessoa_table', 0),
+(24, '2019_08_02_073528_create_users_table', 0),
+(25, '2019_08_02_073528_create_usuario_table', 0),
+(26, '2019_08_02_073530_add_foreign_keys_to_aluno_table', 0),
+(27, '2019_08_02_073530_add_foreign_keys_to_aluno_classe_table', 0),
+(28, '2019_08_02_073530_add_foreign_keys_to_aluno_matricula_table', 0),
+(29, '2019_08_02_073530_add_foreign_keys_to_bairro_table', 0),
+(30, '2019_08_02_073530_add_foreign_keys_to_bi_table', 0),
+(31, '2019_08_02_073530_add_foreign_keys_to_candidato_aluno_table', 0),
+(32, '2019_08_02_073530_add_foreign_keys_to_users_table', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `pais`
 --
 
 CREATE TABLE `pais` (
   `codPais` int(11) NOT NULL,
-  `pais` varchar(50) NOT NULL
+  `pais` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -800,19 +871,31 @@ INSERT INTO `pais` (`codPais`, `pais`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `pessoa`
 --
 
 CREATE TABLE `pessoa` (
   `codP` int(11) NOT NULL,
-  `apelido` varchar(30) NOT NULL,
-  `nomes` varchar(50) NOT NULL,
+  `apelido` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nomes` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `coddist` int(11) NOT NULL,
   `data_nascimento` date NOT NULL,
-  `sexo` enum('M','F','','') NOT NULL,
-  `estado_civil` enum('Casado(a)','Solteiro(a)','','') NOT NULL,
+  `sexo` enum('M','F') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `estado_civil` enum('Casado(a)','Solteiro(a)') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `numero_telefone` int(11) NOT NULL,
-  `email` varchar(30) NOT NULL,
+  `email` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `foto` blob
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -835,7 +918,7 @@ INSERT INTO `pessoa` (`codP`, `apelido`, `nomes`, `coddist`, `data_nascimento`, 
 CREATE TABLE `provincia` (
   `codProv` int(11) NOT NULL,
   `codPais` int(11) NOT NULL,
-  `provincia` varchar(50) NOT NULL
+  `provincia` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -844,13 +927,13 @@ CREATE TABLE `provincia` (
 
 INSERT INTO `provincia` (`codProv`, `codPais`, `provincia`) VALUES
 (1, 1, 'Cidade de Maputo'),
-(2, 1, 'Província de Maputo '),
+(2, 1, 'Prov?ncia de Maputo '),
 (3, 1, 'Gaza'),
 (4, 1, 'Inhambane'),
 (5, 1, 'Manica'),
 (6, 1, 'Sofala'),
 (7, 1, 'Tete'),
-(8, 1, 'Zambézia '),
+(8, 1, 'Zamb?zia '),
 (9, 1, 'Nampula'),
 (10, 1, 'Niassa'),
 (11, 1, 'Cabo delgado');
@@ -866,7 +949,7 @@ CREATE TABLE `residencia_encarregado` (
   `codEnc` int(11) NOT NULL,
   `codProv` int(11) NOT NULL,
   `codbairro` int(11) NOT NULL,
-  `av_ou_rua` varchar(50) NOT NULL
+  `av_ou_rua` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -890,8 +973,8 @@ CREATE TABLE `residencia_pessoa` (
   `codP` int(11) NOT NULL,
   `codProv` int(11) NOT NULL,
   `codbairro` int(11) NOT NULL,
-  `av_ou_rua` varchar(50) NOT NULL,
-  `quarteirao` varchar(5) NOT NULL,
+  `av_ou_rua` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `quarteirao` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `nr_casa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -904,6 +987,22 @@ INSERT INTO `residencia_pessoa` (`codRes`, `codP`, `codProv`, `codbairro`, `av_o
 (11, 21, 1, 2, 'Av. de Mocambique', '45', 49),
 (16, 27, 1, 2, 'Av. de Mocambique', 'A3', 32),
 (17, 28, 1, 2, 'Av. de Mocambique', 'A3', 23);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(20) UNSIGNED NOT NULL,
+  `codP` int(11) NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1069,10 +1168,22 @@ ALTER TABLE `matricula_classe`
   ADD KEY `codClass` (`codClass`);
 
 --
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `pais`
 --
 ALTER TABLE `pais`
   ADD PRIMARY KEY (`codPais`);
+
+--
+-- Indexes for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
 
 --
 -- Indexes for table `pessoa`
@@ -1100,6 +1211,14 @@ ALTER TABLE `residencia_encarregado`
 --
 ALTER TABLE `residencia_pessoa`
   ADD PRIMARY KEY (`codRes`),
+  ADD KEY `codP` (`codP`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`),
   ADD KEY `codP` (`codP`);
 
 --
@@ -1168,6 +1287,12 @@ ALTER TABLE `matricula`
   MODIFY `codMatr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
 -- AUTO_INCREMENT for table `pais`
 --
 ALTER TABLE `pais`
@@ -1196,6 +1321,12 @@ ALTER TABLE `residencia_encarregado`
 --
 ALTER TABLE `residencia_pessoa`
   MODIFY `codRes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `usuario`
@@ -1247,91 +1378,10 @@ ALTER TABLE `candidato_aluno`
   ADD CONSTRAINT `candidato_aluno_ibfk_1` FOREIGN KEY (`codEscola`) REFERENCES `escola` (`codEscola`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `candidato_matricula`
+-- Limitadores para a tabela `users`
 --
-ALTER TABLE `candidato_matricula`
-  ADD CONSTRAINT `candidato_matricula_ibfk_1` FOREIGN KEY (`codCand`) REFERENCES `candidato_aluno` (`codCand`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `candidato_matricula_ibfk_2` FOREIGN KEY (`codMatr`) REFERENCES `matricula` (`codMatr`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
--- Limitadores para a tabela `chefia`
---
-ALTER TABLE `chefia`
-  ADD CONSTRAINT `chefia_ibfk_1` FOREIGN KEY (`codTrab`) REFERENCES `funcionario` (`codTrab`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Limitadores para a tabela `dados_escola_anterior`
---
-ALTER TABLE `dados_escola_anterior`
-  ADD CONSTRAINT `dados_escola_anterior_ibfk_1` FOREIGN KEY (`codEscola`) REFERENCES `escola` (`codEscola`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `dados_escola_anterior_ibfk_2` FOREIGN KEY (`codAl`) REFERENCES `aluno` (`codAl`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Limitadores para a tabela `distrito`
---
-ALTER TABLE `distrito`
-  ADD CONSTRAINT `distrito_ibfk_1` FOREIGN KEY (`codProv`) REFERENCES `provincia` (`codProv`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
--- Limitadores para a tabela `encarregado`
---
-ALTER TABLE `encarregado`
-  ADD CONSTRAINT `encarregado_ibfk_2` FOREIGN KEY (`codAl`) REFERENCES `aluno` (`codAl`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Limitadores para a tabela `escola`
---
-ALTER TABLE `escola`
-  ADD CONSTRAINT `escola_ibfk_1` FOREIGN KEY (`coddist`) REFERENCES `distrito` (`coddist`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
--- Limitadores para a tabela `filiacao`
---
-ALTER TABLE `filiacao`
-  ADD CONSTRAINT `filiacao_ibfk_1` FOREIGN KEY (`codAl`) REFERENCES `aluno` (`codAl`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Limitadores para a tabela `funcionario`
---
-ALTER TABLE `funcionario`
-  ADD CONSTRAINT `funcionario_ibfk_1` FOREIGN KEY (`codP`) REFERENCES `pessoa` (`codP`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Limitadores para a tabela `matricula_classe`
---
-ALTER TABLE `matricula_classe`
-  ADD CONSTRAINT `matricula_classe_ibfk_1` FOREIGN KEY (`codMatr`) REFERENCES `matricula` (`codMatr`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `matricula_classe_ibfk_2` FOREIGN KEY (`codClass`) REFERENCES `classe` (`codClass`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
--- Limitadores para a tabela `pessoa`
---
-ALTER TABLE `pessoa`
-  ADD CONSTRAINT `pessoa_ibfk_6` FOREIGN KEY (`coddist`) REFERENCES `distrito` (`coddist`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Limitadores para a tabela `provincia`
---
-ALTER TABLE `provincia`
-  ADD CONSTRAINT `provincia_ibfk_1` FOREIGN KEY (`codPais`) REFERENCES `pais` (`codPais`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Limitadores para a tabela `residencia_encarregado`
---
-ALTER TABLE `residencia_encarregado`
-  ADD CONSTRAINT `residencia_encarregado_ibfk_1` FOREIGN KEY (`codEnc`) REFERENCES `encarregado` (`codEnc`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Limitadores para a tabela `residencia_pessoa`
---
-ALTER TABLE `residencia_pessoa`
-  ADD CONSTRAINT `residencia_pessoa_ibfk_1` FOREIGN KEY (`codP`) REFERENCES `pessoa` (`codP`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Limitadores para a tabela `usuario`
---
-ALTER TABLE `usuario`
-  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`codP`) REFERENCES `pessoa` (`codP`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`codP`) REFERENCES `pessoa` (`codP`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
