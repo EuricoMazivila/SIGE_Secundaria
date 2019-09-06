@@ -1,0 +1,121 @@
+@charset "utf-8";
+
+
+.centro_login{
+    background: linear-gradient(rgb(10, 132, 133,0.99), rgb(236, 242, 255,0.9));
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    bottom: 4%;
+    position: absolute;
+}
+
+ .botao{
+    margin-bottom: 4%;
+    color: white;
+}
+
+}
+.bemVindoprimeiro{
+    margin-top:0%;
+    padding: 4%; 
+}
+
+.bemVindo{
+    margin-top:7%;
+    padding: 4%; 
+}
+
+.intro h1{
+    font-size: 18pt;
+}
+
+.modal-content#primeir{
+    margin-top:43%; 
+    background:rgb(232, 243, 250,0.75);  
+    opacity: 1.8;
+    border-radius: 10%;    
+}
+
+.modal-content#segundo{
+    margin-top:23%; 
+    background:rgb(232, 243, 250,0.75);  
+    opacity: 1.8;
+    border-radius: 10%;    
+}
+
+.modal-content#primeiro{
+    margin-top:33%; 
+    background:rgb(232, 243, 250,0.75);  
+    opacity: 1.8;
+    border-radius: 2%;    
+}
+
+.modal-content#principal{
+    margin-top:30%; 
+    background:rgb(232, 243, 250,0.75);  
+    opacity: .8;
+    border-radius: 10%;    
+}
+
+/*
+.modal-content#pre_matricula{
+    margin-top:30%; 
+    border: none;
+    background:none; 
+}*/
+
+.form-group_sc input[type="text"]{
+    width:80%;
+    margin-left: 9%;
+    border-radius: 24px;
+}
+
+.form-group_pr input[type="text"], input[type="password"]{
+    width:100%;
+    padding:5%;
+    border-radius: 24px;    
+}
+
+.bb{
+    border-radius: 24px;  
+}
+
+.form-input button{
+    width: 30%;
+    border-radius: 20px;
+    margin-top:5%;
+    margin-bottom: 3%;
+}
+
+.btn-primary{
+    font-size: 16px;
+}
+
+.esqueceu{
+    margin-top:6%;
+    margin-bottom: 5%;
+}
+
+.esqueceu a{ 
+    color:black;
+}
+
+.esqueceu a:hover{ 
+    color:red;
+}
+
+@media (min-width: 360px) {
+
+    .modal-content#principal{
+        margin-top:60%;    
+    }
+}
+
+@media (min-width: 770px) {
+
+    .modal-content#principal{
+        margin-top:30%;    
+    }
+}
