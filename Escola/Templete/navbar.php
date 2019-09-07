@@ -18,8 +18,12 @@
             </span>
 
             <span class="i-color-white i-tamanho">
+<<<<<<< HEAD
                 <!--icone de envelope  -->
                 <i class="fas fa-envelope i-tamanho"></i>
+=======
+            <input type="submit" value="Sair">
+>>>>>>> 54c6479eed1f40639d268178fe5ea6b56e6139c5
             </span>
         </div>
         <form action="Dao\sair.php" method="post">
@@ -34,7 +38,11 @@
                 <option>Sobre nos</option>
                 <option></option>
             </select>
+<<<<<<< HEAD
             <input type="submit" value="Sair">
+=======
+            
+>>>>>>> 54c6479eed1f40639d268178fe5ea6b56e6139c5
 
         </div>
         </form>

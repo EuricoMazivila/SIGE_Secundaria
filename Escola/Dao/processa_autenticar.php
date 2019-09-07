@@ -3,6 +3,10 @@
 
     if(isset($_POST['Entrar'])){
         autenticarUser();
+<<<<<<< HEAD
+=======
+        NivelAcessoUserDistrital();
+>>>>>>> 54c6479eed1f40639d268178fe5ea6b56e6139c5
         
 
     }
@@ -46,12 +50,21 @@
             echo $linha['Email_Pessoal'];
        
             }
+<<<<<<< HEAD
             $_SESSION['id_dira']=0;
+=======
+            
+            /*$_SESSION['id_dira']=0;
+>>>>>>> 54c6479eed1f40639d268178fe5ea6b56e6139c5
             $_SESSION['acessoGestao']=0;
             $_SESSION['Secretaria']=0;
             $_SESSION['acessoDistital']=0;
             $_SESSION['acessoEscolar']=0;
+<<<<<<< HEAD
             $_SESSION['nome_Escola']='';
+=======
+            $_SESSION['nome_Escola']='';*/
+>>>>>>> 54c6479eed1f40639d268178fe5ea6b56e6139c5
             header('Location: ../index.php');
         }else{
             session_start();
@@ -97,7 +110,11 @@
             for($j=0; $j<$linhas; ++$j){
                 $res->data_seek($j);
                 $linha=$res->fetch_assoc();
+<<<<<<< HEAD
             session_start();
+=======
+  
+>>>>>>> 54c6479eed1f40639d268178fe5ea6b56e6139c5
             $_SESSION['id_dira']= $linha['id_Dir'];
             $_SESSION['nome_Distrito']="Direcao Distrital de ".$linha['Designacao'];
             $_SESSION['Acesso_Escola']=$linha['Gestao_Escolas'];

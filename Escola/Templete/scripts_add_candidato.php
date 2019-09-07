@@ -3,6 +3,10 @@
     
     $('.Sim').hide();
     $('.Nao').hide();
+<<<<<<< HEAD
+=======
+    $('#idDir').hide();
+>>>>>>> 54c6479eed1f40639d268178fe5ea6b56e6139c5
     $('.pesquisar').focusin(function() {
       $('.pesq').css("box-shadow","0 0 0 0.2rem rgba(0, 123, 255, 0.25)");
         
@@ -26,7 +30,10 @@
   });
   $('#buscaEscola').keyup(function () {
     var pesquisa = $(this).val();
+<<<<<<< HEAD
     alert(pesquisa);
+=======
+>>>>>>> 54c6479eed1f40639d268178fe5ea6b56e6139c5
     $.post('../Dao/Pesquisa_dados.php',{ buscaEscola: pesquisa}, function (data) {
    
     $('#ResultadoEscolaBusca').html(data);

@@ -24,11 +24,18 @@
 <div id="container" ></div>
 	<?php include_once('Grafico-de-bara.php');
 	?>
+<<<<<<< HEAD
+
+=======
 <!--
 <div id="container" ></div>
 	<?php //include_once('Grafico-de-pizza-vinculo-professor.php');
 	?>
 -->	
+<<<<<<< HEAD
 >>>>>>> adf02f3635e29fbeb89b396367860d8ec75efd0c
+=======
+>>>>>>> ae0add6aacd6db15b5d57def977d604be1f52fbe
+>>>>>>> 54c6479eed1f40639d268178fe5ea6b56e6139c5
 </body>
 </html>

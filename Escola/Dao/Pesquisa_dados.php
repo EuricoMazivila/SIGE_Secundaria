@@ -8,6 +8,7 @@ if(isset($_POST['buscaEscola'])){
 }
 function busca_Escola(){
     include_once('conexao.php');
+<<<<<<< HEAD
     /*$hostname="localhost";
     $user="root";
     $password="";
@@ -22,11 +23,25 @@ function busca_Escola(){
         //Estágio 1: Preparação
         $query="SELECT id_Escola,Nome,Nivel,Pertenca FROM `escola` WHERE id_Escola=?";
         $stmt=$conexao->prepare($query);
+=======
+    
+        //Estágio 1: Preparação
+        $query="SELECT * FROM `escola`WHERE  (id_Escola=? or nome LIKE ? or Nivel  LIKE ?) and id_Escola in(SELECT id_Escola FROM escola WHERE id_dir=? )";
+               $stmt=$conexao->prepare($query);
+>>>>>>> 54c6479eed1f40639d268178fe5ea6b56e6139c5
         if(!$stmt){
             echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
         }
         $id_user= filtraEntrada($conexao,$_POST['buscaEscola']);
+<<<<<<< HEAD
         $bind=$stmt->bind_param("i", $id_user);
+=======
+        $id_nome= filtraEntrada($conexao,'%'.$_POST['buscaEscola'].'%');
+       
+        $id_dir= filtraEntrada($conexao,'10');
+        
+        $bind=$stmt->bind_param("issi",$id_user, $id_nome,$id_nome,$id_dir);
+>>>>>>> 54c6479eed1f40639d268178fe5ea6b56e6139c5
         if(!$bind){
             echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;
         }
@@ -48,7 +63,11 @@ function busca_Escola(){
             $linha=$res->fetch_assoc();
    ?>
     <tr>
+<<<<<<< HEAD
         <td><?php echo $linha['id_Escola']?></td>
+=======
+       <<td><?php echo $linha['id_Escola'];?></td>
+>>>>>>> 54c6479eed1f40639d268178fe5ea6b56e6139c5
         <td><?php echo "Escola ".$linha['Nivel']." ".$linha['Nome']?></td>
         <td><?php echo $linha['Pertenca']?></td>
         <td><?php echo $linha['Nivel']?></td>
@@ -61,6 +80,7 @@ function busca_Escola(){
     } 
     
 
+<<<<<<< HEAD
 
 /*
 //Busca Distrito
@@ -208,4 +228,6 @@ function busca_pessoaP(){
 
     
 }*/
+=======
+>>>>>>> 54c6479eed1f40639d268178fe5ea6b56e6139c5
 ?>

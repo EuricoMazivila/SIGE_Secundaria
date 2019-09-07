@@ -21,8 +21,11 @@
                      <div class="form-group">
                          <input type="text" class="form-control bb" id="codigo" placeholder="Introduza o codigo"> 
                      </div>
+
+                     <a class="btn btn-primary botao" href="Recuperacao_Step_3.php">Próximo</a> 
                         
-                        <button type="submit" class="btn btn-primary botao" name="recupera">Próximo</button>
+                        <!--<button type="submit" class="btn btn-primary botao" name="recupera">Próximo</button> 
+                          Quando estiver a trabalhar use esse botao e nao a ancora-->
                     </form> 
                 </div>
                 

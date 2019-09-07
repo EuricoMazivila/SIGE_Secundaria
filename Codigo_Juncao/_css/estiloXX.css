@@ -1,0 +1,87 @@
+@charset "utf-8";
+
+.centro_login{
+    background: linear-gradient(rgb(10, 132, 133,0.99), rgb(236, 242, 255,0.9));
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    bottom: 4%;
+    position: absolute;
+}
+
+.af, .afa {
+    margin-left: 5%;
+}
+
+#mail, #sms {
+    margin-top: -2%;
+    font-size: 12px;
+    width: 125%;
+}
+
+#password, #newPass, #newPass2 {
+    height: 10px;
+}
+
+.bemVindo{
+    margin-top:7%;
+    padding: 4%; 
+}
+
+.modal-content#principal{
+    margin-top:30%; 
+    background:rgb(232, 243, 250,0.75);  
+    opacity: .8;
+    border-radius: 10%; 
+    width: 95%;
+}
+
+.bb{
+    border-radius: 10px 10px 10px 10px; 
+}
+
+.form-input a{
+    width: 30%;
+    border-radius: 20px;
+    margin-top:5%;
+    margin-bottom: 3%;
+}
+
+.form-input button{
+    width: 30%;
+    border-radius: 20px;
+    margin-top:5%;
+    margin-bottom: 3%;
+}
+
+.btn-primary{
+    font-size: 16px;
+}
+
+.esqueceu{
+    margin-top:6%;
+    margin-bottom: 5%;
+}
+
+.esqueceu a{ 
+    color:black;
+}
+
+.esqueceu a:hover{ 
+    color:red;
+}
+
+@media (min-width: 360px) {
+
+    .modal-content#principal{
+        margin-top:60%;    
+    }
+}
+
+@media (min-width: 770px) {
+
+    .modal-content#principal{
+        margin-top:30%;    
+    }
+}

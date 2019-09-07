@@ -36,6 +36,7 @@
         $stmt->close();
         $conexao->close();
     }
+<<<<<<< HEAD
     //Registar novo Candidato
     function registar_candidato(){
         require_once("conexao.php");
@@ -138,5 +139,8 @@
         $stmt->close();
         $conexao->close(); 
     }
+=======
+ 
+>>>>>>> 54c6479eed1f40639d268178fe5ea6b56e6139c5
 
 ?>
