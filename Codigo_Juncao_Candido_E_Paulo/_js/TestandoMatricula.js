@@ -5,6 +5,10 @@
 			var obj = $(this)
 			$('td').click(function() { //onclick event, 'list' fadein
 			obj.find('.lista').fadeIn(400);
+
+				obj.css({
+					'left':(event.pageX-700)+'px',
+					'top':(event.pageY)+'px'});
 			
 			$(document).keyup(function(event) { //keypress event, fadeout on 'escape'
 				if(event.keyCode == 27) {

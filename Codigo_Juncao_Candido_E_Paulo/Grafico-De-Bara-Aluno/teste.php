@@ -15,9 +15,20 @@
 <script src="code/modules/exporting.js"></script>
 
 
+<<<<<<< HEAD
 <div id="container" ></div>
 	<?php include_once('Grafico-de-bara.php');
 	?>
 
+=======
+<div id="container" ></div>
+	<?php include_once('Grafico-de-bara.php');
+	?>
+<!--
+<div id="container" ></div>
+	<?php //include_once('Grafico-de-pizza-vinculo-professor.php');
+	?>
+-->	
+>>>>>>> adf02f3635e29fbeb89b396367860d8ec75efd0c
 </body>
 </html>

@@ -1,0 +1,18 @@
+.i-color-white{
+    color: #fff;
+}
+.i-tamanho{
+    height: 45px;
+    margin-right: 10px;
+    width: 45px;
+    text-align: center;
+    align-content: center;
+    vertical-align: middle;    
+}
+.btn-menu {width: 56px; 
+    height: 56px; 
+    float: right; 
+    text-align: center; 
+    color: #fff; 
+    border-radius:56px; 
+    cursor: pointer;}

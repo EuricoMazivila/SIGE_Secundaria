@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 18-Jul-2019 às 16:00
+-- Generation Time: 06-Set-2019 às 13:43
 -- Versão do servidor: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -26,7 +26,7 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addAluno_matriculado` (`_apelido` VARCHAR(30), `_nomes` VARCHAR(50), `_data_nascimento` DATE, `_pais_nas` VARCHAR(50), `_provincia_nas` VARCHAR(50), `_distrito_nas` VARCHAR(50), `_bi` VARCHAR(13), `_local_emissao` VARCHAR(50), `_data_em` DATE, `_sexo` ENUM('M','F'), `_estado_civil` ENUM('Casado(a)','Solteiro(a)'), `_numero_tf` INT, `_email` VARCHAR(50), `_provincia_res` VARCHAR(50), `_distrito_res` VARCHAR(50), `_bairro` VARCHAR(50), `_av_ou_rua` VARCHAR(50), `_quarteirao` VARCHAR(50), `_nr_casa` INT, `_foto` BLOB, `_provincia_enc` VARCHAR(50), `_distrito_enc` VARCHAR(50), `_bairro_enc` VARCHAR(50), `_av_ou_rua_enc` VARCHAR(50), `_nome_enc` VARCHAR(50), `_numero_tf_enc` INT, `_local_trab_enc` VARCHAR(50), `_profissao_enc` VARCHAR(50), `_nome_pai` VARCHAR(50), `_nome_mae` VARCHAR(50), `_telefone_pai` INT, `_telefone_mae` INT, `_profissao_pai` VARCHAR(50), `_profissao_mae` VARCHAR(50), `_local_trabalho_pai` VARCHAR(50), `_local_trabalho_mae` VARCHAR(50), `_classe` ENUM('8','9','10','11','12'))  Begin
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addAluno_matriculado` (`_apelido` VARCHAR(30), `_nomes` VARCHAR(50), `_pais_nas` VARCHAR(50), `_provincia_nas` VARCHAR(50), `_distrito_nas` VARCHAR(50), `_data_nascimento` DATE, `_bi` VARCHAR(13), `_local_emissao` VARCHAR(50), `_data_em` DATE, `_sexo` ENUM('M','F'), `_estado_civil` ENUM('Casado(a)','Solteiro(a)'), `_provincia_res` VARCHAR(50), `_distrito_res` VARCHAR(50), `_bairro` VARCHAR(50), `_av_ou_rua` VARCHAR(50), `_quarteirao` VARCHAR(50), `_nr_casa` INT, `_numero_tf` INT, `_email` VARCHAR(50), `_foto` BLOB, `_nome_pai` VARCHAR(50), `_telefone_pai` INT, `_local_trabalho_pai` VARCHAR(50), `_profissao_pai` VARCHAR(50), `_nome_mae` VARCHAR(50), `_telefone_mae` INT, `_local_trabalho_mae` VARCHAR(50), `_profissao_mae` VARCHAR(50), `_nome_enc` VARCHAR(50), `_numero_tf_enc` INT, `_provincia_enc` VARCHAR(50), `_distrito_enc` VARCHAR(50), `_bairro_enc` VARCHAR(50), `_av_ou_rua_enc` VARCHAR(50), `_local_trab_enc` VARCHAR(50), `_profissao_enc` VARCHAR(50), `_classe` ENUM('8','9','10','11','12'), `_ensino` VARCHAR(10), `_nome_escola` VARCHAR(50), `_classe_anter` ENUM('7','8','9','10','11','12'), `_turma_anter` VARCHAR(4), `_numero_anter` INT, `_ano` YEAR)  Begin
 	declare codp_p int; 
 	declare codprov_enc int;
 	declare coddist_enc int;
@@ -39,11 +39,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `addAluno_matriculado` (`_apelido` V
 	declare _turno enum('diurno','noctuno','a distancia');
 	declare nome varchar(50);
 	declare classe enum('8','9','10','11','12');
+	declare codescola_ int;	
 	
 	Start transaction;
-	Call addPessoa(_apelido,_nomes,_data_nascimento,_pais_nas,_provincia_nas,_distrito_nas,_bi,_local_emissao,
-	_data_em,_sexo,_estado_civil,_numero_tf,_email,
-	_provincia_res,_distrito_res,_bairro,_av_ou_rua,_quarteirao,_nr_casa,_foto);
+	Call addPessoa(_apelido,_nomes,_pais_nas,_provincia_nas,_distrito_nas,_data_nascimento,
+	_bi,_local_emissao,_data_em,_sexo,_estado_civil,_provincia_res,_distrito_res,_bairro,
+	_av_ou_rua,_quarteirao,_nr_casa,_numero_tf,_email,_foto);
 	
 	Select codp into codp_p from Pessoa where apelido=_apelido and nomes=_nomes;
 	Select CONCAT(nomes,' ',apelido) into nome from pessoa where codp=codp_p;
@@ -59,22 +60,23 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `addAluno_matriculado` (`_apelido` V
 					Select codCand into codCand_al from Candidato_Aluno where nome_completo=nome;
 					Select turno into _turno from candidato_Aluno where nome_completo=nome;
 					Select classe_matricular into classe from candidato_Aluno where nome_completo=nome;
-					
 					if((codCand_al is not null) && (classe=_classe)) then
 						Begin
 							Insert into aluno (codAl,codP,turno,codCand) values (default,codP_p,_turno,codCand_al);
 							Select codAl into codal_m from aluno where codP=codp_p;
+							Insert into filiacao (codFil,codAl,nome_pai,telefone_pai,local_trabalho_pai,profissao_pai,nome_mae,telefone_mae,local_trabalho_mae,profissao_mae) values (default,codal_m,_nome_pai,_telefone_pai,_local_trabalho_pai,_profissao_pai,_nome_mae,_telefone_mae,_local_trabalho_mae,_profissao_mae);
 							Insert into encarregado (codEnc,codAl,nome_completo,numero_telefone,local_trabalho,profissao) values (default,codal_m,_nome_enc,_numero_tf_enc,_local_trab_enc,_profissao_enc);
 							Select codEnc into codEnc_enc from encarregado where codal=codal_m;
 							Insert into residencia_encarregado (codRes,codEnc,codProv,codbairro,av_ou_rua) values (default,codEnc_enc,codprov_enc,codbairro_enc,_av_ou_rua_enc);
-							Insert into filiacao (codFil,codAl,nome_pai,nome_mae,telefone_pai,telefone_mae,profissao_pai,profissao_mae,local_trabalho_pai,local_trabalho_mae) values (default,codal_m,_nome_pai,_nome_mae,_telefone_pai,_telefone_mae,_profissao_pai,_profissao_mae,_local_trabalho_pai,_local_trabalho_mae);
-							Select codclass into codclass_al from classe where classe=_classe and turno=_turno;
-							Insert into aluno_classe (codAl,codClass, ano) values (codal_m,codclass_al,year(curdate()));
+							Insert into aluno_classe (codAl,codClass, ano) values (codal_m,classe,year(curdate()));
+							Select codescola into codescola_ from escola where nome_escola=_nome_escola and nivel=_ensino;
+							Insert into dados_escola_anterior (codDados,codAl,classe_anterior,turma,numero,ano,codEscola) values (default,codal_m,_classe_anter,_turma_anter,_numero_anter,_ano,codescola_);
 							Select codMatr into codmatr_al from matricula where year(dataF)=year(curdate()) LIMIT 1;
-
-							if((codal_m is not null) && (codclass_al is not null) && (codmatr_al is not null)) then
+							if((codal_m is not null) && (codmatr_al is not null)) then
 								Begin
 									Insert into aluno_matricula (codAl,codMatr,data) values (codal_m,codmatr_al,curdate()); 
+									Insert into candidato_matricula (codCand,codMatr,data) values (codCand_al,codmatr_al,curdate());
+									Insert into usuario (codUsuario,usuario,senha,email,tipo,codP) values (default,CONCAT(_nomes,_apelido,'.sige.ac.mz'),AES_ENCRYPT(_apelido,'senha'),_email,'aluno',codp_p);
 									commit;
 								End;	
 							else
@@ -87,7 +89,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `addAluno_matriculado` (`_apelido` V
 						End;
 					else
 						Begin
-							Select 'Erro no codbairro_enc' as Mensagem;
+							Select 'Erro no codCand' as Mensagem;
 							rollback;
 						End;
 						
@@ -136,7 +138,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `addCandidato` (`_codCand` INT, `_no
 	end if;		
 end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addPessoa` (`_apelido` VARCHAR(30), `_nomes` VARCHAR(50), `_data_nascimento` DATE, `_pais_nas` VARCHAR(50), `_provincia_nas` VARCHAR(50), `_distrito_nas` VARCHAR(50), `_bi` VARCHAR(13), `_local_emissao` VARCHAR(50), `_data_em` DATE, `_sexo` ENUM('M','F'), `_estado_civil` ENUM('Casado(a)','Solteiro(a)'), `_numero_tf` INT, `_email` VARCHAR(50), `_provincia_res` VARCHAR(50), `_distrito_res` VARCHAR(50), `_bairro` VARCHAR(50), `_av_ou_rua` VARCHAR(50), `_quarteirao` VARCHAR(50), `_nr_casa` INT, `_foto` BLOB)  Begin
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addPessoa` (`_apelido` VARCHAR(30), `_nomes` VARCHAR(50), `_pais_nas` VARCHAR(50), `_provincia_nas` VARCHAR(50), `_distrito_nas` VARCHAR(50), `_data_nascimento` DATE, `_bi` VARCHAR(13), `_local_emissao` VARCHAR(50), `_data_em` DATE, `_sexo` ENUM('M','F'), `_estado_civil` ENUM('Casado(a)','Solteiro(a)'), `_provincia_res` VARCHAR(50), `_distrito_res` VARCHAR(50), `_bairro` VARCHAR(50), `_av_ou_rua` VARCHAR(50), `_quarteirao` VARCHAR(50), `_nr_casa` INT, `_numero_tf` INT, `_email` VARCHAR(50), `_foto` BLOB)  Begin
 	declare codPais_nas int;
 	declare codProv_nas int;
 	declare coddist_nas int;
@@ -159,7 +161,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `addPessoa` (`_apelido` VARCHAR(30),
 			Select codbairro into codbairro_res from bairro where coddist=coddist_res and bairro=_bairro;
 			if(codbairro_res is not null) then
 				Begin 
-					Insert into pessoa (codp,apelido,nomes,data_nascimento,coddist,sexo,estado_civil,numero_telefone,email,foto) values (default,_apelido,_nomes,_data_nascimento,coddist_nas,_sexo,_estado_civil,_numero_tf,_email,_foto);	
+					Insert into pessoa (codp,apelido,nomes,coddist,data_nascimento,sexo,estado_civil,numero_telefone,email,foto) values (default,_apelido,_nomes,coddist_nas,_data_nascimento,_sexo,_estado_civil,_numero_tf,_email,_foto);	
 					Select codp into codp_p from pessoa where nomes=_nomes and apelido=_apelido;
 					Insert into bi (codp,bi,local_emissao,data_emissao) values (codp_p,_bi,_local_emissao,_data_em);
 					Insert into residencia_pessoa (codRes,codP,codProv,codbairro,av_ou_rua,quarteirao,nr_casa) values (default,codp_p,codprov_res,codbairro_res,_av_ou_rua,_quarteirao,_nr_casa);
@@ -272,26 +274,45 @@ CREATE TABLE `aluno` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Extraindo dados da tabela `aluno`
+--
+
+INSERT INTO `aluno` (`codAl`, `codP`, `turno`, `codCand`) VALUES
+(14, 19, 'diurno', 4),
+(15, 21, 'diurno', 5),
+(17, 27, 'diurno', 6),
+(18, 28, 'diurno', 13);
+
+--
 -- Acionadores `aluno`
 --
 DELIMITER $$
 CREATE TRIGGER `Actualiza_Estado_Candidato` AFTER INSERT ON `aluno` FOR EACH ROW Begin
-	Update candidato_aluno set estado='Matriculado'
+	Update candidato_aluno set estado='Pre Matriculado'
 	where new.codCand=candidato_aluno.codCand;
 End
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `Actualiza_vagas_preenchidas` BEFORE INSERT ON `aluno` FOR EACH ROW Begin
-	declare codClas int;
-	
-	Select codClass into codClas from aluno_classe where aluno_classe.codAl=new.codAl;
-	if(codClas is not null) then
-		update matricula_classe set total_vagas_preenchidas=total_vagas_preenchidas+1 where matricula_classe.codClass=codClas;
-	End if;
+CREATE TRIGGER `Actualiza_Estado_Candidato_d` AFTER DELETE ON `aluno` FOR EACH ROW Begin
+	Update candidato_aluno set estado='Nao Matriculado'
+	where candidato_aluno.codCand=old.codCand;
 End
 $$
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `alunos_matriculados`
+-- (See below for the actual view)
+--
+CREATE TABLE `alunos_matriculados` (
+`codal` int(11)
+,`nome` varchar(81)
+,`data` date
+,`classe` enum('8','9','10','11','12')
+);
 
 -- --------------------------------------------------------
 
@@ -305,6 +326,16 @@ CREATE TABLE `aluno_classe` (
   `ano` year(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `aluno_classe`
+--
+
+INSERT INTO `aluno_classe` (`codAl`, `codClass`, `ano`) VALUES
+(14, 2, 2019),
+(15, 2, 2019),
+(17, 1, 2019),
+(18, 3, 2019);
+
 -- --------------------------------------------------------
 
 --
@@ -317,6 +348,34 @@ CREATE TABLE `aluno_matricula` (
   `data` date NOT NULL,
   `tipo` enum('Novo ingresso','Renovacao','','') NOT NULL DEFAULT 'Novo ingresso'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `aluno_matricula`
+--
+
+INSERT INTO `aluno_matricula` (`codAl`, `codMatr`, `data`, `tipo`) VALUES
+(14, 10, '2019-07-19', 'Novo ingresso'),
+(15, 10, '2019-07-19', 'Novo ingresso'),
+(17, 10, '2019-07-19', 'Novo ingresso'),
+(18, 10, '2019-07-21', 'Novo ingresso');
+
+--
+-- Acionadores `aluno_matricula`
+--
+DELIMITER $$
+CREATE TRIGGER `Actualiza_vagas_preenchidas` AFTER INSERT ON `aluno_matricula` FOR EACH ROW Begin
+	declare codClas int;
+	declare ano year;
+
+	Select codClass into codClas from aluno_classe where aluno_classe.codAl=new.codAl;
+	Select year(aluno_matricula.data) into ano from aluno_matricula where aluno_matricula.codal=new.codAl;	
+
+	if((codClas is not null) && (ano=year(curdate()))) then
+		update matricula_classe set total_vagas_preenchidas=total_vagas_preenchidas+1 where matricula_classe.codClass=codClas;
+	End if;
+End
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -350,6 +409,18 @@ CREATE TABLE `bi` (
   `data_emissao` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `bi`
+--
+
+INSERT INTO `bi` (`codP`, `bi`, `local_emissao`, `data_emissao`) VALUES
+(19, '1990P717P0202', 'Cidade de Maputo', '2018-09-12'),
+(21, '1990P717P0902', 'Cidade de Maputo', '2018-09-12'),
+(28, '2323232323', 'Cidade de Maputo', '2019-07-09'),
+(27, '2323232323s', 'Cidade de Maputo', '2019-07-15'),
+(7, '3333333333333', 'Cidade de Maputo', '2019-07-02'),
+(8, '3333333333334', 'Cidade de Maputo', '2019-07-02');
+
 -- --------------------------------------------------------
 
 --
@@ -364,7 +435,7 @@ CREATE TABLE `candidato_aluno` (
   `turno` enum('diurno','nocturno','a distancia','') NOT NULL,
   `codEscola` int(11) NOT NULL,
   `senha` varchar(32) NOT NULL,
-  `estado` enum('Matriculado','Nao Matriculado','','') NOT NULL DEFAULT 'Nao Matriculado',
+  `estado` enum('Matriculado','Pre Matriculado','Nao Matriculado','') NOT NULL DEFAULT 'Nao Matriculado',
   `ano` year(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -373,14 +444,15 @@ CREATE TABLE `candidato_aluno` (
 --
 
 INSERT INTO `candidato_aluno` (`codCand`, `nome_completo`, `classe_anterior`, `classe_matricular`, `turno`, `codEscola`, `senha`, `estado`, `ano`) VALUES
-(4, 'Candido Barato', '8', '9', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Matriculado', 2019),
-(5, 'Joao Teste', '8', '9', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Matriculado', 2019),
-(6, 'Ricardo Manhice', '8', '8', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Matriculado', 2019),
-(7, 'Matias', '8', '8', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Nao Matriculado', 2019),
-(8, 'Helena', '8', '8', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Matriculado', 2019),
+(4, 'Candido Barato', '8', '9', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Pre Matriculado', 2019),
+(5, 'Joao Teste', '8', '9', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Pre Matriculado', 2019),
+(6, 'Ricardo Manhice', '8', '8', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Pre Matriculado', 2019),
+(7, 'Claudio Bucene', '8', '8', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Nao Matriculado', 2019),
+(8, 'Helena', '8', '8', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Nao Matriculado', 2019),
 (9, 'Jorge', '11', '12', 'nocturno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Nao Matriculado', 2020),
 (11, 'Rosa', '10', '11', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Nao Matriculado', 2020),
-(12, 'Maria', '7', '8', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Nao Matriculado', 2020);
+(12, 'Maria', '7', '8', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Nao Matriculado', 2020),
+(13, 'Euro Euro', '9', '10', 'diurno', 4, 'xÆØ±¡X%H›-è¹XˆÑû', 'Pre Matriculado', 2020);
 
 -- --------------------------------------------------------
 
@@ -393,6 +465,16 @@ CREATE TABLE `candidato_matricula` (
   `codMatr` int(11) NOT NULL,
   `data` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `candidato_matricula`
+--
+
+INSERT INTO `candidato_matricula` (`codCand`, `codMatr`, `data`) VALUES
+(4, 10, '2019-07-19'),
+(5, 10, '2019-07-19'),
+(6, 10, '2019-07-19'),
+(13, 10, '2019-07-21');
 
 -- --------------------------------------------------------
 
@@ -442,12 +524,23 @@ INSERT INTO `classe` (`codClass`, `classe`, `turno`) VALUES
 
 CREATE TABLE `dados_escola_anterior` (
   `codDados` int(11) NOT NULL,
+  `codAl` int(11) NOT NULL,
   `classe_anterior` enum('7','8','9','10','11','12') NOT NULL,
   `turma` varchar(5) NOT NULL,
   `numero` int(11) NOT NULL,
   `ano` year(4) NOT NULL,
   `codEscola` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `dados_escola_anterior`
+--
+
+INSERT INTO `dados_escola_anterior` (`codDados`, `codAl`, `classe_anterior`, `turma`, `numero`, `ano`, `codEscola`) VALUES
+(2, 14, '8', 'A3', 23, 2019, 4),
+(3, 15, '8', 'A3', 23, 2019, 4),
+(5, 17, '8', 'A3', 33, 2018, 4),
+(6, 18, '9', 'A4', 6, 2018, 4);
 
 -- --------------------------------------------------------
 
@@ -484,9 +577,18 @@ CREATE TABLE `encarregado` (
   `nome_completo` varchar(50) NOT NULL,
   `numero_telefone` int(11) NOT NULL,
   `local_trabalho` varchar(50) NOT NULL,
-  `profissao` varchar(50) NOT NULL,
-  `codRes` int(11) NOT NULL
+  `profissao` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `encarregado`
+--
+
+INSERT INTO `encarregado` (`codEnc`, `codAl`, `nome_completo`, `numero_telefone`, `local_trabalho`, `profissao`) VALUES
+(14, 14, 'Mario', 2147483647, 'Cidade de Maputo', 'Pedreiro'),
+(15, 15, 'Mario', 2147483647, 'Cidade de Maputo', 'Pedreiro'),
+(17, 17, 'Candido Barato', 3232455, 'Cidade de Maputo', 'Guarda'),
+(18, 18, 'Ernesto Euro', 848382848, 'Cidade de Maputo', 'Pedreiro');
 
 -- --------------------------------------------------------
 
@@ -507,7 +609,7 @@ CREATE TABLE `escola` (
 --
 
 INSERT INTO `escola` (`codEscola`, `nome_escola`, `nivel`, `tipo`, `coddist`) VALUES
-(4, 'Escola Secundária Quisse Mavota', 'primaria', 'publica', 2);
+(4, 'Escola Secundaria Quisse Mavota', 'primaria', 'publica', 2);
 
 -- --------------------------------------------------------
 
@@ -519,14 +621,24 @@ CREATE TABLE `filiacao` (
   `codFil` int(11) NOT NULL,
   `codAl` int(11) NOT NULL,
   `nome_pai` varchar(50) NOT NULL,
-  `nome_mae` varchar(50) NOT NULL,
   `telefone_pai` int(11) NOT NULL,
-  `telefone_mae` int(11) NOT NULL,
-  `profissao_pai` varchar(50) NOT NULL,
-  `profissao_mae` varchar(50) NOT NULL,
   `local_trabalho_pai` varchar(50) NOT NULL,
-  `local_trabalho_mae` varchar(50) NOT NULL
+  `profissao_pai` varchar(50) NOT NULL,
+  `nome_mae` varchar(50) NOT NULL,
+  `telefone_mae` int(11) NOT NULL,
+  `local_trabalho_mae` varchar(50) NOT NULL,
+  `profissao_mae` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `filiacao`
+--
+
+INSERT INTO `filiacao` (`codFil`, `codAl`, `nome_pai`, `telefone_pai`, `local_trabalho_pai`, `profissao_pai`, `nome_mae`, `telefone_mae`, `local_trabalho_mae`, `profissao_mae`) VALUES
+(14, 14, 'Mario', 842191892, 'Cidade de Maputo', 'Pedreiro', 'Maria', 842993842, 'Cidade de Maputo', 'Domestica'),
+(15, 15, 'Mario', 842191892, 'Cidade de Maputo', 'Pedreiro', 'Maria', 842993842, 'Cidade de Maputo', 'Domestica'),
+(17, 17, 'Candido Barato', 3232455, 'Cidade de Maputo', 'Guarda', 'Paula Barato', 34565676, 'Cidade de Maputo', 'Domestica'),
+(18, 18, 'Ernesto Euro', 34323232, 'Cidade de Maputo', 'Pedreiro', 'Erica', 848484848, 'Cidade de Maputo', 'Enfermeira');
 
 -- --------------------------------------------------------
 
@@ -561,8 +673,9 @@ CREATE TABLE `matricula` (
 INSERT INTO `matricula` (`codMatr`, `dataI`, `dataF`, `estado`, `total_vagas`) VALUES
 (10, '2019-01-03', '2019-03-10', 'Em espera', 1660),
 (11, '2016-07-02', '2018-07-19', 'Em espera', 111),
-(12, '2018-01-16', '2018-03-02', 'Em espera', 177),
-(13, '0000-00-00', '0000-00-00', 'Activa', 73);
+(12, '2016-01-16', '2017-03-02', 'Em espera', 177),
+(13, '0000-00-00', '0000-00-00', 'Activa', 73),
+(14, '2020-01-08', '2020-03-06', 'Em espera', 1050);
 
 -- --------------------------------------------------------
 
@@ -599,7 +712,7 @@ CREATE TABLE `matricula_classe` (
 INSERT INTO `matricula_classe` (`codMatr`, `codClass`, `total_Vagas`, `ano`, `total_vagas_preenchidas`) VALUES
 (10, 1, 200, 2019, 0),
 (10, 2, 250, 2019, 0),
-(10, 3, 100, 2019, 0),
+(10, 3, 100, 2019, 1),
 (10, 4, 130, 2019, 0),
 (10, 5, 130, 2019, 0),
 (10, 6, 150, 2019, 0),
@@ -609,7 +722,7 @@ INSERT INTO `matricula_classe` (`codMatr`, `codClass`, `total_Vagas`, `ano`, `to
 (10, 10, 110, 2019, 0),
 (11, 1, 11, 2019, 0),
 (11, 2, 11, 2019, 0),
-(11, 3, 11, 2019, 0),
+(11, 3, 11, 2019, 1),
 (11, 4, 11, 2019, 0),
 (11, 5, 11, 2019, 0),
 (11, 6, 12, 2019, 0),
@@ -619,7 +732,7 @@ INSERT INTO `matricula_classe` (`codMatr`, `codClass`, `total_Vagas`, `ano`, `to
 (11, 10, 11, 2019, 0),
 (12, 1, 12, 2018, 0),
 (12, 2, 14, 2018, 0),
-(12, 3, 16, 2018, 0),
+(12, 3, 16, 2018, 1),
 (12, 4, 19, 2018, 0),
 (12, 5, 21, 2018, 0),
 (12, 6, 13, 2018, 0),
@@ -629,14 +742,24 @@ INSERT INTO `matricula_classe` (`codMatr`, `codClass`, `total_Vagas`, `ano`, `to
 (12, 10, 30, 2018, 0),
 (13, 1, 4, 0000, 0),
 (13, 2, 10, 0000, 0),
-(13, 3, 3, 0000, 0),
+(13, 3, 3, 0000, 1),
 (13, 4, 2, 0000, 0),
 (13, 5, 10, 0000, 0),
 (13, 6, 7, 0000, 0),
 (13, 7, 7, 0000, 0),
 (13, 8, 1, 0000, 0),
 (13, 9, 18, 0000, 0),
-(13, 10, 11, 0000, 0);
+(13, 10, 11, 0000, 0),
+(14, 1, 200, 2020, 0),
+(14, 2, 100, 2020, 0),
+(14, 3, 150, 2020, 1),
+(14, 4, 100, 2020, 0),
+(14, 5, 150, 2020, 0),
+(14, 6, 50, 2020, 0),
+(14, 7, 50, 2020, 0),
+(14, 8, 100, 2020, 0),
+(14, 9, 50, 2020, 0),
+(14, 10, 100, 2020, 0);
 
 --
 -- Acionadores `matricula_classe`
@@ -684,14 +807,24 @@ CREATE TABLE `pessoa` (
   `codP` int(11) NOT NULL,
   `apelido` varchar(30) NOT NULL,
   `nomes` varchar(50) NOT NULL,
-  `data_nascimento` date NOT NULL,
   `coddist` int(11) NOT NULL,
+  `data_nascimento` date NOT NULL,
   `sexo` enum('M','F','','') NOT NULL,
   `estado_civil` enum('Casado(a)','Solteiro(a)','','') NOT NULL,
   `numero_telefone` int(11) NOT NULL,
   `email` varchar(30) NOT NULL,
   `foto` blob
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `pessoa`
+--
+
+INSERT INTO `pessoa` (`codP`, `apelido`, `nomes`, `coddist`, `data_nascimento`, `sexo`, `estado_civil`, `numero_telefone`, `email`, `foto`) VALUES
+(19, 'Barato', 'Candido', 2, '1999-09-09', 'M', 'Solteiro(a)', 843229480, 'E_tit_u', 0x31323139333231),
+(21, 'Teste', 'Joao', 2, '1999-09-09', 'M', 'Solteiro(a)', 843229480, 'E_tit_u', 0x31323139333231),
+(27, 'Manhice', 'Ricardo', 2, '1999-07-01', 'M', 'Casado(a)', 22222222, 'dder@gmail.com', 0x32333233323332),
+(28, 'Euro', 'Euro', 2, '2000-07-15', 'M', 'Casado(a)', 848484848, 'dddd@gmail.com', 0x32333233323332);
 
 -- --------------------------------------------------------
 
@@ -736,6 +869,16 @@ CREATE TABLE `residencia_encarregado` (
   `av_ou_rua` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `residencia_encarregado`
+--
+
+INSERT INTO `residencia_encarregado` (`codRes`, `codEnc`, `codProv`, `codbairro`, `av_ou_rua`) VALUES
+(14, 14, 1, 2, 'Av. de Mocambique'),
+(15, 15, 1, 2, 'Av. de Mocambique'),
+(17, 17, 1, 2, 'Exemplo'),
+(18, 18, 1, 2, 'Exemplo');
+
 -- --------------------------------------------------------
 
 --
@@ -752,6 +895,16 @@ CREATE TABLE `residencia_pessoa` (
   `nr_casa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `residencia_pessoa`
+--
+
+INSERT INTO `residencia_pessoa` (`codRes`, `codP`, `codProv`, `codbairro`, `av_ou_rua`, `quarteirao`, `nr_casa`) VALUES
+(10, 19, 1, 2, 'Av. de Mocambique', '45', 49),
+(11, 21, 1, 2, 'Av. de Mocambique', '45', 49),
+(16, 27, 1, 2, 'Av. de Mocambique', 'A3', 32),
+(17, 28, 1, 2, 'Av. de Mocambique', 'A3', 23);
+
 -- --------------------------------------------------------
 
 --
@@ -767,6 +920,22 @@ CREATE TABLE `usuario` (
   `codP` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `usuario`
+--
+
+INSERT INTO `usuario` (`codUsuario`, `usuario`, `senha`, `email`, `tipo`, `codP`) VALUES
+(1, 'EuroEuro.sige.ac.mz', 'xÆØ±¡X%H›-è¹XˆÑû', 'dddd@gmail.com', 'aluno', 28);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `alunos_matriculados`
+--
+DROP TABLE IF EXISTS `alunos_matriculados`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `alunos_matriculados`  AS  select `aluno`.`codAl` AS `codal`,concat(`pessoa`.`nomes`,' ',`pessoa`.`apelido`) AS `nome`,`aluno_matricula`.`data` AS `data`,`classe`.`classe` AS `classe` from ((((`aluno` join `pessoa`) join `aluno_matricula`) join `aluno_classe`) join `classe`) where ((`aluno`.`codP` = `pessoa`.`codP`) and (`aluno`.`codAl` = `aluno_matricula`.`codAl`) and (`aluno`.`codAl` = `aluno_classe`.`codAl`) and (`aluno_classe`.`codClass` = `classe`.`codClass`)) ;
+
 -- --------------------------------------------------------
 
 --
@@ -774,7 +943,7 @@ CREATE TABLE `usuario` (
 --
 DROP TABLE IF EXISTS `matriculas_marcadas`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `matriculas_marcadas`  AS  select `classe`.`classe` AS `classe`,`classe`.`turno` AS `turno`,`matricula`.`total_vagas` AS `total_vagas`,`matricula_classe`.`total_vagas_preenchidas` AS `total_vagas_preenchidas`,`matricula_classe`.`ano` AS `ano` from ((`classe` join `matricula`) join `matricula_classe`) where ((`classe`.`codClass` = `matricula_classe`.`codClass`) and (`matricula`.`codMatr` = `matricula_classe`.`codMatr`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `matriculas_marcadas`  AS  select `classe`.`classe` AS `classe`,`classe`.`turno` AS `turno`,`matricula_classe`.`total_Vagas` AS `total_vagas`,`matricula_classe`.`total_vagas_preenchidas` AS `total_vagas_preenchidas`,`matricula_classe`.`ano` AS `ano` from ((`classe` join `matricula`) join `matricula_classe`) where ((`classe`.`codClass` = `matricula_classe`.`codClass`) and (`matricula`.`codMatr` = `matricula_classe`.`codMatr`)) ;
 
 --
 -- Indexes for dumped tables
@@ -785,8 +954,8 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 ALTER TABLE `aluno`
   ADD PRIMARY KEY (`codAl`),
-  ADD KEY `codP` (`codP`),
-  ADD KEY `codCand` (`codCand`);
+  ADD KEY `codCand` (`codCand`),
+  ADD KEY `codP` (`codP`);
 
 --
 -- Indexes for table `aluno_classe`
@@ -848,7 +1017,8 @@ ALTER TABLE `classe`
 --
 ALTER TABLE `dados_escola_anterior`
   ADD PRIMARY KEY (`codDados`),
-  ADD KEY `codEscola` (`codEscola`);
+  ADD KEY `codEscola` (`codEscola`),
+  ADD KEY `codAl` (`codAl`);
 
 --
 -- Indexes for table `distrito`
@@ -862,7 +1032,6 @@ ALTER TABLE `distrito`
 --
 ALTER TABLE `encarregado`
   ADD PRIMARY KEY (`codEnc`),
-  ADD KEY `codRes` (`codRes`),
   ADD KEY `codAl` (`codAl`);
 
 --
@@ -948,7 +1117,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `aluno`
 --
 ALTER TABLE `aluno`
-  MODIFY `codAl` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codAl` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `bairro`
@@ -966,7 +1135,7 @@ ALTER TABLE `classe`
 -- AUTO_INCREMENT for table `dados_escola_anterior`
 --
 ALTER TABLE `dados_escola_anterior`
-  MODIFY `codDados` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codDados` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `distrito`
@@ -978,7 +1147,7 @@ ALTER TABLE `distrito`
 -- AUTO_INCREMENT for table `encarregado`
 --
 ALTER TABLE `encarregado`
-  MODIFY `codEnc` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codEnc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `escola`
@@ -990,13 +1159,13 @@ ALTER TABLE `escola`
 -- AUTO_INCREMENT for table `filiacao`
 --
 ALTER TABLE `filiacao`
-  MODIFY `codFil` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codFil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `matricula`
 --
 ALTER TABLE `matricula`
-  MODIFY `codMatr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `codMatr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `pais`
@@ -1008,7 +1177,7 @@ ALTER TABLE `pais`
 -- AUTO_INCREMENT for table `pessoa`
 --
 ALTER TABLE `pessoa`
-  MODIFY `codP` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `provincia`
@@ -1020,19 +1189,19 @@ ALTER TABLE `provincia`
 -- AUTO_INCREMENT for table `residencia_encarregado`
 --
 ALTER TABLE `residencia_encarregado`
-  MODIFY `codRes` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codRes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `residencia_pessoa`
 --
 ALTER TABLE `residencia_pessoa`
-  MODIFY `codRes` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codRes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `codUsuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -1042,8 +1211,8 @@ ALTER TABLE `usuario`
 -- Limitadores para a tabela `aluno`
 --
 ALTER TABLE `aluno`
-  ADD CONSTRAINT `aluno_ibfk_1` FOREIGN KEY (`codP`) REFERENCES `pessoa` (`codP`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `aluno_ibfk_4` FOREIGN KEY (`codCand`) REFERENCES `candidato_aluno` (`codCand`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `aluno_ibfk_4` FOREIGN KEY (`codCand`) REFERENCES `candidato_aluno` (`codCand`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `aluno_ibfk_5` FOREIGN KEY (`codP`) REFERENCES `pessoa` (`codP`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `aluno_classe`
@@ -1094,7 +1263,8 @@ ALTER TABLE `chefia`
 -- Limitadores para a tabela `dados_escola_anterior`
 --
 ALTER TABLE `dados_escola_anterior`
-  ADD CONSTRAINT `dados_escola_anterior_ibfk_1` FOREIGN KEY (`codEscola`) REFERENCES `escola` (`codEscola`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `dados_escola_anterior_ibfk_1` FOREIGN KEY (`codEscola`) REFERENCES `escola` (`codEscola`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `dados_escola_anterior_ibfk_2` FOREIGN KEY (`codAl`) REFERENCES `aluno` (`codAl`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `distrito`
