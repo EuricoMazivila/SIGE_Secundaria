@@ -16,8 +16,16 @@
 
 
 <div id="container" ></div>
-	<?php// include_once('Grafico-de-bara.php');
+	<?php include_once('Grafico-de-bara.php');
 	?>
+<<<<<<< HEAD
 
+=======
+<!--
+<div id="container" ></div>
+	<?php //include_once('Grafico-de-pizza-vinculo-professor.php');
+	?>
+-->	
+>>>>>>> ae0add6aacd6db15b5d57def977d604be1f52fbe
 </body>
 </html>
