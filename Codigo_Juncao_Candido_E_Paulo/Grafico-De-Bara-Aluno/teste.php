@@ -14,13 +14,10 @@
 <script src="code/modules/series-label.js"></script>
 <script src="code/modules/exporting.js"></script>
 
-<!--
+
 <div id="container" ></div>
-	<?php// include_once('Grafico-de-bara.php');
+	<?php include_once('Grafico-de-bara.php');
 	?>
--->
-<div id="container" ></div>
-	<?php include_once('Grafico-de-pizza-vinculo-professor.php');
-	?>
+
 </body>
 </html>
