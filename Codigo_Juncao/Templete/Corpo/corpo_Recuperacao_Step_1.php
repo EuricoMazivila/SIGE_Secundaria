@@ -16,14 +16,14 @@
                         </div>
 
                         <div class="row mt-2">
-                            <i class="fa fa-mobile"></i><input type="radio" name=""><span class="afa">SMS</span>
+                            <i class="fa fa-mobile"></i><input type="radio" id="smsR" name=""><span class="afa">SMS</span>
                             <fieldset disabled>
                                 <input type="text" class="offset-2" value="+258846050495" name="msg" id="sms">
                             </fieldset>
                         </div>
 
                         <div class="row mt-4">
-                            <i class="fa fa-mail-bulk"></i><input type="radio" name=""><span class="af">E-Mail</span>
+                            <i class="fa fa-mail-bulk"></i><input type="radio" id="mailR" name="mailll"> <span class="af">E-Mail</span>
 
                            <fieldset disabled>
                                 <input type="text" class="offset-1" value="Paulomondlane55@gmail.com" name="maill" id="mail">
