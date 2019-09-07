@@ -6,7 +6,7 @@
 
                 <div class="col-12">
                     <div class="col-12 bemVindo">
-                       <h5 class="text-center titulo">Recuperação de conta</h5>
+                       <h5>Recuperação de conta</h5>
                        <hr>
                     </div>
 

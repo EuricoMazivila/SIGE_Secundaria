@@ -21,6 +21,28 @@
     });
  </script>
 
+ <script>
+    $('#newPass').focusin(function() {
+      $('.us').css("box-shadow","0 0 0 0.2rem rgba(0, 123, 255, 0.25)");
+        
+    });
+
+    $('#newPass').focusout(function() {
+       $('.us').css("box-shadow","none");
+    });
+ </script>
+
+ <script>
+    $('#newPass2').focusin(function() {
+      $('.pass').css("box-shadow","0 0 0 0.2rem rgba(0, 123, 255, 0.25)");
+        
+    });
+
+    $('#newPass2').focusout(function() {
+       $('.pass').css("box-shadow","none");
+    });
+ </script>
+
  
 <script>
 

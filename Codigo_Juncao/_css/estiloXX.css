@@ -20,6 +20,10 @@
     width: 125%;
 }
 
+#password, #newPass, #newPass2 {
+    height: 10px;
+}
+
 .bemVindo{
     margin-top:7%;
     padding: 4%; 
@@ -36,7 +40,6 @@
 .bb{
     border-radius: 10px 10px 10px 10px; 
 }
-
 
 .form-input a{
     width: 30%;

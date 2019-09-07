@@ -11,9 +11,9 @@
                     </div>
 
                     <form class="col-sm-12" method="POST" action="Dao/processa_login.php">
-                        <div class="us form-row mt-3">
+                        <div class="us form-row mt-2">
                             <i class="fa fa-user form-group col-1"></i>
-                            <input class="form-group col-11 log w-50" id="usuario" name="user" required placeholder="Insira o username">
+                            <input class="form-group col-11 log w-50" id="usuario" type="text" name="user" required placeholder="Insira o username">
                         </div>
 
                         <div class="pass form-row mt-4">

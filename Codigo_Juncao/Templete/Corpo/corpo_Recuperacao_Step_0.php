@@ -8,7 +8,8 @@
                 <div class="col-12">
                     <div class="col-12 bemVindoprimeiro">
                         
-                        <h5 class="text-center titulo">Recuperação de conta</h5>
+                        <h5 class="mt-2">Recuperação de conta</h5>
+                        <hr>
                         <p>Este processo ajuda a identifica-lo entre os utilizadores do sistema.</p>
                     </div>
 
