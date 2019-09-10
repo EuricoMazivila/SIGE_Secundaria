@@ -113,7 +113,7 @@
             </div>
         </div>
         <div class="size offset-6">
-            <ul class="lista">
+            <ul class="listaa">
                 <li role="button" id="myBtn" onclick="popup()"><a><i
                             class="fa fa-eraser fa-2x"></i><span>Editar</span></a> </li>
             </ul>

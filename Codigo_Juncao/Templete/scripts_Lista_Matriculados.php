@@ -1,11 +1,11 @@
 
     <script>
-    $('#pesquisar').focusin(function() {
+    $('#nome_aluno').focusin(function() {
       $('.pesq').css("box-shadow","0 0 0 0.2rem rgba(0, 123, 255, 0.25)");
         
     });
 
-    $('#pesquisar').focusout(function() {
+    $('#nome_aluno').focusout(function() {
        $('.pesq').css("box-shadow","none");
     });
   </script>

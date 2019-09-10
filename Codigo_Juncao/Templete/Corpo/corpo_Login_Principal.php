@@ -21,7 +21,7 @@
                             <input class="form-group col-11 log w-50" type ="password" id="password" name="senha" required placeholder="Insira o password">
                         </div>
                     
-                        <button type="submit" class="btn btn-primary" name="login">Entrar</button>
+                        <button type="submit" id = "entrar" class="btn btn-primary" name="login">Entrar</button>
                     </form> 
                 </div>
                 <div class="col-12 esqueceu">

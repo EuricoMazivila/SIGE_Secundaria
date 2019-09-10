@@ -21,10 +21,9 @@
                             <input class="form-group col-11 log w-50" type="password" id="newPass2" name="senha2" required placeholder="Volte a inserir a palavra passe">
                         </div>
                     
-                        <button type="submit" onclick="popup()" class="btn btn-primary" name="save">Salvar</button>
+                        <button type="submit" onclick="popup()" id="submeter" class="btn btn-primary" name="save">Salvar</button>
                     </form> 
                 </div>
-               
             </div>
         </div>
     </div>
@@ -60,6 +59,7 @@
                                 <!-- <button class="btn btn-success text-left" id="salvaPass" type="submit">
                                     <span class="i-color-white"><i class="fa fa-save fa-2x"></i>&nbsp;Salvar</span>
                                 </button>    Quando estiver a trabalhar use esse botao e nao a ancora-->
+                                
                             </div>
                         </div>
 
@@ -68,7 +68,4 @@
                 </div>
             </div>
         </div>
-
-
-
 </div>

@@ -1,7 +1,7 @@
 <div class="row">
     <ol class="breadcrumb col-12">
         <li class="offset-sm-1"><a href="#">Home</a></li>
-        <li><a href="Candidato.php">Gestao de candidatos</a></li>
+        <li><a href="Matricular_Step 0.php">Matricular aluno</a></li>
         <small id="lect">Ano lectivo <?php echo date('Y');?></small>
     </ol>
 </div>
@@ -59,8 +59,8 @@
     </div>
 
     <div class="size offset-6">
-        <ul class="lista">
-            <li role="button" id="myBtn" onclick="popup()"><a href="Matricular_Step_1.php"><i class="fa fa-eraser fa-2x"></i><span>Matricular aluno</span></a> </li>
+        <ul class="listaa">
+           <li role="button" id="myBtn"><a href="Matricular_Step_1.php"><i class="fa fa-eraser fa-2x"></i><span>Matricular aluno</span></a> </li> 
         </ul>
     </div>
 </div>
