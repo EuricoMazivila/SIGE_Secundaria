@@ -21,23 +21,5 @@ class CandidatoAlunoController extends Controller{
   public function prematricula(){
     return view('admin.alunos.candidato_aluno.formulario_prematricula');
   }
-  
-  /*
-  public function candidato(){
-    //$candidatos=Candidato_Aluno::all();
-    $candidatos=Candidato_Aluno::where([
-      'turno' => 'nocturno'
-    ])->get();
-    return view('admin.alunos.candidato_aluno.candidato',compact('candidatos'));   
-  }
-
-  public function registar(){
-    return view('admin.alunos.candidato_aluno.registar');   
-  }
-
-  public function salvar(){
-    echo "Salvo com sucesso";
-  }
-  */
-  
+    
 }

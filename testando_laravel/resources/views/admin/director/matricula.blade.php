@@ -3,7 +3,7 @@
 @section('titulo','Matricula')
 
 @section('menu')
-    @include('includes.menu_Director')
+    @include('includes.main_menu_Director')
 @endsection
 
 @section('caminho')

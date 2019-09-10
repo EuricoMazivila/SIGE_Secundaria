@@ -1,8 +1,9 @@
 <?php
+    /*
     session_start();
     if(!isset($_SESSION['id_usuario'])){
         header('Location: LoginGeral.php');
-    } 
+    } */
     
     $titulo='Sige Moz'; //esse e o titulo
     $metadados='metadados_externo.php';//esse e o metadados

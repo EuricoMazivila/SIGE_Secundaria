@@ -2,7 +2,7 @@
 @section('titulo','Registar Candidato')
 
 @section('menu')
-    @include('includes.menu_Secretaria')
+    @include('includes.main_menu_Secretaria')
 @endsection
 
 @section('caminho')

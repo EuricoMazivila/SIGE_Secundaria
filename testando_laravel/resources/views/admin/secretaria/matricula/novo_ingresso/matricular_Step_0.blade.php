@@ -3,7 +3,7 @@
 @section('titulo','Matricular Passo 0')
 
 @section('menu')
-    @include('includes.menu_Secretaria')
+    @include('includes.main_menu_Secretaria')
 @endsection
     
 @section('caminho')

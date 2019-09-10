@@ -1,9 +1,9 @@
 <div class="main-menu">
     <nav class="navbar navbar-inverse" role="navigation">
-        <div class="navbar-collapse menu-color i-color-white " id="menu-Candidado">
+        <div class="navbar-collapse menu-color i-color-white" id="menu-Candidado">
             <ul class="nav navbar-nav nav-justified " role="menu">
                 <li class="text-left">
-                    <a class="btn btn-default btn-lg btn-block text-left" href="">
+                    <a class="btn btn-default btn-lg btn-block text-left" href="#">
                         <span class="i-color-white">
                             <i class="fa fa-home fa-2x i-tamanho"></i>
                             Home
@@ -11,46 +11,61 @@
                     </a>
                 </li>
                 <li>
-                    <a class=" btn btn-default btn-lg btn-block text-left" href="" role="button">
+                    <a class=" btn btn-default btn-lg btn-block text-left" href="#" role="button">
                         <span class="i-color-white">
                             <i class="fa fa-user-circle fa-2x i-tamanho"></i>
                             Meu perfil
                         </span>
                     </a>
                 </li>
-                <!--Matricula sm-->
+                <li>
+                    <a class=" btn btn-default btn-lg btn-block text-left" href="#" role="button">
+                        <span class="i-color-white">
+                            <i class="fa fa-money-bill-alt fa-2x i-tamanho"></i>
+                            Pagamentos
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a class=" btn btn-default btn-lg btn-block text-left" href="#" role="button">
+                        <span class="i-color-white">
+                            <i class="fa fa-users fa-2x i-tamanho"></i>
+                            Funcionários
+                        </span>
+                    </a>
+                </li>
+                <!--Estatísticas sm-->
                 <div class="menu-sm">
                     <li class="dropdown menu-sm">
                         <a class="btn btn-default btn-lg btn-block text-left dropdown-toggle" data-toggle="dropdown"
-                            href="">
+                            href="#">
                             <span class="i-color-white">
-                                <i class="fa fa-paperclip fa-2x i-tamanho"></i>
-                                Matricula
+                                <i class="fa fa-chart-bar fa-2x i-tamanho"></i>
+                                Estatísticas
                             </span>
                             <span class="caret i-tamanho"></span>
                         </a>
                         <ul class="dropdown-menu navbar-right menu-color" aria-labelledby="dropdownMenu1">
                             <li>
-                                <a class="btn btn-default btn-lg btn-block  text-left" href="{{ route('secretaria.matricular_0') }}">
-                                    <span class="i-color-white"> <i class="fa fa-edit fa-2x i-tamanho"></i>
-
-                                        Matricular Aluno
+                                <a class="btn btn-default btn-lg btn-block  text-left" href="#">
+                                    <span class="i-color-white">
+                                        <i class="fa fa-puzzle-piece fa-2x i-tamanho"></i>
+                                        Gerais
                                     </span>
                                 </a>
                             </li>
                             <li class="has-subnav">
                                 <a class="btn btn-default btn-lg btn-block  text-left" href="">
-                                    <span class="i-color-white"><i class=" fa fa-plus-square fa-2x i-tamanho"></i>
-
-                                        Ver o estado
+                                    <span class="i-color-white"><i class="fa fa-user-friends fa-2x i-tamanho"></i>
+                                        Funcionários
                                     </span>
                                 </a>
                             </li>
                             <li class="has-subnav">
                                 <a class="btn btn-default btn-lg btn-block  text-left" href="">
-                                    <span class="i-color-white"> <i class="fa fa-plus-square fa-2x i-tamanho"></i>
-
-                                        Registar candidato
+                                    <span class="i-color-white">
+                                        <i class="fa fa-pencil-alt fa-2x i-tamanho"></i>
+                                        Alunos
                                     </span>
                                 </a>
                             </li>
@@ -58,136 +73,126 @@
                         </ul>
                     </li>
 
-                    <!--Turma sm-->
+                    <!--Gestão sm-->
                     <li class="dropdown menu-sm">
                         <a class="btn btn-default btn-lg btn-block text-left dropdown-toggle" data-toggle="dropdown"
                             href="">
-                            <span class="i-color-white"> <i class="fa fa-book-open fa-2x i-tamanho"></i>
-                                Turmas
-                                <i class="caret "></i>
+                            <span class="i-color-white">
+                                <i class="fa fa-desktop fa-2x i-tamanho"></i>
+                                Gestão
                             </span>
                             <span class="caret i-tamanho"></span>
                         </a>
                         <ul class="dropdown-menu navbar-right menu-color" aria-labelledby="dropdownMenu1">
                             <li>
-                                <a class="btn btn-default btn-lg btn-block  text-left" href="step0.html">
+                                <a class="btn btn-default btn-lg btn-block  text-left" href="../matricula">
                                     <span class="i-color-white">
-                                        <i class="i-tamanho"> </i>
-                                        Professores
+                                        <i class="fa fa-edit fa-2x i-tamanho"></i>
+                                        Matricula
+                                    </span>
+                                    <span class="caret i-tamanho"></span>
+                                </a>
+                            </li>
+                            <li class="has-subnav">
+                                <a class="btn btn-default btn-lg btn-block  text-left" href="#">
+                                    <span class="i-color-white"><i class="fa fa-plus-square fa-2x i-tamanho"></i>
+                                        Adicionar disciplina
                                     </span>
                                 </a>
                             </li>
                             <li class="has-subnav">
                                 <a class="btn btn-default btn-lg btn-block  text-left" href="">
                                     <span class="i-color-white">
-                                        <i class="i-tamanho"> </i>
-                                        Alunos
+                                        <i class="fa fa-anchor fa-2x i-tamanho"></i>
+                                        Adicionar classe
                                     </span>
                                 </a>
                             </li>
-                            <li class="has-subnav">
-                                <a class="btn btn-default btn-lg btn-block  text-left" href="">
-                                    <span class="i-color-white">
-                                        <i class="i-tamanho"> </i>
-                                        Horarios
-                                    </span>
-                                </a>
-                            </li>
+
                             <li class="divider"></li>
                         </ul>
                     </li>
                 </div>
 
-                <!--Matricula md-->
                 <li class="has-subnav menu-md">
-                    <a class="btn btn-default btn-lg btn-block  text-left" href="#">
+                    <a class="btn btn-default btn-lg btn-block text-left" href="#">
                         <span class="i-color-white">
-                            <i class="fa fa-paperclip fa-2x i-tamanho"></i>
-                            Matricula
+                            <i class="fa fa-chart-bar fa-2x i-tamanho"></i>
+                            Estatísticas
                         </span>
+                        <span class="caret i-tamanho"></span>
                     </a>
-
-                    <ul class="nav navbar-nav nav-justified">
+                    <ul class="nav navbar-nav nav-justified" aria-labelledby="dropdownMenu1">
                         <li>
-                            <a class="btn btn-default btn-lg btn-block  text-left" href="#">
-                                <span class="i-color-white"> <i class="fa fa-edit fa-2x i-tamanho"></i>
-                                    Matricular Aluno
-                                </span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a class="btn btn-default btn-lg btn-block  text-left" href="#">
-                                <span class="i-color-white"><i class=" fa fa-plus-square fa-2x i-tamanho"></i>
-
-                                    Ver o estado
-                                </span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a class="btn btn-default btn-lg btn-block  text-left" href="#">
-                                <span class="i-color-white"> <i class="fa fa-plus-square fa-2x i-tamanho"></i>
-
-                                    Registar candidato
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <!--Turma md-->
-                <li class="has-subnav menu-md">
-                    <a class="btn btn-default btn-lg btn-block  text-left" href="#">
-                        <span class="i-color-white"> <i class="fa fa-book-open fa-2x i-tamanho"></i>
-                            Turmas
-                            <i class="caret "></i>
-                        </span>
-                    </a>
-                    <ul class="nav navbar-nav nav-justified">
-                        <li>
-                            <a class="btn btn-default btn-lg btn-block  text-left" href="step0.html">
+                            <a class="btn btn-default btn-lg btn-block  text-left" href="">
                                 <span class="i-color-white">
-                                    <i class="i-tamanho"> </i>
-                                    Professores
+                                    <i class="fa fa-puzzle-piece fa-2x i-tamanho"></i>
+                                    Gerais
                                 </span>
                             </a>
                         </li>
                         <li class="has-subnav">
-                            <a class="btn btn-default btn-lg btn-block  text-left" href="">
+                            <a class="btn btn-default btn-lg btn-block  text-left" href="#">
                                 <span class="i-color-white">
-                                    <i class="i-tamanho"> </i>
+                                    <i class="fa fa-user-friends fa-2x i-tamanho"></i>
+                                    Funcionários
+                                </span>
+                            </a>
+                        </li>
+                        <li class="has-subnav">
+                            <a class="btn btn-default btn-lg btn-block  text-left" href="#">
+                                <span class="i-color-white">
+                                    <i class="fa fa-pencil-alt fa-2x i-tamanho"></i>
                                     Alunos
                                 </span>
                             </a>
                         </li>
-                        <li class="has-subnav">
-                            <a class="btn btn-default btn-lg btn-block  text-left" href="">
+                        <li class="divider"></li>
+                    </ul>
+                </li>
+
+                <!--Turma md-->
+                <li class="has-subnav menu-md">
+                    <a class="btn btn-default btn-lg btn-block text-left  " href="#">
+                        <span class="i-color-white">
+                            <i class="fa fa-desktop fa-2x i-tamanho"></i>
+                            Gestão
+                            <i class="caret "></i>
+                        </span>
+                        <span class="caret i-tamanho"></span>
+                    </a>
+                    <ul class="nav navbar-nav nav-justified">
+                        <li>
+                            <a class="btn btn-default btn-lg btn-block  text-left" href="../matricula"> <!--Ver bem!-->
                                 <span class="i-color-white">
-                                    <i class="i-tamanho"> </i>
-                                    Horarios
+                                    <i class="fa fa-edit fa-2x i-tamanho"></i>
+                                    Matricula
+                                </span>
+                            </a>
+
+                        </li>
+                        <li class="has-subnav">
+                            <a class="btn btn-default btn-lg btn-block  text-left" href="#">
+                                <span class="i-color-white"><i class="fa fa-plus-square fa-2x i-tamanho"></i>
+                                    Adicionar disciplina
                                 </span>
                             </a>
                         </li>
+                        <li class="has-subnav">
+                            <a class="btn btn-default btn-lg btn-block  text-left" href="#">
+                                <span class="i-color-white">
+                                    <i class="fa fa-anchor fa-2x i-tamanho"></i>
+                                    Adicionar classe
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="divider"></li>
                     </ul>
                 </li>
-                <li>
-                    <a class="btn btn-default btn-lg btn-block  text-left" href="">
-                        <span class="i-color-white">
-                            <i class="fa fa-server fa-2x i-tamanho"></i>
-                            Gerir Horarios
-                        </span>
-                    </a>
-                </li>
-                <li>
 
-                    <a class="btn btn-default btn-lg btn-block  text-left" href="">
-                        <span class="i-color-white"> <i class="fa fa-magic fa-2x i-tamanho"></i>
-                            Operações
-                        </span>
-                    </a>
-                </li>
                 <li>
-                    <a class="btn btn-default btn-lg btn-block  text-left" href="">
+                    <a class="btn btn-default btn-lg btn-block  text-left" href="#">
                         <span class="i-color-white">
                             <i class="fa fa-info fa-2x i-tamanho"></i>
                             Ajuda & Suporte
@@ -195,7 +200,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="btn btn-default btn-lg btn-block  text-left" href="">
+                    <a class="btn btn-default btn-lg btn-block  text-left" href="#">
                         <span class="i-color-white">
                             <i class="fa fa-cogs fa-2x i-tamanho"></i>
                             Definições
@@ -206,7 +211,7 @@
             </ul>
             <ul class="nav navbar-nav nav-justified" role="menu">
                 <li class="logout">
-                    <a class="btn btn-default btn-lg btn-block  text-left" href="">
+                    <a class="btn btn-default btn-lg btn-block  text-left" href="#">
                         <span class="i-color-white"> <i class="fa fa-power-off fa-2x i-tamanho"></i>
                             Logout
                         </span>
@@ -217,4 +222,3 @@
         </div>
     </nav>
 </div>
-

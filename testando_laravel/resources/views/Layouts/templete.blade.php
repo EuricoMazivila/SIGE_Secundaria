@@ -100,7 +100,7 @@
             $('.menuT').fadeToggle(4);
         });
     </script>
-    @stack('scripts')<!--Para adicionar arquivos de javascript particulares    
+    @stack('scripts')<!--Para adicionar arquivos de javascript particulares   !--> 
 
 </body>
 </html>
