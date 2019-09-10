@@ -1,10 +1,11 @@
 <?php
-    $hear='hearRegistoEscola.php';
+    $hear='Autenticar\hearRegistoEscola.php';
     $titulo='Registo Escola'; //esse e o titulo
     $metadados='metadados.php';//esse e o metadados
     $menu='';//esse e o menu
      $corpo='Corpo/addEscola.php';//esse e o corpo
     $navBar='navbar.php';//essa e o nav bar
+   // $navBar='';
     $rodape='footer.php';//especificar a url do footer
     $scriptAdd='scripts_add_candidato.php';
    

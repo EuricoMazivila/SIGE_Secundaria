@@ -1,7 +1,9 @@
 <div class="row">
     <ol class="breadcrumb col-12">
         <li class="offset-sm-1"><a href="#">Home</a></li>
-        <li><a href="Candidato.php">Gestao de candidatos</a></li>
+        <li><a href="Matricular_Step 0.php">Matricular aluno</a></li>
+        <li><a href="Matricular_Step_1.php">Primeiro passo</a></li>
+        <li><a href="Matricular_Step_2.php">Segundo passo</a></li>
         <small id="lect">Ano lectivo <?php echo date('Y');?></small>
     </ol>
 </div>

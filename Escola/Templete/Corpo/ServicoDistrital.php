@@ -1,8 +1,8 @@
 <!--Aqui e continuacao do menuT-->
 <div class="row">
     <ol class="breadcrumb col-12">
-        <li class="offset-sm-1"><a href="#">Home</a></li>
-        <li><a href="Candidato.php">Gestao de DDEJ</a></li>
+        <li class="offset-sm-1"><a href="../">Home</a></li>
+        <li><a href="../ServicosDistrital/">Gestao de DDEJ</a></li>
         <small id="lect">Ano lectivo <?php echo date('Y');?></small>
     </ol>
 </div>
@@ -60,8 +60,8 @@
                 </thead>
                 
                 <tbody id="ResultadoEscolaBusca">
-    <?php include('../Dao\busca.php');
-        dadosTabela($_SESSION['id_dira']);
+    <?php include('../Dao\processa_escola.php');
+        busca_EscolaS();
         ?>
                 </tbody>
             </table>

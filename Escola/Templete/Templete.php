@@ -1,4 +1,4 @@
-﻿    <?php 
+﻿<?php 
     if($hear!='')
     include_once($hear);
 ?>

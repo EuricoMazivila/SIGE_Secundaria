@@ -22,7 +22,7 @@
                          <input type="text" class="form-control bb" id="name" placeholder="Nome de usuário">
                      </div>
                         
-                        <a href="Recuperacao_Step_1.php" class="btn btn-primary" name="recupera">Próximo</a>
+                        <a href="Recuperacao_Step_1.php" class="btn btn-primary next" name="recupera">Próximo</a>
                     </form> 
                 </div>
                 

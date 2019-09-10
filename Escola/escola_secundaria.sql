@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 07, 2019 at 07:37 PM
+-- Generation Time: Sep 10, 2019 at 10:10 AM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.2.9
 
@@ -47,6 +47,15 @@ CREATE TABLE `administradorescola` (
   `Estado` enum('Ativo','Revogado') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `administradorescola`
+--
+
+INSERT INTO `administradorescola` (`id_Escola`, `id_Pessoa`, `Data_Criacao`, `Estado`) VALUES
+(1, 2, '2019-09-10', 'Ativo'),
+(2, 5, '2019-09-10', 'Ativo'),
+(3, 4, '2019-09-04', 'Ativo');
+
 -- --------------------------------------------------------
 
 --
@@ -65,9 +74,9 @@ CREATE TABLE `aluno` (
 --
 
 INSERT INTO `aluno` (`id_Aluno`, `id_Pessoa`, `Classe`, `id_Escola`) VALUES
-(1, 2, 8, 3),
-(2, 3, 8, 4),
-(3, 5, 9, 1);
+(1, 4, 0, 3),
+(2, 5, 0, 3),
+(3, 3, 8, 2);
 
 --
 -- Triggers `aluno`
@@ -102,8 +111,9 @@ CREATE TABLE `aluno_escola` (
 --
 
 INSERT INTO `aluno_escola` (`id_Aluno`, `id_Escola`, `Data_Ingresso`, `ClasseIngresso`, `DataSaida`, `ClasseSaida`, `Estado`) VALUES
-(2, 4, '2019-09-06', 0, '0000-00-00', 0, 'Pendete'),
-(3, 1, '2019-09-06', 9, '2019-09-05', 0, 'Pendete');
+(1, 3, '2019-09-10', 0, '0000-00-00', 0, 'Pendete'),
+(2, 3, '2019-09-10', 0, '0000-00-00', 0, 'Pendete'),
+(3, 2, '2019-09-10', 8, '0000-00-00', 0, 'Pendete');
 
 -- --------------------------------------------------------
 
@@ -177,23 +187,6 @@ CREATE TABLE `dadosalunoescola` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `dadosusuairio`
--- (See below for the actual view)
---
-CREATE TABLE `dadosusuairio` (
-`id_User` int(11)
-,`Username` varchar(40)
-,`Senha` varchar(40)
-,`Email` varchar(100)
-,`Nome` varchar(40)
-,`Apelido` varchar(40)
-,`Email_Pessoal` varchar(60)
-,`Nr_Tell` int(11)
-);
-
--- --------------------------------------------------------
-
---
 -- Stand-in structure for view `dados_acesso_distrito`
 -- (See below for the actual view)
 --
@@ -213,16 +206,51 @@ CREATE TABLE `dados_acesso_distrito` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `dados_escola_user`
+-- Stand-in structure for view `dados_user`
 -- (See below for the actual view)
 --
-CREATE TABLE `dados_escola_user` (
-`id_user` int(11)
-,`id_Escola` int(11)
-,`NivelAcesso` enum('Admin','Professor','Secretaria','Directoria','Convidado','Aluno')
-,`Estado` enum('Ativo','Rescendido')
+CREATE TABLE `dados_user` (
+`id_User` int(11)
+,`Username` varchar(40)
+,`Senha` varchar(40)
+,`Email` varchar(100)
+,`Estado` enum('Ativo','Revogado','Pendente')
+,`DataCriacao` date
+,`Acesso_Distrital` enum('S','N')
+,`Acesso_Escola` enum('S','N')
+,`Acesso_Aluno` enum('S','N')
+,`Acesso_Professor` enum('S','N')
+,`Acesso_Secretaria` enum('S','N')
+,`Acesso_Convidado` enum('S','N')
+,`Acesso_Candidato` enum('S','N')
+,`Acesso_Adminastrivo` enum('S','N')
+,`id_Pessoa` int(11)
+,`Nome` varchar(40)
+,`Apelido` varchar(40)
+,`Sexo` enum('M','F')
+,`Estado_Civil` enum('Casado','Solteiro')
+,`Data_Nasc` date
+,`Email_Pessoal` varchar(100)
+,`Nr_Tell` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `dados_user_escola`
+-- (See below for the actual view)
+--
+CREATE TABLE `dados_user_escola` (
+`id_Escola` int(11)
 ,`Nome` varchar(60)
 ,`Nivel` enum('Primaria','Secundaria','Tecnico','Superio')
+,`Pertenca` enum('Publica','Privada','Comunitaria')
+,`id_dir` int(11)
+,`id_user` int(11)
+,`Estado` enum('Ativo','Rescendido')
+,`Acesso_Ensino` enum('S','N')
+,`Acesso_Avaliacoes` enum('S','N')
+,`Acesso_Disciplina` enum('S','N')
 );
 
 -- --------------------------------------------------------
@@ -337,7 +365,12 @@ INSERT INTO `escola` (`id_Escola`, `id_dir`, `Nome`, `Nivel`, `Pertenca`) VALUES
 (15, 10, 'Laulae', 'Secundaria', 'Comunitaria'),
 (16, 10, 'Infulene', 'Secundaria', 'Publica'),
 (17, 10, 'das Acacias', 'Secundaria', 'Privada'),
-(18, 10, 'Sagrada Familia', 'Secundaria', 'Privada');
+(18, 10, 'Sagrada Familia', 'Secundaria', 'Privada'),
+(19, 10, 'Estrela Vermelha', 'Secundaria', 'Publica'),
+(20, 10, 'Hitacula', 'Secundaria', 'Comunitaria'),
+(21, 3, 'Habel Jafar', 'Primaria', 'Publica'),
+(22, 3, 'Gwava Nr 1', 'Primaria', 'Publica'),
+(23, 10, '1 de maio', 'Primaria', 'Publica');
 
 -- --------------------------------------------------------
 
@@ -391,7 +424,7 @@ CREATE TABLE `pessoa` (
   `Sexo` enum('M','F') NOT NULL DEFAULT 'M',
   `Estado_Civil` enum('Casado','Solteiro') NOT NULL DEFAULT 'Solteiro',
   `Data_Nasc` date NOT NULL,
-  `Email` varchar(60) NOT NULL,
+  `Email_Pessoal` varchar(100) NOT NULL,
   `Nr_Tell` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
@@ -399,52 +432,22 @@ CREATE TABLE `pessoa` (
 -- Dumping data for table `pessoa`
 --
 
-INSERT INTO `pessoa` (`id_Pessoa`, `Nome`, `Apelido`, `Sexo`, `Estado_Civil`, `Data_Nasc`, `Email`, `Nr_Tell`) VALUES
-(2, 'Candido', 'barato', 'M', 'Solteiro', '2019-09-06', 'BaratoCandido@gmail.com', 0),
-(3, 'Nelson', 'Nambe', 'M', 'Solteiro', '2019-09-06', 'BaratoCandido@gmail.com', 0),
-(5, 'Julio', 'Nguambe', 'M', 'Casado', '2019-09-05', 'NguambeJulio@gmail.com', 0),
-(6, 'Paulo', 'Mondlane', 'M', 'Solteiro', '2000-06-01', '', 0),
-(7, 'Euico', 'Mazivila', 'M', 'Solteiro', '1997-09-06', '', 0),
-(8, 'Claudio', 'Bucene', 'M', 'Solteiro', '1998-09-26', '', 0),
-(9, 'Ricardo', 'Manhice', 'M', 'Solteiro', '1995-09-05', '', 0),
-(10, 'Euclesia', 'Cadia', 'M', 'Solteiro', '1996-09-06', '', 0),
-(11, 'Neima', 'Fulano', 'F', 'Casado', '1998-06-01', '', 0);
+INSERT INTO `pessoa` (`id_Pessoa`, `Nome`, `Apelido`, `Sexo`, `Estado_Civil`, `Data_Nasc`, `Email_Pessoal`, `Nr_Tell`) VALUES
+(2, 'Candido', 'Barato', 'M', 'Solteiro', '2000-09-03', 'BaratoCandido@gmail.com', 0),
+(3, 'Eurico', 'Mazivila', 'M', 'Solteiro', '2019-09-02', 'EuricoMazivila@gmail.com', 0),
+(4, 'Paulo', 'Mondlane', 'M', 'Solteiro', '2000-09-01', 'MondlanePaulo@gmail.com', 0),
+(5, 'Claudio', 'Bucene', 'M', 'Solteiro', '1999-09-10', 'BuceneCaludio@gmail.com', 0),
+(6, 'Euclesia', 'Cadia', 'M', 'Solteiro', '1997-12-07', 'EuclesiaCadia@gmail.com', 0),
+(7, 'Ricardo', 'Manhica', 'M', 'Solteiro', '1995-04-03', 'ManhicaRicardo@gmail.com', 0),
+(8, 'Absao', 'Nhatumbo', 'M', 'Solteiro', '1998-06-01', 'AbsalaoNhatumbo', 0);
 
 --
 -- Triggers `pessoa`
 --
 DELIMITER $$
-CREATE TRIGGER `AddUser` AFTER INSERT ON `pessoa` FOR EACH ROW INSERT INTO usuario(id_User,Username,senha,DataCriacao)VALUES(new.id_Pessoa,new.Nome ,new.Apelido, CURRENT_DATE)
+CREATE TRIGGER `AddUser` AFTER INSERT ON `pessoa` FOR EACH ROW INSERT INTO usuario(id_User,Username,senha,email,DataCriacao)VALUES(new.id_Pessoa,new.Nome ,new.Apelido,new.Email_Pessoal, CURRENT_DATE)
 $$
 DELIMITER ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `privilegio_usuario`
---
-
-CREATE TABLE `privilegio_usuario` (
-  `Nivel` varchar(40) NOT NULL,
-  `Criar_Escola` enum('S','N') NOT NULL DEFAULT 'N',
-  `Criar_Usuario` enum('S','N') NOT NULL DEFAULT 'N',
-  `Criar_Turma` enum('S','N') NOT NULL DEFAULT 'N',
-  `Marcar_Tarefas` enum('S','N') NOT NULL DEFAULT 'N',
-  `Marcar_Avaliacao` enum('S','N') NOT NULL DEFAULT 'N',
-  `Lancar_Nota` enum('S','N') NOT NULL DEFAULT 'N',
-  `Consultar_Nota` enum('S','N') NOT NULL DEFAULT 'N'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `privilegio_usuario`
---
-
-INSERT INTO `privilegio_usuario` (`Nivel`, `Criar_Escola`, `Criar_Usuario`, `Criar_Turma`, `Marcar_Tarefas`, `Marcar_Avaliacao`, `Lancar_Nota`, `Consultar_Nota`) VALUES
-('Administrador Escola', 'N', 'N', 'S', 'S', 'N', 'N', 'N'),
-('Aluno', 'N', 'N', 'N', 'N', 'N', 'N', 'S'),
-('Convidado', 'N', 'N', 'N', 'N', 'N', 'N', 'N'),
-('Gerente de Avalicaoes', 'N', 'N', 'N', 'N', 'S', 'S', 'S'),
-('Gerente Distrital', 'S', 'S', 'N', 'S', 'N', 'N', 'N');
 
 -- --------------------------------------------------------
 
@@ -486,8 +489,17 @@ CREATE TABLE `user_distrital_admin` (
 --
 
 INSERT INTO `user_distrital_admin` (`id_user`, `id_Dir`, `Estado`, `Gestao_Escolas`, `Gestao_Operacoes`, `Gestao_Usuarios`) VALUES
-(2, 10, 'Ativo', 'S', 'N', 'N'),
-(3, 3, 'Ativo', 'S', 'N', 'N');
+(2, 3, 'Ativo', 'S', 'S', 'S'),
+(3, 10, 'Ativo', 'N', 'N', 'S'),
+(4, 3, 'Ativo', 'S', 'S', 'S');
+
+--
+-- Triggers `user_distrital_admin`
+--
+DELIMITER $$
+CREATE TRIGGER `Actualizar_Usuario` AFTER INSERT ON `user_distrital_admin` FOR EACH ROW UPDATE `usuario` SET `Acesso_Distrital` = 'S' WHERE `usuario`.`id_User`=new.id_user
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -499,46 +511,26 @@ CREATE TABLE `user_escola` (
   `id_user` int(11) NOT NULL,
   `id_Escola` int(11) NOT NULL,
   `Estado` enum('Ativo','Rescendido') NOT NULL,
-  `NivelAcesso` enum('Admin','Professor','Secretaria','Directoria','Convidado','Aluno') NOT NULL DEFAULT 'Convidado'
+  `Acesso_Ensino` enum('S','N') NOT NULL DEFAULT 'N',
+  `Acesso_Avaliacoes` enum('S','N') NOT NULL DEFAULT 'N',
+  `Acesso_Disciplina` enum('S','N') NOT NULL DEFAULT 'N'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user_escola`
 --
 
-INSERT INTO `user_escola` (`id_user`, `id_Escola`, `Estado`, `NivelAcesso`) VALUES
-(2, 1, 'Ativo', 'Convidado'),
-(2, 1, 'Ativo', 'Directoria'),
-(3, 3, 'Ativo', 'Admin'),
-(3, 2, 'Ativo', 'Professor'),
-(3, 4, 'Ativo', 'Secretaria'),
-(5, 4, 'Ativo', 'Secretaria');
-
--- --------------------------------------------------------
+INSERT INTO `user_escola` (`id_user`, `id_Escola`, `Estado`, `Acesso_Ensino`, `Acesso_Avaliacoes`, `Acesso_Disciplina`) VALUES
+(4, 2, 'Ativo', 'S', 'S', 'S'),
+(5, 3, 'Ativo', 'S', 'S', 'S');
 
 --
--- Table structure for table `user_privilegio`
+-- Triggers `user_escola`
 --
-
-CREATE TABLE `user_privilegio` (
-  `idUser` int(11) NOT NULL,
-  `Tipo` varchar(40) NOT NULL DEFAULT 'Convidado',
-  `Estado` enum('Ativo','Revogado') NOT NULL DEFAULT 'Ativo'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `user_privilegio`
---
-
-INSERT INTO `user_privilegio` (`idUser`, `Tipo`, `Estado`) VALUES
-(5, 'Gerente Distrital', 'Ativo'),
-(5, 'Administrador Escola', 'Ativo'),
-(6, 'Convidado', 'Ativo'),
-(7, 'Convidado', 'Ativo'),
-(8, 'Convidado', 'Ativo'),
-(9, 'Convidado', 'Ativo'),
-(10, 'Convidado', 'Ativo'),
-(11, 'Convidado', 'Ativo');
+DELIMITER $$
+CREATE TRIGGER `Update_Usuario_AcessoEscola` AFTER INSERT ON `user_escola` FOR EACH ROW UPDATE `usuario` SET `Acesso_Escola` = 'S' WHERE `usuario`.`id_User` =new.id_user
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -548,35 +540,33 @@ INSERT INTO `user_privilegio` (`idUser`, `Tipo`, `Estado`) VALUES
 
 CREATE TABLE `usuario` (
   `id_User` int(11) NOT NULL,
-  `Username` varchar(40) NOT NULL,
-  `Senha` varchar(40) NOT NULL,
-  `Email` varchar(100) DEFAULT NULL,
-  `Estado` enum('Ativo','Revogado') NOT NULL,
-  `DataCriacao` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Username` varchar(40) CHARACTER SET latin1 NOT NULL,
+  `Senha` varchar(40) CHARACTER SET latin1 NOT NULL,
+  `Email` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
+  `Estado` enum('Ativo','Revogado','Pendente') CHARACTER SET latin1 NOT NULL DEFAULT 'Ativo',
+  `DataCriacao` date NOT NULL,
+  `Acesso_Distrital` enum('S','N') CHARACTER SET latin1 NOT NULL DEFAULT 'N',
+  `Acesso_Escola` enum('S','N') CHARACTER SET latin1 NOT NULL DEFAULT 'N',
+  `Acesso_Aluno` enum('S','N') CHARACTER SET latin1 NOT NULL DEFAULT 'N',
+  `Acesso_Professor` enum('S','N') CHARACTER SET latin1 NOT NULL DEFAULT 'N',
+  `Acesso_Secretaria` enum('S','N') CHARACTER SET latin1 NOT NULL DEFAULT 'N',
+  `Acesso_Convidado` enum('S','N') CHARACTER SET latin1 NOT NULL DEFAULT 'S',
+  `Acesso_Candidato` enum('S','N') CHARACTER SET latin1 NOT NULL DEFAULT 'N',
+  `Acesso_Adminastrivo` enum('S','N') CHARACTER SET latin1 NOT NULL DEFAULT 'N'
+) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
 --
 -- Dumping data for table `usuario`
 --
 
-INSERT INTO `usuario` (`id_User`, `Username`, `Senha`, `Email`, `Estado`, `DataCriacao`) VALUES
-(2, 'Candido', 'barato', NULL, 'Ativo', '2019-09-06'),
-(3, 'Nelson', 'Nambe', NULL, 'Ativo', '2019-09-06'),
-(5, 'Julio', 'Nguambe', NULL, 'Ativo', '2019-09-06'),
-(6, 'Paulo', 'Mondlane', NULL, 'Ativo', '2019-09-06'),
-(7, 'Euico', 'Mazivila', NULL, 'Ativo', '2019-09-06'),
-(8, 'Claudio', 'Bucene', NULL, 'Ativo', '2019-09-06'),
-(9, 'Ricardo', 'Manhice', NULL, 'Ativo', '2019-09-06'),
-(10, 'Euclesia', 'Cadia', NULL, 'Ativo', '2019-09-06'),
-(11, 'Neima', 'Fulano', NULL, 'Ativo', '2019-09-06');
-
---
--- Triggers `usuario`
---
-DELIMITER $$
-CREATE TRIGGER `AddUserPrivilegio` AFTER INSERT ON `usuario` FOR EACH ROW INSERT INTO `user_privilegio` (`idUser`, `Tipo`, `Estado`) VALUES (new.id_User, 'Convidado', 'Ativo')
-$$
-DELIMITER ;
+INSERT INTO `usuario` (`id_User`, `Username`, `Senha`, `Email`, `Estado`, `DataCriacao`, `Acesso_Distrital`, `Acesso_Escola`, `Acesso_Aluno`, `Acesso_Professor`, `Acesso_Secretaria`, `Acesso_Convidado`, `Acesso_Candidato`, `Acesso_Adminastrivo`) VALUES
+(2, 'Candido', 'Barato', NULL, 'Ativo', '2019-09-09', 'S', 'N', 'N', 'N', 'N', 'S', 'N', 'N'),
+(3, 'Eurico', 'Mazivila', 'EuricoMazivila@gmail.com', 'Ativo', '2019-09-09', 'S', 'S', 'N', 'N', 'N', 'S', 'N', 'N'),
+(4, 'Paulo', 'Mondlane', 'MondlanePaulo@gmail.com', 'Ativo', '2019-09-10', 'S', 'S', 'N', 'N', 'N', 'S', 'N', 'N'),
+(5, 'Claudio', 'Bucene', 'BuceneCaludio@gmail.com', 'Ativo', '2019-09-10', 'N', 'S', 'N', 'N', 'N', 'S', 'N', 'N'),
+(6, 'Euclesia', 'Cadia', 'EuclesiaCadia@gmail.com', 'Ativo', '2019-09-10', 'N', 'N', 'N', 'N', 'N', 'S', 'N', 'N'),
+(7, 'Ricardo', 'Manhica', 'ManhicaRicardo@gmail.com', 'Ativo', '2019-09-10', 'N', 'N', 'N', 'N', 'N', 'S', 'N', 'N'),
+(8, 'Absao', 'Nhatumbo', 'AbsalaoNhatumbo', 'Ativo', '2019-09-10', 'N', 'N', 'N', 'N', 'N', 'S', 'N', 'N');
 
 -- --------------------------------------------------------
 
@@ -585,12 +575,6 @@ DELIMITER ;
 -- (See below for the actual view)
 --
 CREATE TABLE `usuarioacessoescola` (
-`id_user` int(11)
-,`Estado` enum('Ativo','Rescendido')
-,`NivelAcesso` enum('Admin','Professor','Secretaria','Directoria','Convidado','Aluno')
-,`id_Escola` int(11)
-,`Escola` varchar(60)
-,`Nivel` enum('Primaria','Secundaria','Tecnico','Superio')
 );
 
 -- --------------------------------------------------------
@@ -605,15 +589,6 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `dadosusuairio`
---
-DROP TABLE IF EXISTS `dadosusuairio`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `dadosusuairio`  AS  select `usuario`.`id_User` AS `id_User`,`usuario`.`Username` AS `Username`,`usuario`.`Senha` AS `Senha`,`usuario`.`Email` AS `Email`,`pessoa`.`Nome` AS `Nome`,`pessoa`.`Apelido` AS `Apelido`,`pessoa`.`Email` AS `Email_Pessoal`,`pessoa`.`Nr_Tell` AS `Nr_Tell` from (`usuario` join `pessoa`) where (`usuario`.`id_User` = `pessoa`.`id_Pessoa`) ;
-
--- --------------------------------------------------------
-
---
 -- Structure for view `dados_acesso_distrito`
 --
 DROP TABLE IF EXISTS `dados_acesso_distrito`;
@@ -623,11 +598,20 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `dados_escola_user`
+-- Structure for view `dados_user`
 --
-DROP TABLE IF EXISTS `dados_escola_user`;
+DROP TABLE IF EXISTS `dados_user`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `dados_escola_user`  AS  select `user_escola`.`id_user` AS `id_user`,`user_escola`.`id_Escola` AS `id_Escola`,`user_escola`.`NivelAcesso` AS `NivelAcesso`,`user_escola`.`Estado` AS `Estado`,`escola`.`Nome` AS `Nome`,`escola`.`Nivel` AS `Nivel` from (`user_escola` join `escola`) where (`user_escola`.`id_Escola` = `escola`.`id_Escola`) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `dados_user`  AS  select `usuario`.`id_User` AS `id_User`,`usuario`.`Username` AS `Username`,`usuario`.`Senha` AS `Senha`,`usuario`.`Email` AS `Email`,`usuario`.`Estado` AS `Estado`,`usuario`.`DataCriacao` AS `DataCriacao`,`usuario`.`Acesso_Distrital` AS `Acesso_Distrital`,`usuario`.`Acesso_Escola` AS `Acesso_Escola`,`usuario`.`Acesso_Aluno` AS `Acesso_Aluno`,`usuario`.`Acesso_Professor` AS `Acesso_Professor`,`usuario`.`Acesso_Secretaria` AS `Acesso_Secretaria`,`usuario`.`Acesso_Convidado` AS `Acesso_Convidado`,`usuario`.`Acesso_Candidato` AS `Acesso_Candidato`,`usuario`.`Acesso_Adminastrivo` AS `Acesso_Adminastrivo`,`pessoa`.`id_Pessoa` AS `id_Pessoa`,`pessoa`.`Nome` AS `Nome`,`pessoa`.`Apelido` AS `Apelido`,`pessoa`.`Sexo` AS `Sexo`,`pessoa`.`Estado_Civil` AS `Estado_Civil`,`pessoa`.`Data_Nasc` AS `Data_Nasc`,`pessoa`.`Email_Pessoal` AS `Email_Pessoal`,`pessoa`.`Nr_Tell` AS `Nr_Tell` from (`usuario` join `pessoa`) where (`usuario`.`id_User` = `pessoa`.`id_Pessoa`) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `dados_user_escola`
+--
+DROP TABLE IF EXISTS `dados_user_escola`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `dados_user_escola`  AS  select `escola`.`id_Escola` AS `id_Escola`,`escola`.`Nome` AS `Nome`,`escola`.`Nivel` AS `Nivel`,`escola`.`Pertenca` AS `Pertenca`,`escola`.`id_dir` AS `id_dir`,`user_escola`.`id_user` AS `id_user`,`user_escola`.`Estado` AS `Estado`,`user_escola`.`Acesso_Ensino` AS `Acesso_Ensino`,`user_escola`.`Acesso_Avaliacoes` AS `Acesso_Avaliacoes`,`user_escola`.`Acesso_Disciplina` AS `Acesso_Disciplina` from (`escola` join `user_escola`) where (`user_escola`.`id_Escola` = `escola`.`id_Escola`) ;
 
 -- --------------------------------------------------------
 
@@ -726,13 +710,8 @@ ALTER TABLE `pais`
 -- Indexes for table `pessoa`
 --
 ALTER TABLE `pessoa`
-  ADD PRIMARY KEY (`id_Pessoa`);
-
---
--- Indexes for table `privilegio_usuario`
---
-ALTER TABLE `privilegio_usuario`
-  ADD PRIMARY KEY (`Nivel`);
+  ADD PRIMARY KEY (`id_Pessoa`),
+  ADD KEY `Nome` (`Nome`,`Apelido`);
 
 --
 -- Indexes for table `provincia`
@@ -757,17 +736,10 @@ ALTER TABLE `user_escola`
   ADD KEY `id_Escola` (`id_Escola`);
 
 --
--- Indexes for table `user_privilegio`
---
-ALTER TABLE `user_privilegio`
-  ADD KEY `idUser` (`idUser`),
-  ADD KEY `Tipo` (`Tipo`);
-
---
 -- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
-  ADD KEY `id_User` (`id_User`);
+  ADD PRIMARY KEY (`id_User`) USING BTREE;
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -801,7 +773,7 @@ ALTER TABLE `distrito`
 -- AUTO_INCREMENT for table `escola`
 --
 ALTER TABLE `escola`
-  MODIFY `id_Escola` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_Escola` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `pais`
@@ -813,7 +785,7 @@ ALTER TABLE `pais`
 -- AUTO_INCREMENT for table `pessoa`
 --
 ALTER TABLE `pessoa`
-  MODIFY `id_Pessoa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_Pessoa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `provincia`
@@ -902,13 +874,6 @@ ALTER TABLE `user_distrital_admin`
 ALTER TABLE `user_escola`
   ADD CONSTRAINT `user_escola_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id_User`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_escola_ibfk_2` FOREIGN KEY (`id_Escola`) REFERENCES `escola` (`id_Escola`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `user_privilegio`
---
-ALTER TABLE `user_privilegio`
-  ADD CONSTRAINT `user_privilegio_ibfk_2` FOREIGN KEY (`idUser`) REFERENCES `usuario` (`id_User`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_privilegio_ibfk_3` FOREIGN KEY (`Tipo`) REFERENCES `privilegio_usuario` (`Nivel`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `usuario`

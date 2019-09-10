@@ -3,18 +3,20 @@
 
     if(isset($_POST['Entrar'])){
         autenticarUser();
-<<<<<<< HEAD
-=======
-        NivelAcessoUserDistrital();
->>>>>>> 54c6479eed1f40639d268178fe5ea6b56e6139c5
+     
         
 
+    }
+    if(isset($_POST['logout'])){
+        echo "Ah";
+       // session_abort();
+       // header('Location: ../LoginGeral.php');
     }
     function autenticarUser(){
         require_once("conexao.php");
                         
         //Estágio 1: Preparação
-        $query="SELECT * FROM `dadosusuairio` where Username= ? and senha=?";
+        $query="SELECT * FROM `dados_user` WHERE Username=? and Senha=?";
         $stmt=$conexao->prepare($query);
         if(!$stmt){
             echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
@@ -44,28 +46,20 @@
                 $res->data_seek($j);
                 $linha=$res->fetch_assoc();
             session_start();
-            $_SESSION['id_usuario']=$linha['id_User'];
+            $_SESSION['id_User']=$linha['id_User'];
             $_SESSION['nome_usuario']=$linha['Nome']." ".$linha['Apelido'];
-            $_SESSION['email_usuario']=$linha['Email'];
-            echo $linha['Email_Pessoal'];
-       
+            $_SESSION['Acesso_Distrital']=$linha['Acesso_Distrital'];
+            $_SESSION['Acesso_Escola']=$linha['Acesso_Escola'];
+            $_SESSION['Acesso_Aluno']=$linha['Acesso_Aluno'];
+            $_SESSION['Acesso_Professor']=$linha['Acesso_Professor'];
+            $_SESSION['Acesso_Secretaria']=$linha['Acesso_Secretaria'];
+            $_SESSION['Acesso_Convidado']=$linha['Acesso_Convidado'];
+            $_SESSION['Acesso_Candidato']=$linha['Acesso_Candidato'];
+            $_SESSION['Acesso_Adminastrivo']=$linha['Acesso_Adminastrivo'];
+            $_SESSION['Estado']=$linha['Estado'];
             }
-<<<<<<< HEAD
-            $_SESSION['id_dira']=0;
-=======
-            
-            /*$_SESSION['id_dira']=0;
->>>>>>> 54c6479eed1f40639d268178fe5ea6b56e6139c5
-            $_SESSION['acessoGestao']=0;
-            $_SESSION['Secretaria']=0;
-            $_SESSION['acessoDistital']=0;
-            $_SESSION['acessoEscolar']=0;
-<<<<<<< HEAD
-            $_SESSION['nome_Escola']='';
-=======
-            $_SESSION['nome_Escola']='';*/
->>>>>>> 54c6479eed1f40639d268178fe5ea6b56e6139c5
-            header('Location: ../index.php');
+            $_SESSION['Falha_Log']='';
+            header('Location: ../');
         }else{
             session_start();
             $_SESSION['Falha_Log']="Login Falhou Verifica seus dados";
@@ -86,7 +80,7 @@
             echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
         }
         //Estágio 2: Parametros
-        $id_user= filtraEntrada($conexao,$_SESSION['id_usuario']);
+        $id_user= filtraEntrada($conexao,$_SESSION['id_User']);
         $Estado= filtraEntrada($conexao,'Ativo');
         $bind=$stmt->bind_param("is", $id_user, $Estado);
         if(!$bind){
@@ -110,11 +104,7 @@
             for($j=0; $j<$linhas; ++$j){
                 $res->data_seek($j);
                 $linha=$res->fetch_assoc();
-<<<<<<< HEAD
-            session_start();
-=======
   
->>>>>>> 54c6479eed1f40639d268178fe5ea6b56e6139c5
             $_SESSION['id_dira']= $linha['id_Dir'];
             $_SESSION['nome_Distrito']="Direcao Distrital de ".$linha['Designacao'];
             $_SESSION['Acesso_Escola']=$linha['Gestao_Escolas'];
@@ -124,7 +114,7 @@
            
            // header('Location: ../ServicosDistrital/Index.php');
         }else{
-            session_start();
+            
             $_SESSION['nome_Distrito']='';
             $_SESSION['Acesso_Escola']='N';
             $_SESSION['Acesso_Operacoes']='N';
@@ -135,5 +125,53 @@
         $stmt->close();
         $conexao->close();
         
+    }
+
+    function NivelAcessoUserEscola(){
+        require_once("conexao.php");
+        $query="SELECT * FROM `dados_user_escola` WHERE id_user=? and Estado=?";
+        $stmt=$conexao->prepare($query);
+        if(!$stmt){
+            echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
+        }
+        //Estágio 2: Parametros
+        $id_user= filtraEntrada($conexao,$_SESSION['id_User']);
+        $Estado= filtraEntrada($conexao,'Ativo');
+        $bind=$stmt->bind_param("is", $id_user, $Estado);
+        if(!$bind){
+            echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;
+        }
+        
+        // Estágio 3: execução
+        if(!$stmt->execute()){
+            echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
+        }
+
+        // Estágio 4: Obtenção de dados    
+        $res=$stmt->get_result();
+        if(!$res){
+            echo "A Obtenção do conjunto de resultados falhou: (" . $stmt->errno . ")" . $stmt->error;
+        }
+
+        $linhas=$res->num_rows;
+        $_SESSION['acessoEscolas']=$linhas;
+        if($linhas>0){
+            for($j=0; $j<$linhas; ++$j){
+                $res->data_seek($j);
+                $linha=$res->fetch_assoc();
+           
+            $_SESSION['id_Escola']= $linha['id_Escola'];
+            $_SESSION['nome_Escola']="Escola ".$linha['Nivel'].' '.$linha['Nome'];
+            $_SESSION['Acesso_Ensino']=$linha['Acesso_Ensino'];
+            $_SESSION['Acesso_Avaliacoes']=$linha['Acesso_Avaliacoes'];
+            $_SESSION['Acesso_Disciplina']=$linha['Acesso_Disciplina'];
+            }
+           
+           // header('Location: ../ServicosDistrital/Index.php');
+        }
+        
+        
+        $stmt->close();
+        $conexao->close();
     }
   ?>
