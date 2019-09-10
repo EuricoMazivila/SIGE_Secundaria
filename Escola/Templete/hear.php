@@ -6,8 +6,6 @@
      }else{
        if($_SESSION['acessoGestao']=0){
         header('Location: Templete\SemAcesso.php');
-     }else{
-       echo "Bem Vindo";
      }
     }
 ?>

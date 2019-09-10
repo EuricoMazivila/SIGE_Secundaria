@@ -8,7 +8,10 @@
     </ol>
 </div>
 <div class="page-header" id="top">
-        <h3 class="mt-2 offset-sm-1">Gestão de Alunos</h3>
+        <h3 class="mt-2 offset-sm-1">Gestão de Alunos<?php 
+  
+  echo ' da '.$_SESSION['nome_Escola'];?></h3>
+  <hr>
         <hr>
 
     </div>
@@ -20,19 +23,19 @@
             <div class="col-10 offset-1 offset-sm-0 col-sm-4 mt-4 ">
                 <a class="btn btn-primary btn-block" href="Ensino/Aluno">
                     <span class="i-color-white">
-                        <i class="fa fa-window-close"></i>Alunos</span></a>
+                        <i class="fa fa-window-close"></i>Registar</span></a>
                 </a>
             </div>
             <div class="col-10 offset-1 offset-sm-0 col-sm-4 mt-4">
                 <a class="btn btn-dark btn-block " href="Ensino">
                     <span class="i-color-white">
-                        <i class="fa fa-window-close"></i>Ensino</span></a>
+                        <i class="fa fa-window-close"></i>Explorar</span></a>
                 </a>
             </div>
             <div class="col-10 offset-1 offset-sm-0 col-sm-4 mt-4">
                 <a class="btn btn-primary btn-block " href="Ensino/Professor">
                     <span class="i-color-white">
-                        <i class="fa fa-window-close"></i>Professores</span></a>
+                        <i class="fa fa-window-close"></i>Matricular</span></a>
                 </a>
             </div>
             <div class="col-10 offset-1 offset-sm-0 col-sm-4 mt-4">
@@ -69,55 +72,14 @@
                         <th>Estado</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <?php   
-                        require_once("../../Dao/conexao.php");
-                        
-                        //Estágio 1: Preparação
-                        $query="SELECT id_Aluno,Nome, Apelido, ClasseIngresso, YEAR(Data_Ingresso) as 'Ano_I', ClasseSaida, YEAR(DataSaida) as 'Ano_S', Escola, Estado FROM `dadosalunoescola`";
-                        $stmt=$conexao->prepare($query);
-                        if(!$stmt){
-                            echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
-                        }
-                
-                        // Estágio 2: execução
-                        if(!$stmt->execute()){
-                            echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
-                        }
-                
-                        // Estágio 3: Obtenção de dados    
-                        $res=$stmt->get_result();
-                        if(!$res){
-                            echo "A Obtenção do conjunto de resultados falhou: (" . $stmt->errno . ")" . $stmt->error;
-                        }
-            
-                        $linhas=$res->num_rows;
-                    
-                        for($j=0; $j<$linhas; ++$j){
-                            $res->data_seek($j);
-                            $linha=$res->fetch_assoc();
-                    ?>
-                    <tr>
-                        <td><?php echo $linha['id_Aluno']?></td>
-                        <td><?php echo $linha['Nome']." ".$linha['Apelido']?></td>
-                        <td><?php echo $linha['Ano_I']?></td>
-                        <td><?php echo $linha['ClasseIngresso']?></td>
-                        <td><?php echo $linha['Ano_S']?></td>
-                        <td><?php echo $linha['ClasseSaida']?></td>
-                        <td><?php echo $linha['Estado']?></td>
-                    </tr>
-                    <?php 
-                        } 
-                        $stmt->close();
-                        $conexao->close();
-                        
+                <tbody id="ResultadoEscolaBusca">
+                     <?php 
+                    require_once('../../Dao/processa_aluno.php');
+                    busca_Alunos();
                     ?>
                 </tbody>
             </table>
         </div>
-
-
-
     </div>
 </div>
 <!--Deve-se Organizar este codigo -->

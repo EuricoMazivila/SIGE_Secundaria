@@ -22,13 +22,17 @@
                     <input type="password" name="Senha" id="Senha" class="form-control" 
                         placeholder="Introduza a Senha">
                     <div class="help-block with-errors"></div>
-                    <div class="help-block with-errors"></div>
                 </div>
+                
             </div>
+            <div class="help-block with-errors col-sm-6 offset-sm-3 "> <span><?php session_start();
+                echo $_SESSION['Falha_Log'];
+                ?>
+                </span></div>
 
             <div class="row mt-5">
                 <div class="col-sm-4 offset-sm-2">
-                    <a class="btn btn-danger " href="Candidato.php">
+                    <a class="btn btn-danger " href="../Escola/">
                         <span class="i-color-white">
                             <i class="fa fa-window-close"></i>Cancelar </span></a>
                     </a>

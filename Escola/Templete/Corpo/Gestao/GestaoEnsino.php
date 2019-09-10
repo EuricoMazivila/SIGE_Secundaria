@@ -1,14 +1,16 @@
 <!--Aqui e continuacao do menuT-->
 <div class="row">
     <ol class="breadcrumb col-12">
-        <li class="offset-sm-1"><a href="#">Escola</a></li>
+        <li class="offset-sm-1"><a href="../">Escola</a></li>
         <li><a href="../Ensino">Ensino</a></li>
        
         <small id="lect">Ano lectivo <?php echo date('Y');?></small>
     </ol>
 </div>
 <div class="page-header" id="top">
-        <h3 class="mt-2 offset-sm-1">Gestão do Ensino</h3>
+        <h3 class="mt-2 offset-sm-1">Gestão do Ensino <?php 
+  
+        echo 'na '.$_SESSION['nome_Escola'];?></h3>
         <hr>
 
     </div>
@@ -48,7 +50,7 @@
                 </a>
             </div>
             <div class="col-10 offset-1 offset-sm-0 col-sm-4 mt-4">
-                <a class="btn btn-success btn-block  estloBtn" href="Avalicoes">
+                <a class="btn btn-success btn-block  estloBtn" href="Avaliacoes">
                     <span class="i-color-white">
                         <i class="fa fa-window-close"></i>Avaliacoes</span></a>
                 </a>

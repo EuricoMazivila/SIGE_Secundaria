@@ -10,14 +10,14 @@
 <div class="container">
 
     <div class="page-header" id="top">
-        <h3 class="mt-2 offset-sm-1">Registar de Escola</h3>
+        <h3 class="mt-2 offset-sm-1">Registar de Escola <?php echo 'na '.$_SESSION['nome_Distrito'];?></h3>
         <hr>
 
     </div>
    
     <div class="container">
         <form method="POST" role="form" action="../Dao/processa_escola.php">
-        <input class="ocultar"type="number" name="idDir" id="idDir"value=<?php echo  $_SESSION['id_dira'];?>>
+        
    
         <div class="form-row">
 
@@ -73,7 +73,7 @@
                         <label for="BairroEscola">Bairro Localizacao</label>
                         <select class="form-control" id="BairroEscola" name="BairroEscola">
                         <?php include('../Dao\busca.php');
-                            dadosBairos($_SESSION['id_dira']);
+                            dadosBairos();
                         ?>
                         </select>
                         <div class="help-block with-errors"></div>
