@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 10, 2019 at 10:10 AM
--- Server version: 10.1.35-MariaDB
--- PHP Version: 7.2.9
+-- Generation Time: 12-Set-2019 às 18:06
+-- Versão do servidor: 10.1.34-MariaDB
+-- PHP Version: 7.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -37,7 +37,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `administradorescola`
+-- Estrutura da tabela `administradorescola`
 --
 
 CREATE TABLE `administradorescola` (
@@ -48,7 +48,7 @@ CREATE TABLE `administradorescola` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `administradorescola`
+-- Extraindo dados da tabela `administradorescola`
 --
 
 INSERT INTO `administradorescola` (`id_Escola`, `id_Pessoa`, `Data_Criacao`, `Estado`) VALUES
@@ -59,7 +59,7 @@ INSERT INTO `administradorescola` (`id_Escola`, `id_Pessoa`, `Data_Criacao`, `Es
 -- --------------------------------------------------------
 
 --
--- Table structure for table `aluno`
+-- Estrutura da tabela `aluno`
 --
 
 CREATE TABLE `aluno` (
@@ -70,16 +70,19 @@ CREATE TABLE `aluno` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `aluno`
+-- Extraindo dados da tabela `aluno`
 --
 
 INSERT INTO `aluno` (`id_Aluno`, `id_Pessoa`, `Classe`, `id_Escola`) VALUES
-(1, 4, 0, 3),
+(1, 4, 8, 3),
 (2, 5, 0, 3),
-(3, 3, 8, 2);
+(3, 3, 8, 2),
+(4, 6, 10, 2),
+(5, 7, 9, 1),
+(6, 2, 0, 4);
 
 --
--- Triggers `aluno`
+-- Acionadores `aluno`
 --
 DELIMITER $$
 CREATE TRIGGER `AddAlunoEscola` AFTER INSERT ON `aluno` FOR EACH ROW INSERT INTO aluno_escola (id_Aluno,id_Escola,Data_Ingresso,aluno_escola.ClasseIngresso) VALUES (new.id_Aluno,new.id_Escola,CURRENT_DATE,new.Classe)
@@ -93,7 +96,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `aluno_escola`
+-- Estrutura da tabela `aluno_escola`
 --
 
 CREATE TABLE `aluno_escola` (
@@ -107,18 +110,21 @@ CREATE TABLE `aluno_escola` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `aluno_escola`
+-- Extraindo dados da tabela `aluno_escola`
 --
 
 INSERT INTO `aluno_escola` (`id_Aluno`, `id_Escola`, `Data_Ingresso`, `ClasseIngresso`, `DataSaida`, `ClasseSaida`, `Estado`) VALUES
-(1, 3, '2019-09-10', 0, '0000-00-00', 0, 'Pendete'),
+(1, 3, '2019-09-10', 0, '2019-09-10', 0, 'Pendete'),
 (2, 3, '2019-09-10', 0, '0000-00-00', 0, 'Pendete'),
-(3, 2, '2019-09-10', 8, '0000-00-00', 0, 'Pendete');
+(3, 2, '2019-09-10', 8, '0000-00-00', 0, 'Pendete'),
+(4, 2, '2019-09-10', 10, '0000-00-00', 0, 'Pendete'),
+(5, 1, '2019-09-10', 9, '0000-00-00', 0, 'Pendete'),
+(6, 4, '2019-09-10', 0, '0000-00-00', 0, 'Pendete');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bairro`
+-- Estrutura da tabela `bairro`
 --
 
 CREATE TABLE `bairro` (
@@ -128,7 +134,7 @@ CREATE TABLE `bairro` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `bairro`
+-- Extraindo dados da tabela `bairro`
 --
 
 INSERT INTO `bairro` (`id_Bairro`, `id_Distriro`, `Nome`) VALUES
@@ -142,7 +148,7 @@ INSERT INTO `bairro` (`id_Bairro`, `id_Distriro`, `Nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cargo_directivo`
+-- Estrutura da tabela `cargo_directivo`
 --
 
 CREATE TABLE `cargo_directivo` (
@@ -152,7 +158,7 @@ CREATE TABLE `cargo_directivo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `cargo_directivo`
+-- Extraindo dados da tabela `cargo_directivo`
 --
 
 INSERT INTO `cargo_directivo` (`id_Cargo`, `Descricao`, `Nivel`) VALUES
@@ -160,29 +166,6 @@ INSERT INTO `cargo_directivo` (`id_Cargo`, `Descricao`, `Nivel`) VALUES
 (2, 'Directo Pedagogico', 'Principal'),
 (3, 'Director Financeiro', 'Principal'),
 (4, 'Director do Recursos Humanos', 'Principal');
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `dadosalunoescola`
--- (See below for the actual view)
---
-CREATE TABLE `dadosalunoescola` (
-`id_Aluno` int(11)
-,`id_Pessoa` int(11)
-,`id_Escola` int(11)
-,`Nome` varchar(40)
-,`Apelido` varchar(40)
-,`Sexo` enum('M','F')
-,`Escola` varchar(60)
-,`Nivel` enum('Primaria','Secundaria','Tecnico','Superio')
-,`Classe` tinyint(4)
-,`Data_Ingresso` date
-,`ClasseIngresso` tinyint(4)
-,`Estado` enum('Ativo','Transferido','Expulso','Pendete')
-,`DataSaida` date
-,`ClasseSaida` tinyint(4)
-);
 
 -- --------------------------------------------------------
 
@@ -201,6 +184,24 @@ CREATE TABLE `dados_acesso_distrito` (
 ,`Designacao` varchar(40)
 ,`Total_Escola` int(11)
 ,`Data_Criacao` date
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `dados_aluno_escola`
+-- (See below for the actual view)
+--
+CREATE TABLE `dados_aluno_escola` (
+`id_Aluno` int(11)
+,`Nome` varchar(40)
+,`Apelido` varchar(40)
+,`id_Escola` int(11)
+,`Data_Ingresso` date
+,`ClasseIngresso` tinyint(4)
+,`DataSaida` date
+,`ClasseSaida` tinyint(4)
+,`Estado` enum('Ativo','Transferido','Expulso','Pendete')
 );
 
 -- --------------------------------------------------------
@@ -256,7 +257,7 @@ CREATE TABLE `dados_user_escola` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `direcao_distrital_educacao`
+-- Estrutura da tabela `direcao_distrital_educacao`
 --
 
 CREATE TABLE `direcao_distrital_educacao` (
@@ -267,7 +268,7 @@ CREATE TABLE `direcao_distrital_educacao` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `direcao_distrital_educacao`
+-- Extraindo dados da tabela `direcao_distrital_educacao`
 --
 
 INSERT INTO `direcao_distrital_educacao` (`id_Distrito`, `Designacao`, `Total_Escola`, `Data_Criacao`) VALUES
@@ -277,7 +278,7 @@ INSERT INTO `direcao_distrital_educacao` (`id_Distrito`, `Designacao`, `Total_Es
 -- --------------------------------------------------------
 
 --
--- Table structure for table `direcao_escola`
+-- Estrutura da tabela `direcao_escola`
 --
 
 CREATE TABLE `direcao_escola` (
@@ -289,7 +290,7 @@ CREATE TABLE `direcao_escola` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `direcao_escola`
+-- Extraindo dados da tabela `direcao_escola`
 --
 
 INSERT INTO `direcao_escola` (`id_Escola`, `id_Cargo`, `id_Func`, `Estado`, `Data_Inicio`) VALUES
@@ -298,7 +299,7 @@ INSERT INTO `direcao_escola` (`id_Escola`, `id_Cargo`, `id_Func`, `Estado`, `Dat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `direcao_provincial_educacao`
+-- Estrutura da tabela `direcao_provincial_educacao`
 --
 
 CREATE TABLE `direcao_provincial_educacao` (
@@ -311,7 +312,7 @@ CREATE TABLE `direcao_provincial_educacao` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `distrito`
+-- Estrutura da tabela `distrito`
 --
 
 CREATE TABLE `distrito` (
@@ -321,7 +322,7 @@ CREATE TABLE `distrito` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `distrito`
+-- Extraindo dados da tabela `distrito`
 --
 
 INSERT INTO `distrito` (`id_distrito`, `id_Prov`, `Nome`) VALUES
@@ -339,7 +340,7 @@ INSERT INTO `distrito` (`id_distrito`, `id_Prov`, `Nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `escola`
+-- Estrutura da tabela `escola`
 --
 
 CREATE TABLE `escola` (
@@ -351,7 +352,7 @@ CREATE TABLE `escola` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `escola`
+-- Extraindo dados da tabela `escola`
 --
 
 INSERT INTO `escola` (`id_Escola`, `id_dir`, `Nome`, `Nivel`, `Pertenca`) VALUES
@@ -375,7 +376,7 @@ INSERT INTO `escola` (`id_Escola`, `id_dir`, `Nome`, `Nivel`, `Pertenca`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `localizacao_escola`
+-- Estrutura da tabela `localizacao_escola`
 --
 
 CREATE TABLE `localizacao_escola` (
@@ -387,7 +388,7 @@ CREATE TABLE `localizacao_escola` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `localizacao_escola`
+-- Extraindo dados da tabela `localizacao_escola`
 --
 
 INSERT INTO `localizacao_escola` (`id_Escola`, `id_Bairro`, `Nr`, `Quarterao`, `Avenida`) VALUES
@@ -396,7 +397,7 @@ INSERT INTO `localizacao_escola` (`id_Escola`, `id_Bairro`, `Nr`, `Quarterao`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pais`
+-- Estrutura da tabela `pais`
 --
 
 CREATE TABLE `pais` (
@@ -405,7 +406,7 @@ CREATE TABLE `pais` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `pais`
+-- Extraindo dados da tabela `pais`
 --
 
 INSERT INTO `pais` (`id_Pais`, `Nome`) VALUES
@@ -414,7 +415,7 @@ INSERT INTO `pais` (`id_Pais`, `Nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pessoa`
+-- Estrutura da tabela `pessoa`
 --
 
 CREATE TABLE `pessoa` (
@@ -429,7 +430,7 @@ CREATE TABLE `pessoa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
 --
--- Dumping data for table `pessoa`
+-- Extraindo dados da tabela `pessoa`
 --
 
 INSERT INTO `pessoa` (`id_Pessoa`, `Nome`, `Apelido`, `Sexo`, `Estado_Civil`, `Data_Nasc`, `Email_Pessoal`, `Nr_Tell`) VALUES
@@ -442,7 +443,7 @@ INSERT INTO `pessoa` (`id_Pessoa`, `Nome`, `Apelido`, `Sexo`, `Estado_Civil`, `D
 (8, 'Absao', 'Nhatumbo', 'M', 'Solteiro', '1998-06-01', 'AbsalaoNhatumbo', 0);
 
 --
--- Triggers `pessoa`
+-- Acionadores `pessoa`
 --
 DELIMITER $$
 CREATE TRIGGER `AddUser` AFTER INSERT ON `pessoa` FOR EACH ROW INSERT INTO usuario(id_User,Username,senha,email,DataCriacao)VALUES(new.id_Pessoa,new.Nome ,new.Apelido,new.Email_Pessoal, CURRENT_DATE)
@@ -452,7 +453,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `provincia`
+-- Estrutura da tabela `provincia`
 --
 
 CREATE TABLE `provincia` (
@@ -462,7 +463,7 @@ CREATE TABLE `provincia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `provincia`
+-- Extraindo dados da tabela `provincia`
 --
 
 INSERT INTO `provincia` (`id_Prov`, `id_Pais`, `Nome`) VALUES
@@ -472,7 +473,7 @@ INSERT INTO `provincia` (`id_Prov`, `id_Pais`, `Nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_distrital_admin`
+-- Estrutura da tabela `user_distrital_admin`
 --
 
 CREATE TABLE `user_distrital_admin` (
@@ -485,16 +486,16 @@ CREATE TABLE `user_distrital_admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user_distrital_admin`
+-- Extraindo dados da tabela `user_distrital_admin`
 --
 
 INSERT INTO `user_distrital_admin` (`id_user`, `id_Dir`, `Estado`, `Gestao_Escolas`, `Gestao_Operacoes`, `Gestao_Usuarios`) VALUES
 (2, 3, 'Ativo', 'S', 'S', 'S'),
-(3, 10, 'Ativo', 'N', 'N', 'S'),
+(3, 10, 'Ativo', 'S', 'N', 'S'),
 (4, 3, 'Ativo', 'S', 'S', 'S');
 
 --
--- Triggers `user_distrital_admin`
+-- Acionadores `user_distrital_admin`
 --
 DELIMITER $$
 CREATE TRIGGER `Actualizar_Usuario` AFTER INSERT ON `user_distrital_admin` FOR EACH ROW UPDATE `usuario` SET `Acesso_Distrital` = 'S' WHERE `usuario`.`id_User`=new.id_user
@@ -504,7 +505,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_escola`
+-- Estrutura da tabela `user_escola`
 --
 
 CREATE TABLE `user_escola` (
@@ -517,7 +518,7 @@ CREATE TABLE `user_escola` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user_escola`
+-- Extraindo dados da tabela `user_escola`
 --
 
 INSERT INTO `user_escola` (`id_user`, `id_Escola`, `Estado`, `Acesso_Ensino`, `Acesso_Avaliacoes`, `Acesso_Disciplina`) VALUES
@@ -525,7 +526,7 @@ INSERT INTO `user_escola` (`id_user`, `id_Escola`, `Estado`, `Acesso_Ensino`, `A
 (5, 3, 'Ativo', 'S', 'S', 'S');
 
 --
--- Triggers `user_escola`
+-- Acionadores `user_escola`
 --
 DELIMITER $$
 CREATE TRIGGER `Update_Usuario_AcessoEscola` AFTER INSERT ON `user_escola` FOR EACH ROW UPDATE `usuario` SET `Acesso_Escola` = 'S' WHERE `usuario`.`id_User` =new.id_user
@@ -535,7 +536,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estrutura da tabela `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -556,7 +557,7 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
 --
--- Dumping data for table `usuario`
+-- Extraindo dados da tabela `usuario`
 --
 
 INSERT INTO `usuario` (`id_User`, `Username`, `Senha`, `Email`, `Estado`, `DataCriacao`, `Acesso_Distrital`, `Acesso_Escola`, `Acesso_Aluno`, `Acesso_Professor`, `Acesso_Secretaria`, `Acesso_Convidado`, `Acesso_Candidato`, `Acesso_Adminastrivo`) VALUES
@@ -571,29 +572,20 @@ INSERT INTO `usuario` (`id_User`, `Username`, `Senha`, `Email`, `Estado`, `DataC
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `usuarioacessoescola`
--- (See below for the actual view)
---
-CREATE TABLE `usuarioacessoescola` (
-);
-
--- --------------------------------------------------------
-
---
--- Structure for view `dadosalunoescola`
---
-DROP TABLE IF EXISTS `dadosalunoescola`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `dadosalunoescola`  AS  select `aluno`.`id_Aluno` AS `id_Aluno`,`pessoa`.`id_Pessoa` AS `id_Pessoa`,`escola`.`id_Escola` AS `id_Escola`,`pessoa`.`Nome` AS `Nome`,`pessoa`.`Apelido` AS `Apelido`,`pessoa`.`Sexo` AS `Sexo`,`escola`.`Nome` AS `Escola`,`escola`.`Nivel` AS `Nivel`,`aluno`.`Classe` AS `Classe`,`aluno_escola`.`Data_Ingresso` AS `Data_Ingresso`,`aluno_escola`.`ClasseIngresso` AS `ClasseIngresso`,`aluno_escola`.`Estado` AS `Estado`,`aluno_escola`.`DataSaida` AS `DataSaida`,`aluno_escola`.`ClasseSaida` AS `ClasseSaida` from (((`aluno` join `pessoa`) join `escola`) join `aluno_escola`) where ((`aluno`.`id_Pessoa` = `pessoa`.`id_Pessoa`) and (`aluno`.`id_Escola` = `escola`.`id_Escola`) and (`aluno`.`id_Escola` = `aluno_escola`.`id_Escola`) and (`aluno`.`id_Aluno` = `aluno_escola`.`id_Aluno`)) ;
-
--- --------------------------------------------------------
-
---
 -- Structure for view `dados_acesso_distrito`
 --
 DROP TABLE IF EXISTS `dados_acesso_distrito`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `dados_acesso_distrito`  AS  select `user_distrital_admin`.`id_user` AS `id_user`,`user_distrital_admin`.`id_Dir` AS `id_Dir`,`user_distrital_admin`.`Estado` AS `Estado`,`user_distrital_admin`.`Gestao_Escolas` AS `Gestao_Escolas`,`user_distrital_admin`.`Gestao_Operacoes` AS `Gestao_Operacoes`,`user_distrital_admin`.`Gestao_Usuarios` AS `Gestao_Usuarios`,`direcao_distrital_educacao`.`id_Distrito` AS `id_Distrito`,`direcao_distrital_educacao`.`Designacao` AS `Designacao`,`direcao_distrital_educacao`.`Total_Escola` AS `Total_Escola`,`direcao_distrital_educacao`.`Data_Criacao` AS `Data_Criacao` from (`user_distrital_admin` join `direcao_distrital_educacao`) where (`user_distrital_admin`.`id_Dir` = `direcao_distrital_educacao`.`id_Distrito`) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `dados_aluno_escola`
+--
+DROP TABLE IF EXISTS `dados_aluno_escola`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `dados_aluno_escola`  AS  select `aluno`.`id_Aluno` AS `id_Aluno`,`pessoa`.`Nome` AS `Nome`,`pessoa`.`Apelido` AS `Apelido`,`aluno_escola`.`id_Escola` AS `id_Escola`,`aluno_escola`.`Data_Ingresso` AS `Data_Ingresso`,`aluno_escola`.`ClasseIngresso` AS `ClasseIngresso`,`aluno_escola`.`DataSaida` AS `DataSaida`,`aluno_escola`.`ClasseSaida` AS `ClasseSaida`,`aluno_escola`.`Estado` AS `Estado` from ((`aluno_escola` join `aluno`) join `pessoa`) where ((`aluno_escola`.`id_Aluno` = `aluno`.`id_Aluno`) and (`aluno`.`id_Pessoa` = `pessoa`.`id_Pessoa`)) ;
 
 -- --------------------------------------------------------
 
@@ -611,27 +603,11 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `dados_user_escola`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `dados_user_escola`  AS  select `escola`.`id_Escola` AS `id_Escola`,`escola`.`Nome` AS `Nome`,`escola`.`Nivel` AS `Nivel`,`escola`.`Pertenca` AS `Pertenca`,`escola`.`id_dir` AS `id_dir`,`user_escola`.`id_user` AS `id_user`,`user_escola`.`Estado` AS `Estado`,`user_escola`.`Acesso_Ensino` AS `Acesso_Ensino`,`user_escola`.`Acesso_Avaliacoes` AS `Acesso_Avaliacoes`,`user_escola`.`Acesso_Disciplina` AS `Acesso_Disciplina` from (`escola` join `user_escola`) where (`user_escola`.`id_Escola` = `escola`.`id_Escola`) ;
-
--- --------------------------------------------------------
-
---
--- Structure for view `usuarioacessoescola`
---
-DROP TABLE IF EXISTS `usuarioacessoescola`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `usuarioacessoescola`  AS  select `user_escola`.`id_user` AS `id_user`,`user_escola`.`Estado` AS `Estado`,`user_escola`.`NivelAcesso` AS `NivelAcesso`,`escola`.`id_Escola` AS `id_Escola`,`escola`.`Nome` AS `Escola`,`escola`.`Nivel` AS `Nivel` from (`user_escola` join `escola`) where (`user_escola`.`Estado` = 'Ativo') order by `user_escola`.`id_user` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `dados_user_escola`  AS  select `escola`.`id_Escola` AS `id_Escola`,`escola`.`Nome` AS `Nome`,`escola`.`Nivel` AS `Nivel`,`escola`.`Pertenca` AS `Pertenca`,`escola`.`id_dir` AS `id_dir`,`user_escola`.`id_user` AS `id_user`,`user_escola`.`Estado` AS `Estado`,`user_escola`.`Acesso_Ensino` AS `Acesso_Ensino`,`user_escola`.`Acesso_Avaliacoes` AS `Acesso_Avaliacoes`,`user_escola`.`Acesso_Disciplina` AS `Acesso_Disciplina` from (`user_escola` join `escola`) where (`user_escola`.`id_Escola` = `escola`.`id_Escola`) ;
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `administradorescola`
---
-ALTER TABLE `administradorescola`
-  ADD KEY `id_Escola` (`id_Escola`),
-  ADD KEY `id_Pessoa` (`id_Pessoa`);
 
 --
 -- Indexes for table `aluno`
@@ -651,8 +627,7 @@ ALTER TABLE `aluno_escola`
 -- Indexes for table `bairro`
 --
 ALTER TABLE `bairro`
-  ADD PRIMARY KEY (`id_Bairro`),
-  ADD UNIQUE KEY `id_Distriro` (`id_Distriro`,`Nome`);
+  ADD KEY `id_Distriro` (`id_Distriro`);
 
 --
 -- Indexes for table `cargo_directivo`
@@ -667,24 +642,11 @@ ALTER TABLE `direcao_distrital_educacao`
   ADD PRIMARY KEY (`id_Distrito`);
 
 --
--- Indexes for table `direcao_escola`
---
-ALTER TABLE `direcao_escola`
-  ADD KEY `id_Escola` (`id_Escola`),
-  ADD KEY `id_Cargo` (`id_Cargo`);
-
---
--- Indexes for table `direcao_provincial_educacao`
---
-ALTER TABLE `direcao_provincial_educacao`
-  ADD PRIMARY KEY (`id_Prov`);
-
---
 -- Indexes for table `distrito`
 --
 ALTER TABLE `distrito`
   ADD PRIMARY KEY (`id_distrito`),
-  ADD UNIQUE KEY `id_Prov` (`id_Prov`,`Nome`);
+  ADD KEY `id_Prov` (`id_Prov`);
 
 --
 -- Indexes for table `escola`
@@ -692,13 +654,6 @@ ALTER TABLE `distrito`
 ALTER TABLE `escola`
   ADD PRIMARY KEY (`id_Escola`),
   ADD KEY `id_dir` (`id_dir`);
-
---
--- Indexes for table `localizacao_escola`
---
-ALTER TABLE `localizacao_escola`
-  ADD KEY `id_Escola` (`id_Escola`),
-  ADD KEY `id_Bairro` (`id_Bairro`);
 
 --
 -- Indexes for table `pais`
@@ -710,36 +665,20 @@ ALTER TABLE `pais`
 -- Indexes for table `pessoa`
 --
 ALTER TABLE `pessoa`
-  ADD PRIMARY KEY (`id_Pessoa`),
-  ADD KEY `Nome` (`Nome`,`Apelido`);
+  ADD PRIMARY KEY (`id_Pessoa`);
 
 --
 -- Indexes for table `provincia`
 --
 ALTER TABLE `provincia`
   ADD PRIMARY KEY (`id_Prov`),
-  ADD UNIQUE KEY `id_Pais` (`id_Pais`,`Nome`);
+  ADD KEY `id_Pais` (`id_Pais`);
 
 --
 -- Indexes for table `user_distrital_admin`
 --
 ALTER TABLE `user_distrital_admin`
-  ADD PRIMARY KEY (`id_user`) USING BTREE,
-  ADD UNIQUE KEY `id_user` (`id_user`,`id_Dir`),
-  ADD KEY `id_Dir` (`id_Dir`);
-
---
--- Indexes for table `user_escola`
---
-ALTER TABLE `user_escola`
-  ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_Escola` (`id_Escola`);
-
---
--- Indexes for table `usuario`
---
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id_User`) USING BTREE;
+  ADD PRIMARY KEY (`id_user`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -749,31 +688,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `aluno`
 --
 ALTER TABLE `aluno`
-  MODIFY `id_Aluno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `bairro`
---
-ALTER TABLE `bairro`
-  MODIFY `id_Bairro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `cargo_directivo`
---
-ALTER TABLE `cargo_directivo`
-  MODIFY `id_Cargo` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_Aluno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `distrito`
 --
 ALTER TABLE `distrito`
   MODIFY `id_distrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `escola`
---
-ALTER TABLE `escola`
-  MODIFY `id_Escola` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `pais`
@@ -788,98 +709,39 @@ ALTER TABLE `pessoa`
   MODIFY `id_Pessoa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `provincia`
---
-ALTER TABLE `provincia`
-  MODIFY `id_Prov` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `administradorescola`
---
-ALTER TABLE `administradorescola`
-  ADD CONSTRAINT `administradorescola_ibfk_1` FOREIGN KEY (`id_Escola`) REFERENCES `escola` (`id_Escola`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `administradorescola_ibfk_2` FOREIGN KEY (`id_Pessoa`) REFERENCES `pessoa` (`id_Pessoa`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `aluno`
+-- Limitadores para a tabela `aluno`
 --
 ALTER TABLE `aluno`
   ADD CONSTRAINT `aluno_ibfk_1` FOREIGN KEY (`id_Pessoa`) REFERENCES `pessoa` (`id_Pessoa`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `aluno_ibfk_2` FOREIGN KEY (`id_Escola`) REFERENCES `escola` (`id_Escola`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `bairro`
+-- Limitadores para a tabela `bairro`
 --
 ALTER TABLE `bairro`
   ADD CONSTRAINT `bairro_ibfk_1` FOREIGN KEY (`id_Distriro`) REFERENCES `distrito` (`id_distrito`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `direcao_distrital_educacao`
---
-ALTER TABLE `direcao_distrital_educacao`
-  ADD CONSTRAINT `direcao_distrital_educacao_ibfk_1` FOREIGN KEY (`id_Distrito`) REFERENCES `distrito` (`id_distrito`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `direcao_escola`
---
-ALTER TABLE `direcao_escola`
-  ADD CONSTRAINT `direcao_escola_ibfk_1` FOREIGN KEY (`id_Escola`) REFERENCES `escola` (`id_Escola`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `direcao_escola_ibfk_2` FOREIGN KEY (`id_Cargo`) REFERENCES `cargo_directivo` (`id_Cargo`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `direcao_provincial_educacao`
---
-ALTER TABLE `direcao_provincial_educacao`
-  ADD CONSTRAINT `direcao_provincial_educacao_ibfk_1` FOREIGN KEY (`id_Prov`) REFERENCES `provincia` (`id_Prov`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `distrito`
+-- Limitadores para a tabela `distrito`
 --
 ALTER TABLE `distrito`
   ADD CONSTRAINT `distrito_ibfk_1` FOREIGN KEY (`id_Prov`) REFERENCES `provincia` (`id_Prov`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `escola`
+-- Limitadores para a tabela `escola`
 --
 ALTER TABLE `escola`
   ADD CONSTRAINT `escola_ibfk_1` FOREIGN KEY (`id_dir`) REFERENCES `direcao_distrital_educacao` (`id_Distrito`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `localizacao_escola`
---
-ALTER TABLE `localizacao_escola`
-  ADD CONSTRAINT `localizacao_escola_ibfk_1` FOREIGN KEY (`id_Escola`) REFERENCES `escola` (`id_Escola`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `localizacao_escola_ibfk_2` FOREIGN KEY (`id_Bairro`) REFERENCES `bairro` (`id_Bairro`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `provincia`
+-- Limitadores para a tabela `provincia`
 --
 ALTER TABLE `provincia`
   ADD CONSTRAINT `provincia_ibfk_1` FOREIGN KEY (`id_Pais`) REFERENCES `pais` (`id_Pais`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `user_distrital_admin`
---
-ALTER TABLE `user_distrital_admin`
-  ADD CONSTRAINT `user_distrital_admin_ibfk_1` FOREIGN KEY (`id_Dir`) REFERENCES `direcao_distrital_educacao` (`id_Distrito`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_distrital_admin_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id_User`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `user_escola`
---
-ALTER TABLE `user_escola`
-  ADD CONSTRAINT `user_escola_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id_User`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_escola_ibfk_2` FOREIGN KEY (`id_Escola`) REFERENCES `escola` (`id_Escola`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `usuario`
---
-ALTER TABLE `usuario`
-  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_User`) REFERENCES `pessoa` (`id_Pessoa`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
