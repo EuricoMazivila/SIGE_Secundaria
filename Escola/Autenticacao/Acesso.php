@@ -6,28 +6,23 @@ function Aceder(){
     if($statuss){
         $idUser= $_SESSION['id_User'];    
     }else{
-        header('Location: ../LoginGeral.php');
+        header('Location: ../Escola/LoginGeral.php');
     }
     return $statuss;
 }
 
 function AcederDistrito(){
         $statuss=$_SESSION['Acesso_Distrital']=='S';
-
-        $_SESSION['FALHA'];
+ 
         if($statuss){
             $mensagem= 'Acessando Distrito '.$_SESSION['Acesso_Distrital'].$_SESSION['nome_usuario'];
             $_SESSION['FALHA']=$mensagem;
         }else{
-            $mensagem ='Falha no Acessando Distrito';
+            $mensagem ='NAO TEM PERMISSOES PARA ACEDER ESTA PAGINA';
             $_SESSION['FALHA']=$mensagem;
             header('Location: ../falha.php');
-            
-        }
-    
-    
-    
-    return $statuss; 
+         }
+     return $statuss; 
 }
 
 function AcederEnsino(){

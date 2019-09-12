@@ -24,8 +24,8 @@
   
 
             </div>
-            <a class="btn" href="LoginGeral.php">
-                <span class="i-color-white i-tamanho" id="logout">
+            <a class="btn" href="<?php echo $saida; ?>" id='logout'>
+                <span class="i-color-white i-tamanho">
                     Sair
             </span>
                 </a>

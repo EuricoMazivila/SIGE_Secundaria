@@ -25,10 +25,15 @@
                 </div>
                 
             </div>
-            <div class="help-block with-errors col-sm-6 offset-sm-3 "> <span><?php session_start();
-                echo $_SESSION['Falha_Log'];
+            <div class="help-block with-errors col-sm-6 offset-sm-3 "> 
+            <span>
+                <?php 
+                    session_start();
+                    if(isset($_SESSION['Falha_Log']))
+                    echo $_SESSION['Falha_Log'];
                 ?>
-                </span></div>
+                </span>
+            </div>
 
             <div class="row mt-5">
                 <div class="col-sm-4 offset-sm-2">

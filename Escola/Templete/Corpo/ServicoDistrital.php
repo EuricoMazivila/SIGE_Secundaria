@@ -60,7 +60,7 @@
                 </thead>
                 
                 <tbody id="ResultadoEscolaBusca">
-    <?php include('../Dao\processa_escola.php');
+    <?php include('../Dao/processa_escola.php');
         busca_EscolaS();
         ?>
                 </tbody>

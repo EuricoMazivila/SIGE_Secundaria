@@ -47,7 +47,7 @@
         include_once('conexao.php');
           
                 //Estágio 1: Preparação
-        $query="SELECT id_Aluno,Nome, Apelido, ClasseIngresso, YEAR(Data_Ingresso) as 'Ano_I', ClasseSaida, YEAR(DataSaida) as 'Ano_S', Escola, Estado FROM `dadosalunoescola` WHERE id_Escola=?";
+        $query="SELECT id_Aluno,Nome, Apelido, ClasseIngresso, YEAR(Data_Ingresso) as 'Ano_I', ClasseSaida, YEAR(DataSaida) as 'Ano_S', Estado FROM `dados_aluno_escola` WHERE id_Escola=?";
             $stmt=$conexao->prepare($query);
         if(!$stmt){
              echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;

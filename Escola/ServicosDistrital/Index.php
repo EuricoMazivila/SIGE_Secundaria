@@ -1,4 +1,5 @@
 <?php
+    $saida='../LoginGeral.php';
     $hear='Autenticar\hearDistrital.php';
     $titulo='Servico Distrital'; //esse e o titulo
     $metadados='metadados.php';//esse e o metadados

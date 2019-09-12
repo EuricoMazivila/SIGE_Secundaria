@@ -1,5 +1,5 @@
 <?php
-     $hear='hear2.php';  
+    $hear='Autenticar\hear2.php';  
     $titulo='Gestao de Alunos'; //esse e o titulo
     $metadados='metadados2.php';//esse e o metadados
     $menu='';//esse e o menu
