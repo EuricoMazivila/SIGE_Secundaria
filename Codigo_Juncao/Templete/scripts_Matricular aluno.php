@@ -15,3 +15,5 @@
        $('.pesq').css("box-shadow","none");
     });
  </script>
+
+<script src="_js/busca_candidatos_registados.js"></script>

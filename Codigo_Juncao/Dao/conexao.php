@@ -2,7 +2,7 @@
     $hostname="localhost";
     $user="root";
     $password="";
-    $database="sige";
+    $database="novo";
     
     $conexao=new mysqli($hostname,$user,$password,$database);
 

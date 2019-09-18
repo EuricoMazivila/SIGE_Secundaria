@@ -79,7 +79,8 @@
                         require_once("Dao/conexao.php");
                         
                         //Estágio 1: Preparação
-                        $query="SELECT codCand,nome_completo,classe_matricular,turno from candidato_aluno where ano>year(curdate())";
+                        $query="SELECT id_candidato, CONCAT(nome,' ',apelido) as nome_completo,regime,classe_matricular from candidato_aluno where ano=year(curdate())";
+                        
                         $stmt=$conexao->prepare($query);
                         if(!$stmt){
                             echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
@@ -103,9 +104,9 @@
                             $linha=$res->fetch_assoc();
                     ?>
                     <tr>
-                        <td><?php echo $linha['codCand']?></td>
+                        <td><?php echo $linha['id_candidato']?></td>
                         <td><?php echo $linha['nome_completo']?></td>
-                        <td><?php echo $linha['turno']?></td>
+                        <td><?php echo $linha['regime']?></td>
                         <td><?php echo $linha['classe_matricular']?></td>
                     </tr>
                     <?php 
@@ -126,12 +127,10 @@
 
         <div class="col-md-6">
             <div id="containerP" class="contaGrafico">
-                
             </div>
         </div>
         <div class="col-md-6">
             <div id="containerB" class="contaGrafico">
-                
             </div>
         </div>
     </div>

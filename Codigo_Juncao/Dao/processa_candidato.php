@@ -1,19 +1,23 @@
 <?php
-    //Insercao de Novo Candidato
+    //Insercao de Novo Candidato    
     if(isset($_POST['registar'])){
-        if(($_POST['nome']) && ($_POST['classe_anter']) && 
-            ($_POST['classe_matr']) && ($_POST['provincia']) 
-            && ($_POST['distrito']) && ($_POST['escola']) && 
-            ($_POST['regime'])){
+        if(($_POST['nome']) && ($_POST['apelido']) && 
+            ($_POST['datanasc']) && ($_POST['sexo']) 
+            && ($_POST['classe_matr']) && ($_POST['regime']) && 
+            ($_POST['escola']) && ($_POST['distrito'])){
                 registar_candidato();
             }
     }
 
-    //Busca de Candidato
-    if((isset($_POST['nome_candidato'])) || (isset($_POST['ano']))){
-        busca_candidato();
+    //Busca de Candidato com ano 
+    if(isset($_POST['nome_candidato'])){
+        if(isset($_POST['ano'])){
+            busca_candidato('s'); 
+        }else{
+            busca_candidato('n');
+        }
     }
-
+    
     //Validacao dos dados Preenchidos em Campos de formulario 
     function filtraEntrada($conexao,$dado){
         //remove espacoes no inicio e
@@ -42,17 +46,18 @@
             echo "Preparação falhou: (" . $conexao->errno . ")" . $conexao->error;
         }
         // Estágio 2: Associação dos parâmetros (bind)
-        $codCand=14;
+        $id_candidato=3;
         $nome=filtraEntrada($conexao,$_POST['nome']);
-        $classe_anter=filtraEntrada($conexao,$_POST['classe_anter']);
+        $apelido=filtraEntrada($conexao,$_POST['apelido']);
+        $data_nasc=filtraEntrada($conexao,$_POST['datanasc']);
+        $sexo=filtraEntrada($conexao,$_POST['sexo']);
         $classe_matr=filtraEntrada($conexao,$_POST['classe_matr']);
-        $provincia=filtraEntrada($conexao,$_POST['provincia']);
-        $distrito=filtraEntrada($conexao,$_POST['distrito']);
-        $escola=filtraEntrada($conexao,$_POST['escola']);
         $regime=filtraEntrada($conexao,$_POST['regime']);
-        $senha="Euro";    
+        $escola=filtraEntrada($conexao,$_POST['escola']);
+        $distrito=filtraEntrada($conexao,$_POST['distrito']);
+        //$senha="Euro";    
 
-        $bind=$stmt->bind_param("issssssss",$codCand,$nome,$classe_anter,$classe_matr,$provincia,$distrito,$escola,$regime,$senha);
+        $bind=$stmt->bind_param("issssssss",$id_candidato,$nome,$apelido,$data_nasc,$sexo,$classe_matr,$regime,$escola,$distrito);
 
         if(!$bind){
             echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;
@@ -70,11 +75,12 @@
     }    
 
     //Busca matriculas_candidatos
-    function busca_candidato(){
+    function busca_candidato($comAno){
         require_once("conexao.php");
 
         //Estágio 1: Preparação
-        $query="SELECT codCand,nome_completo,classe_matricular,turno from candidato_aluno where nome_completo like ? and ano like ?";                           
+      //  $query="SELECT codCand,nome_completo,classe_matricular,turno from candidato_aluno where nome_completo like ? and ano like ?";                           
+        $query="SELECT id_candidato, CONCAT(nome,' ',apelido) as nome_completo,regime,classe_matricular from candidato_aluno where CONCAT(nome,' ',apelido) like ? and ano like ?";
         $stmt=$conexao->prepare($query);
         if(!$stmt){
             echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
@@ -84,9 +90,13 @@
         $nome=filtraEntrada($conexao,$_POST['nome_candidato']);
         $nome="%{$nome}%";
         
-        $ano=filtraEntrada($conexao,$_POST['ano']);
-        $ano="%{$ano}%";
-        
+        if($comAno=='s'){
+            $ano=filtraEntrada($conexao,$_POST['ano']);
+            $ano="%{$ano}%";
+        }else{
+            $ano="%2019%";
+        }
+    
         $bind=$stmt->bind_param("ss",$nome,$ano);
 
         if(!$bind){
@@ -120,13 +130,12 @@
                     $res->data_seek($j);
                     $linha=$res->fetch_assoc();
                 echo "<tr>";
-                echo "<td>". $linha['codCand']. "</td>";
+                echo "<td>". $linha['id_candidato']. "</td>";
                     echo "<td>". $linha['nome_completo']. "</td>";
-                    echo "<td>". $linha['turno']. "</td>";
+                    echo "<td>". $linha['regime']. "</td>";
                     echo "<td>". $linha['classe_matricular']. "</td>";
                     echo "</tr>";
                 } 
-            
             echo "</tbody>";
         echo "</table>";
         echo "</div></div>";

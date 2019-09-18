@@ -12,23 +12,24 @@
         <h3 class="mt-2 offset-sm-1">Matrícula de aluno</h3>
         <hr>
     </div>
+    <form>
+        <div class="form-row">
+            <div class="pesq row offset-sm-1 col-sm-6 mt-2">
+                <i class="fa fa-search form-group col-1"></i>
+                <input class="form-group col-11 pesquisa" id="nome_candidato" name="nome_candidato" type="search" required placeholder="Pesquise nome do pré-matriculado">
+            </div>
 
-    <div class="form-row">
-    	<div class="pesq row offset-sm-1 col-sm-6 mt-2">
-            <i class="fa fa-search form-group col-1"></i>
-            <input class="form-group col-11 pesquisa" id="pesquisar" name="nome_candidato" type="search" required placeholder="Pesquise nome do pré-matriculado">
+            <a class="btn btn-primary offset-sm-3 col-sm-1 mt-2" href="">
+                <span class="i-color-white"> <i class="fas fa-print "></i>
+                    Imprimir
+                </span>
+            </a>
         </div>
-
-        <a class="btn btn-primary offset-sm-3 col-sm-1 mt-2" href="">
-            <span class="i-color-white"> <i class="fas fa-print "></i>
-               	Imprimir
-            </span>
-        </a>
-    </div>
+    </form>    
 
     <div class="form-row">
 
-    	<div class="table-responsive" id="result">
+    	<div class="table-responsive" id="resultado">
             <table class="table table-hover offset-md-1 col-md-10" id="table">
                 <thead>
                     <tr>
@@ -39,19 +40,45 @@
                     </tr>
                 </thead>
                 <tbody>
-                	<tr>
-                		<td>56656</td>
-                		<td>Ricardo Bucene</td>
-                		<td>Diurno</td>
-                		<td>10</td>
-                	</tr>
-
-                	<tr>
-                		<td>86556</td>
-                		<td>Absalao Nhantumbo</td>
-                		<td>Noturno</td>
-                		<td>12</td>
-                	</tr>
+                    <?php   
+                        require_once("Dao/conexao.php");
+                        
+                        //Estágio 1: Preparação
+                        $query="SELECT id_candidato, CONCAT(nome,' ',apelido) as nome_completo,regime,classe_matricular from candidato_aluno where ano=year(curdate())";
+                        
+                        $stmt=$conexao->prepare($query);
+                        if(!$stmt){
+                            echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
+                        }
+                
+                        // Estágio 2: execução
+                        if(!$stmt->execute()){
+                            echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
+                        }
+                
+                        // Estágio 3: Obtenção de dados    
+                        $res=$stmt->get_result();
+                        if(!$res){
+                            echo "A Obtenção do conjunto de resultados falhou: (" . $stmt->errno . ")" . $stmt->error;
+                        }
+            
+                        $linhas=$res->num_rows;
+                    
+                        for($j=0; $j<$linhas; ++$j){
+                            $res->data_seek($j);
+                            $linha=$res->fetch_assoc();
+                    ?>
+                    <tr>
+                        <td><?php echo $linha['id_candidato']?></td>
+                        <td><?php echo $linha['nome_completo']?></td>
+                        <td><?php echo $linha['regime']?></td>
+                        <td><?php echo $linha['classe_matricular']?></td>
+                    </tr>
+                    <?php 
+                        } 
+                        $stmt->close();
+                        $conexao->close();
+                    ?>
                 </tbody>
             </table>
         </div>
