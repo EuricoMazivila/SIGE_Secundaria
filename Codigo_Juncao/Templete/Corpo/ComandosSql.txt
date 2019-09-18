@@ -1,0 +1,1 @@
+ CALL `AddPessoa`(Nome,Apelido, Sexo,Estado Civil, Data Nasc, Email, Nr_Tell);

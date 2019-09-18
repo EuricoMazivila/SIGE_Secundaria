@@ -10,7 +10,7 @@
                         <hr>
                     </div>
 
-                    <form class="col-sm-12" method="POST" action="Dao/processa_login.php">
+                    <form class="col-sm-12" method="POST" action="../../Dao/Processamento/processa_login.php">
                         <div class="us form-row mt-3">
                             <i class="fa fa-key form-group col-1"></i>
                             <input class="form-group col-11 log w-50" type="password" id="newPass" name="newSenha" required placeholder="Insira uma nova palavra passe">
@@ -21,7 +21,7 @@
                             <input class="form-group col-11 log w-50" type="password" id="newPass2" name="senha2" required placeholder="Volte a inserir a palavra passe">
                         </div>
                     
-                        <button type="submit" onclick="popup()" id="submeter" class="btn btn-primary" name="save">Salvar</button>
+                        <button type="submit" onclick="popup()" id="submeter" name='SalvarRecuperacao' class="btn btn-primary" name="save">Salvar</button>
                     </form> 
                 </div>
             </div>
@@ -52,7 +52,7 @@
                             </div>
                             <div class="form-group col-6 col-sm-5 offset-sm-2 col-md-4">
                                 
-                                <a href="Login_Principal.php" class="btn btn-success text-left">
+                                <a href="../Login\Login_Principal.php" class="btn btn-success text-left">
                                     <span class="i-color-white"><i class="fa fa-save fa-2x"></i>&nbsp;Salvar</span>
                                 </a>
 

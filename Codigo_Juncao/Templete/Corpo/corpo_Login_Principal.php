@@ -10,7 +10,7 @@
                         <hr>
                     </div>
 
-                    <form class="col-sm-12" method="POST" action="Dao/processa_login.php">
+                    <form class="col-sm-12" method="POST" action="../../Dao/Processamento/processa_login.php">
                         <div class="us form-row mt-2">
                             <i class="fa fa-user form-group col-1"></i>
                             <input class="form-group col-11 log w-50" id="usuario" type="text" name="user" required placeholder="Insira o username">
@@ -21,11 +21,11 @@
                             <input class="form-group col-11 log w-50" type ="password" id="password" name="senha" required placeholder="Insira o password">
                         </div>
                     
-                        <button type="submit" id = "entrar" class="btn btn-primary" name="login">Entrar</button>
+                        <button type="submit" id ="entrar" class="btn btn-primary" name="loginPrincipal">Entrar</button>
                     </form> 
                 </div>
                 <div class="col-12 esqueceu">
-                        <a href="Recuperacao_Step_0.php">Esqueceu Password?</a>
+                        <a href="../Recuperacao/Recuperacao_Step_0.php">Esqueceu Password?</a>
                 </div>
             </div>
         </div>
