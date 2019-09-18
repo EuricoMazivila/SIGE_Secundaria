@@ -48,7 +48,7 @@
         $hostname="localhost";
         $user="root";
         $password="";
-        $database="sistema_escolar";
+        $database="SIGES";
         
         $conexao=new mysqli($hostname,$user,$password,$database);
     
