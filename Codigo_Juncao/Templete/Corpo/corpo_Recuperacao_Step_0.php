@@ -19,7 +19,7 @@
         
                      </div>
                      <div class="form-group">
-                         <input type="text" class="form-control bb" id="name" placeholder="Nome de usuário">
+                         <input type="text" class="form-control bb" id="name" name='nomeUser' placeholder="Nome de usuário">
                      </div>
                         <button type="submit" id ="next" class="btn btn-primary next" name="recupera">Próximo</button>
                         

@@ -1,4 +1,5 @@
-
+<?php session_start();
+ ?>
 <div class="centro_login">
     <div class="modal-dialog text-center c">
         <div class="col-sm-11 main-section">
@@ -10,7 +11,7 @@
                         <hr>
                     </div>
 
-                    <form class="col-sm-12" method="POST" action="../../Dao/Processamento/processa_login.php">
+                    <form class="col-sm-12" method="POST" action="../../Dao/Processamento/processa_recuperacao.php">
                         <div class="us form-row mt-3">
                             <i class="fa fa-key form-group col-1"></i>
                             <input class="form-group col-11 log w-50" type="password" id="newPass" name="newSenha" required placeholder="Insira uma nova palavra passe">
@@ -51,14 +52,9 @@
                                 </a>
                             </div>
                             <div class="form-group col-6 col-sm-5 offset-sm-2 col-md-4">
-                                
-                                <a href="../Login\Login_Principal.php" class="btn btn-success text-left">
+                                <button class="btn btn-success text-left" id="salvaPass" type="submit" name="salvaPass">
                                     <span class="i-color-white"><i class="fa fa-save fa-2x"></i>&nbsp;Salvar</span>
-                                </a>
-
-                                <!-- <button class="btn btn-success text-left" id="salvaPass" type="submit">
-                                    <span class="i-color-white"><i class="fa fa-save fa-2x"></i>&nbsp;Salvar</span>
-                                </button>    Quando estiver a trabalhar use esse botao e nao a ancora-->
+                                </button>    
                                 
                             </div>
                         </div>
