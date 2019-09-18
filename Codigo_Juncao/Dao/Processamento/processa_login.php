@@ -81,6 +81,7 @@
         }
 
         $linhas=$res->num_rows;
+       
         if($linhas>0){
             for($j=0; $j<$linhas; ++$j){
                 $res->data_seek($j);
@@ -92,10 +93,12 @@
             $_SESSION['Acesso_Distrital']=$linha['Acesso_Distrital'];
             $_SESSION['Acesso_Escola']=$linha['Acesso_Escola'];
             $_SESSION['Estado']=$linha['Estado'];
-            }
-           // echo $_SESSION['Acesso_Distrital'];
-            if($_SESSION['Acesso_Distrital']=='S'){
+            
+        }
+
+         if($_SESSION['Acesso_Distrital']=='S'){
                 header('Location: ../../Servico_Distrital/');
+            
             }elseif($_SESSION['Acesso_Escola']=='S'){
                 header('Location: ../../Escola/');
             }else{

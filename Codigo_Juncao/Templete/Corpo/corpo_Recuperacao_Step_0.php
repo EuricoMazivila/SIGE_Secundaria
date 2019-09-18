@@ -13,7 +13,7 @@
                         <p>Este processo ajuda a identifica-lo entre os utilizadores do sistema.</p>
                     </div>
 
-                    <form class="col-12" method="POST">
+                    <form class="col-12" method="POST" action="../../Dao/Processamento/processa_recuperacao.php">
                         <div class="text-center titulo">
                         <p>Introduza o nome do usuario</p>
         
@@ -21,8 +21,8 @@
                      <div class="form-group">
                          <input type="text" class="form-control bb" id="name" placeholder="Nome de usuário">
                      </div>
+                        <button type="submit" id ="next" class="btn btn-primary next" name="recupera">Próximo</button>
                         
-                        <a href="Recuperacao_Step_1.php" class="btn btn-primary next" name="recupera">Próximo</a>
                     </form> 
                 </div>
                 
