@@ -8,7 +8,7 @@
                     <li id="stp2"><a class="step" href="#step-2">Morada<br><small>Passo 2</small></a></li>
                     <li id="stp3"><a class="step" href="#step-3">Filiação<br><small>Passo 3</small></a></li>
                     <li id="stp4"><a class="step" href="#step-4">Encarregado<br><small>Passo 4</small></a></li>
-                    <li id="stp6"><a class="step" href="#step-6">Outros Dados<br><small>Passo 6</small></a></li>
+                    <li id="stp6"><a class="step" href="#step-5">Outros Dados<br><small>Passo 5</small></a></li>
                 </ul>
                 <div>
                     <div id="step-1" class="mt-4">
@@ -380,7 +380,7 @@
 
                     <!---->
                     <!--Passo 6-->
-                    <div id="step-6">
+                    <div id="step-5">
                         <div class="container-fluid padding">
                             <div id="form-step-5" role="form" data-toggle="validator">
                                 <fieldset>
