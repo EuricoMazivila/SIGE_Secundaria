@@ -10,7 +10,7 @@ session_start();
      $navBar='Configuracao\navbar.php';//essa e o nav bar
    // $navBar='';
     $rodape='footer.php';//especificar a url do footer
-    $scriptAdd='Script/script_distrital.php';
+    $scriptAdd='';//Script/script_distrital.php
    
     include('../Templete/Templete.php');
 ?>

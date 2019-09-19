@@ -12,7 +12,7 @@ if(isset($_SESSION['id_User'])){
             $corpo='Corpo\Home_Page\ServicoDistrital.php';//esse e o corpo
             $navBar='Configuracao\navbar.php';//essa e o nav navbar.phpbar
             $rodape='footer.php';//especificar a url do footer
-            $scriptAdd='Script/script_distrital.php';
+            $scriptAdd='';//Script/script_distrital.php
              include('../Templete/Templete.php');  
 
     }

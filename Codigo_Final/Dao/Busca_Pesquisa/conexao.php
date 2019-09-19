@@ -9,9 +9,7 @@
     if($conexao->connect_errno){
         echo "Falha na conecao com MySQL: (" .$conexao->connect_errno . ") " . $conexao->connect_error;
     }
-
-    
-function filtraEntrada($conexao,$dado){
+    function filtraEntrada($conexao,$dado){
     //remove espacoes no inicio e
     //no final da string
     $dado=trim($dado);
@@ -27,5 +25,7 @@ function filtraEntrada($conexao,$dado){
 
     return $dado;
 }
+ 
+
 
 ?>

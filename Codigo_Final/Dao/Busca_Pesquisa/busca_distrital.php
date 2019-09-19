@@ -1,14 +1,9 @@
 <?php
 
-function busca_distrito_Acesso_User(){
-    require_once("conexao.php");
-    
-    
-    $conexao=new mysqli($hostname,$user,$password,$database);
 
-    if($conexao->connect_errno){
-        echo "Falha na conecao com MySQL: (" .$conexao->connect_errno . ") " . $conexao->connect_error;
-    }       
+
+function busca_distrito_Acesso_User(){
+   require_once("conexao.php");      
     //Estágio 1: Preparação
     $query="SELECT user_distrital.id_user,user_distrital.Estado,user_distrital.Gestao_Escolas,user_distrital.Gestao_Operacoes,user_distrital.Gestao_Usuarios,direcao_distrital.id_Dir,direcao_distrital.Designacao,direcao_distrital.Total_Escola FROM `user_distrital`,direcao_distrital WHERE user_distrital.id_Dir=direcao_distrital.id_Dir and user_distrital.id_user=? and user_distrital.Estado=? ";
     $stmt=$conexao->prepare($query);
@@ -56,8 +51,7 @@ function busca_distrito_Acesso_User(){
 }
 
 function busca_Escola_Distrital(){
-       
-    //include_once('conexao.php');
+   require_once("conexao.php"); 
       
             //Estágio 1: Preparação
     $query="SELECT * FROM `escola`WHERE  (id_Escola like ? or nome LIKE ? or Nivel  LIKE ? or Pertenca LIKE ?  ) and id_Escola in(SELECT id_Escola FROM escola WHERE id_dir=? )";

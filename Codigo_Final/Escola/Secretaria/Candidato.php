@@ -1,6 +1,12 @@
 <?php
- 	$local='esca a';//$_SESSION['Nome_Escola'];
-    $usuario='usuario b';//$_SESSION['nome_usuario'];
+    session_start();
+if(!(isset($_SESSION['id_User']) && isset($_SESSION['id_Escola']) 
+&& isset($_SESSION['Tipo']) && isset($_SESSION['Nome_Escola']))){
+     header('Location: ../');
+}else{
+   
+    $local=$_SESSION['Nome_Escola'];
+    $usuario=$_SESSION['nome_usuario'];
     $titulo='Menu Candidato'; //esse e o titulo
     $metadados='Configuracao\metadados_Externo.php';//esse e o metadados
     $menu='main_menu_Secretaria.php';//esse e o menu
@@ -11,4 +17,5 @@
 
     //Aqui pode ficar as dependencias de hader como verificar se ja fez login
     include('../../Templete/Templete.php'); 
+}
 ?>

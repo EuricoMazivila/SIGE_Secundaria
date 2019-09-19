@@ -71,7 +71,7 @@
                         require_once("../../Dao/conexao.php");
                         
                         //Estágio 1: Preparação
-                        $query="SELECT codal,nome,data from alunos_matriculados where year(data)=year(curDate()) and classe='8'";
+                        $query="SELECT codal,nome,data from aluno_matricula where year(data)=year(curDate()) and classe='8'";
                         
                         $stmt=$conexao->prepare($query);
                         if(!$stmt){

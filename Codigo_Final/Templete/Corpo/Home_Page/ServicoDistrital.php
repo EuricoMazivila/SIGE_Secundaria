@@ -58,7 +58,7 @@
                 </thead>
                 
                 <tbody id="ResultadoEscolaBusca">
-    <?php include('../Dao\Busca_Pesquisa\busca_escola.php');
+    <?php require_once('../Dao\Busca_Pesquisa\busca_escola.php');
         busca_EscolaS();
         
         ?>
