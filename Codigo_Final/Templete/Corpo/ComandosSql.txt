@@ -1,0 +1,59 @@
+ CALL `AddPessoa`(Nome,Apelido, Sexo,Estado Civil, Data Nasc, Email, Nr_Tell);
+
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `GeraCodRecuperacao` () RETURNS INT(11) NO SQL
+    DETERMINISTIC
+    COMMENT 'Essa Funcao Permite Gerar codigo de recuperacao aleatorio'
+RETURN (SELECT round(rand()*1000000))$$
+
+
+CREATE TABLE `recupera_senha_usuario` (
+  `id_Solicitacao` int(11) NOT NULL,
+  `id_Usuario` int(11) NOT NULL,
+  `CodigoRecuperacao` int(11) NOT NULL,
+  `Data_Validalidade` date NOT NULL,
+  `Senha_Antiga` varchar(40) NOT NULL,
+  `Senha_Nova` varchar(40) NOT NULL,
+  `Tipo_Envio` enum('Email','Telefone','Ambos') NOT NULL,
+  `Campo_Envio` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+DELIMITER $$
+CREATE TRIGGER `actualizaUsuario` AFTER UPDATE ON `recupera_senha_usuario` FOR EACH ROW UPDATE `usuario` SET `Senha` = new.Senha_Nova WHERE `usuario`.`id_User` = old.id_Usuario
+$$
+DELIMITER ;
+
+
+
+ALTER TABLE `recupera_senha_usuario`
+  ADD PRIMARY KEY (`id_Solicitacao`),
+  ADD UNIQUE KEY `id_Usuario` (`id_Usuario`,`CodigoRecuperacao`);
+
+
+
+  
+CREATE DEFINER=`root`@`localhost` FUNCTION `RecuperaSenha` (`_id_usuario` INT, `_TipoEnvio` ENUM('Email','Telefone','Ambos'), `_CampoEnvio` VARCHAR(100)) RETURNS INT(11) NO SQL
+    COMMENT 'Permite Recuperar Senha'
+BEGIN
+DECLARE codGerado int(11);
+DECLARE dataValidade date;
+set codGerado=(SELECT `GeraCodRecuperacao`());
+set dataValidade = (SELECT date(DATE_ADD(CURRENT_TIMESTAMP,INTERVAL 1 DAY)));
+
+INSERT INTO `recupera_senha_usuario` (`id_Usuario`, `CodigoRecuperacao`, `Data_Validalidade`, `Senha_Antiga`,  `Tipo_Envio`,`Campo_Envio`) VALUES (_id_usuario,codGerado , dataValidade, (SELECT senha FROM `usuario` WHERE id_User=_id_usuario),_TipoEnvio,_CampoEnvio);
+
+RETURN (SELECT max(recupera_senha_usuario.id_Solicitacao) FROM recupera_senha_usuario WHERE recupera_senha_usuario.id_Usuario=_id_usuario  and recupera_senha_usuario.CodigoRecuperacao=codGerado AND recupera_senha_usuario.Data_Validalidade=dataValidade);
+end$$
+
+
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `upDateSenha` (`_id` INT, `_nova` VARCHAR(40)) RETURNS TINYINT(1) NO SQL
+    COMMENT 'Permite actualizar Senha'
+BEGIN
+UPDATE `recupera_senha_usuario` SET `Senha_Nova` = _nova WHERE `recupera_senha_usuario`.`id_Solicitacao` =_id;
+
+RETURN (SELECT COUNT(recupera_senha_usuario.id_Solicitacao) FROM recupera_senha_usuario WHERE recupera_senha_usuario.id_Solicitacao=_id and recupera_senha_usuario.Senha_Nova=_nova)>0;
+end$$
+
+DELIMITER ;
