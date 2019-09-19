@@ -17,6 +17,12 @@
             busca_candidato('n');
         }
     }
+
+    //Busca de Candidato para matricular 
+    if(isset($_POST['nome_candidato_m'])){
+        busca_candidato_m();
+    }
+
     
     //Validacao dos dados Preenchidos em Campos de formulario 
     function filtraEntrada($conexao,$dado){
@@ -46,7 +52,7 @@
             echo "Preparação falhou: (" . $conexao->errno . ")" . $conexao->error;
         }
         // Estágio 2: Associação dos parâmetros (bind)
-        $id_candidato=3;
+        $id_candidato=4;
         $nome=filtraEntrada($conexao,$_POST['nome']);
         $apelido=filtraEntrada($conexao,$_POST['apelido']);
         $data_nasc=filtraEntrada($conexao,$_POST['datanasc']);
@@ -98,6 +104,69 @@
         }
     
         $bind=$stmt->bind_param("ss",$nome,$ano);
+
+        if(!$bind){
+            echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;
+        }
+
+        // Estágio 2: execução
+        if(!$stmt->execute()){
+            echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
+        }
+
+        // Estágio 3: Obtenção de dados    
+        $res=$stmt->get_result();
+        if(!$res){
+            echo "A Obtenção do conjunto de resultados falhou: (" . $stmt->errno . ")" . $stmt->error;
+        }
+
+        $linhas=$res->num_rows;
+        echo "<div class='row'> <div class='table-responsive offset-md-1'>";
+        echo "<table class='table table-hover col-sm-8 col-md-10'>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th>Turno</th>
+                    <th>Classe</th>
+                </tr>
+            </thead>
+            <tbody>";                       
+                for($j=0; $j<$linhas; ++$j){
+                    $res->data_seek($j);
+                    $linha=$res->fetch_assoc();
+                echo "<tr>";
+                echo "<td>". $linha['id_candidato']. "</td>";
+                    echo "<td>". $linha['nome_completo']. "</td>";
+                    echo "<td>". $linha['regime']. "</td>";
+                    echo "<td>". $linha['classe_matricular']. "</td>";
+                    echo "</tr>";
+                } 
+            echo "</tbody>";
+        echo "</table>";
+        echo "</div></div>";
+
+        $stmt->close();
+        $conexao->close(); 
+    }
+
+    //Busca matriculas_candidatos
+    function busca_candidato_m(){
+        require_once("conexao.php");
+
+        //Estágio 1: Preparação
+      //  $query="SELECT codCand,nome_completo,classe_matricular,turno from candidato_aluno where nome_completo like ? and ano like ?";                           
+        $query="SELECT id_candidato, CONCAT(nome,' ',apelido) as nome_completo,regime,classe_matricular from candidatos_cadastrados where CONCAT(nome,' ',apelido) like ?";
+        $stmt=$conexao->prepare($query);
+        if(!$stmt){
+            echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
+        }
+
+        // Estágio 2: Associação dos parâmetros (bind)
+        $nome=filtraEntrada($conexao,$_POST['nome_candidato_m']);
+        $nome="%{$nome}%";
+    
+        $bind=$stmt->bind_param("s",$nome);
 
         if(!$bind){
             echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;

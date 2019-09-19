@@ -1,5 +1,5 @@
     <div class="container">
-        <form method="POST" id="myForm" action="Dao/processa_matricular_aluno.php" role="form" data-toggle="validator">
+        <form method="POST" id="myForm" action="../../Dao/processa_matricular_aluno.php" role="form" data-toggle="validator">
             <br />
             <!-- SmartWizard html -->
             <div id="smartwizard" class="mt-3 offset-1">
@@ -8,6 +8,7 @@
                     <li id="stp2"><a class="step" href="#step-2">Morada<br><small>Passo 2</small></a></li>
                     <li id="stp3"><a class="step" href="#step-3">Filiação<br><small>Passo 3</small></a></li>
                     <li id="stp4"><a class="step" href="#step-4">Encarregado<br><small>Passo 4</small></a></li> 
+                    
                     <li id="stp6"><a class="step" href="#step-6">Outros Dados<br><small>Passo 6</small></a></li>
                 </ul>
                 <div>
@@ -116,8 +117,8 @@
                                         <label for="inputEstado">Estado Civil</label>
                                         <select class="form-control" name="estado_Civil" id="inputEstado" required
                                             placeholder="Selecione Estado civil">
-                                            <option value="Casado(a)">Casado(a)</option>
-                                            <option value="Solteiro(a)">Solteiro</option>
+                                            <option value="C">Casado(a)</option>
+                                            <option value="S">Solteiro</option>
                                         </select>
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
@@ -153,7 +154,7 @@
                                                             </a>
                                                         </div>
                                                         <div class="form-group col-6 col-sm-5 offset-sm-2 col-md-4">
-                                                            <button class="btn btn-success text-left" id="submete_seccao" type="button">
+                                                            <button class="btn btn-success text-left" id="submete_seccao" type="submit">
                                                                 <span class="i-color-white"><i class="fa fa-save fa-2x"></i>&nbsp;Salvar</span>
                                                             </button>
                                                         </div>
@@ -431,11 +432,10 @@
                                     <hr class="light">
                                     <!--Primeira Linha-->
                                     <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="col-xs-12 col-sm-12 col-md-4">
                                             <div class="form-group offset-1">
                                                 <label for="inputImagem"></label>
-                                                <div id="kv-avatar-errors-2" class="center-block"
-                                                    style="width:500px;display:none"></div>
+                                                <div id="kv-avatar-errors-2" class="center-block" style="width:500px;display:none"></div>
                                                 <div class="text-center">
                                                     <div class="kv-avatar">
                                                         <div class="file-loading">
@@ -443,9 +443,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>    
                                         </div>
-                                        
                                     </div>
                                 </fieldset>
                                 <fieldset class="mt-5">
@@ -484,8 +483,9 @@
                 </div>
                 <!---->
             </div>
+            <input type="submit" name="concluir">
+            <!--
              <a id="matriculate" href="ReverDados.php" class="btn btn-success">Concluir</a>
-                <!--<button class="btn btn-success" id="matriculate">Submeter</button>-->
+                <button class="btn btn-success" id="matriculate">Submeter</button>-->
         </form>
-
     </div>

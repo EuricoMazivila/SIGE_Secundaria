@@ -9,11 +9,9 @@
 </div>
 
 <div class="container">
-
     <div class="page-header" id="top">
         <h3 class="mt-2 offset-sm-1">Lista de Matriculados</h3>
         <hr>
-
     </div>
     <!--Deve-se Organizar este codigo -->
     <div class="offset-md-1 col-md-10">
@@ -46,7 +44,7 @@
                         //Completa as classe automaticamente
                         for ($i=8; $i <=12 ; $i++) {
                             echo '<option value="'.$i.'">'.$i.'</option>';
-                         }
+                        }
                        ?>
                     </select>
                 </div>
@@ -54,7 +52,7 @@
             <div class="offset-sm-1 col-sm-10 mt-2">
                 <div class="pesq form-row">
                     <i class="fa fa-search form-group col-1"></i>
-                    <input class="form-group col-11 pesquisa" id="nome_aluno" name="nome_aluno" type="search" required
+                    <input class="form-group col-11 pesquisa" id="nome_aluno" name="nome_aluno" type="search" 
                         placeholder="Pesquise nome do aluno">
                 </div>
             </div>
@@ -70,10 +68,10 @@
                 </thead>
                 <tbody>
                     <?php
-                        require_once("Dao/conexao.php");
+                        require_once("../../Dao/conexao.php");
                         
                         //Estágio 1: Preparação
-                        $query="SELECT codal,nome,data from alunos_matriculados"; /*where ano=year(curdate())*/;
+                        $query="SELECT codal,nome,data from alunos_matriculados where year(data)=year(curDate()) and classe='8'";
                         
                         $stmt=$conexao->prepare($query);
                         if(!$stmt){
@@ -125,8 +123,4 @@
     </div>
 
 </div>
-
-
-
-
 </div>

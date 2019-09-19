@@ -1,5 +1,5 @@
-﻿<?php
-     session_start();
+<?php
+
     //Login Principal
     if(isset($_POST['login']) && isset($_POST['inputUsuario']) && isset($_POST['inputSenha'])){
         iniciarSessao_principal();
@@ -7,11 +7,10 @@
     if(isset($_POST['SalvarRecuperacao']) ){
         echo 'Chegou salvar';
     }
-    if(isset($_POST['loginPrincipal'])){
-       
+    if(isset($_POST['loginPrincipal']) ){
         autenticarUser();
     }
-   
+    
     
 
     //Login Candidato
@@ -82,11 +81,12 @@
         }
 
         $linhas=$res->num_rows;
-      
+       
         if($linhas>0){
             for($j=0; $j<$linhas; ++$j){
                 $res->data_seek($j);
                 $linha=$res->fetch_assoc();
+            session_start();
             $_SESSION['id_User']=$linha['id_User'];
             $_SESSION['id_Pessoa']=$linha['id_Pessoa'];
             $_SESSION['nome_usuario']=$linha['NomeCompleto'];
@@ -95,16 +95,18 @@
             $_SESSION['Estado']=$linha['Estado'];
             
         }
-        
-        if($_SESSION['Acesso_Distrital']=='S'){
+
+         if($_SESSION['Acesso_Distrital']=='S'){
                 header('Location: ../../Servico_Distrital/');
-        }elseif($_SESSION['Acesso_Escola']=='S'){
+            
+            }elseif($_SESSION['Acesso_Escola']=='S'){
                 header('Location: ../../Escola/');
-       }else{
+            }else{
                 header('Location: ../../Escola/Candidato/');
             }
             
         }else{
+            session_start();
             $_SESSION['Falha_Log']="Login Falhou Verifica seus dados";
             header('Location: ../../Autenticacao/Login/Login_Principal.php');
         }
