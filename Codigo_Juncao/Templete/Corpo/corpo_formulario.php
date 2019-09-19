@@ -116,8 +116,8 @@
                                         <label for="inputEstado">Estado Civil</label>
                                         <select class="form-control" name="estado_Civil" id="inputEstado" required
                                             placeholder="Selecione Estado civil">
-                                            <option value="Casado(a)">Casado(a)</option>
-                                            <option value="Solteiro(a)">Solteiro</option>
+                                            <option value="C">Casado(a)</option>
+                                            <option value="S">Solteiro</option>
                                         </select>
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
@@ -430,7 +430,7 @@
                                     <legend>Submissões</legend>
                                     <hr class="light">
                                     <!--Primeira Linha-->
-                                    <div class="row">
+                                    <!--<div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-4">
                                             <div class="form-group offset-1">
                                                 <label for="inputImagem"></label>
@@ -445,8 +445,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                    </div>
+                                    </div>-->
                                 </fieldset>
                                 <fieldset class="mt-5">
                                     <legend>Dados Adicionais</legend>
@@ -484,8 +483,10 @@
                 </div>
                 <!---->
             </div>
+            <input type="submit" name="concluir">
+            <!--
              <a id="matriculate" href="ReverDados.php" class="btn btn-success">Concluir</a>
-                <!--<button class="btn btn-success" id="matriculate">Submeter</button>-->
+                <button class="btn btn-success" id="matriculate">Submeter</button>-->
         </form>
 
     </div>
