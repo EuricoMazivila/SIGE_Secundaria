@@ -10,6 +10,9 @@
  * https://github.com/techlab/SmartWizard/blob/master/LICENSE
  */
 
+
+
+
 ;(function ($, window, document, undefined) {
     "use strict";
     // Default options
@@ -92,11 +95,14 @@
 
             var idx = this.options.selected;
             // Get selected step from the url
+
             if (this.options.useURLhash) {
                 // Get step number from url hash if available
+
                 var hash = window.location.hash;
                 if (hash && hash.length > 0) {
                     var elm = $("a[href*='" + hash + "']", this.nav);
+
                     if (elm.length > 0) {
                         var id = this.steps.index(elm);
                         idx = id >= 0 ? id : idx;
@@ -168,9 +174,6 @@
 
             if (this.options.toolbarSettings.toolbarExtraButtons && this.options.toolbarSettings.toolbarExtraButtons.length > 0) {
                 btnGroupExtra = $('<div></div>').addClass('btn-group mr-2 sw-btn-group-extra').attr('role', 'group');
-                $.each(this.options.toolbarSettings.toolbarExtraButtons, function (i, n) {
-                    btnGroupExtra.append(n.clone(true));
-                });
             }
 
             var toolbarTop, toolbarBottom;
@@ -293,6 +296,7 @@
             return true;
         },
         _showNext: function () {
+
             var si = this.current_index + 1;
             // Find the next not disabled step
             for (var i = si; i < this.steps.length; i++) {
@@ -344,12 +348,18 @@
             }
             // Load step content
             this._loadStepContent(idx);
+
+            if (idx==4) {
+                $('#matriculate').css ({'visibility': 'visible'});
+            } 
+
             return true;
         },
         _loadStepContent: function (idx) {
             var mi = this;
             // Get current step elements
             var curTab = this.steps.eq(this.current_index);
+                
             // Get the direction of step navigation
             var stepDirection = '';
             var elm = this.steps.eq(idx);

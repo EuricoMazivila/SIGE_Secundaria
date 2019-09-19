@@ -2,19 +2,21 @@
         <form method="POST" id="myForm" action="Dao/processa_matricular_aluno.php" role="form" data-toggle="validator">
             <br />
             <!-- SmartWizard html -->
-            <div id="smartwizard" class="mt-5 offset-1">
+            <div id="smartwizard" class="mt-3 offset-1">
                 <ul>
                     <li id="stp1"><a class="step" href="#step-1">Dados Pessoais<br><small>Passo 1</small></a></li>
                     <li id="stp2"><a class="step" href="#step-2">Morada<br><small>Passo 2</small></a></li>
                     <li id="stp3"><a class="step" href="#step-3">Filiação<br><small>Passo 3</small></a></li>
-                    <li id="stp4"><a class="step" href="#step-4">Encarregado<br><small>Passo 4</small></a></li>
-                    <li id="stp5"><a class="step" href="#step-5">Matricula<br><small>Passo 5</small></a></li>
+                    <li id="stp4"><a class="step" href="#step-4">Encarregado<br><small>Passo 4</small></a></li> 
                     <li id="stp6"><a class="step" href="#step-6">Outros Dados<br><small>Passo 6</small></a></li>
                 </ul>
                 <div>
                     <div id="step-1" class="mt-4">
                         <div class="container-fluid padding">
+                            <legend class="oculto">Dados Pessoais</legend>
+                            <hr class="oculto"></hr>
                             <div id="form-step-0" role="form" data-toggle="validator">
+
                                 <!--Primeira Linha-->
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
@@ -24,7 +26,7 @@
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12  col-sm-12 col-md-4 offset-1">
-                                        <label for="inputNome">Outros Nome</label>
+                                        <label for="inputNome">Outros Nomes</label>
                                         <input type="text" name="nome" id="inputNome" class="form-control" required
                                             placeholder="Introduza o Nome">
                                         <div class="help-block with-errors text-danger"></div>
@@ -120,6 +122,49 @@
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
+
+                                <!--<div class="row">
+                                    <div id="myModal" class="modal">
+
+                                        <div class="modal-content">
+                                            <div class="container">
+                                                <div class="page-header">
+                                                    <h3 class="offset-1">Introduzir secção</h3>
+                                                    <hr>
+                                                </div>
+
+                                                <form method="POST" role="form">
+                                                    <div class="row">
+                                                        <div class="form col-sm-10 col-md-4 offset-1">
+                                                            <label for="sec">Secção</label>
+                                                            <select class="form-control" id="sec">
+                                                                <option>A</option>
+                                                                <option>B</option>
+                                                                <option>C</option>
+                                                            </select>
+                                                            <div class="help-block with-errors"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row mt-5">
+                                                        <div class="form-group col-6 col-sm-5 col-md-4 offset-md-1">
+                                                            <a class="btn btn-danger text-left" onclick="closed()">
+                                                                <span class="i-color-white"> <i class="fa fa-window-close fa-2x"></i>&nbsp;Cancelar
+                                                                </span>
+                                                            </a>
+                                                        </div>
+                                                        <div class="form-group col-6 col-sm-5 offset-sm-2 col-md-4">
+                                                            <button class="btn btn-success text-left" id="submete_seccao" type="submit">
+                                                                <span class="i-color-white"><i class="fa fa-save fa-2x"></i>&nbsp;Salvar</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -207,6 +252,8 @@
                     </div>
                     <!--Passo 3-->
                     <div id="step-3" class="mt-4">
+                        <legend class="oculto">Filiação</legend>
+                        <hr class="oculto"></hr>
                         <div class="container-fluid padding">
                             <div id="form-step-2" role="form" data-toggle="validator">
                                 <!--Primeira Linha-->
@@ -293,6 +340,8 @@
 
                     <!--Passo 4-->
                     <div id="step-4" class="mt-4">
+                        <legend class="oculto">Encarregado</legend>
+                        <hr class="oculto"></hr>
                         <div class="container-fluid padding">
                             <div id="form-step-3" role="form" data-toggle="validator">
                                 <!--Primeira Linha-->
@@ -370,165 +419,7 @@
                     </div>
                     <!---->
                     <!--Passo 5-->
-                    <div id="step-5" class="mt-5">
-                        <div class="container-fluid padding">
-                            <div id="form-step-4" role="form" data-toggle="validator">
-                                <fieldset>
-                                    <legend>Dados da Matrícula</legend>
-                                    <hr class="light">
-                                    <!--Primeira Linha-->
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-6">
-                                            <div class="form-group offset-1">
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-sm-12 col-md-8">
-                                                        <label for="inputDadm">Pretende-se Matricular na classe</label>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-12 col-md-3">
-                                                        <select class="form-control" name="classe_m" required
-                                                            id="inputDadm">
-                                                            <option>8</option>
-                                                            <option>9</option>
-                                                            <option>10</option>
-                                                            <option>11</option>
-                                                            <option>12</option>
-                                                        </select>
-                                                        <div class="help-block with-errors text-danger"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                            <!--Ainda por pensar-->
-                                            <!--    
-                                        <div class="col-xs-12 col-sm-12 col-md-6">
-                                            <div class="form-group offset-1">
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                                        <label for="inputSec">Secção a matricular-se</label>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-12 col-md-3">
-                                                        <select class="form-control" name="_seccao" id="inputSec">
-                                                            <option>A</option>
-                                                            <option>B</option>
-                                                            <option>C</option>
-                                                        </select>
-                                                        <div class="help-block with-errors text-danger"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        -->
-                                    </div>
-                                </fieldset>
-                                <!--Ainda por pensar-->     
-                                <fieldset class="mt-5">
-                                    <legend>Informações do ultimo ano lectivo que frequentou</legend>
-                                    <hr class="light">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-6">
-                                            <div class="form-group offset-1">
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-sm-12 col-md-2">
-                                                        <label for="inputEns">Ensino</label>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                                        <select class="form-control" name="ensino" required
-                                                            id="inputEns">
-                                                            <option value="primaria">Primário </option>
-                                                            <option value="secundaria">Secundário</option>
-                                                        </select>
-                                                        <div class="help-block with-errors text-danger"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-6">
-                                            <div class="form-group offset-1">
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-sm-12 col-md-4">
-                                                        <label for="inputEsc">Na Escola</label>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-12 col-md-8">
-                                                        <select class="form-control" name="escolaAnte" required
-                                                            id="inputEsc">
-                                                            <option>Escola Secundaria Quisse Mavota</option>
-                                                        </select>
-                                                        <div class="help-block with-errors text-danger"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-5">
-                                        <div class="col-xs-12 col-sm-12 col-md-3">
-                                            <div class="form-group offset-1">
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-sm-12 col-md-4">
-                                                        <label for="inputCla">Classe</label>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                                        <select class="form-control" name="classeAnte" required
-                                                            id="inputCla">
-                                                            <option>7</option>
-                                                            <option>8</option>
-                                                            <option>9</option>
-                                                            <option>10</option>
-                                                            <option>11</option>
-                                                            <option>12</option>
-                                                        </select>
-                                                        <div class="help-block with-errors text-danger"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-3">
-                                            <div class="form-group offset-1">
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-sm-12 col-md-4">
-                                                        <label for="inputTurm">Turma</label>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                                        <input type="text" name="turmaAnte" required
-                                                            class="form-control" id="inputTurm">
-                                                        <div class="help-block with-errors text-danger"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-3">
-                                            <div class="form-group offset-1">
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-sm-12 col-md-4">
-                                                        <label for="inputNr">Nr</label>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                                        <input type="number" id="inputNr" name="numeroAnte" required
-                                                            name="" class="form-control">
-                                                        <div class="help-block with-errors text-danger"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-3">
-                                            <div class="form-group offset-1">
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-sm-12 col-md-4">
-                                                        <label for="inputAn">Ano</label>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                                        <input type="number" class="form-control" name="ano" required
-                                                            id="inputAn">
-                                                        <div class="help-block with-errors text-danger"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </div>
-                        </div>
-                    </div>
+                
 
                     <!---->
                     <!--Passo 6-->
@@ -554,34 +445,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="ofsset-1">
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group offset-1">
-                                                    <div class="row">
-                                                        <div class="col-xs-12 col-sm-12 col-md-6">
-                                                            <label for="inputSbi">BI</label>
-                                                        </div>
-                                                        <div class="col-xs-12 col-sm-12 col-md-6">
-                                                            <input type="file" class="form-control" name="userBi"
-                                                                id="inputSbi">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group offset-1">
-                                                    <div class="row">
-                                                        <div class="col-xs-12 col-sm-12 col-md-6">
-                                                            <label for="inputScert">Certificado de Habilitações</label>
-                                                        </div>
-                                                        <div class="col-xs-12 col-sm-12 col-md-6">
-                                                            <input type="file" class="form-control"
-                                                                name="userCertificado" id="inputScert">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 </fieldset>
                                 <fieldset class="mt-5">
@@ -597,8 +461,8 @@
                                                     <div class="col-xs-12 col-sm-12 col-md-3">
                                                         <select class="form-control" name="_sofre_doenca" id="inputSofd"
                                                             aria-placeholder="Selecione uma opcao">
-                                                            <option>Sim</option>
                                                             <option>Não</option>
+                                                            <option>Sim</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -606,7 +470,7 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-4">
                                             <div class="form-group offset-1">
-                                                <label for="inputInd">Em caso afirmativo indique-a</label>
+                                                <label for="inputInd" id="lab">Em caso afirmativo indique-a</label>
                                                 <textarea class="form-control" rows="5" name="_se_sim" cols="10"
                                                     id="inputInd"></textarea>
                                             </div>
@@ -620,5 +484,8 @@
                 </div>
                 <!---->
             </div>
+             <a id="matriculate" href="ReverDados.php" class="btn btn-success">Concluir</a>
+                <!--<button class="btn btn-success" id="matriculate">Submeter</button>-->
         </form>
+
     </div>

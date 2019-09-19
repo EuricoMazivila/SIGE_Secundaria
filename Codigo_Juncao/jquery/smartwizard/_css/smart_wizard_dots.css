@@ -11,8 +11,8 @@
  */
 
 /* SmartWizard Theme: Dots */
-.sw-theme-dots{
-}
+
+
 .sw-theme-dots .sw-container {
     min-height: 300px;
 }
@@ -32,6 +32,11 @@
 .sw-theme-dots .sw-toolbar-top{
     border-bottom-color: #ddd !important;
 }
+
+.oculto {
+    display: none;
+}
+
 .sw-theme-dots .sw-toolbar-bottom{
     border-top-color: #ddd !important;
     border-bottom-color: #ddd !important;
@@ -41,6 +46,9 @@
     background: #fff;
     border: 0px solid #ccc !important;
     list-style: none;
+    width: 55%;
+    margin-left: 18%;
+    margin-bottom: 7%;
 }
 .sw-theme-dots > ul.step-anchor:before {
     content: " ";
@@ -143,40 +151,31 @@
 }
 
 /* Responsive CSS */
-@media screen and (max-width: 768px) {
-    .sw-theme-dots > ul.step-anchor:before {
-        top: 0;
-        bottom: 0;
-        left: 10px;
-        width: 5px;
-        height: 100%;
-        background-color: #f5f5f5;
-        display: block;
-        margin-right: 10px;
+
+@media (min-width: 768px)  and (max-width: 989px){
+
+    .sw-theme-dots > ul.step-anchor{
+        width: 90%;
+        margin-left: 5%;
+    }
+}
+
+@media (min-width: 990px)  and (max-width: 1199px){
+
+    .sw-theme-dots > ul.step-anchor{
+        width: 65%;
+        margin-left: 15%;
     }
 
-    .sw-theme-dots > ul.step-anchor > li{
-        margin-left: 20px;
-        display: block;
-        clear: both;
+}
+
+@media screen and (max-width: 767px) {
+    .sw-theme-dots > ul.step-anchor {
+        visibility: hidden;
+        position: absolute;
     }
 
-    .sw-theme-dots > ul.step-anchor > li > a{
-        text-align: left;
-        margin-left: 0;
-        display: block;
-    }
-
-    .sw-theme-dots > ul.step-anchor > li > a:before {
-        top: 5px;
-        left: -23px;
-        margin-right: 10px;
-        display: block;
-    }
-    .sw-theme-dots > ul.step-anchor > li > a:after  {
-        top: -38px;
-        left: -31px;
-        margin-right: 10px;
+    .oculto {
         display: block;
     }
 }

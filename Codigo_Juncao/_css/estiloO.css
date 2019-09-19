@@ -10,8 +10,11 @@
     bottom: 0;
 }
 
-#myForm {
-    margin-top: 5%;
+#matriculate {
+   float: right;
+   margin-right: 2%;
+   margin-top: 0.5%;
+   visibility: hidden;
 }
 
 ul li a {

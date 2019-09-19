@@ -18,7 +18,7 @@ $(document).ready(function(){
 });
     
 $(document).ready(function(){
-    $('#ano').change(function(){
+    $('#ano').click(function(){
         $('form').submit(function(){
             var dados=$(this).serialize();
             $.ajax({
