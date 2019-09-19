@@ -44,7 +44,7 @@
                         require_once("../../Dao/conexao.php");
                         
                         //Estágio 1: Preparação
-                        $query="SELECT id_candidato,CONCAT(nome,' ',apelido) as nome_completo,regime,classe_matricular from candidatos_cadastrados";
+                        $query="SELECT id_candidato,nome_completo,regime,classe_matricular from candidatos_cadastrados";
                         
                         $stmt=$conexao->prepare($query);
                         if(!$stmt){

@@ -351,6 +351,8 @@
 
             if (idx==4) {
                 $('#matriculate').css ({'visibility': 'visible'});
+            }else{
+                $('#matriculate').css ({'visibility': 'hidden'});
             } 
 
             return true;

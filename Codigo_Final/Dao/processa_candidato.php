@@ -52,7 +52,7 @@
             echo "Preparação falhou: (" . $conexao->errno . ")" . $conexao->error;
         }
         // Estágio 2: Associação dos parâmetros (bind)
-        $id_candidato=4;
+        $id_candidato=5;
         $nome=filtraEntrada($conexao,$_POST['nome']);
         $apelido=filtraEntrada($conexao,$_POST['apelido']);
         $data_nasc=filtraEntrada($conexao,$_POST['datanasc']);
@@ -73,7 +73,7 @@
         if(!$stmt->execute()){
             echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
         }else{
-            header("Location: ../Candidato.php");
+            header("Location: ../secretaria/candidato.php");
         }   
 
         $stmt->close();
@@ -86,7 +86,8 @@
 
         //Estágio 1: Preparação
       //  $query="SELECT codCand,nome_completo,classe_matricular,turno from candidato_aluno where nome_completo like ? and ano like ?";                           
-        $query="SELECT id_candidato, CONCAT(nome,' ',apelido) as nome_completo,regime,classe_matricular from candidato_aluno where CONCAT(nome,' ',apelido) like ? and ano like ?";
+        //$query="SELECT id_candidato, CONCAT(nome,' ',apelido) as nome_completo,regime,classe_matricular from candidato_aluno where CONCAT(nome,' ',apelido) like ? and ano like ?";
+        $query="SELECT id_candidato, nome_completo,regime,classe_matricular from candidatos where nome_completo like ? and ano like ?";
         $stmt=$conexao->prepare($query);
         if(!$stmt){
             echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
@@ -156,7 +157,7 @@
 
         //Estágio 1: Preparação
       //  $query="SELECT codCand,nome_completo,classe_matricular,turno from candidato_aluno where nome_completo like ? and ano like ?";                           
-        $query="SELECT id_candidato, CONCAT(nome,' ',apelido) as nome_completo,regime,classe_matricular from candidatos_cadastrados where CONCAT(nome,' ',apelido) like ?";
+        $query="SELECT id_candidato,nome_completo,regime,classe_matricular from candidatos_cadastrados where nome_completo like ?";
         $stmt=$conexao->prepare($query);
         if(!$stmt){
             echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
