@@ -1,6 +1,6 @@
 <?php
-    if(isset($_POST[''])){
-
+    if(isset($_POST['concluir'])){
+        matricular_aluno();
     }
 
     //Validacao dos dados Preenchidos em Campos de formulario 
@@ -49,11 +49,11 @@
     }
 
    //Funcao Matricular Novo Aluno
-  //  function matricular_aluno(){
+    function matricular_aluno(){
         require_once("conexao.php");
         
         //Estágio 1: Preparação
-        $query="Call addAluno_matriculado(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";               
+        $query="Call addAluno_matriculado(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";               
         $stmt=$conexao->prepare($query);
         if(!$stmt){
             echo "Preparação falhou: (" . $conexao->errno . ")" . $conexao->error;
@@ -74,13 +74,13 @@
         
         $provincia_res=filtraEntrada($conexao,$_POST['provincia_res']);
         $distrito_res=filtraEntrada($conexao,$_POST['distrito_res']);
-        $av_ou_rua=filtraEntrada($conexao,$_POST['avenida']);
         $bairro=filtraEntrada($conexao,$_POST['bairro_res']);
+        $av_ou_rua=filtraEntrada($conexao,$_POST['avenida']);
         $quarteirao=filtraEntrada($conexao,$_POST['quarteirao_res']);
         $nr_casa=filtraEntrada($conexao,$_POST['nrCasa_res']);
         $numero_tf=filtraEntrada($conexao,$_POST['nr_Tell']);
         $email=filtraEntrada($conexao,$_POST['email']);
-        $foto=upload_imagem();
+      //  $foto=upload_imagem();
 
         $nome_pai=filtraEntrada($conexao,$_POST['nomePai']);
         $telefone_pai=filtraEntrada($conexao,$_POST['telefonePai']);
@@ -100,19 +100,20 @@
         $local_trab_enc=filtraEntrada($conexao,$_POST['localTrabEnc']);
         $profissao_enc=filtraEntrada($conexao,$_POST['profissaoEnc']);
         
-        $classe_matr=filtraEntrada($conexao,$_POST['classe_m']);
-
-        $ensino=filtraEntrada($conexao,$_POST['ensino']);
-        $nome_escola=filtraEntrada($conexao,$_POST['escolaAnte']);
-        $classe_anter=filtraEntrada($conexao,$_POST['classeAnte']);
-        $turma_anter=filtraEntrada($conexao,$_POST['turmaAnte']);
-        $numero_anter=filtraEntrada($conexao,$_POST['numeroAnte']);
-        $ano=filtraEntrada($conexao,$_POST['ano']);
+        // Estágio 2: Associação dos parâmetros (bind)
+        $bind=$stmt->bind_param("ssssssssssssssssiississsisssissssss", 
+        $apelido,$nomes,$pais_nas,$provincia_nas,$distrito_nas, 
+        $data_nascimento,$bi,$local_emissao,$data_em,$sexo,$estado_civil,
+        $provincia_res,$distrito_res,$bairro,$av_ou_rua,$quarteirao,$nr_casa,
+        $numero_tf,$email,$nome_pai,$telefone_pai,$local_trabalho_pai,
+        $profissao_pai,$nome_mae,$telefone_mae,$local_trabalho_mae,$profissao_mae,
+        $nome_enc,$numero_tf_enc,$provincia_enc,$distrito_enc,$bairro_enc,
+        $av_ou_rua_enc,$local_trab_enc,$profissao_enc);
 
        // $foto=filtraEntrada($conexao,$_POST['']);
         
         //Aluno
-        
+        /*
         echo " Apelido ".$apelido. "<br/><br/>";
         echo " Nomes ".$nomes. "<br/><br/>";
         echo "Data de Nascimento ".$data_nascimento. "<br/><br/>";
@@ -152,26 +153,7 @@
         echo "Profissao da Mae ".$profissao_mae. "<br/><br/>";
         echo "Local de Trabalho do Pai ".$local_trabalho_pai. "<br/><br/>";
         echo "Local de Trabalho da Mae ".$local_trabalho_mae. "<br/><br/>";
-        echo "Classe a matricular ".$classe_matr. "<br/><br/>";
-        echo "Ensino ".$ensino. "<br/><br/>";
-        echo "Nome da escola ".$nome_escola. "<br/><br/>";
-        echo "Escola Anterior ".$classe_anter. "<br/><br/>";
-        echo "Turma Anterior ".$turma_anter. "<br/><br/>";
-        echo "Numero Anterior ".$numero_anter. "<br/><br/>";
-        echo "Ano ".$ano. "<br/><br/>";
-
-
-        // Estágio 2: Associação dos parâmetros (bind)
-        $bind=$stmt->bind_param("ssssssssssssssssiisisisssisssisssssssssssii", 
-        $apelido,$nomes,$pais_nas,$provincia_nas,$distrito_nas, 
-        $data_nascimento,$bi,$local_emissao,$data_em,$sexo,$estado_civil,
-        $provincia_res,$distrito_res,$bairro,$av_ou_rua,$quarteirao,$nr_casa,
-        $numero_tf,$email,$foto,$nome_pai,$telefone_pai,$local_trabalho_pai,
-        $profissao_pai,$nome_mae,$telefone_mae,$local_trabalho_mae,$profissao_mae,
-        $nome_enc,$numero_tf_enc,$provincia_enc,$distrito_enc,$bairro_enc,
-        $av_ou_rua_enc,$local_trab_enc,$profissao_enc,$classe_matr,
-        $ensino,$nome_escola,$classe_anter,$turma_anter,$numero_anter,$ano);
-
+        */
         if(!$bind){
             echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;
         }
@@ -181,10 +163,10 @@
             echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
         }else{
             echo "Registado Com Sucesso";   
-            header("Location: ../Login_Pre_Matricula.php");
+            header("Location: ../ReverDados.php");
         }   
 
         $stmt->close();
         $conexao->close();
-  // }
+   }
 ?>

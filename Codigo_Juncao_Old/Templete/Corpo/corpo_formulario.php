@@ -468,8 +468,10 @@
                 </div>
                 <!---->
             </div>
+            <input type="submit" name="concluir">
+            <!--
              <a id="matriculate" href="ReverDados.php" class="btn btn-success">Concluir</a>
-                <!--<button class="btn btn-success" id="matriculate">Submeter</button>-->
+                <button class="btn btn-success" id="matriculate">Submeter</button>-->
         </form>
 
     </div>
