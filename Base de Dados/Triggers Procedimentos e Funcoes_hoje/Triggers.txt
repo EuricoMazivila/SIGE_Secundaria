@@ -1,0 +1,71 @@
+Triggers
+
+//Trigger que actualiza o estado do candidato
+Torna-se Aluno (Matriculado)
+Delimiter //
+Create trigger Actualiza_Estado_Candidato after insert on Aluno
+For each row
+Begin
+	Update candidato_aluno set estado='Pre Matriculado'
+	where new.codCand=candidato_aluno.codCand;
+End;//
+
+Delimiter //
+Create trigger Actualiza_Estado_Candidato_d after delete on Aluno
+For each row
+Begin
+	Update candidato_aluno set estado='Nao Matriculado'
+	where candidato_aluno.codCand=old.codCand;
+End;//
+
+
+//Trigger que Actualiza o total de vagas na matricula
+Delimiter //
+Create trigger Incrementa_Vagas after insert on matricula_classe
+For each row
+Begin
+	Update matricula set matricula.total_vagas=matricula.total_vagas+new.total_vagas
+	where new.codMatr=matricula.codMatr;
+End;//
+
+//Trigger que Actualiza o total de vagas na matricula
+Delimiter //
+Create trigger Actualiza_Vagas after update on matricula_classe
+For each row
+Begin
+	Update matricula set matricula.total_vagas=matricula.total_vagas-old.total_vagas+new.total_vagas
+	where new.codMatr=matricula.codMatr;
+End;//
+
+
+Mudanca de Estado da Matricula
+
+
+Trigger para vagas_preenchidas na classe
+Quando adicionar-se um novo aluno
+
+Esta versão de MariaDB não suporta ainda 'multiple triggers with the same action time and event for one table'
+
+Delimiter //
+Create trigger Actualiza_vagas_preenchidas after insert on aluno_matricula
+For each row
+Begin
+	declare codClas int;
+	declare ano year;
+
+	Select codClass into codClas from aluno_classe where aluno_classe.codAl=new.codAl;
+	Select year(aluno_matricula.data) into ano from aluno_matricula where aluno_matricula.codal=new.codAl;	
+
+	if((codClas is not null) && (ano=year(curdate()))) then
+		update matricula_classe set total_vagas_preenchidas=total_vagas_preenchidas+1 where matricula_classe.codClass=codClas;
+	End if;
+End; 	
+
+
+
+
+
+
+
+
+
