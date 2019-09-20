@@ -33,17 +33,7 @@ session_start();
      }
 
     function buscaUsuario(){
-        //require_once("conexao.php");
-        $hostname="localhost";
-        $user="root";
-        $password="";
-        $database="SIGES";
-        
-        $conexao=new mysqli($hostname,$user,$password,$database);
-    
-        if($conexao->connect_errno){
-            echo "Falha na conecao com MySQL: (" .$conexao->connect_errno . ") " . $conexao->connect_error;
-        }       
+        require_once("conexao.php");      
         //Estágio 1: Preparação
         $query="SELECT usuario.id_User,usuario.Username,usuario.Senha,usuario.Email_Instituconal,pessoa.id_Pessoa,pessoa.Email,pessoa.Nr_tell FROM `usuario`,pessoa WHERE usuario.id_User=pessoa.id_Pessoa and (username=? or email_instituconal=?)";
         $stmt=$conexao->prepare($query);
@@ -105,16 +95,7 @@ session_start();
                 $tipoEnvio='Email';
             }
             
-            $hostname="localhost";
-            $user="root";
-            $password="";
-            $database="SIGES";
-        
-            $conexao=new mysqli($hostname,$user,$password,$database);
-        
-            if($conexao->connect_errno){
-                echo "Falha na conecao com MySQL: (" .$conexao->connect_errno . ") " . $conexao->connect_error;
-            }       
+            require_once("conexao.php");      
             //Estágio 1: Preparação
             $query="SELECT RecuperaSenha(?,?,?) as idRec";
             $stmt=$conexao->prepare($query);
@@ -171,16 +152,7 @@ session_start();
             
         }else{
     
-            $hostname="localhost";
-            $user="root";
-            $password="";
-            $database="SIGES";
-        
-            $conexao=new mysqli($hostname,$user,$password,$database);
-        
-            if($conexao->connect_errno){
-                echo "Falha na conecao com MySQL: (" .$conexao->connect_errno . ") " . $conexao->connect_error;
-            }       
+            require_once("conexao.php");       
             //Estágio 1: Preparação
             $query="SELECT `upDateSenha`(?, ?) as up";
             $stmt=$conexao->prepare($query);
@@ -229,17 +201,7 @@ session_start();
     }
 
     function validarCodigoRecuperacao(){
-        
-            $hostname="localhost";
-            $user="root";
-            $password="";
-            $database="SIGES";
-        
-            $conexao=new mysqli($hostname,$user,$password,$database);
-        
-            if($conexao->connect_errno){
-                echo "Falha na conecao com MySQL: (" .$conexao->connect_errno . ") " . $conexao->connect_error;
-            }       
+        require_once("conexao.php");      
             //Estágio 1: Preparação
             $query="SELECT * FROM `recupera_senha_usuario` WHERE id_Solicitacao=? and CodigoRecuperacao=?";
             $stmt=$conexao->prepare($query);

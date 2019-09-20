@@ -20,17 +20,7 @@ function filtraEntrada($conexao,$dado){
 
 
 function busca_escola_Acesso_User(){
-    //require_once("conexao.php");
-    $hostname="localhost";
-    $user="root";
-    $password="";
-    $database="SIGES";
-    
-    $conexao=new mysqli($hostname,$user,$password,$database);
-
-    if($conexao->connect_errno){
-        echo "Falha na conecao com MySQL: (" .$conexao->connect_errno . ") " . $conexao->connect_error;
-    }       
+    require_once("conexao.php");       
     //Estágio 1: Preparação
     $query="SELECT user_escola.id_User, user_escola.Tipo, user_escola.Estado, escola.id_Escola, concat('Escola ',Nivel,' ',Nome) as 'Nome_Escola' FROM `user_escola`,escola WHERE user_escola.id_Escola=escola.id_Escola and user_escola.id_User=? and user_escola.Estado=?;";
     $stmt=$conexao->prepare($query);
@@ -75,16 +65,7 @@ function busca_escola_Acesso_User(){
 }
 
 function busca_EscolaS(){
-    $hostname="localhost";
-    $user="root";
-    $password="";
-    $database="SIGES";
-    
-    $conexao=new mysqli($hostname,$user,$password,$database);
-
-    if($conexao->connect_errno){
-        echo "Falha na conecao com MySQL: (" .$conexao->connect_errno . ") " . $conexao->connect_error;
-    }
+    require_once("conexao.php");
 
     
 
@@ -134,16 +115,7 @@ function busca_EscolaS(){
 
 function busca_Escola(){
        
-    $hostname="localhost";
-    $user="root";
-    $password="";
-    $database="SIGES";
-    
-    $conexao=new mysqli($hostname,$user,$password,$database);
-
-    if($conexao->connect_errno){
-        echo "Falha na conecao com MySQL: (" .$conexao->connect_errno . ") " . $conexao->connect_error;
-    }
+    require_once("conexao.php");
       
             //Estágio 1: Preparação
     $query="SELECT * FROM `escola`WHERE  (id_Escola like ? or nome LIKE ? or Nivel  LIKE ? or Pertenca LIKE ?  ) and id_Escola in(SELECT id_Escola FROM escola WHERE id_dir=? )";

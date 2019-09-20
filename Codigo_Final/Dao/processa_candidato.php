@@ -1,4 +1,5 @@
 <?php
+session_start();
     //Insercao de Novo Candidato    
     if(isset($_POST['registar'])){
         if(($_POST['nome']) && ($_POST['apelido']) && 
@@ -46,24 +47,23 @@
     function registar_candidato(){
         require_once("conexao.php");
         //Estágio 1: Preparação
-        $query="CALL addCandidato(?,?,?,?,?,?,?,?,?)";
+        $query="CALL addCandidato(?,?,?,?,?,?,?,?)";
         $stmt=$conexao->prepare($query);
         if(!$stmt){
             echo "Preparação falhou: (" . $conexao->errno . ")" . $conexao->error;
         }
         // Estágio 2: Associação dos parâmetros (bind)
-        $id_candidato=5;
         $nome=filtraEntrada($conexao,$_POST['nome']);
         $apelido=filtraEntrada($conexao,$_POST['apelido']);
         $data_nasc=filtraEntrada($conexao,$_POST['datanasc']);
         $sexo=filtraEntrada($conexao,$_POST['sexo']);
         $classe_matr=filtraEntrada($conexao,$_POST['classe_matr']);
         $regime=filtraEntrada($conexao,$_POST['regime']);
-        $escola=filtraEntrada($conexao,$_POST['escola']);
-        $distrito=filtraEntrada($conexao,$_POST['distrito']);
+        $escola_origem=filtraEntrada($conexao,$_POST['escola']);
+        $escola_destino=filtraEntrada($conexao, $_POST['id_Escola']);
         //$senha="Euro";    
 
-        $bind=$stmt->bind_param("issssssss",$id_candidato,$nome,$apelido,$data_nasc,$sexo,$classe_matr,$regime,$escola,$distrito);
+        $bind=$stmt->bind_param("sssssssi",$nome,$apelido,$data_nasc,$sexo,$classe_matr,$regime,$escola_origem,$escola_destino);
 
         if(!$bind){
             echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;
@@ -73,7 +73,7 @@
         if(!$stmt->execute()){
             echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
         }else{
-            header("Location: ../secretaria/candidato.php");
+            header("Location: ../escola/secretaria/candidato.php");
         }   
 
         $stmt->close();
@@ -85,10 +85,9 @@
         require_once("conexao.php");
 
         //Estágio 1: Preparação
-      //  $query="SELECT codCand,nome_completo,classe_matricular,turno from candidato_aluno where nome_completo like ? and ano like ?";                           
-        //$query="SELECT id_candidato, CONCAT(nome,' ',apelido) as nome_completo,regime,classe_matricular from candidato_aluno where CONCAT(nome,' ',apelido) like ? and ano like ?";
-        $query="SELECT id_candidato, nome_completo,regime,classe_matricular from candidatos where nome_completo like ? and ano like ?";
-        $stmt=$conexao->prepare($query);
+      $query="SELECT id_candidato, concat(Nome,' ',Apelido) as nome_completo,regime,classe_matricular from candidatos where (Nome like ? or Apelido  like ?) and ano like ?";
+        
+       $stmt=$conexao->prepare($query);
         if(!$stmt){
             echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
         }
@@ -104,7 +103,7 @@
             $ano="%2019%";
         }
     
-        $bind=$stmt->bind_param("ss",$nome,$ano);
+        $bind=$stmt->bind_param("sss",$nome,$nome,$ano);
 
         if(!$bind){
             echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;
@@ -156,8 +155,8 @@
         require_once("conexao.php");
 
         //Estágio 1: Preparação
-      //  $query="SELECT codCand,nome_completo,classe_matricular,turno from candidato_aluno where nome_completo like ? and ano like ?";                           
-        $query="SELECT id_candidato,nome_completo,regime,classe_matricular from candidatos_cadastrados where nome_completo like ?";
+        $query="SELECT id_candidato, concat(Nome,' ',Apelido) as nome_completo,estado,regime,classe_matricular from candidatos where (Nome like ? or Apelido  like ?) and ano and id_escola=? and estado='cadastrado'";
+
         $stmt=$conexao->prepare($query);
         if(!$stmt){
             echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
@@ -166,8 +165,10 @@
         // Estágio 2: Associação dos parâmetros (bind)
         $nome=filtraEntrada($conexao,$_POST['nome_candidato_m']);
         $nome="%{$nome}%";
-    
-        $bind=$stmt->bind_param("s",$nome);
+        
+        $id_escola=$_SESSION['id_Escola'];
+
+        $bind=$stmt->bind_param("ssi",$nome,$nome,$id_escola);
 
         if(!$bind){
             echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;

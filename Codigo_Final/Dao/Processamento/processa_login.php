@@ -45,16 +45,7 @@
     //Essa funcao Ajuda a processar o acesso do Usuario;
     function autenticarUser(){
         //require_once("conexao.php");
-        $hostname="localhost";
-        $user="root";
-        $password="";
-        $database="SIGES";
-        
-        $conexao=new mysqli($hostname,$user,$password,$database);
-    
-        if($conexao->connect_errno){
-            echo "Falha na conecao com MySQL: (" .$conexao->connect_errno . ") " . $conexao->connect_error;
-        }       
+        require_once("conexao.php");      
         //Estágio 1: Preparação
         $query="SELECT pessoa.id_Pessoa,concat(pessoa.Nome,' ',pessoa.Apelido) as NomeCompleto, usuario.id_User,usuario.Username, usuario.Senha,usuario.Estado,usuario.Acesso_Distrital,usuario.Acesso_Escola,usuario.Acesso_Convidado  FROM pessoa, `usuario` WHERE pessoa.id_Pessoa=usuario.id_User and usuario.Username=? and usuario.Senha=?";
         $stmt=$conexao->prepare($query);
@@ -121,7 +112,7 @@
     
     //Login Principal
     function iniciarSessao_principal(){
-        require_once("../conexao.php");
+        require_once("conexao.php");
         
         //Estágio 1: Preparação
         $query="SELECT usuario,AES_DECRYPT(senha,'senha') as senha,tipo from usuario where usuario=?";
@@ -175,7 +166,7 @@
 
      //Login candidato 
      function iniciarSessao_candidato(){
-        require_once("../conexao.php");
+        require_once("conexao.php");
         
         //Estágio 1: Preparação
         $query="SELECT AES_DECRYPT(senha,'senha') as senha from candidato_aluno where nome_completo=?";

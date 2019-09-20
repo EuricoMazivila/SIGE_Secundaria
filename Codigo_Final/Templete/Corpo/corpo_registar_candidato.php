@@ -15,6 +15,8 @@
 
     <div class="container">
         <form method="POST" role="form" action="../../Dao/processa_candidato.php">
+        
+        <input type="hidden" name="id_Escola" value='<?php  echo $_SESSION['id_Escola'];?>'>
             <div class="form-row">
                 <div class="col-sm-5">
                     <label for="digitNome">Nomes</label>

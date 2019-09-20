@@ -44,12 +44,15 @@
                         require_once("../../Dao/conexao.php");
                         
                         //Estágio 1: Preparação
-                        $query="SELECT id_candidato,nome_completo,regime,classe_matricular from candidatos_cadastrados";
-                        
+                      //  $query="SELECT id_candidato,nome_completo,regime,classe_matricular from candidatos_cadastrados";
+                        $query="SELECT id_candidato, concat(Nome,' ',Apelido) as nome_completo,estado,regime,classe_matricular from candidatos where id_escola=? and estado='cadastrado'";
                         $stmt=$conexao->prepare($query);
                         if(!$stmt){
                             echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
                         }
+
+                        $id_escola=$_SESSION['id_Escola'];
+                        $bind=$stmt->bind_param("i",$id_escola);
                 
                         // Estágio 2: execução
                         if(!$stmt->execute()){

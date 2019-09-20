@@ -1,17 +1,23 @@
 <?php
-
+        function filtraEntrada($conexao,$dado){
+            //remove espacoes no inicio e
+            //no final da string
+            $dado=trim($dado);
+    
+            //remove contra barras:
+            // "cobra d\'agua" vira "cobra d'agua"
+            $dado= stripslashes($dado);
+            $dado=htmlspecialchars($dado);
+            
+            //Remove caracteres que um hacker possa ter 
+            //inserido para invadir ou alterar o banco de dados
+            $dado=$conexao->real_escape_string($dado);
+    
+            return $dado;
+        }
 
 function busca_escolas_distrito(){
-        $hostname="localhost";
-    $user="root";
-    $password="";
-    $database="SIGES";
-    
-    $conexao=new mysqli($hostname,$user,$password,$database);
-
-    if($conexao->connect_errno){
-        echo "Falha na conecao com MySQL: (" .$conexao->connect_errno . ") " . $conexao->connect_error;
-    }     
+    require_once("conexao.php");     
     //Estágio 1: Preparação
     $query="SELECT id_Escola,concat('Escola ',Nivel,' ',Nome) as 'Nome_Escola',Nivel,Pertenca FROM `escola` WHERE id_Dir=?";
     $stmt=$conexao->prepare($query);

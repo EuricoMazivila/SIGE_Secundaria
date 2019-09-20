@@ -79,7 +79,7 @@
                         require_once("../../Dao/conexao.php");
                         
                         //Estágio 1: Preparação
-                        $query="SELECT id_candidato,nome_completo,regime,classe_matricular from candidatos where ano=year(curdate())";
+                        $query="SELECT id_candidato,concat(Nome,' ',Apelido)  as nome_completo,regime,classe_matricular from candidatos where ano=year(curdate())";
                         
                         $stmt=$conexao->prepare($query);
                         if(!$stmt){
