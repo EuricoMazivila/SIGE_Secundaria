@@ -35,7 +35,7 @@ session_start();
     function buscaUsuario(){
         require_once("conexao.php");      
         //Estágio 1: Preparação
-        $query="SELECT usuario.id_User,usuario.Username,usuario.Senha,usuario.Email_Instituconal,pessoa.id_Pessoa,pessoa.Email,pessoa.Nr_tell FROM `usuario`,pessoa WHERE usuario.id_User=pessoa.id_Pessoa and (username=? or email_instituconal=?)";
+        $query="SELECT usuario.id_User,usuario.Username,usuario.Senha, usuario.Email_Instituconal, contacto.Email, contacto.Nr_Tell FROM `usuario`,contacto WHERE usuario.id_User=contacto.id_Pessoa and (Username=? or Email_Instituconal=?)";
         $stmt=$conexao->prepare($query);
         if(!$stmt){
             echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
@@ -66,7 +66,7 @@ session_start();
                 session_start();
                 $_SESSION['id_User']=$linha['id_User'];
                 $_SESSION['email']=$linha['Email'];
-                $_SESSION['nrTell']=$linha['Nr_tell'];
+                $_SESSION['nrTell']=$linha['Nr_Tell'];
             }
             header('Location: ../../Autenticacao\Recuperacao\Recuperacao_Step_1.php');
         }else{
@@ -80,10 +80,7 @@ session_start();
     }
 
     function eviarCodigoRecuperacao(){
-        
-        
-
-        if(!(isset($_POST['tell'])||isset($_POST['mailll']))){
+         if(!(isset($_POST['tell'])||isset($_POST['mailll']))){
             echo 'Sair'; 
         }else{
             

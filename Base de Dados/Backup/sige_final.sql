@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 20-Set-2019 às 17:50
+-- Generation Time: 20-Set-2019 às 17:14
 -- Versão do servidor: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -399,16 +399,6 @@ CREATE TABLE `contacto` (
   `Email` varchar(100) NOT NULL,
   `Nr_Tell` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `contacto`
---
-
-INSERT INTO `contacto` (`id_Pessoa`, `Email`, `Nr_Tell`) VALUES
-('2019A0003', 'Candido@gmail.com', 849253563),
-('2019C0005', 'Uem@gmail.com', 84123454),
-('2019C0006', 'rwerw@hom', 842323434),
-('2019F0002', 'rywieweur@gmfl.com', 84123213);
 
 -- --------------------------------------------------------
 
@@ -857,7 +847,6 @@ ALTER TABLE `classe`
 -- Indexes for table `contacto`
 --
 ALTER TABLE `contacto`
-  ADD PRIMARY KEY (`id_Pessoa`),
   ADD KEY `id_Pessoa` (`id_Pessoa`);
 
 --
