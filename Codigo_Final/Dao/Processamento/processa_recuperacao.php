@@ -104,7 +104,7 @@ session_start();
         $tipoEnvio= filtraEntrada($conexao,$tipoEnvio);
         $CampoEnvio= filtraEntrada($conexao,$CampoEnvio);
         
-        $bind=$stmt->bind_param("iss", $idUser, $tipoEnvio, $CampoEnvio);
+        $bind=$stmt->bind_param("sss", $idUser, $tipoEnvio, $CampoEnvio);
         if(!$bind){
             echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;
         }
@@ -126,8 +126,6 @@ session_start();
                 $linha=$res->fetch_assoc();
                 $_SESSION['id_rec']=$linha['idRec'];
                 
-               // $_SESSION['email']=$linha['Email'];
-               // $_SESSION['nrTell']=$linha['Nr_tell'];
             }
             header('Location: ../../Autenticacao\Recuperacao\Recuperacao_Step_2.php');
         }else{
@@ -136,11 +134,7 @@ session_start();
         
         $stmt->close();
         $conexao->close();
-        }
-        /**`*/
-        //require_once("conexao.php");
-        /*
-      */
+    }
    
     }
     function updateSenha(){
