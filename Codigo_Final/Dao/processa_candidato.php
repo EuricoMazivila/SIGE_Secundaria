@@ -1,5 +1,10 @@
 <?php
 session_start();
+    //Para busca sem refresh da escola
+    if(isset($_POST['buscaescola'])){
+      busca();
+    }
+    
     //Insercao de Novo Candidato    
     if(isset($_POST['registar'])){
         if(($_POST['nome']) && ($_POST['apelido']) && 
@@ -41,6 +46,17 @@ session_start();
         $dado=$conexao->real_escape_string($dado);
 
         return $dado;
+    }
+
+    function busca(){
+        require_once("conexao.php");
+        $id_distrito = $_POST['buscaescola'];
+        $result_sub_cat = "SELECT Nome FROM escola WHERE id_Dir=$id_distrito ORDER BY Nome";
+        $resultado_sub_cat = $conexao->query($result_sub_cat);
+        echo'<option selected value="">Seleciona a escola de origem</option>';
+        while ($row_sub_cat = mysqli_fetch_assoc($resultado_sub_cat) ) {
+            echo'<option>'.utf8_encode($row_sub_cat['Nome']).'</option>';
+        }
     }
 
     //Registar novo Candidato
@@ -200,8 +216,8 @@ session_start();
                 for($j=0; $j<$linhas; ++$j){
                     $res->data_seek($j);
                     $linha=$res->fetch_assoc();
-                echo "<tr>";
-                echo "<td>". $linha['id_candidato']. "</td>";
+                    echo "<tr>";
+                    echo "<td>". $linha['id_candidato']. "</td>";
                     echo "<td>". $linha['nome_completo']. "</td>";
                     echo "<td>". $linha['regime']. "</td>";
                     echo "<td>". $linha['classe_matricular']. "</td>";

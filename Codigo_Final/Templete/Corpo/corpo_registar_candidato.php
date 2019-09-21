@@ -15,8 +15,8 @@
 
     <div class="container">
         <form method="POST" role="form" action="../../Dao/processa_candidato.php">
-        
-        <input type="hidden" name="id_Escola" value='<?php  echo $_SESSION['id_Escola'];?>'>
+            <?php require_once("../../Dao/conexao.php"); ?>
+            <input type="hidden" name="id_Escola" value='<?php  echo $_SESSION['id_Escola'];?>'>
             <div class="form-row">
                 <div class="col-sm-5">
                     <label for="digitNome">Nomes</label>
@@ -64,31 +64,43 @@
                     <select class="form-control" id="pickTurno" name="regime">
                         <option>Diurno</option>
                         <option>Nocturno</option>
-                        <option>A distancia</option>
                     </select>
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="col-sm-5">
-                    <label>Escola de origem</label>
-                    <select class="form-control" name="escola">
-                        <option>Escola Secundaria Joaquim Chissano</option>
-                        <option>Escola Secundaria Herois Mocambicanos</option>
-                        <option>Escola Secundaria Quisse Mavota</option>
-                        <option>Escola Secundaria Santa Montanha</option>
-                    </select>
-                </div>
-                <div class="col-sm-5 offset-sm-2">
-                    <label for="pickDist">Distrito da escola de origem</label>
-                    <select class="form-control" id="pickDist" name="distrito">
-                        <option>kamubukwana</option>
-                        <option>Kamavota</option>
-                        <option>kalhamankulo</option>
-                        <option>katembe</option>
-                        <option>kanhaka</option>
+                    <label for="id_distrito">Distrito da escola de origem</label>
+                    <select class="form-control" id="id_distrito" name="distrito" placeholder="Selecione o distrito da escola de origem">
+                        <option value="">Selecione o distrito da escola de origem</option>
+                        <?php 
+                            include_once("conexao.php");
+                            $query="SELECT id_distrito,Nome from distrito";
+                            $resultado=$conexao->query($query);
+                            if(!$resultado){
+                                echo "Erro";
+                            }
+
+                            $linhas=$resultado->num_rows;   
+
+                            for($j=0; $j<$linhas; ++$j){
+                                $resultado->data_seek($j);
+                                $linha=$resultado->fetch_array(MYSQLI_ASSOC);
+                                echo '<option value="'.$linha['id_distrito'].'">'.$linha['Nome'].'</option>';
+                            }
+                            
+                            //Fecha a conexao
+                            $resultado->close();
+                            $conexao->close();
+                        ?>
                     </select>
                     <div class="help-block with-errors"></div>
+                </div>
+                <div class="col-sm-5 offset-sm-2">
+                    <label>Escola de origem</label>
+                    <select class="form-control" name="escola" id="id_escola">    
+                        <option value="">Selecione a escola de origem</option>
+                    </select>
                 </div>
             </div>
             
@@ -108,7 +120,5 @@
         </form>
     </div>
 </div>
-<!--Deve-se Organizar este codigo -->
-
 
 </div>

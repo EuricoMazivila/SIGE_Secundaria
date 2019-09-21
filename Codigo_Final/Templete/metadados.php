@@ -43,14 +43,14 @@
     <script src="fileinput/_js/fileinput.js"></script>
     <script src="_js/fileinput.js"></script>
 
-    
+   
+    <script src="bootstrap/_js/bootstrap.js"></script>
    <!--Formulario do Candidato-->
    <script src="_js/steps_pre_matricula.js"></script>
        <!-- Include jQuery -->
     <script src="_js/validator.js"></script>
     <script src="jquery/smartwizard/_js/jquery.smartWizardd.js"></script>
     <script src="_js/popper.js"></script>
-
     
     
     <title><?php echo $titulo;?></title>
