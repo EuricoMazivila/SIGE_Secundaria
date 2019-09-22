@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 20-Set-2019 às 23:44
+-- Generation Time: 22-Set-2019 às 04:52
 -- Versão do servidor: 10.1.35-MariaDB
 -- versão do PHP: 7.2.9
 
@@ -123,16 +123,36 @@ end$$
 CREATE DEFINER=`root`@`localhost` FUNCTION `AddEscola` (`_Nome` VARCHAR(40), `_Nivel` ENUM('Secundaria','Primaria'), `_Pertenca` ENUM('Publica','Privada'), `_id_Dir` INT) RETURNS INT(11) NO SQL
     COMMENT 'Essa Funcao Cria Pessoa'
 BEGIN
-DECLARE id_Escola int(11);
-INSERT INTO `escola` (`id_Escola`, `Nome`, `Nivel`, `Pertenca`, `id_Dir`) VALUES (NULL, _Nome, _Nivel, _Pertenca, _id_Dir);
-SET id_Escola =(SELECT COUNT(escola.id_Escola)  FROM escola WHERE escola.Nome=_Nome and escola.Nivel=_Nivel and escola.Pertenca=_Pertenca and escola.id_Dir=_id_Dir);
-if(id_Escola>0) THEN
-SET id_Escola =(SELECT escola.id_Escola  FROM escola WHERE escola.Nome=_Nome and escola.Nivel=_Nivel and escola.Pertenca=_Pertenca and escola.id_Dir=_id_Dir);
+DECLARE _id_Escola int(11);
+DECLARE quant int(11);
+set _id_escola=(SELECT `Gera_Id_Escola`());
+INSERT INTO `escola` (`id_Escola`, `Nome`, `Nivel`, `Pertenca`, `id_Dir`) VALUES (_id_escola, _Nome, _Nivel, _Pertenca, _id_Dir);
+SET quant = (SELECT COUNT(escola.id_Escola)  FROM escola WHERE escola.id_Escola=_id_escola);
+if(quant>0)THEN
+set quant=_id_escola;
+ELSE
+set quant=0;
 end if;
 
 
-RETURN id_Escola;
+
+
+
+
+RETURN quant;
 END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `AddFuncionario` (`_Nome` VARCHAR(40), `_Apelido` VARCHAR(40), `_Sexo` ENUM('M','F'), `_Estado_Civil` ENUM('Solteiro','Casado'), `_Data_Nascimento` DATE, `_Carreira` VARCHAR(40)) RETURNS VARCHAR(9) CHARSET latin1 NO SQL
+    COMMENT 'Essa Funcao Cria Pessoa'
+BEGIN 
+DECLARE idP varchar(9);
+SELECT AddPessoa(_Nome , _Apelido , _Sexo, _Estado_Civil, _Data_Nascimento, "F") as 'Id' into idP;
+INSERT INTO `funcionario` (`id_Funcionaio`, `carreira`) VALUES (idP, _Carreira);
+
+
+
+RETURN idP;
+end$$
 
 CREATE DEFINER=`root`@`localhost` FUNCTION `AddPessoa` (`_Nome` VARCHAR(40), `_Apelido` VARCHAR(40), `_Sexo` ENUM('M','F'), `_Estado_Civil` ENUM('Solteiro','Casado'), `_Data_Nascimento` DATE, `_Tipo` ENUM('F','A','C')) RETURNS VARCHAR(9) CHARSET latin1 NO SQL
     COMMENT 'Essa Funcao Cria Pessoa'
@@ -143,6 +163,20 @@ set idP=( SELECT `Gera_Id`(_Tipo));
 INSERT INTO pessoa (id_Pessoa,Nome,Apelido,Sexo,Estado_Civil,Data_Nascimento) VALUES (idP,_Nome,_Apelido,_Sexo,_Estado_Civil,_Data_Nascimento);
 
 RETURN  idP;
+end$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `Add_Candidato` (`_Nome` VARCHAR(40), `_Apelido` VARCHAR(40), `_Sexo` ENUM('M','F'), `_Estado_Civil` ENUM('Solteiro','Casado'), `_Data_Nascimento` DATE, `_Tipo` ENUM('F','A','C'), `_classeM` ENUM('8','9','10','11','12'), `_regime` ENUM('Diurno','Noturno'), `_nome_escola` VARCHAR(60), `_id_escola` INT) RETURNS VARCHAR(9) CHARSET latin1 NO SQL
+    COMMENT 'Essa Funcao Cria Pessoa'
+Begin 
+declare id_cand varchar(9);
+SELECT `AddPessoa`(_nomes, _apelido, _sexo, 'Solteiro', _data_nascimento, 'C') as 'id' into id_cand;
+
+ INSERT INTO `aluno` (`id_aluno`, `Tipo`) VALUES (id_cand, 'Candidato');
+
+
+    
+
+RETURN  id_cand;
 end$$
 
 CREATE DEFINER=`root`@`localhost` FUNCTION `GeraCodRecuperacao` () RETURNS INT(11) NO SQL
@@ -176,6 +210,43 @@ RETURN idGerado;
 
 end$$
 
+CREATE DEFINER=`root`@`localhost` FUNCTION `Gera_Id_Escola` () RETURNS INT(11) NO SQL
+    COMMENT 'Essa Funcao Gera id Pessoa'
+BEGIN
+DECLARE cod int(11);
+DECLARE codG int(11);
+SELECT COUNT(escola.id_Escola) into cod FROM escola;
+set codG= (SELECT YEAR(CURRENT_DATE)*10000+cod)+1;
+SELECT COUNT(escola.id_Escola) FROM escola WHERE escola.id_Escola=codG into cod;
+WHILE(cod!=0)do
+set codG=codG+1;
+SELECT COUNT(escola.id_Escola)FROM escola WHERE escola.id_Escola=codG into cod;
+end WHILE;
+
+
+
+
+
+RETURN codG;
+
+end$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `Pega_Cargo_Id` (`_Cargo` VARCHAR(40)) RETURNS INT(11) NO SQL
+    COMMENT 'Pega id cargo'
+BEGIN
+DECLARE id_Cargo int(11);
+set id_Cargo =(SELECT COUNT(cargo.id_Cargo) FROM cargo WHERE cargo.Designacao=_Cargo);
+if(id_Cargo>0)THEN
+set id_Cargo =(SELECT cargo.id_Cargo FROM cargo WHERE cargo.Designacao=_Cargo);
+ELSE
+INSERT INTO cargo (Designacao) VALUES(_Cargo);
+set id_Cargo =(SELECT cargo.id_Cargo FROM cargo WHERE cargo.Designacao=_Cargo);
+end if;
+
+RETURN id_Cargo;
+
+end$$
+
 CREATE DEFINER=`root`@`localhost` FUNCTION `RecuperaSenha` (`_id_usuario` VARCHAR(9), `_TipoEnvio` ENUM('Email','Telefone','Ambos'), `_CampoEnvio` VARCHAR(100)) RETURNS INT(11) NO SQL
     COMMENT 'Permite Recuperar Senha'
 BEGIN
@@ -189,17 +260,113 @@ INSERT INTO `recupera_senha_usuario` (`id_Usuario`, `CodigoRecuperacao`, `Data_V
 RETURN (SELECT max(recupera_senha_usuario.id_Solicitacao) FROM recupera_senha_usuario WHERE recupera_senha_usuario.id_Usuario=_id_usuario  and recupera_senha_usuario.CodigoRecuperacao=codGerado AND recupera_senha_usuario.Data_Validalidade=dataValidade);
 end$$
 
-CREATE DEFINER=`root`@`localhost` FUNCTION `Regista_Escola` (`_Nome` VARCHAR(40), `_Nivel` ENUM('Secundaria','Primaria'), `_Pertenca` ENUM('Publica','Privada'), `_id_Dir` INT, `_id_Bairro` INT, `_Nr` SMALLINT(6), `_Avenida` VARCHAR(60), `_Id_Func` VARCHAR(9)) RETURNS INT(11) NO SQL
+CREATE DEFINER=`root`@`localhost` FUNCTION `Regista_Candidato_Escola` (`_Nome` VARCHAR(40), `_Apelido` VARCHAR(40), `_Sexo` ENUM('M','F'), `_Estado_Civil` ENUM('Solteiro','Casado'), `_Data_Nascimento` DATE, `_classe_matricular` ENUM('8','9','10','11','12'), `_regime` ENUM('Diurno','Nocturno'), `_nome_escola` VARCHAR(60), `_id_Escola` INT) RETURNS VARCHAR(9) CHARSET latin1 NO SQL
+    COMMENT 'Essa Funcao Cria Pessoa'
+BEGIN 
+DECLARE idP varchar(9);
+SELECT AddPessoa(_Nome , _Apelido , _Sexo, _Estado_Civil, _Data_Nascimento, "C") as 'Id' into idP;
+INSERT INTO `aluno` (`id_aluno`, `Tipo`) VALUES (idP, 'Candidato');
+INSERT INTO `candidato_aluno` (`id_candidato`, `id_escola`, `classe_matricular`, `regime`, `ano`) VALUES (idP, _id_Escola, _classe_matricular, _regime, year(CURRENT_DATE));
+INSERT INTO `escola_anterior` (`id_Candidato`, `Nome_escola`, `Classe`) VALUES (idP, _nome_escola, (SELECT (_classe_matricular-1)));
+
+
+
+RETURN idP;
+end$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `Regista_Candidato_Matricula_Escola` (`_id_Escola` INT, `_id_Candidato` VARCHAR(9), `_Nome` VARCHAR(40), `_Apelido` VARCHAR(40), `_Sexo` ENUM('M','F'), `_Estado_Civil` ENUM('Solteiro','Casado'), `_Data_Nascimento` DATE, `_Tipo` ENUM('Cedula','BI'), `_Numero` VARCHAR(20), `_Data_Emissao` DATE, `_Local_Emissao` VARCHAR(40), `_id_Bairro` INT, `_av_ou_rua` VARCHAR(50), `_quarteirao` INT, `_nr_casa` INT, `_email` VARCHAR(100), `_NrTell` INT, `_nome_pai` VARCHAR(40), `_telefone_pai` INT, `_local_trabalho_pai` VARCHAR(40), `_profissao_pai` VARCHAR(40), `_nome_mae` VARCHAR(40), `_telefone_mae` INT, `_local_trabalho_mae` VARCHAR(40), `_profissao_mae` VARCHAR(40), `nome_completoE` VARCHAR(40), `numero_telefoneE` INT, `local_trabalhoE` VARCHAR(50), `profissaoE` VARCHAR(50), `_id_BairroE` INT, `AvenidaE` VARCHAR(60)) RETURNS VARCHAR(9) CHARSET latin1 NO SQL
+    COMMENT 'Essa Funcao Cria Pessoa'
+BEGIN 
+declare estado varchar(9);
+
+if((SELECT `Status_Candidato`(_id_Escola, _id_Candidato, 'Candidato'))=1)then
+
+INSERT INTO `aluno_documento` (`id_Aluno`, `Tipo`, `Numero`, `Data_Emissao`, `Local_Emissao`, `Estado`, `Data_Submissao`) VALUES (_id_Candidato, _Tipo, _Numero, _Data_Emissao, _Data_Emissao, 'Valido', date(CURRENT_DATE));
+
+INSERT INTO `residencia_aluno` (id_aluno, `id_bairro`, `av_ou_rua`, `quarteirao`, `nr_casa`) VALUES (_id_Candidato, _id_Bairro, _av_ou_rua, _quarteirao, _nr_casa);
+if((SELECT COUNT(contacto.Email) FROM contacto WHERE contacto.Email LIKE _email)=0)THEN
+UPDATE `contacto` SET `Email` = _email, `Nr_Tell` =_NrTell WHERE `contacto`.`id_Pessoa` = _id_Candidato;
+end if;
+
+INSERT INTO `filiacao_aluno` (`id_aluno`, `nome_pai`, `telefone_pai`, `local_trabalho_pai`, `profissao_pai`, `nome_mae`, `telefone_mae`, `local_trabalho_mae`, `profissao_mae`) VALUES (_id_Candidato, _nome_pai, _telefone_pai, _local_trabalho_pai, _profissao_pai, _nome_mae, _telefone_mae, _local_trabalho_mae, _profissao_mae);
+
+INSERT INTO `aluno_encarregado` (`id_aluno`, `nome_completo`, `numero_telefone`, `local_trabalho`, `profissao`,id_bairro,Avenida_Rua) VALUES (_id_Candidato, nome_completoE, numero_telefoneE, local_trabalhoE, profissaoE,_id_BairroE,AvenidaE);
+UPDATE `candidato_aluno` SET `Estado` = 'Cadastrado' WHERE `candidato_aluno`.`id_candidato` = _id_Candidato AND `candidato_aluno`.`id_escola` = _id_Escola;
+
+set estado='Sucesso';
+ELSE
+set estado='Falha';
+end if;
+
+
+
+RETURN estado;
+end$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `Regista_Escola_Com_Admin` (`_Nome` VARCHAR(40), `_Nivel` ENUM('Secundaria','Primaria'), `_Pertenca` ENUM('Publica','Privada'), `_id_Dir` INT, `_id_bairro` INT, `_Nr` SMALLINT, `_Avenida` VARCHAR(40), `_NomeE` VARCHAR(40), `_ApelidoE` VARCHAR(40), `_Data_NascimentoE` DATE, `_EmailE` VARCHAR(100)) RETURNS VARCHAR(17) CHARSET latin1 NO SQL
+BEGIN
+DECLARE id_escola int(11);
+DECLARE _id_func varchar(9);
+
+set id_escola=(SELECT `Regista_Escola_com_Bairro`(_Nome, _Nivel, _Pertenca , _id_Dir, _id_bairro, _Nr, _Avenida));
+set _id_func=(SELECT `Regista_Funcionario_Escola`(_NomeE , _ApelidoE , 'M','Solteiro', _Data_NascimentoE , 'Docente', id_escola,'Admin','Admin' ));
+UPDATE `contacto` SET `Email` = _EmailE WHERE contacto.id_Pessoa = _id_func;
+
+RETURN (SELECT concat(_id_func, id_escola));
+end$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `Regista_Escola_com_Bairro` (`_Nome` VARCHAR(40), `_Nivel` ENUM('Secundaria','Primaria'), `_Pertenca` ENUM('Publica','Privada'), `_id_Dir` INT, `_id_bairro` INT, `_Nr` SMALLINT, `_Avenida` VARCHAR(40)) RETURNS INT(11) NO SQL
     COMMENT 'Essa Funcao Cria Pessoa'
 BEGIN
 DECLARE _id_Escola int(11);
-set _id_Escola =(select `AddEscola`(`_Nome` , `_Nivel` , `_Pertenca` , `_id_Dir`));
+select `AddEscola`(`_Nome` , `_Nivel` , `_Pertenca` , `_id_Dir`) as 'id' into _id_Escola;
 INSERT INTO `localizacao_escola` (`id_escola`, `id_bairro`, `Nr`, `Avenida_Rua`) VALUES (_id_Escola, _id_Bairro, _Nr, _Avenida);
-INSERT INTO `direcao_escola` (id_Escola, `id_Funcionario`, `id_Cargo`, `Data_Colocacao`) VALUES (_id_Escola, _Id_Func, 1, CURRENT_DATE);
 
-
-RETURN id_Escola;
+RETURN _id_Escola;
 END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `Regista_Funcionario_Distrito` (`_Nome` VARCHAR(40), `_Apelido` VARCHAR(40), `_Sexo` ENUM('M','F'), `_Estado_Civil` ENUM('Solteiro','Casado'), `_Data_Nascimento` DATE, `_Carreira` VARCHAR(40), `_id_Distrito` INT, `_cargo` VARCHAR(40)) RETURNS VARCHAR(9) CHARSET latin1 NO SQL
+    COMMENT 'Essa Funcao Cria Pessoa'
+BEGIN 
+DECLARE idP varchar(9);
+SELECT AddPessoa(_Nome , _Apelido , _Sexo, _Estado_Civil, _Data_Nascimento, "F") as 'Id' into idP;
+INSERT INTO `funcionario` (`id_Funcionaio`, `carreira`) VALUES (idP, _Carreira);
+INSERT INTO `funcionario_distrital` (`id_Funcionario`, `id_distrito`, id_cargo ,`Data_Cadastro`) VALUES (idP, _id_Distrito,(SELECT `Pega_Cargo_Id`(_cargo)), date(CURRENT_DATE));
+
+
+
+RETURN idP;
+end$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `Regista_Funcionario_Escola` (`_Nome` VARCHAR(40), `_Apelido` VARCHAR(40), `_Sexo` ENUM('M','F'), `_Estado_Civil` ENUM('Solteiro','Casado'), `_Data_Nascimento` DATE, `_Carreira` VARCHAR(40), `_id_Escola` INT, `_cargo` VARCHAR(40), `_acesso` ENUM('Convidado','Admin','Secretaria','Directoia')) RETURNS VARCHAR(9) CHARSET latin1 NO SQL
+    COMMENT 'Essa Funcao Cria Pessoa'
+BEGIN 
+DECLARE idP varchar(9);
+SELECT AddPessoa(_Nome , _Apelido , _Sexo, _Estado_Civil, _Data_Nascimento, "F") as 'Id' into idP;
+INSERT INTO `funcionario` (`id_Funcionaio`, `carreira`) VALUES (idP, _Carreira);
+INSERT INTO funcionario_escola (`id_Escola`, `id_Funcionario`, `id_Cargo`, `Data_Colocacao`,Acesso) VALUES (_id_Escola, idP,  (SELECT `Pega_Cargo_Id`(_cargo)), CURRENT_DATE,_acesso);
+
+
+
+RETURN idP;
+end$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `Status_Candidato` (`_id_Escola` INT, `_id_Candidato` VARCHAR(9), `_Estado` ENUM('Candidato','Matriculado','Cadastrado')) RETURNS TINYINT(1) NO SQL
+    COMMENT 'Essa Funcao Cria Pessoa'
+BEGIN 
+DECLARE tot int(11);
+declare estado varchar(9);
+set tot =(SELECT COUNT(candidato_aluno.id_candidato) FROM candidato_aluno WHERE candidato_aluno.id_candidato=_id_Candidato and candidato_aluno.id_escola=_id_Escola and candidato_aluno.Estado=_Estado);
+if(tot!=0)then
+set estado='Sucesso';
+ELSE
+set estado='Falha';
+end if;
+
+
+
+RETURN (tot!=0);
+end$$
 
 CREATE DEFINER=`root`@`localhost` FUNCTION `upDateSenha` (`_id` INT, `_nova` VARCHAR(40)) RETURNS TINYINT(1) NO SQL
     COMMENT 'Permite actualizar Senha'
@@ -227,9 +394,13 @@ CREATE TABLE `aluno` (
 --
 
 INSERT INTO `aluno` (`id_aluno`, `Tipo`) VALUES
-('2019A0003', 'Candidato'),
-('2019C0005', 'Candidato'),
-('2019C0006', 'Candidato');
+('2019C0006', 'Candidato'),
+('2019C0007', 'Candidato'),
+('2019C0008', 'Candidato'),
+('2019C0009', 'Candidato'),
+('2019C0010', 'Candidato'),
+('2019C0011', 'Candidato'),
+('2019C0012', 'Candidato');
 
 -- --------------------------------------------------------
 
@@ -259,6 +430,15 @@ CREATE TABLE `aluno_documento` (
   `Data_Submissao` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Extraindo dados da tabela `aluno_documento`
+--
+
+INSERT INTO `aluno_documento` (`id_Aluno`, `Tipo`, `Numero`, `Data_Emissao`, `Local_Emissao`, `Estado`, `Data_Submissao`) VALUES
+('2019C0006', 'Cedula', 'GSDGSD', '2019-09-01', '2019-09-01', 'Valido', '2019-09-21'),
+('2019C0007', 'Cedula', '64564', '2019-09-01', '2019-09-01', 'Valido', '2019-09-21'),
+('2019C0010', 'Cedula', 'gfdgdf', '2019-09-02', '2019-09-02', 'Valido', '2019-09-21');
+
 -- --------------------------------------------------------
 
 --
@@ -270,8 +450,19 @@ CREATE TABLE `aluno_encarregado` (
   `nome_completo` varchar(50) CHARACTER SET latin1 NOT NULL,
   `numero_telefone` int(11) NOT NULL,
   `local_trabalho` varchar(50) CHARACTER SET latin1 NOT NULL,
-  `profissao` varchar(50) CHARACTER SET latin1 NOT NULL
+  `profissao` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `id_bairro` int(11) NOT NULL,
+  `Avenida_Rua` varchar(60) NOT NULL,
+  `Q` int(11) NOT NULL,
+  `Nr_casa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `aluno_encarregado`
+--
+
+INSERT INTO `aluno_encarregado` (`id_aluno`, `nome_completo`, `numero_telefone`, `local_trabalho`, `profissao`, `id_bairro`, `Avenida_Rua`, `Q`, `Nr_casa`) VALUES
+('2019C0010', 'cxvxc', 4, 'vxcv', 'xcvx', 0, '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -379,9 +570,21 @@ CREATE TABLE `candidato_aluno` (
 --
 
 INSERT INTO `candidato_aluno` (`id_candidato`, `id_escola`, `classe_matricular`, `regime`, `ano`, `Estado`) VALUES
-('2019A0003', 2, '8', 'Diurno', 2019, 'Candidato'),
-('2019C0005', 3, '8', 'Diurno', 2019, 'Candidato'),
-('2019C0006', 3, '8', 'Diurno', 2019, 'Candidato');
+('2019C0006', 20190003, '9', 'Diurno', 2019, 'Candidato'),
+('2019C0007', 20190003, '10', 'Nocturno', 2019, 'Cadastrado'),
+('2019C0008', 20190003, '9', 'Nocturno', 2019, 'Candidato'),
+('2019C0009', 20190003, '11', 'Nocturno', 2019, 'Candidato'),
+('2019C0010', 20190001, '10', 'Nocturno', 2019, 'Cadastrado'),
+('2019C0011', 20190001, '10', 'Nocturno', 2019, 'Candidato'),
+('2019C0012', 20190001, '10', 'Nocturno', 2019, 'Candidato');
+
+--
+-- Acionadores `candidato_aluno`
+--
+DELIMITER $$
+CREATE TRIGGER `Inserindo_Candidato_Aluno` AFTER INSERT ON `candidato_aluno` FOR EACH ROW INSERT into user_escola (id_User,id_Escola,Tipo) VALUES (new.id_candidato,new.id_escola,'Candidato')
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -399,14 +602,11 @@ CREATE TABLE `cargo` (
 --
 
 INSERT INTO `cargo` (`id_Cargo`, `Designacao`) VALUES
-(1, 'Administrador'),
-(2, 'Director Geral'),
-(3, 'Director Adjunto Geral'),
-(4, 'Director Pedagogico'),
-(5, 'Director Pedagogico Adjunto'),
-(6, 'Secretario'),
-(7, 'Professor'),
-(8, 'Aluno');
+(1, 'dfgdfg'),
+(2, 'Admin'),
+(4, 'Gerente escolar'),
+(5, 'Tecnico Informatico'),
+(6, 'Tecnico de Secretaria');
 
 -- --------------------------------------------------------
 
@@ -452,10 +652,18 @@ CREATE TABLE `contacto` (
 --
 
 INSERT INTO `contacto` (`id_Pessoa`, `Email`, `Nr_Tell`) VALUES
-('2019A0003', 'Candido@gmail.com', 849253563),
-('2019C0005', 'Uem@gmail.com', 84123454),
-('2019C0006', 'rwerw@hom', 842323434),
-('2019F0002', 'rywieweur@gmfl.com', 84123213);
+('2019C0006', '2019C0006@exemplo', 0),
+('2019C0007', 'DFGDFGD', 23),
+('2019C0008', '2019C0008@exemplo', 0),
+('2019C0009', '2019C0009@exemplo', 0),
+('2019C0010', 'vxcvx', 2),
+('2019C0011', '2019C0011@exemplo', 0),
+('2019C0012', '2019C0012@exemplo', 0),
+('2019F0001', 'MazimbeErnes@gmail.com', 887),
+('2019F0002', 'LuizBernaldo@gmail.com', 0),
+('2019F0003', 'MazimbeErnesto@gmail.com', 0),
+('2019F0004', 'GuambeMateus@hotmail.com', 0),
+('2019F0005', '2019F0005@exemplo', 0);
 
 -- --------------------------------------------------------
 
@@ -474,24 +682,10 @@ CREATE TABLE `direcao_distrital` (
 --
 
 INSERT INTO `direcao_distrital` (`id_Dir`, `Designacao`, `Total_Escola`) VALUES
-(1, 'Ka Mbucuana', 0),
+(1, 'Ka Mbucuana', 1),
 (2, 'Ka Mahota', 0),
 (3, 'Marracuene', 0),
 (4, 'Boane', 0);
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `direcao_escola`
---
-
-CREATE TABLE `direcao_escola` (
-  `id_Escola` int(11) NOT NULL,
-  `id_Funcionario` varchar(9) NOT NULL,
-  `id_Cargo` int(11) NOT NULL,
-  `Data_Colocacao` date NOT NULL,
-  `Estado` enum('Ativo','Desativo') NOT NULL DEFAULT 'Ativo'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -524,7 +718,7 @@ INSERT INTO `distrito` (`id_distrito`, `id_Prov`, `Nome`) VALUES
 CREATE TABLE `escola` (
   `id_Escola` int(11) NOT NULL,
   `Nome` varchar(40) NOT NULL,
-  `Nivel` enum('Primario','Secundaria') NOT NULL DEFAULT 'Secundaria',
+  `Nivel` enum('Primaria','Secundaria') NOT NULL DEFAULT 'Secundaria',
   `Pertenca` enum('Publica','Privada','Comunitaria') NOT NULL DEFAULT 'Publica',
   `id_Dir` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -534,15 +728,18 @@ CREATE TABLE `escola` (
 --
 
 INSERT INTO `escola` (`id_Escola`, `Nome`, `Nivel`, `Pertenca`, `id_Dir`) VALUES
-(1, 'Heroes Mocambicanos', 'Secundaria', 'Publica', 1),
-(2, 'Benfica Infulene', 'Secundaria', 'Publica', 1),
-(3, 'Joaquim Chissano', 'Secundaria', 'Publica', 2),
-(4, 'Laulane', 'Secundaria', 'Publica', 2),
-(5, 'Gwaza Muthine', 'Secundaria', 'Publica', 3),
-(6, 'Santa Montanha', 'Secundaria', 'Publica', 3),
-(7, 'Magoanine B', 'Secundaria', 'Publica', 3),
-(8, 'Forca do Povo', 'Secundaria', 'Publica', 2),
-(10, 'Alber Eisten', 'Secundaria', 'Publica', 2);
+(20190001, 'Heroes Mocambicanos', 'Secundaria', 'Publica', 1),
+(20190002, 'Malhazine', 'Secundaria', 'Publica', 1),
+(20190003, 'Infulene Benfica', 'Secundaria', 'Publica', 1),
+(20190004, '1 de Junho', 'Primaria', 'Publica', 3);
+
+--
+-- Acionadores `escola`
+--
+DELIMITER $$
+CREATE TRIGGER `Update_Escola_Dados` AFTER UPDATE ON `escola` FOR EACH ROW UPDATE usuario set usuario.Nome_Local=(SELECT concat('Escola ',new.Nivel,' ',new.Nome)),usuario.id_Local=new.id_Escola WHERE usuario.id_Local=old.id_Escola
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -553,7 +750,7 @@ INSERT INTO `escola` (`id_Escola`, `Nome`, `Nivel`, `Pertenca`, `id_Dir`) VALUES
 CREATE TABLE `escola_anterior` (
   `id_Candidato` varchar(9) CHARACTER SET utf8 NOT NULL,
   `Nome_escola` varchar(60) NOT NULL,
-  `Turma` int(11) NOT NULL,
+  `Turma` varchar(9) NOT NULL DEFAULT 'N/D',
   `Classe` enum('7','8','9','10','11','12') NOT NULL DEFAULT '7'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -562,9 +759,13 @@ CREATE TABLE `escola_anterior` (
 --
 
 INSERT INTO `escola_anterior` (`id_Candidato`, `Nome_escola`, `Turma`, `Classe`) VALUES
-('2019C0005', 'Exemplo', 0, '7'),
-('2019C0005', 'Escola Secundaria Joaquim Chissano', 0, '7'),
-('2019C0006', 'Escola Secundaria Joaquim Chissano', 0, '7');
+('2019C0006', 'Alber Eisten', 'N/D', '7'),
+('2019C0007', 'Joaqum Chissano', 'N/D', '8'),
+('2019C0008', '1 de Junho', 'N/D', '7'),
+('2019C0009', '1 de Junho', 'N/D', '9'),
+('2019C0010', 'Malhazine', 'N/D', '8'),
+('2019C0011', 'Infulene Benfica', 'N/D', '8'),
+('2019C0012', 'Heroes Mocambicanos', 'N/D', '8');
 
 -- --------------------------------------------------------
 
@@ -584,6 +785,13 @@ CREATE TABLE `filiacao_aluno` (
   `profissao_mae` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `filiacao_aluno`
+--
+
+INSERT INTO `filiacao_aluno` (`id_aluno`, `nome_pai`, `telefone_pai`, `local_trabalho_pai`, `profissao_pai`, `nome_mae`, `telefone_mae`, `local_trabalho_mae`, `profissao_mae`) VALUES
+('2019C0010', 'dsfds', 3, 'vcvx', 'cxvx', 'cvxv', 4, 'vxcvx', 'cxvxc');
+
 -- --------------------------------------------------------
 
 --
@@ -600,7 +808,75 @@ CREATE TABLE `funcionario` (
 --
 
 INSERT INTO `funcionario` (`id_Funcionaio`, `carreira`) VALUES
-('2019A0003', 'Professor');
+('2019F0001', 'Docente'),
+('2019F0002', 'Docente'),
+('2019F0003', 'Docente'),
+('2019F0004', 'Docente'),
+('2019F0005', 'Secretariado');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `funcionario_distrital`
+--
+
+CREATE TABLE `funcionario_distrital` (
+  `id_Funcionario` varchar(9) CHARACTER SET utf8 NOT NULL,
+  `id_distrito` int(11) NOT NULL,
+  `id_cargo` int(11) NOT NULL,
+  `Estado` enum('Ativo','Desativado') NOT NULL DEFAULT 'Ativo',
+  `Data_Cadastro` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `funcionario_distrital`
+--
+
+INSERT INTO `funcionario_distrital` (`id_Funcionario`, `id_distrito`, `id_cargo`, `Estado`, `Data_Cadastro`) VALUES
+('2019F0010', 3, 2, 'Ativo', '2019-09-21'),
+('2019F0011', 4, 5, 'Ativo', '2019-09-21');
+
+--
+-- Acionadores `funcionario_distrital`
+--
+DELIMITER $$
+CREATE TRIGGER `Inserindo_Funcionario_Distrital` BEFORE INSERT ON `funcionario_distrital` FOR EACH ROW INSERT INTO user_distrital (id_user,id_Dir,Tipo) VALUES(new.id_Funcionario,new.id_distrito,'Distrital')
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `funcionario_escola`
+--
+
+CREATE TABLE `funcionario_escola` (
+  `id_Escola` int(11) NOT NULL,
+  `id_Funcionario` varchar(9) NOT NULL,
+  `id_Cargo` int(11) NOT NULL,
+  `Data_Colocacao` date NOT NULL,
+  `Estado` enum('Ativo','Desativo') NOT NULL DEFAULT 'Ativo',
+  `Acesso` enum('Professor','Secretaria','Directoria','Admin','Convidado') NOT NULL DEFAULT 'Convidado'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `funcionario_escola`
+--
+
+INSERT INTO `funcionario_escola` (`id_Escola`, `id_Funcionario`, `id_Cargo`, `Data_Colocacao`, `Estado`, `Acesso`) VALUES
+(20190001, '2019F0001', 2, '2019-09-21', 'Ativo', 'Convidado'),
+(20190002, '2019F0002', 2, '2019-09-21', 'Ativo', 'Convidado'),
+(20190003, '2019F0003', 2, '2019-09-21', 'Ativo', 'Convidado'),
+(20190003, '2019F0005', 6, '2019-09-21', 'Ativo', 'Secretaria'),
+(20190004, '2019F0004', 2, '2019-09-21', 'Ativo', 'Admin');
+
+--
+-- Acionadores `funcionario_escola`
+--
+DELIMITER $$
+CREATE TRIGGER `inserindo_Funcionario_Escola` AFTER INSERT ON `funcionario_escola` FOR EACH ROW INSERT user_escola (id_User,id_Escola,Tipo) VALUES(new.id_Funcionario,new.id_Escola,new.Acesso)
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -620,7 +896,10 @@ CREATE TABLE `localizacao_escola` (
 --
 
 INSERT INTO `localizacao_escola` (`id_escola`, `id_bairro`, `Nr`, `Avenida_Rua`) VALUES
-(10, 2, 222, 'Lurdes Mutola');
+(20190001, 2, 222, 'OUA'),
+(20190002, 2, 222, 'OUA'),
+(20190003, 3, 222, 'OUA'),
+(20190004, 1, 1324, 'De Mocambique');
 
 -- --------------------------------------------------------
 
@@ -693,20 +972,56 @@ CREATE TABLE `pessoa` (
 --
 
 INSERT INTO `pessoa` (`id_Pessoa`, `Nome`, `Apelido`, `Sexo`, `Estado_Civil`, `Data_Nascimento`) VALUES
-('2019A0003', 'Paulo', 'Mondlane', 'M', 'Solteiro', '2019-09-01'),
-('2019C0005', 'Ricardo Orlando', 'Manhice', 'M', 'Solteiro', '2019-09-10'),
-('2019C0006', 'Ricardo Orlando', 'Manhice', 'M', 'Solteiro', '2019-09-10'),
-('2019F0002', 'Candido', 'Barato', 'M', 'Solteiro', '2019-09-01'),
-('2019F0004', 'Eurico', 'Mazivila', 'M', 'Solteiro', '2019-09-01'),
-('w', 'Candido', 'Barato', 'M', 'Solteiro', '2019-09-01');
+('2019C0006', 'Lucas', 'Mariamo', 'M', 'Solteiro', '2019-09-01'),
+('2019C0007', 'Lorena', 'Miket', 'F', 'Solteiro', '2019-09-01'),
+('2019C0008', 'Olivia', 'Jose', 'F', 'Solteiro', '2019-09-07'),
+('2019C0009', 'Tereza', 'Mendes', 'F', 'Solteiro', '2019-09-10'),
+('2019C0010', 'Yuan', 'Castro', 'F', 'Solteiro', '2019-09-12'),
+('2019C0011', 'Manuel', 'Januario', 'F', 'Solteiro', '2019-09-04'),
+('2019C0012', 'Lucas', 'Mbeve', 'F', 'Solteiro', '2019-09-05'),
+('2019F0001', 'Ernesto', 'Mazimbe', 'M', 'Solteiro', '1990-09-01'),
+('2019F0002', 'Luiz', 'Bernaldo', 'M', 'Solteiro', '1999-09-01'),
+('2019F0003', 'Ernesto', 'Mazimbe', 'M', 'Solteiro', '1990-09-01'),
+('2019F0004', 'Mateus', 'Guambe', 'M', 'Solteiro', '2019-09-01'),
+('2019F0005', 'Mendesa', 'Cumbe', 'F', 'Casado', '2019-09-01');
 
 --
 -- Acionadores `pessoa`
 --
 DELIMITER $$
-CREATE TRIGGER `Cria_User` AFTER INSERT ON `pessoa` FOR EACH ROW INSERT INTO usuario(id_User,Username,Senha,DataCriacao,Email_Instituconal) VALUES(new.id_Pessoa,(SELECT concat(new.Nome,new.id_Pessoa)),new.Apelido,CURRENT_DATE,(SELECT concat(new.Apelido,'.',new.Nome,'.',new.id_Pessoa,'@sige.ac.mz')))
+CREATE TRIGGER `Cria_User` AFTER INSERT ON `pessoa` FOR EACH ROW begin
+INSERT INTO usuario(id_User,Username,Senha,DataCriacao,Email_Instituconal) VALUES(new.id_Pessoa,(SELECT concat(new.Nome,new.id_Pessoa)),new.Apelido,CURRENT_DATE,(SELECT concat(new.Apelido,'.',new.Nome,'.',new.id_Pessoa,'@sige.ac.mz')));
+INSERT INTO contacto(id_Pessoa,Email) VALUES (new.id_Pessoa,(SELECT concat(new.id_Pessoa,'@exemplo')));
+end
 $$
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `privilegio_acesso`
+--
+
+CREATE TABLE `privilegio_acesso` (
+  `id_Privilegio` int(11) NOT NULL,
+  `Acesso` enum('Convidado','Aluno','Candidato','Professor','Secretaria','Directoria','Admin') NOT NULL DEFAULT 'Convidado',
+  `Descricao` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `privilegio_acesso`
+--
+
+INSERT INTO `privilegio_acesso` (`id_Privilegio`, `Acesso`, `Descricao`) VALUES
+(1, 'Convidado', 'Login'),
+(2, 'Convidado', 'Perfil'),
+(3, 'Candidato', 'Pre-Matricula'),
+(4, 'Candidato', 'Matricular'),
+(5, 'Professor', 'Marcar Avaliacao'),
+(6, 'Professor', 'Editar Avaliacao'),
+(7, 'Professor', 'Lancar Notas Avaliacao'),
+(8, 'Aluno', 'Renovar Matricula'),
+(9, 'Aluno', 'Ver Notas Avaliacao');
 
 -- --------------------------------------------------------
 
@@ -750,8 +1065,7 @@ CREATE TABLE `recupera_senha_usuario` (
 --
 
 INSERT INTO `recupera_senha_usuario` (`id_Solicitacao`, `id_Usuario`, `CodigoRecuperacao`, `Data_Validalidade`, `Senha_Antiga`, `Senha_Nova`, `Tipo_Envio`, `Campo_Envio`) VALUES
-(1, '2019A0003', 720586, '2019-09-21', 'Mondlane', '', 'Email', '82456'),
-(2, '2019C0005', 299964, '2019-09-21', 'Manhice', 'Ricardo', 'Email', 'Uem@gmail.com');
+(1, '2019F0005', 829917, '2019-09-22', 'Cumbe', 'Joaquim', 'Email', '2019F0005@exemplo');
 
 --
 -- Acionadores `recupera_senha_usuario`
@@ -771,9 +1085,17 @@ CREATE TABLE `residencia_aluno` (
   `id_aluno` varchar(9) CHARACTER SET utf8 NOT NULL,
   `id_bairro` int(11) NOT NULL,
   `av_ou_rua` varchar(50) NOT NULL,
-  `quarteirao` varchar(50) NOT NULL,
-  `nr_casa` int(11) NOT NULL
+  `quarteirao` int(11) NOT NULL DEFAULT '0',
+  `nr_casa` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `residencia_aluno`
+--
+
+INSERT INTO `residencia_aluno` (`id_aluno`, `id_bairro`, `av_ou_rua`, `quarteirao`, `nr_casa`) VALUES
+('2019C0007', 2, 'GDGF', 4, 4),
+('2019C0010', 2, 'dgdfgd', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -784,11 +1106,17 @@ CREATE TABLE `residencia_aluno` (
 CREATE TABLE `user_distrital` (
   `id_user` varchar(9) CHARACTER SET utf8 NOT NULL,
   `id_Dir` int(11) NOT NULL,
-  `Estado` enum('Ativo','Rescendido') NOT NULL DEFAULT 'Ativo',
-  `Gestao_Escolas` enum('S','N') NOT NULL DEFAULT 'N',
-  `Gestao_Operacoes` enum('S','N') NOT NULL DEFAULT 'N',
-  `Gestao_Usuarios` enum('S','N') NOT NULL DEFAULT 'N'
+  `Tipo` enum('Admin','Distrital','Convidado') NOT NULL DEFAULT 'Convidado',
+  `Estado` enum('Ativo','Desativo') NOT NULL DEFAULT 'Ativo'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Acionadores `user_distrital`
+--
+DELIMITER $$
+CREATE TRIGGER `Inseindo_User_Distital` AFTER INSERT ON `user_distrital` FOR EACH ROW UPDATE usuario set usuario.Local='Distrito',usuario.id_Local=new.id_Dir,usuario.Nivel_Acesso=new.Tipo,usuario.Nome_Local=(SELECT concat('Servico Distrital de ',nome) FROM `distrito` WHERE distrito.id_distrito=new.id_Dir) WHERE usuario.id_User=new.id_User
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -799,7 +1127,7 @@ CREATE TABLE `user_distrital` (
 CREATE TABLE `user_escola` (
   `id_User` varchar(9) NOT NULL,
   `id_Escola` int(11) NOT NULL,
-  `Tipo` enum('Aluno','Professor','Secretaria','Directoria','Admin') NOT NULL DEFAULT 'Aluno',
+  `Tipo` enum('Aluno','Candidato','Professor','Secretaria','Directoria','Admin','Convidado') NOT NULL DEFAULT 'Convidado',
   `Estado` enum('Ativo','Desativo') NOT NULL DEFAULT 'Ativo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -808,8 +1136,30 @@ CREATE TABLE `user_escola` (
 --
 
 INSERT INTO `user_escola` (`id_User`, `id_Escola`, `Tipo`, `Estado`) VALUES
-('2019A0003', 1, 'Secretaria', 'Ativo'),
-('2019F0002', 3, 'Secretaria', 'Ativo');
+('2019C0006', 20190002, 'Candidato', 'Ativo'),
+('2019C0007', 20190003, 'Candidato', 'Ativo'),
+('2019C0008', 20190003, 'Candidato', 'Ativo'),
+('2019C0009', 20190003, 'Candidato', 'Ativo'),
+('2019C0010', 20190001, 'Candidato', 'Ativo'),
+('2019C0011', 20190001, 'Candidato', 'Ativo'),
+('2019C0012', 20190001, 'Candidato', 'Ativo'),
+('2019F0001', 20190001, 'Secretaria', 'Ativo'),
+('2019F0002', 20190002, 'Admin', 'Ativo'),
+('2019F0003', 20190003, 'Directoria', 'Ativo'),
+('2019F0004', 20190004, 'Admin', 'Ativo'),
+('2019F0005', 20190003, 'Secretaria', 'Ativo');
+
+--
+-- Acionadores `user_escola`
+--
+DELIMITER $$
+CREATE TRIGGER `Insercao` AFTER INSERT ON `user_escola` FOR EACH ROW UPDATE usuario set usuario.Local='Escola',usuario.id_Local=new.id_Escola,usuario.Nivel_Acesso=new.Tipo,usuario.Nome_Local=(SELECT concat('Escola ',Nivel,' ',Nome) FROM `escola` WHERE escola.id_Escola=new.id_Escola) WHERE usuario.id_User=new.id_User
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `UpDateUserEscola` AFTER UPDATE ON `user_escola` FOR EACH ROW UPDATE usuario set usuario.Nivel_Acesso=new.Tipo WHERE usuario.id_User=new.id_User and usuario.id_Local=new.id_Escola
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -824,22 +1174,76 @@ CREATE TABLE `usuario` (
   `Email_Instituconal` varchar(100) NOT NULL,
   `Estado` enum('Ativo','Revogado','Pendente') CHARACTER SET latin1 NOT NULL DEFAULT 'Ativo',
   `DataCriacao` date NOT NULL,
-  `Acesso_Distrital` enum('S','N') CHARACTER SET latin1 NOT NULL DEFAULT 'N',
-  `Acesso_Escola` enum('S','N') CHARACTER SET latin1 NOT NULL DEFAULT 'N',
-  `Acesso_Convidado` enum('S','N') NOT NULL DEFAULT 'S'
+  `Nivel_Acesso` enum('Convidado','Candidato','Aluno','Professor','Directoria','Secretaria','Admin','Distrital') NOT NULL DEFAULT 'Convidado',
+  `Local` enum('Distrito','Escola','Indefinido') NOT NULL DEFAULT 'Indefinido',
+  `id_Local` int(11) NOT NULL DEFAULT '0',
+  `Nome_Local` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
 --
 -- Extraindo dados da tabela `usuario`
 --
 
-INSERT INTO `usuario` (`id_User`, `Username`, `Senha`, `Email_Instituconal`, `Estado`, `DataCriacao`, `Acesso_Distrital`, `Acesso_Escola`, `Acesso_Convidado`) VALUES
-('2019A0003', 'Paulo2019A0003', 'Mondlane', 'Mondlane.Paulo.2019A0003@sige.ac.mz', 'Ativo', '2019-09-19', 'N', 'S', 'S'),
-('2019C0005', 'Ricardo Orlando2019C0005', 'Ricardo', 'Manhice.Ricardo Orlando.2019C0005@sige.ac.mz', 'Ativo', '2019-09-20', 'N', 'N', 'S'),
-('2019C0006', 'Ricardo Orlando2019C0006', 'Manhice', 'Manhice.Ricardo Orlando.2019C0006@sige.ac.mz', 'Ativo', '2019-09-20', 'N', 'N', 'S'),
-('2019F0002', 'Candido2019F0002', 'Barato', 'Barato.Candido.2019F0002@sige.ac.mz', 'Ativo', '2019-09-19', 'N', 'N', 'S'),
-('2019F0004', 'Eurico2019F0004', 'Mazivila', 'Mazivila.Eurico.2019F0004@sige.ac.mz', 'Ativo', '2019-09-19', 'N', 'N', 'S'),
-('w', 'Candidow', 'Barato', 'Barato.Candido.w@sige.ac.mz', 'Ativo', '2019-09-19', 'N', 'N', 'S');
+INSERT INTO `usuario` (`id_User`, `Username`, `Senha`, `Email_Instituconal`, `Estado`, `DataCriacao`, `Nivel_Acesso`, `Local`, `id_Local`, `Nome_Local`) VALUES
+('2019C0006', 'Lucas2019C0006', 'Mariamo', 'Mariamo.Lucas.2019C0006@sige.ac.mz', 'Ativo', '2019-09-21', 'Candidato', 'Escola', 20190002, 'Escola Secundaria Malhazine'),
+('2019C0007', 'Lorena2019C0007', 'Miket', 'Miket.Lorena.2019C0007@sige.ac.mz', 'Ativo', '2019-09-21', 'Candidato', 'Escola', 20190003, 'Escola Secundaria Infulene Benfica'),
+('2019C0008', 'Olivia2019C0008', 'Jose', 'Jose.Olivia.2019C0008@sige.ac.mz', 'Ativo', '2019-09-21', 'Candidato', 'Escola', 20190003, 'Escola Secundaria Infulene Benfica'),
+('2019C0009', 'Tereza2019C0009', 'Mendes', 'Mendes.Tereza.2019C0009@sige.ac.mz', 'Ativo', '2019-09-21', 'Candidato', 'Escola', 20190003, 'Escola Secundaria Infulene Benfica'),
+('2019C0010', 'Yuan2019C0010', 'Castro', 'Castro.Yuan.2019C0010@sige.ac.mz', 'Ativo', '2019-09-21', 'Candidato', 'Escola', 20190001, 'Escola Secundaria Heroes Mocambicanos'),
+('2019C0011', 'Manuel2019C0011', 'Januario', 'Januario.Manuel.2019C0011@sige.ac.mz', 'Ativo', '2019-09-21', 'Candidato', 'Escola', 20190001, 'Escola Secundaria Heroes Mocambicanos'),
+('2019C0012', 'Lucas2019C0012', 'Mbeve', 'Mbeve.Lucas.2019C0012@sige.ac.mz', 'Ativo', '2019-09-21', 'Candidato', 'Escola', 20190001, 'Escola Secundaria Heroes Mocambicanos'),
+('2019F0001', 'Ernesto2019F0001', 'Mazimbe', 'Mazimbe.Ernesto.2019F0001@sige.ac.mz', 'Ativo', '2019-09-21', 'Secretaria', 'Escola', 20190001, 'Escola Secundaria Heroes Mocambicanos'),
+('2019F0002', 'Luiz2019F0002', 'Bernaldo', 'Bernaldo.Luiz.2019F0002@sige.ac.mz', 'Ativo', '2019-09-21', 'Admin', 'Escola', 20190002, 'Escola Secundaria Malhazine'),
+('2019F0003', 'Ernesto2019F0003', 'Mazimbe', 'Mazimbe.Ernesto.2019F0003@sige.ac.mz', 'Ativo', '2019-09-21', 'Directoria', 'Escola', 20190003, 'Escola Secundaria Infulene Benfica'),
+('2019F0004', 'Mateus2019F0004', 'Guambe', 'Guambe.Mateus.2019F0004@sige.ac.mz', 'Ativo', '2019-09-21', 'Admin', 'Escola', 20190004, 'Escola  1 de Junho'),
+('2019F0005', 'Mendesa2019F0005', 'Joaquim', 'Cumbe.Mendesa.2019F0005@sige.ac.mz', 'Ativo', '2019-09-21', 'Secretaria', 'Escola', 20190003, 'Escola Secundaria Infulene Benfica');
+
+--
+-- Acionadores `usuario`
+--
+DELIMITER $$
+CREATE TRIGGER `ActualizaCamposDeLocal` AFTER UPDATE ON `usuario` FOR EACH ROW BEGIN
+
+if(new.Local='Escola')THEN
+UPDATE user_distrital set user_distrital.Estado='Desativo' WHERE user_distrital.id_user=new.id_User;
+end if;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `insertUser_Privilegio` AFTER INSERT ON `usuario` FOR EACH ROW INSERT INTO usuario_privilegio_acesso (id_usuario) VALUES(new.id_User)
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `usuario_privilegio_acesso`
+--
+
+CREATE TABLE `usuario_privilegio_acesso` (
+  `id_usuario` varchar(9) CHARACTER SET utf8 NOT NULL,
+  `id_privilegio` int(11) NOT NULL DEFAULT '1',
+  `Estado` enum('Ativo','Desativo') NOT NULL DEFAULT 'Ativo'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `usuario_privilegio_acesso`
+--
+
+INSERT INTO `usuario_privilegio_acesso` (`id_usuario`, `id_privilegio`, `Estado`) VALUES
+('2019C0006', 1, 'Ativo'),
+('2019C0007', 1, 'Ativo'),
+('2019C0008', 1, 'Ativo'),
+('2019C0009', 1, 'Ativo'),
+('2019C0010', 1, 'Ativo'),
+('2019C0011', 1, 'Ativo'),
+('2019C0012', 1, 'Ativo'),
+('2019F0001', 1, 'Ativo'),
+('2019F0002', 1, 'Ativo'),
+('2019F0003', 1, 'Ativo'),
+('2019F0004', 1, 'Ativo'),
+('2019F0005', 1, 'Ativo');
 
 -- --------------------------------------------------------
 
@@ -936,6 +1340,7 @@ ALTER TABLE `classe`
 --
 ALTER TABLE `contacto`
   ADD PRIMARY KEY (`id_Pessoa`),
+  ADD UNIQUE KEY `Email` (`Email`),
   ADD KEY `id_Pessoa` (`id_Pessoa`);
 
 --
@@ -943,14 +1348,6 @@ ALTER TABLE `contacto`
 --
 ALTER TABLE `direcao_distrital`
   ADD PRIMARY KEY (`id_Dir`);
-
---
--- Indexes for table `direcao_escola`
---
-ALTER TABLE `direcao_escola`
-  ADD KEY `id_Escola` (`id_Escola`),
-  ADD KEY `id_Pessoa` (`id_Funcionario`),
-  ADD KEY `id_Cargo` (`id_Cargo`);
 
 --
 -- Indexes for table `distrito`
@@ -967,6 +1364,12 @@ ALTER TABLE `escola`
   ADD KEY `id_Dir` (`id_Dir`);
 
 --
+-- Indexes for table `escola_anterior`
+--
+ALTER TABLE `escola_anterior`
+  ADD PRIMARY KEY (`id_Candidato`);
+
+--
 -- Indexes for table `filiacao_aluno`
 --
 ALTER TABLE `filiacao_aluno`
@@ -978,6 +1381,22 @@ ALTER TABLE `filiacao_aluno`
 ALTER TABLE `funcionario`
   ADD PRIMARY KEY (`id_Funcionaio`),
   ADD KEY `id_pessoa` (`id_Funcionaio`);
+
+--
+-- Indexes for table `funcionario_distrital`
+--
+ALTER TABLE `funcionario_distrital`
+  ADD PRIMARY KEY (`id_Funcionario`,`id_distrito`),
+  ADD KEY `id_cargo` (`id_cargo`);
+
+--
+-- Indexes for table `funcionario_escola`
+--
+ALTER TABLE `funcionario_escola`
+  ADD UNIQUE KEY `id_Escola_2` (`id_Escola`,`id_Funcionario`,`id_Cargo`),
+  ADD KEY `id_Escola` (`id_Escola`),
+  ADD KEY `id_Pessoa` (`id_Funcionario`),
+  ADD KEY `id_Cargo` (`id_Cargo`);
 
 --
 -- Indexes for table `localizacao_escola`
@@ -1015,6 +1434,12 @@ ALTER TABLE `pessoa`
   ADD PRIMARY KEY (`id_Pessoa`);
 
 --
+-- Indexes for table `privilegio_acesso`
+--
+ALTER TABLE `privilegio_acesso`
+  ADD PRIMARY KEY (`id_Privilegio`);
+
+--
 -- Indexes for table `provincia`
 --
 ALTER TABLE `provincia`
@@ -1039,15 +1464,14 @@ ALTER TABLE `residencia_aluno`
 -- Indexes for table `user_distrital`
 --
 ALTER TABLE `user_distrital`
-  ADD PRIMARY KEY (`id_user`) USING BTREE,
-  ADD UNIQUE KEY `id_user` (`id_user`,`id_Dir`),
+  ADD PRIMARY KEY (`id_user`,`id_Dir`) USING BTREE,
   ADD KEY `id_Dir` (`id_Dir`);
 
 --
 -- Indexes for table `user_escola`
 --
 ALTER TABLE `user_escola`
-  ADD PRIMARY KEY (`id_User`),
+  ADD PRIMARY KEY (`id_User`,`id_Escola`),
   ADD KEY `id_User` (`id_User`),
   ADD KEY `id_Escola` (`id_Escola`);
 
@@ -1058,6 +1482,13 @@ ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id_User`) USING BTREE,
   ADD UNIQUE KEY `Username` (`Username`),
   ADD UNIQUE KEY `Email_Instituconal` (`Email_Instituconal`);
+
+--
+-- Indexes for table `usuario_privilegio_acesso`
+--
+ALTER TABLE `usuario_privilegio_acesso`
+  ADD PRIMARY KEY (`id_usuario`,`id_privilegio`),
+  ADD KEY `id_privilegio` (`id_privilegio`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -1073,7 +1504,7 @@ ALTER TABLE `bairro`
 -- AUTO_INCREMENT for table `cargo`
 --
 ALTER TABLE `cargo`
-  MODIFY `id_Cargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_Cargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `classe`
@@ -1091,7 +1522,7 @@ ALTER TABLE `distrito`
 -- AUTO_INCREMENT for table `escola`
 --
 ALTER TABLE `escola`
-  MODIFY `id_Escola` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_Escola` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20190006;
 
 --
 -- AUTO_INCREMENT for table `matricula`
@@ -1112,6 +1543,12 @@ ALTER TABLE `pais`
   MODIFY `id_Pais` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `privilegio_acesso`
+--
+ALTER TABLE `privilegio_acesso`
+  MODIFY `id_Privilegio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `provincia`
 --
 ALTER TABLE `provincia`
@@ -1121,7 +1558,7 @@ ALTER TABLE `provincia`
 -- AUTO_INCREMENT for table `recupera_senha_usuario`
 --
 ALTER TABLE `recupera_senha_usuario`
-  MODIFY `id_Solicitacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_Solicitacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -1192,14 +1629,6 @@ ALTER TABLE `direcao_distrital`
   ADD CONSTRAINT `direcao_distrital_ibfk_1` FOREIGN KEY (`id_Dir`) REFERENCES `distrito` (`id_distrito`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `direcao_escola`
---
-ALTER TABLE `direcao_escola`
-  ADD CONSTRAINT `direcao_escola_ibfk_1` FOREIGN KEY (`id_Escola`) REFERENCES `escola` (`id_Escola`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `direcao_escola_ibfk_2` FOREIGN KEY (`id_Funcionario`) REFERENCES `funcionario` (`id_Funcionaio`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `direcao_escola_ibfk_3` FOREIGN KEY (`id_Cargo`) REFERENCES `cargo` (`id_Cargo`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Limitadores para a tabela `distrito`
 --
 ALTER TABLE `distrito`
@@ -1212,6 +1641,12 @@ ALTER TABLE `escola`
   ADD CONSTRAINT `escola_ibfk_1` FOREIGN KEY (`id_Dir`) REFERENCES `direcao_distrital` (`id_Dir`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Limitadores para a tabela `escola_anterior`
+--
+ALTER TABLE `escola_anterior`
+  ADD CONSTRAINT `escola_anterior_ibfk_1` FOREIGN KEY (`id_Candidato`) REFERENCES `candidato_aluno` (`id_candidato`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Limitadores para a tabela `filiacao_aluno`
 --
 ALTER TABLE `filiacao_aluno`
@@ -1222,6 +1657,20 @@ ALTER TABLE `filiacao_aluno`
 --
 ALTER TABLE `funcionario`
   ADD CONSTRAINT `funcionario_ibfk_1` FOREIGN KEY (`id_Funcionaio`) REFERENCES `pessoa` (`id_Pessoa`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `funcionario_distrital`
+--
+ALTER TABLE `funcionario_distrital`
+  ADD CONSTRAINT `funcionario_distrital_ibfk_1` FOREIGN KEY (`id_cargo`) REFERENCES `cargo` (`id_Cargo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `funcionario_escola`
+--
+ALTER TABLE `funcionario_escola`
+  ADD CONSTRAINT `funcionario_escola_ibfk_1` FOREIGN KEY (`id_Escola`) REFERENCES `escola` (`id_Escola`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `funcionario_escola_ibfk_2` FOREIGN KEY (`id_Funcionario`) REFERENCES `funcionario` (`id_Funcionaio`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `funcionario_escola_ibfk_3` FOREIGN KEY (`id_Cargo`) REFERENCES `cargo` (`id_Cargo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `localizacao_escola`
@@ -1281,6 +1730,13 @@ ALTER TABLE `user_escola`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_User`) REFERENCES `pessoa` (`id_Pessoa`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `usuario_privilegio_acesso`
+--
+ALTER TABLE `usuario_privilegio_acesso`
+  ADD CONSTRAINT `usuario_privilegio_acesso_ibfk_1` FOREIGN KEY (`id_privilegio`) REFERENCES `privilegio_acesso` (`id_Privilegio`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `usuario_privilegio_acesso_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

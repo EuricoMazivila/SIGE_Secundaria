@@ -6,7 +6,9 @@
         $local=$_SESSION['login']['Nome_Local'];
         $usuario=$_SESSION['login']['nome_usuario'];
         $id_local=$_SESSION['login']['id_Local'];
+
         $id_user=$_SESSION['login']['id_User'];
+
         $titulo='Formulario do Aluno'; //esse e o titulo
     $menu='';//esse e o menu
     $corpo='Corpo/corpo_formulario.php';//esse e o corpo

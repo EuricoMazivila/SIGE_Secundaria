@@ -6,7 +6,9 @@
         $local=$_SESSION['login']['Nome_Local'];
         $usuario=$_SESSION['login']['nome_usuario'];
         $id_local=$_SESSION['login']['id_Local'];
+
         $email=$_SESSION['login']['email_usuario'];
+
     $titulo='Matricula'; //esse e o titulo
     $metadados='Configuracao\metadados_Externo.php';//esse e o metadados
     $menu='main_menu_Secretaria.php';//esse e o menu
