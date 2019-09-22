@@ -68,15 +68,40 @@
                 </thead>
                 <tbody>
                     <?php
-                        require_once("../../Dao/conexao.php");
+
+
+                       include_once("../../Dao/conexao.php");
+                                                function filtraEntrada($conexao,$dado){
+                        //remove espacoes no inicio e
+                        //no final da string
+                        $dado=trim($dado);
+                
+                        //remove contra barras:
+                        // "cobra d\'agua" vira "cobra d'agua"
+                        $dado= stripslashes($dado);
+                        $dado=htmlspecialchars($dado);
+                        
+                        //Remove caracteres que um hacker possa ter 
+                        //inserido para invadir ou alterar o banco de dados
+                        $dado=$conexao->real_escape_string($dado);
+                
+                        return $dado;
+                    }
                         
                         //Estágio 1: Preparação
-                        $query="SELECT codal,nome,data from aluno_matricula where year(data)=year(curDate()) and classe='8'";
+                        $query="SELECT aluno_matriculado.id_aluno,concat(pessoa.Nome,' ',pessoa.Apelido) as 'Nome_Completo',aluno_matriculado.Data as 'Data_R' FROM `aluno_matriculado`,pessoa WHERE aluno_matriculado.id_aluno=pessoa.id_Pessoa AND aluno_matriculado.id_escola=?";
                         
                         $stmt=$conexao->prepare($query);
                         if(!$stmt){
                             echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
                         }
+                        $Username= filtraEntrada($conexao,$id_local);
+       
+                        $bind=$stmt->bind_param("i", $Username);
+                        if(!$bind){
+                            echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;
+                        }
+                
                 
                         // Estágio 2: execução
                         if(!$stmt->execute()){
@@ -96,15 +121,20 @@
                             $linha=$res->fetch_assoc();
                     ?>
                     <tr>
-                        <td><?php echo $linha['codal']?></td>
-                        <td><?php echo $linha['nome']?></td>
-                        <td><?php echo $linha['data']?></td>
+                        <td><?php echo $linha['id_aluno']?></td>
+                        <td><?php echo $linha['Nome_Completo']?></td>
+                        <td><?php echo $linha['Data_R']?></td>
                     </tr>
                     <?php 
                         } 
                         $stmt->close();
                         $conexao->close();
-                    ?>         
+                       
+
+                   
+                        
+                    ?>
+                         
                 </tbody>
             </table>
         </div>
