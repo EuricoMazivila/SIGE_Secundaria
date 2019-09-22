@@ -23,9 +23,7 @@
                                         <label for="inputSobrenome">Apelido</label>
                                         <?php
                                             include("../../Dao/conexao.php");
-
-                                            $id_user=$_SESSION['id_User'];
-
+                                        
                                             //Estágio 1: Preparação
                                             $query="SELECT Apelido from pessoa where id_Pessoa=?";
                                             $stmt=$conexao->prepare($query);
@@ -66,9 +64,6 @@
                                         <label for="inputNome">Outros Nomes</label>
                                         <?php
                                             include("../../Dao/conexao.php");
-
-                                            $id_user=$_SESSION['id_User'];
-
                                             //Estágio 1: Preparação
                                             $query="SELECT Nome from pessoa where id_Pessoa=?";
                                             $stmt=$conexao->prepare($query);
@@ -226,7 +221,6 @@
                                             <option value="">Seleciona o Sexo</option>
                                             <?php
                                                 include("../../Dao/conexao.php");
-                                                $id_user=$_SESSION['id_User'];
                                                 
                                                 //Estágio 1: Preparação
                                                 $query="SELECT Nome from pessoa where id_Pessoa=?";
@@ -273,8 +267,8 @@
                                         <label for="inputEstado">Estado Civil</label>
                                         <select class="form-control" name="estado_Civil" id="inputEstado" required>
                                             <option value="">Selecione Estado civil</option>
-                                            <option value="C">Casado(a)</option>
-                                            <option value="S">Solteiro(a)</option>
+                                            <option value="Casado">Casado(a)</option>
+                                            <option value="Solteiro">Solteiro(a)</option>
                                         </select>
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
@@ -734,8 +728,9 @@
                 </div>
                 <!---->
             </div>
+            <input type="hidden" name="id_candidado" value='<?php echo $id_user;?>'>
+            <input type="hidden" name="id_escola" value='<?php echo $id_local;?>'>
             <input type="submit" name="concluir">
-
             <!-- <a id="matriculate" href="ReverDados.php" class="btn btn-success">Concluir</a>-->
                 <!--<button class="btn btn-success" id="matriculate">Submeter</button>-->
         </form>

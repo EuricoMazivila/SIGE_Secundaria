@@ -1,7 +1,52 @@
 <?php
     //Marcar Matricula
     if(isset($_POST['marcar_matricula'])){
-        marcar_matricula();
+        marcar_matricula();/*
+        require_once("conexao.php");
+        echo $id_escola=filtraEntrada($conexao,$_POST['id_escola']).'<br>';
+        echo $tipo=filtraEntrada($conexao,$_POST['tipo']).'<br>';
+        echo $dataI=filtraEntrada($conexao,$_POST['dataInic']).'<br>';    
+        echo $dataF=filtraEntrada($conexao,$_POST['dataFim']).'<br>'; 
+        echo $classe_oita=filtraEntrada($conexao,'8');//$_POST['']);s
+        echo $total_vagas_oita_d=filtraEntrada($conexao,$_POST['tot_vagas_oita_d']).'<br>';  
+        echo $total_vagas_oita_n=filtraEntrada($conexao,$_POST['tot_vagas_oita_n']).'<br>'; 
+        
+        echo $classe_nona=filtraEntrada($conexao,'9');//$_POST['']);
+        echo $total_vagas_nona_d=filtraEntrada($conexao,$_POST['tot_vagas_nona_d']).'<br>';  
+        echo $total_vagas_nona_n=filtraEntrada($conexao,$_POST['tot_vagas_nona_n']).'<br>'; 
+        
+        echo $classe_dec=filtraEntrada($conexao,'10').'<br>';//$_POST['']); 
+        echo $total_vagas_dec_d=filtraEntrada($conexao,$_POST['tot_vagas_dec_d']).'<br>'; 
+        echo $total_vagas_dec_n=filtraEntrada($conexao,$_POST['tot_vagas_dec_n']).'<br>'; 
+        
+        echo $classe_decp=filtraEntrada($conexao,'11');//$_POST['']); 
+        echo $total_vagas_decp_a_d=filtraEntrada($conexao,$_POST['tot_vagas_decp_a_d']).'<br>';  
+        echo $total_vagas_decp_a_n=filtraEntrada($conexao,$_POST['tot_vagas_decp_a_n']).'<br>';
+        
+        echo $total_vagas_decp_bb_d=filtraEntrada($conexao,$_POST['tot_vagas_decp_bb_d']).'<br>';  
+        echo $total_vagas_decp_bb_n=filtraEntrada($conexao,$_POST['tot_vagas_decp_bb_n']).'<br>';
+
+        echo $total_vagas_decp_bg_d=filtraEntrada($conexao,$_POST['tot_vagas_decp_bg_d']).'<br>';  
+        echo $total_vagas_decp_bg_n=filtraEntrada($conexao,$_POST['tot_vagas_decp_bg_n']).'<br>';
+
+        echo $total_vagas_decp_c_d=filtraEntrada($conexao,$_POST['tot_vagas_decp_c_d']).'<br>';  
+        echo $total_vagas_decp_c_n=filtraEntrada($conexao,$_POST['tot_vagas_decp_c_n']).'<br>';
+
+
+        echo $classe_decs=filtraEntrada($conexao,'12');//$_POST['']); 
+        echo $total_vagas_decs_a_d=filtraEntrada($conexao,$_POST['tot_vagas_decs_a_d']).'<br>';  
+        echo $total_vagas_decs_a_n=filtraEntrada($conexao,$_POST['tot_vagas_decs_a_n']).'<br>';
+
+        echo $total_vagas_decs_bb_d=filtraEntrada($conexao,$_POST['tot_vagas_decs_bb_d']).'<br>';  
+        echo $total_vagas_decs_bb_n=filtraEntrada($conexao,$_POST['tot_vagas_decs_bb_n']).'<br>';
+
+        echo $total_vagas_decs_bg_d=filtraEntrada($conexao,$_POST['tot_vagas_decs_bg_d']).'<br>';  
+        echo $total_vagas_decs_bg_n=filtraEntrada($conexao,$_POST['tot_vagas_decs_bg_n']).'<br>';
+
+        echo $total_vagas_decs_c_d=filtraEntrada($conexao,$_POST['tot_vagas_decs_c_d']).'<br>';  
+        echo $total_vagas_decs_c_n=filtraEntrada($conexao,$_POST['tot_vagas_decs_c_n']).'<br>';
+        */
+        
     }
 
     //Busca Matricula    
@@ -36,36 +81,56 @@
         require_once("conexao.php");
         
         //Estágio 1: Preparação
-        $query="CALL addPriodo_Matricula(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $query="CALL Marcar_Matricula(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $stmt=$conexao->prepare($query);
         if(!$stmt){
             echo "Preparação falhou: (" . $conexao->errno . ")" . $conexao->error;
         }
 
         // Estágio 2: Associação dos parâmetros (bind)
+        $id_escola=filtraEntrada($conexao,$_POST['id_escola']);
+        $tipo=filtraEntrada($conexao,$_POST['tipo']);
         $dataI=filtraEntrada($conexao,$_POST['dataInic']);    
         $dataF=filtraEntrada($conexao,$_POST['dataFim']); 
-        $classe_oita=filtraEntrada($conexao,'8');//$_POST['']);s
+        $classe_oita=filtraEntrada($conexao,'8');
         $total_vagas_oita_d=filtraEntrada($conexao,$_POST['tot_vagas_oita_d']);  
         $total_vagas_oita_n=filtraEntrada($conexao,$_POST['tot_vagas_oita_n']); 
-        $classe_nona=filtraEntrada($conexao,'9');//$_POST['']);
+        $classe_nona=filtraEntrada($conexao,'9');
         $total_vagas_nona_d=filtraEntrada($conexao,$_POST['tot_vagas_nona_d']);  
         $total_vagas_nona_n=filtraEntrada($conexao,$_POST['tot_vagas_nona_n']); 
-        $classe_dec=filtraEntrada($conexao,'10');//$_POST['']); 
+        $classe_dec=filtraEntrada($conexao,'10'); 
         $total_vagas_dec_d=filtraEntrada($conexao,$_POST['tot_vagas_dec_d']); 
         $total_vagas_dec_n=filtraEntrada($conexao,$_POST['tot_vagas_dec_n']); 
-        $classe_decp=filtraEntrada($conexao,'11');//$_POST['']); 
-        $total_vagas_decp_d=filtraEntrada($conexao,$_POST['tot_vagas_decp_d']);  
-        $total_vagas_decp_n=filtraEntrada($conexao,$_POST['tot_vagas_decp_n']);
-        $classe_decs=filtraEntrada($conexao,'12');//$_POST['']); 
-        $total_vagas_decs_d=filtraEntrada($conexao,$_POST['tot_vagas_decs_d']);  
-        $total_vagas_decs_n=filtraEntrada($conexao,$_POST['tot_vagas_decs_n']);
+        $classe_decp=filtraEntrada($conexao,'11');
+        $total_vagas_decp_a_d=filtraEntrada($conexao,$_POST['tot_vagas_decp_a_d']);  
+        $total_vagas_decp_a_n=filtraEntrada($conexao,$_POST['tot_vagas_decp_a_n']);
+        $total_vagas_decp_bb_d=filtraEntrada($conexao,$_POST['tot_vagas_decp_bb_d']);  
+        $total_vagas_decp_bb_n=filtraEntrada($conexao,$_POST['tot_vagas_decp_bb_n']);
+        $total_vagas_decp_bg_d=filtraEntrada($conexao,$_POST['tot_vagas_decp_bg_d']);  
+        $total_vagas_decp_bg_n=filtraEntrada($conexao,$_POST['tot_vagas_decp_bg_n']);
+        $total_vagas_decp_c_d=filtraEntrada($conexao,$_POST['tot_vagas_decp_c_d']);  
+        $total_vagas_decp_c_n=filtraEntrada($conexao,$_POST['tot_vagas_decp_c_n']);
+        $classe_decs=filtraEntrada($conexao,'12'); 
+        $total_vagas_decs_a_d=filtraEntrada($conexao,$_POST['tot_vagas_decs_a_d']);  
+        $total_vagas_decs_a_n=filtraEntrada($conexao,$_POST['tot_vagas_decs_a_n']);
+        $total_vagas_decs_bb_d=filtraEntrada($conexao,$_POST['tot_vagas_decs_bb_d']);  
+        $total_vagas_decs_bb_n=filtraEntrada($conexao,$_POST['tot_vagas_decs_bb_n']);
+        $total_vagas_decs_bg_d=filtraEntrada($conexao,$_POST['tot_vagas_decs_bg_d']);  
+        $total_vagas_decs_bg_n=filtraEntrada($conexao,$_POST['tot_vagas_decs_bg_n']);
+        $total_vagas_decs_c_d=filtraEntrada($conexao,$_POST['tot_vagas_decs_c_d']);  
+        $total_vagas_decs_c_n=filtraEntrada($conexao,$_POST['tot_vagas_decs_c_n']);
         
-        $bind=$stmt->bind_param("sssiisiisiisiisii",$dataI,$dataF,$classe_oita,
-        $total_vagas_oita_d,$total_vagas_oita_n,$classe_nona,$total_vagas_nona_d,
-        $total_vagas_nona_n,$classe_dec,$total_vagas_dec_d,$total_vagas_dec_n,
-        $classe_decp,$total_vagas_decp_d,$total_vagas_decp_n,$classe_decs,$total_vagas_decs_d,
-        $total_vagas_decs_n);
+        $bind=$stmt->bind_param("isssiiiiiiiiiiiiiiiiiiiiiiiiiii",
+        $id_escola,$tipo,$dataI,$dataF, 
+        $classe_oita,$total_vagas_oita_d,$total_vagas_oita_n,$classe_nona,
+        $total_vagas_nona_d,$total_vagas_nona_n,$classe_dec,$total_vagas_dec_d, 
+        $total_vagas_dec_n,$classe_decp,$total_vagas_decp_a_d,  
+        $total_vagas_decp_a_n,$total_vagas_decp_bb_d,$total_vagas_decp_bb_n,
+        $total_vagas_decp_bg_d,$total_vagas_decp_bg_n,$total_vagas_decp_c_d,  
+        $total_vagas_decp_c_n,$classe_decs,$total_vagas_decs_a_d,  
+        $total_vagas_decs_a_n,$total_vagas_decs_bb_d,$total_vagas_decs_bb_n,
+        $total_vagas_decs_bg_d,$total_vagas_decs_bg_n,$total_vagas_decs_c_d,
+        $total_vagas_decs_c_n);
         
         if(!$bind){
             echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;
@@ -75,7 +140,7 @@
         if(!$stmt->execute()){
             echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
         }else{
-            header("Location: ../Matriculas.php");
+            header("Location: ../Escola/Directoria/Matricula.php");
         }   
 
         $stmt->close();

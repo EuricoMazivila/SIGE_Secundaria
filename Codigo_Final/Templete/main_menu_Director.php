@@ -4,7 +4,7 @@
                         <div class="navbar-collapse menu-color i-color-white" id="menu-Candidado">
                             <ul class="nav navbar-nav nav-justified " role="menu">
                                 <li class="text-left">
-                                    <a class="btn btn-default btn-lg btn-block text-left" href="#">
+                                    <a class="btn btn-default btn-lg btn-block text-left" href="index.php">
                                         <span class="i-color-white">
                                             <i class="fa fa-home fa-2x i-tamanho"></i>
                                             Home
@@ -224,13 +224,7 @@
 
                             </ul>
                             <ul class="nav navbar-nav nav-justified" role="menu">
-                                <li class="logout">
-                                    <a class="btn btn-default btn-lg btn-block  text-left" href="">
-                                        <span class="i-color-white"> <i class="fa fa-power-off fa-2x i-tamanho"></i>
-                                            Logout
-                                        </span>
-                                    </a>
-                                </li>
+                                
                             </ul>
 
                         </div>

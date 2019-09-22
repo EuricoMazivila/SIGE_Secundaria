@@ -15,7 +15,7 @@
     $corpo='Corpo/corpo_ListaMatriculados.php';//esse e o corpo
     $navBar='Configuracao\navbar.php';//essa e o nav bar
     $rodape='footer.php';//especificar a url do footer
-    $scriptAdd='scr8*pts_Lista_Matriculados.php';
+    $scriptAdd='scripts_Lista_Matriculados.php';
     //Aqui pode ficar as dependencias de hader como verificar se ja fez login
     include('../../Templete/Templete.php');
 }else{

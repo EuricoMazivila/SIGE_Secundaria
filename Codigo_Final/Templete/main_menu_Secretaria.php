@@ -3,7 +3,7 @@
         <div class="navbar-collapse menu-color i-color-white " id="menu-Candidado">
             <ul class="nav navbar-nav nav-justified " role="menu">
                 <li class="text-left">
-                    <a class="btn btn-default btn-lg btn-block text-left" href="">
+                    <a class="btn btn-default btn-lg btn-block text-left" href="index.php">
                         <span class="i-color-white">
                             <i class="fa fa-home fa-2x i-tamanho"></i>
                             Home
@@ -110,7 +110,7 @@
 
                     <ul class="nav navbar-nav nav-justified">
                         <li>
-                            <a class="btn btn-default btn-lg btn-block  text-left" href="step0.html">
+                            <a class="btn btn-default btn-lg btn-block  text-left" href="Matricular_step 0.php">
                                 <span class="i-color-white"> <i class="fa fa-edit fa-2x i-tamanho"></i>
 
                                     Matricular Aluno
@@ -119,7 +119,7 @@
                         </li>
 
                         <li>
-                            <a class="btn btn-default btn-lg btn-block  text-left" href="#">
+                            <a class="btn btn-default btn-lg btn-block  text-left" href="Candidato.php">
                                 <span class="i-color-white"><i class=" fa fa-plus-square fa-2x i-tamanho"></i>
 
                                     Ver o estado
@@ -128,7 +128,7 @@
                         </li>
 
                         <li>
-                            <a class="btn btn-default btn-lg btn-block  text-left" href="#">
+                            <a class="btn btn-default btn-lg btn-block  text-left" href="Registar_Candidato.php">
                                 <span class="i-color-white"> <i class="fa fa-plus-square fa-2x i-tamanho"></i>
 
                                     Registar candidato
@@ -207,13 +207,7 @@
 
             </ul>
             <ul class="nav navbar-nav nav-justified" role="menu">
-                <li class="logout">
-                    <a class="btn btn-default btn-lg btn-block  text-left" href="">
-                        <span class="i-color-white"> <i class="fa fa-power-off fa-2x i-tamanho"></i>
-                            Logout
-                        </span>
-                    </a>
-                </li>
+                
             </ul>
 
         </div>
