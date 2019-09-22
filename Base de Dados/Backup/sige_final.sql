@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 20-Set-2019 às 17:50
--- Versão do servidor: 10.1.34-MariaDB
--- PHP Version: 7.2.8
+-- Generation Time: 20-Set-2019 às 23:44
+-- Versão do servidor: 10.1.35-MariaDB
+-- versão do PHP: 7.2.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -117,13 +117,23 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `addCandidato` (`_nomes` VARCHAR(50)
 	end if;
 end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `AddEscola` (IN `_Nome` VARCHAR(40), IN `_Nivel` ENUM('Secundaria','Primaria'), IN `_Pertenca` ENUM('Publica','Privada'), IN `_id_Dir` INT, IN `_id_End` INT)  NO SQL
-    COMMENT 'Essa Funcao Cria Pessoa'
-INSERT INTO `escola` (`id_Escola`, `Nome`, `Nivel`, `Pertenca`, `id_Dir`, `id_End`) VALUES ( (SELECT `Gera_ID_Escola`(YEAR(CURRENT_DATE))), _Nome, _Nivel,_Pertenca, _id_Dir,_id_End)$$
-
 --
 -- Functions
 --
+CREATE DEFINER=`root`@`localhost` FUNCTION `AddEscola` (`_Nome` VARCHAR(40), `_Nivel` ENUM('Secundaria','Primaria'), `_Pertenca` ENUM('Publica','Privada'), `_id_Dir` INT) RETURNS INT(11) NO SQL
+    COMMENT 'Essa Funcao Cria Pessoa'
+BEGIN
+DECLARE id_Escola int(11);
+INSERT INTO `escola` (`id_Escola`, `Nome`, `Nivel`, `Pertenca`, `id_Dir`) VALUES (NULL, _Nome, _Nivel, _Pertenca, _id_Dir);
+SET id_Escola =(SELECT COUNT(escola.id_Escola)  FROM escola WHERE escola.Nome=_Nome and escola.Nivel=_Nivel and escola.Pertenca=_Pertenca and escola.id_Dir=_id_Dir);
+if(id_Escola>0) THEN
+SET id_Escola =(SELECT escola.id_Escola  FROM escola WHERE escola.Nome=_Nome and escola.Nivel=_Nivel and escola.Pertenca=_Pertenca and escola.id_Dir=_id_Dir);
+end if;
+
+
+RETURN id_Escola;
+END$$
+
 CREATE DEFINER=`root`@`localhost` FUNCTION `AddPessoa` (`_Nome` VARCHAR(40), `_Apelido` VARCHAR(40), `_Sexo` ENUM('M','F'), `_Estado_Civil` ENUM('Solteiro','Casado'), `_Data_Nascimento` DATE, `_Tipo` ENUM('F','A','C')) RETURNS VARCHAR(9) CHARSET latin1 NO SQL
     COMMENT 'Essa Funcao Cria Pessoa'
 BEGIN 
@@ -166,7 +176,7 @@ RETURN idGerado;
 
 end$$
 
-CREATE DEFINER=`root`@`localhost` FUNCTION `RecuperaSenha` (`_id_usuario` INT, `_TipoEnvio` ENUM('Email','Telefone','Ambos'), `_CampoEnvio` VARCHAR(100)) RETURNS INT(11) NO SQL
+CREATE DEFINER=`root`@`localhost` FUNCTION `RecuperaSenha` (`_id_usuario` VARCHAR(9), `_TipoEnvio` ENUM('Email','Telefone','Ambos'), `_CampoEnvio` VARCHAR(100)) RETURNS INT(11) NO SQL
     COMMENT 'Permite Recuperar Senha'
 BEGIN
 DECLARE codGerado int(11);
@@ -178,6 +188,18 @@ INSERT INTO `recupera_senha_usuario` (`id_Usuario`, `CodigoRecuperacao`, `Data_V
 
 RETURN (SELECT max(recupera_senha_usuario.id_Solicitacao) FROM recupera_senha_usuario WHERE recupera_senha_usuario.id_Usuario=_id_usuario  and recupera_senha_usuario.CodigoRecuperacao=codGerado AND recupera_senha_usuario.Data_Validalidade=dataValidade);
 end$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `Regista_Escola` (`_Nome` VARCHAR(40), `_Nivel` ENUM('Secundaria','Primaria'), `_Pertenca` ENUM('Publica','Privada'), `_id_Dir` INT, `_id_Bairro` INT, `_Nr` SMALLINT(6), `_Avenida` VARCHAR(60), `_Id_Func` VARCHAR(9)) RETURNS INT(11) NO SQL
+    COMMENT 'Essa Funcao Cria Pessoa'
+BEGIN
+DECLARE _id_Escola int(11);
+set _id_Escola =(select `AddEscola`(`_Nome` , `_Nivel` , `_Pertenca` , `_id_Dir`));
+INSERT INTO `localizacao_escola` (`id_escola`, `id_bairro`, `Nr`, `Avenida_Rua`) VALUES (_id_Escola, _id_Bairro, _Nr, _Avenida);
+INSERT INTO `direcao_escola` (id_Escola, `id_Funcionario`, `id_Cargo`, `Data_Colocacao`) VALUES (_id_Escola, _Id_Func, 1, CURRENT_DATE);
+
+
+RETURN id_Escola;
+END$$
 
 CREATE DEFINER=`root`@`localhost` FUNCTION `upDateSenha` (`_id` INT, `_nova` VARCHAR(40)) RETURNS TINYINT(1) NO SQL
     COMMENT 'Permite actualizar Senha'
@@ -364,6 +386,31 @@ INSERT INTO `candidato_aluno` (`id_candidato`, `id_escola`, `classe_matricular`,
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `cargo`
+--
+
+CREATE TABLE `cargo` (
+  `id_Cargo` int(11) NOT NULL,
+  `Designacao` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `cargo`
+--
+
+INSERT INTO `cargo` (`id_Cargo`, `Designacao`) VALUES
+(1, 'Administrador'),
+(2, 'Director Geral'),
+(3, 'Director Adjunto Geral'),
+(4, 'Director Pedagogico'),
+(5, 'Director Pedagogico Adjunto'),
+(6, 'Secretario'),
+(7, 'Professor'),
+(8, 'Aluno');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `classe`
 --
 
@@ -443,7 +490,7 @@ CREATE TABLE `direcao_escola` (
   `id_Funcionario` varchar(9) NOT NULL,
   `id_Cargo` int(11) NOT NULL,
   `Data_Colocacao` date NOT NULL,
-  `Estado` enum('Ativo','Desativo') NOT NULL
+  `Estado` enum('Ativo','Desativo') NOT NULL DEFAULT 'Ativo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -492,7 +539,10 @@ INSERT INTO `escola` (`id_Escola`, `Nome`, `Nivel`, `Pertenca`, `id_Dir`) VALUES
 (3, 'Joaquim Chissano', 'Secundaria', 'Publica', 2),
 (4, 'Laulane', 'Secundaria', 'Publica', 2),
 (5, 'Gwaza Muthine', 'Secundaria', 'Publica', 3),
-(6, 'Santa Montanha', 'Secundaria', 'Publica', 3);
+(6, 'Santa Montanha', 'Secundaria', 'Publica', 3),
+(7, 'Magoanine B', 'Secundaria', 'Publica', 3),
+(8, 'Forca do Povo', 'Secundaria', 'Publica', 2),
+(10, 'Alber Eisten', 'Secundaria', 'Publica', 2);
 
 -- --------------------------------------------------------
 
@@ -545,6 +595,13 @@ CREATE TABLE `funcionario` (
   `carreira` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `funcionario`
+--
+
+INSERT INTO `funcionario` (`id_Funcionaio`, `carreira`) VALUES
+('2019A0003', 'Professor');
+
 -- --------------------------------------------------------
 
 --
@@ -557,6 +614,13 @@ CREATE TABLE `localizacao_escola` (
   `Nr` smallint(6) NOT NULL,
   `Avenida_Rua` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `localizacao_escola`
+--
+
+INSERT INTO `localizacao_escola` (`id_escola`, `id_bairro`, `Nr`, `Avenida_Rua`) VALUES
+(10, 2, 222, 'Lurdes Mutola');
 
 -- --------------------------------------------------------
 
@@ -682,6 +746,14 @@ CREATE TABLE `recupera_senha_usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Extraindo dados da tabela `recupera_senha_usuario`
+--
+
+INSERT INTO `recupera_senha_usuario` (`id_Solicitacao`, `id_Usuario`, `CodigoRecuperacao`, `Data_Validalidade`, `Senha_Antiga`, `Senha_Nova`, `Tipo_Envio`, `Campo_Envio`) VALUES
+(1, '2019A0003', 720586, '2019-09-21', 'Mondlane', '', 'Email', '82456'),
+(2, '2019C0005', 299964, '2019-09-21', 'Manhice', 'Ricardo', 'Email', 'Uem@gmail.com');
+
+--
 -- Acionadores `recupera_senha_usuario`
 --
 DELIMITER $$
@@ -763,7 +835,7 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`id_User`, `Username`, `Senha`, `Email_Instituconal`, `Estado`, `DataCriacao`, `Acesso_Distrital`, `Acesso_Escola`, `Acesso_Convidado`) VALUES
 ('2019A0003', 'Paulo2019A0003', 'Mondlane', 'Mondlane.Paulo.2019A0003@sige.ac.mz', 'Ativo', '2019-09-19', 'N', 'S', 'S'),
-('2019C0005', 'Ricardo Orlando2019C0005', 'Manhice', 'Manhice.Ricardo Orlando.2019C0005@sige.ac.mz', 'Ativo', '2019-09-20', 'N', 'N', 'S'),
+('2019C0005', 'Ricardo Orlando2019C0005', 'Ricardo', 'Manhice.Ricardo Orlando.2019C0005@sige.ac.mz', 'Ativo', '2019-09-20', 'N', 'N', 'S'),
 ('2019C0006', 'Ricardo Orlando2019C0006', 'Manhice', 'Manhice.Ricardo Orlando.2019C0006@sige.ac.mz', 'Ativo', '2019-09-20', 'N', 'N', 'S'),
 ('2019F0002', 'Candido2019F0002', 'Barato', 'Barato.Candido.2019F0002@sige.ac.mz', 'Ativo', '2019-09-19', 'N', 'N', 'S'),
 ('2019F0004', 'Eurico2019F0004', 'Mazivila', 'Mazivila.Eurico.2019F0004@sige.ac.mz', 'Ativo', '2019-09-19', 'N', 'N', 'S'),
@@ -847,6 +919,12 @@ ALTER TABLE `candidato_aluno`
   ADD KEY `id_escola` (`id_escola`);
 
 --
+-- Indexes for table `cargo`
+--
+ALTER TABLE `cargo`
+  ADD PRIMARY KEY (`id_Cargo`);
+
+--
 -- Indexes for table `classe`
 --
 ALTER TABLE `classe`
@@ -898,12 +976,14 @@ ALTER TABLE `filiacao_aluno`
 -- Indexes for table `funcionario`
 --
 ALTER TABLE `funcionario`
+  ADD PRIMARY KEY (`id_Funcionaio`),
   ADD KEY `id_pessoa` (`id_Funcionaio`);
 
 --
 -- Indexes for table `localizacao_escola`
 --
 ALTER TABLE `localizacao_escola`
+  ADD PRIMARY KEY (`id_escola`),
   ADD KEY `id_escola` (`id_escola`),
   ADD KEY `id_bairro` (`id_bairro`);
 
@@ -990,6 +1070,12 @@ ALTER TABLE `bairro`
   MODIFY `id_Bairro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `cargo`
+--
+ALTER TABLE `cargo`
+  MODIFY `id_Cargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `classe`
 --
 ALTER TABLE `classe`
@@ -1005,7 +1091,7 @@ ALTER TABLE `distrito`
 -- AUTO_INCREMENT for table `escola`
 --
 ALTER TABLE `escola`
-  MODIFY `id_Escola` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_Escola` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `matricula`
@@ -1035,7 +1121,7 @@ ALTER TABLE `provincia`
 -- AUTO_INCREMENT for table `recupera_senha_usuario`
 --
 ALTER TABLE `recupera_senha_usuario`
-  MODIFY `id_Solicitacao` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_Solicitacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -1110,7 +1196,8 @@ ALTER TABLE `direcao_distrital`
 --
 ALTER TABLE `direcao_escola`
   ADD CONSTRAINT `direcao_escola_ibfk_1` FOREIGN KEY (`id_Escola`) REFERENCES `escola` (`id_Escola`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `direcao_escola_ibfk_2` FOREIGN KEY (`id_Funcionario`) REFERENCES `funcionario` (`id_Funcionaio`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `direcao_escola_ibfk_2` FOREIGN KEY (`id_Funcionario`) REFERENCES `funcionario` (`id_Funcionaio`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `direcao_escola_ibfk_3` FOREIGN KEY (`id_Cargo`) REFERENCES `cargo` (`id_Cargo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `distrito`

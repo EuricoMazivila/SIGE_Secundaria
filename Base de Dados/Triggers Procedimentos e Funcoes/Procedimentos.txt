@@ -1,0 +1,448 @@
+Call addCandidato(10,'Paulo','8','9','Cidade de Maputo','Kamubukwana','Escola Secundaria Quisse Mavota','diurno','Euro');
+ 
+Procedimento para adicionar Candidato
+Delimiter //
+Create procedure addCandidato(_codCand int,_nome varchar(50), _classe_anterior enum('7','8','9','10','11','12'), 
+_classe_matricular enum('8','9','10','11','12'),_provincia_origem varchar(50),_distrito_origem varchar(50), _escola_Origem varchar(50),_regime varchar(10), 
+_senha varchar(10))
+Begin 
+	declare codEsco int;
+	declare codmat int;
+	
+	Start transaction;
+	select codEscola into codEsco from escola where nome_escola=_escola_Origem and escola.coddist=(Select distrito.coddist from provincia,distrito where provincia.codProv=distrito.codProv and provincia=_provincia_origem and distrito=_distrito_origem);  
+	Select codmatr into codmat from matricula where estado='activa' or estado='em espera';
+	
+	if((codEsco is not null) && (codmat is not null)) then
+		begin
+			if(MONTH(curdate())>4) then
+				insert into candidato_aluno (codCand,nome_completo,classe_anterior,classe_matricular,
+				turno,codEscola,senha,estado,ano) values (_codCand,_nome, _classe_anterior,_classe_matricular,_regime,
+				codEsco,AES_ENCRYPT(_senha,'senha'),default,(year(curdate())+1));
+				commit;
+			else
+				insert into candidato_aluno (codCand,nome_completo,classe_anterior,classe_matricular,
+				turno,codEscola,senha,estado,ano) values (_codCand,_nome, _classe_anterior,_classe_matricular,_regime,
+				codEsco,AES_ENCRYPT(_senha,'senha'),default,year(curdate()));
+				commit;
+			end if;		
+		end;
+	else
+		Select 'Cadastro invalido' as Mensagem;	
+		rollback;
+	end if;		
+end;
+//
+
+
+Marcar Priodo de Matricula
+
+Call addPriodo_Matricula ('2019-01-03','2019-03-10','8',200,150,'9',250,300,'10',100,170,
+'11',130,120,'12',130,110);
+
+
+Delimiter //
+create procedure addPriodo_Matricula (_dataI date, _dataF date,_classe_oita enum('8','9','10','11','12'),_total_vagas_oita_d int,_total_vagas_oita_n int,
+_classe_nona enum('8','9','10','11','12'),_total_vagas_nona_d int,_total_vagas_nona_n int,_classe_dec enum('8','9','10','11','12'),_total_vagas_dec_d int,
+_total_vagas_dec_n int,_classe_decp enum('8','9','10','11','12'),_total_vagas_decp_d int,_total_vagas_decp_n int,_classe_decs enum('8','9','10','11','12'),
+_total_vagas_decs_d int,_total_vagas_decs_n int)
+Begin
+	declare codMa int;
+	declare codClas_oita_d int;
+	declare codClas_oita_n int;
+	declare codClas_nona_d int;
+	declare codClas_nona_n int;
+	declare codClas_dec_d int;
+	declare codClas_dec_n int;
+	declare codClas_decp_d int;
+	declare codClas_decp_n int;
+	declare codClas_decs_d int;
+	declare codClas_decs_n int;
+
+	Start transaction;
+	Insert into matricula (codMatr,dataI,dataF) values (default,_dataI,_dataF);
+	Select codMatr into codMa from matricula where dataI=_dataI;
+	savepoint sp2;
+
+	if(codMa is not null) then
+		Begin
+			Select codClass into codClas_oita_d from classe where classe=_classe_oita and turno='diurno'; 
+			Select codClass into codClas_oita_n from classe where classe=_classe_oita and turno='nocturno';
+			Select codClass into codClas_nona_d from classe where classe=_classe_nona and turno='diurno';
+			Select codClass into codClas_nona_n from classe where classe=_classe_nona and turno='nocturno';
+			Select codClass into codClas_dec_d from classe where classe=_classe_dec and turno='diurno';
+			Select codClass into codClas_dec_n from classe where classe=_classe_dec and turno='nocturno';
+			Select codClass into codClas_decp_d from classe where classe=_classe_decp and turno='diurno';
+			Select codClass into codClas_decp_n from classe where classe=_classe_decp and turno='nocturno';
+			Select codClass into codClas_decs_d from classe where classe=_classe_decs and turno='diurno';
+			Select codClass into codClas_decs_n from classe where classe=_classe_decs and turno='nocturno';
+			savepoint sp3;
+			if((codClas_oita_d is not null) && (codClas_oita_n is not null) && (codClas_nona_d is not null)
+				&& (codClas_nona_n is not null) && (codClas_dec_d is not null) && (codClas_dec_n is not null)
+				&& (codClas_decp_d is not null) && (codClas_decp_n is not null) && (codClas_decs_d is not null)
+				&& (codClas_decs_n is not null)) then
+				Begin
+					Insert into matricula_classe (codMatr,codClass,total_vagas,ano) values (codMa,codClas_oita_d,_total_vagas_oita_d,year(_dataI));
+					Insert into matricula_classe (codMatr,codClass,total_vagas,ano) values (codMa,codClas_oita_n,_total_vagas_oita_n,year(_dataI));
+					Insert into matricula_classe (codMatr,codClass,total_vagas,ano) values (codMa,codClas_nona_d,_total_vagas_nona_d,year(_dataI));
+					Insert into matricula_classe (codMatr,codClass,total_vagas,ano) values (codMa,codClas_nona_n,_total_vagas_nona_n,year(_dataI));
+					Insert into matricula_classe (codMatr,codClass,total_vagas,ano) values (codMa,codClas_dec_d,_total_vagas_dec_d,year(_dataI));
+					Insert into matricula_classe (codMatr,codClass,total_vagas,ano) values (codMa,codClas_dec_n,_total_vagas_dec_n,year(_dataI));
+					Insert into matricula_classe (codMatr,codClass,total_vagas,ano) values (codMa,codClas_decp_d,_total_vagas_decp_d,year(_dataI));
+					Insert into matricula_classe (codMatr,codClass,total_vagas,ano) values (codMa,codClas_decp_n,_total_vagas_decp_n,year(_dataI));
+					Insert into matricula_classe (codMatr,codClass,total_vagas,ano) values (codMa,codClas_decs_d,_total_vagas_decs_d,year(_dataI));
+					Insert into matricula_classe (codMatr,codClass,total_vagas,ano) values (codMa,codClas_decs_n,_total_vagas_decs_n,year(_dataI));	
+					commit;
+				End;
+				
+			else
+				Begin
+					delete from matricula where codMatr=codMa;
+					select 'Falha no registo das classes e o total de vagas' as Mensagem;
+				End;
+			End if;
+		End;
+	else
+		Select 'Falha ao registar nova matricula' as Mensagem;
+	End if;
+end;	//
+
+
+Matricular um aluno
+Procedimento Para adicionar uma Pessoa
+
+
+call addPessoa('Eerr','E_tt_1','2019-09-09','Mocambique','Cidade de Maputo','kamubukwana','12791P020212C','Maputo','2014-09-12','F',
+8498234,840234,'E_3','Mocambique','Cidade de Maputo','kamubukwana','Jorge Dimitrov','Av. de Mocambique','43',44,121321);
+
+
+Delimiter //
+create procedure addPessoa(_apelido varchar(30),_nomes varchar(50),
+_data_nascimento date,_pais_nas varchar(50),_provincia_nas varchar(50),_distrito_nas varchar(50),
+_bi varchar(13),_local_emissao varchar(50),_data_em date,_sexo enum('M','F'),
+_numero_tf int,_numero_tf_op int,_email varchar(50),_pais_res varchar(50),
+_provincia_res varchar(50),_distrito_res varchar(50),_bairro varchar(50),_av_ou_rua varchar(50),_quarteirao varchar(50),_nr_casa int,_foto blob)
+Begin
+	declare codPais_nas int;
+	declare codProv_nas int;
+	declare coddist_nas int;
+	declare bi_p varchar(13);
+	declare codconct_p int;
+	declare codpais_res int;
+	declare codprov_res int;
+	declare coddist_res int;
+	declare codbairro_res int;
+	declare codres_p int; 
+	declare codp_p int; 
+
+	Select codPais into codPais_nas from pais where pais=_pais_nas;
+	Select codProv into codProv_nas from provincia where codpais=codPais_nas and provincia=_provincia_nas;
+	Select coddist into coddist_nas from distrito where codProv=codProv_nas and distrito=_distrito_nas;
+	if((coddist_nas is not null) && (year(curdate())-year(_data_nascimento))>9 && (year(curdate())-year(_data_em))<6) then
+		Begin
+			Insert into bi (bi,local_emissao,data_emissao) values (_bi,_local_emissao,_data_em);
+			Select bi into bi_p from bi where bi=_bi;
+			Insert into contacto (codconct,numero_telefone,numero_telefone_op,email) values(default,_numero_tf,_numero_tf_op,_email);
+			Select codconct into codconct_p from contacto where numero_telefone=_numero_tf;
+			if((bi_p is not null) && (codconct_p is not null)) then
+				Begin 
+					Select codPais into codpais_res from pais where pais=_pais_res;
+					Select codProv into codprov_res from provincia where codpais=codpais_res and provincia=_provincia_res;
+					Select coddist into coddist_res from distrito where codProv=codprov_res and distrito=_distrito_res;
+					Select codbairro into codbairro_res from bairro where coddist=coddist_res and bairro=_bairro;
+					if(codbairro_res is not null) then
+						Begin
+							Insert into residencia (codRes,codProv,codbairro,av_ou_rua,quarteirao,nr_casa) values (default,codprov_res,codbairro_res,_av_ou_rua,_quarteirao,_nr_casa); 
+							Select codRes into codres_p from residencia where codProv=codprov_res and codbairro=codbairro_res and quarteirao=_quarteirao and nr_casa=_nr_casa LIMIT 1;
+ 							if(codres_p is not null) then
+								Begin
+									Insert into pessoa (codp,apelido,nomes,data_nascimento,coddist,bi,sexo,codConct,codRes,foto) values (default,_apelido,_nomes,_data_nascimento,coddist_nas,bi_p,_sexo,codconct_p,codres_p,_foto);	
+									Select codp into codp_p from pessoa where bi=bi_p;
+									if(codp_p is not null) then
+										Select codp_p;
+									else	
+										Begin
+											Select 'Erro no registo de uma pessoa' as Mensagem;
+											delete from bi where bi=bi_p;
+											delete from contacto where codconct=codconct_p;
+											delete from residencia where codres=codres_p;
+										End;
+									End if;
+								End;	
+							else
+								Begin
+									Select 'Erro do codRes' as Mensagem;
+									delete from bi where bi=bi_p;
+									delete from contacto where codconct=codconct_p;
+									delete from residencia where codres=codres_p;
+								End;
+							End if;
+						End;
+					else
+						Begin
+							Select 'Erro do codBairro' as Mensagem;
+							delete from bi where bi=bi_p;
+							delete from contacto where codconct=codconct_p;
+						End;
+					End if;
+	 			End;	
+			End if;
+		End;
+	else
+		select 'Erro de codigo de distrito' as Mensagem;	
+	End if;
+End; //
+
+
+
+Procedimento Para Matricular um aluno
+
+Call addPessoa();
+Select codp into codp_p from Pessoa where bi=_bi;
+
+Outro Procedimento
+call addAluno(4,'Cidade de Maputo','kamubukwana',
+'Jorge Dimitrov','Av. de Mocambique','43',44,'Dario',
+848511802,'Cidade de maputo','Pedreiro','Dario','Dora',8411938482,
+848351183,'Pedreiro','Domestica','Maputo','Cidade de maputo','10');
+
+
+
+
+Delimiter //
+Create procedure addAluno(_cop int,_provincia_enc varchar(50),_distrito_enc varchar(50),
+_bairro_enc varchar(50),_av_ou_rua_enc varchar(50),_quarteirao_enc varchar(10),_nr_casa_enc int,_nome_enc varchar(50),
+_numero_tf_enc int,_local_trab_enc varchar(50),_profissao_enc varchar(50),_nome_pai varchar(50),_nome_mae varchar(50),
+_telefone_pai int,_telefone_mae int,_profissao_pai varchar(50),_profissao_mae varchar(50),_local_trabalho_pai varchar(50),
+_local_trabalho_mae varchar(50),_classe enum('8','9','10','11','12'))
+
+Begin
+	declare codp_p int; 
+	declare codprov_enc int;
+	declare coddist_enc int;
+	declare codbairro_enc int;
+	declare codRes_enc int;
+	declare codEnc_enc int;
+	declare codFil_enc int;		
+	declare codCand_al int;
+	declare codal_m int;
+	declare codclass_al int;
+	declare codmatr_al int;
+	declare _turno enum('diurno','noctuno','a distancia');
+	
+
+	Select codp into codp_p from Pessoa where codp=_cop;
+
+	if(codp_p is not null) then
+		Begin
+			Select codprov into codprov_enc from provincia where provincia=_provincia_enc and codPais=(Select codPais from pais where pais='Mocambique');
+			Select coddist into coddist_enc from distrito where codprov=codprov_enc and distrito=_distrito_enc;
+			Select codbairro into codbairro_enc from bairro where coddist=coddist_enc and bairro=_bairro_enc;
+			Insert into residencia (codRes,codProv,codbairro,av_ou_rua,quarteirao,nr_casa) values (default,codprov_enc,codbairro_enc,_av_ou_rua_enc,_quarteirao_enc,_nr_casa_enc);
+			Select codRes into codRes_enc from residencia where codProv=codprov_enc and codbairro=codbairro_enc and quarteirao=_quarteirao_enc and nr_casa=_nr_casa_enc LIMIT 1;
+			
+			if(codRes_enc is not null) then
+				Begin
+					Insert into encarregado (codEnc,nome_completo,numero_telefone,local_trabalho,profissao,codRes) values (default,_nome_enc,_numero_tf_enc,_local_trab_enc,_profissao_enc,codRes_enc);
+					Select codEnc into codEnc_enc from encarregado where nome_completo=_nome_enc LIMIT 1;
+					Insert into filiacao (codFil,nome_pai,nome_mae,telefone_pai,telefone_mae,profissao_pai,profissao_mae,local_trabalho_pai,local_trabalho_mae) values (default,_nome_pai,_nome_mae,_telefone_pai,_telefone_mae,_profissao_pai,_profissao_mae,_local_trabalho_pai,_local_trabalho_mae);
+					Select codFil into codFil_enc from filiacao where telefone_pai=_telefone_pai and telefone_mae=_telefone_mae LIMIT 1;
+					Select codCand into codCand_al from Candidato_Aluno where nome_completo='Helena';
+					Select turno into _turno from candidato_Aluno where nome_completo='Helena';
+					
+					if((codEnc_enc is not null) && (codFil_enc is not null) && (codCand_al is not null)) then
+						Begin
+							Insert into aluno (codAl,codP,turno,codEnc,codFil,codCand) values (3,codP_p,_turno,codEnc_enc,codFil_enc,codCand_al);
+							Select codAl into codal_m from aluno where codP=codp_p; 
+							if(codal_m is not null) then
+								Select codclass into codclass_al from classe where classe=_classe and turno=_turno;
+								Insert into aluno_classe (codAl,codClass, ano) values (codal_m,codclass_al,year(curdate()));
+									
+								Select codMatr into codmatr_al from matricula where year(dataF)=year(curdate()) LIMIT 1;
+								Insert into aluno_matricula (codAl,codMatr,data) values (codal_m,codmatr_al,curdate()); 
+								if((codclass_al is not null) && (codmatr_al is not null)) then
+									Select 'Aluno Matriculado com sucesso';
+								else
+									Select 'Erro no codclass_al' as Mensagem;
+									delete from pessoa where codp=codp_p;
+									delete from residencia where codres=codres_enc;
+									delete from encarregado where codEnc=codenc_enc;
+									delete from filiacao where codFil=codFil_enc;
+									delete from aluno where codal=codal_m;
+									delete from aluno_classe where codal=codal_m;
+									delete from aluno_matricula where codal=codal_m;		
+								End if;
+							else
+								Begin
+									Select 'Erro no codal_m' as Mensagem;
+									delete from pessoa where codp=codp_p;
+									delete from residencia where codres=codres_enc;
+									delete from encarregado where codEnc=codenc_enc;
+									delete from filiacao where codFil=codFil_enc;
+									delete from aluno where codal=codal_m;
+								End;
+
+							End if;	
+						End;
+					else
+						Begin
+							Select 'Erro no codEnc_enc codFil_enc e CodCand_al' as Mensagem;
+							delete from pessoa where codp=codp_p;
+							delete from residencia where codres=codres_enc;
+							delete from encarregado where codEnc=codenc_enc;
+							delete from filiacao where codFil=codFil_enc;
+						End;
+						
+					End if;			
+				End;
+			else
+				Begin
+					Select 'Erro no codRes_enc' as Mensagem;
+					delete from pessoa where codp=codp_p;
+					delete from residencia where codres=codres_enc;
+				End;
+			End if;
+		End;	
+	else	
+		Begin
+			Select 'Erro no codP_p' as Mensagem;
+			delete from pessoa where codp=codp_p;
+		End;
+	End if;
+End;
+//
+
+
+Call addAluno_matriculado ('Teste','Joao','1999-09-09','Mocambique','Cidade de Maputo','kamubukwana','19901791P0202C','Maputo','2018-09-12','M',
+843023400,84093411,'E_tt_w','Mocambique','Cidade de Maputo','kamubukwana','Jorge Dimitrov','Av. de Mocambique','43',44,1210321,'Cidade de Maputo','kamubukwana',
+'Jorge Dimitrov','Av. de Mocambique','43',44,'Dario',840111802,'Cidade de Maputo','Pedreiro','Dario','Dora',841338482,8409351183,'Pedreiro','Domestica','Maputo','Cidade de maputo','10');
+
+
+Delimiter //
+Create procedure addAluno_matriculado(_apelido varchar(30),_nomes varchar(50),
+_data_nascimento date,_pais_nas varchar(50),_provincia_nas varchar(50),_distrito_nas varchar(50),
+_bi varchar(13),_local_emissao varchar(50),_data_em date,_sexo enum('M','F'),
+_numero_tf int,_numero_tf_op int,_email varchar(50),_pais_res varchar(50),
+_provincia_res varchar(50),_distrito_res varchar(50),_bairro varchar(50),_av_ou_rua varchar(50),_quarteirao varchar(50),_nr_casa int,_foto blob
+,_provincia_enc varchar(50),_distrito_enc varchar(50),
+_bairro_enc varchar(50),_av_ou_rua_enc varchar(50),_quarteirao_enc varchar(10),_nr_casa_enc int,_nome_enc varchar(50),
+_numero_tf_enc int,_local_trab_enc varchar(50),_profissao_enc varchar(50),_nome_pai varchar(50),_nome_mae varchar(50),
+_telefone_pai int,_telefone_mae int,_profissao_pai varchar(50),_profissao_mae varchar(50),_local_trabalho_pai varchar(50),
+_local_trabalho_mae varchar(50),_classe enum('8','9','10','11','12'))
+
+Begin
+	declare codp_p int; 
+	declare codprov_enc int;
+	declare coddist_enc int;
+	declare codbairro_enc int;
+	declare codRes_enc int;
+	declare codEnc_enc int;
+	declare codFil_enc int;		
+	declare codCand_al int;
+	declare codal_m int;
+	declare codclass_al int;
+	declare codmatr_al int;
+	declare _turno enum('diurno','noctuno','a distancia');
+	declare nome varchar(50);
+	
+	Call addPessoa(_apelido,_nomes,_data_nascimento,_pais_nas,_provincia_nas,_distrito_nas,_bi,_local_emissao,
+	_data_em,_sexo,_numero_tf,_numero_tf_op,_email,_pais_res,
+	_provincia_res,_distrito_res,_bairro,_av_ou_rua,_quarteirao,_nr_casa,_foto);
+	
+	Select codp into codp_p from Pessoa where bi=_bi;
+	Select CONCAT(nomes,' ',apelido) into nome from pessoa where codp=codp_p;
+
+	if(codp_p is not null) then
+		Begin
+			Select codprov into codprov_enc from provincia where provincia=_provincia_enc and codPais=(Select codPais from pais where pais='Mocambique');
+			Select coddist into coddist_enc from distrito where codprov=codprov_enc and distrito=_distrito_enc;
+			Select codbairro into codbairro_enc from bairro where coddist=coddist_enc and bairro=_bairro_enc;
+			Insert into residencia (codRes,codProv,codbairro,av_ou_rua,quarteirao,nr_casa) values (default,codprov_enc,codbairro_enc,_av_ou_rua_enc,_quarteirao_enc,_nr_casa_enc);
+			Select codRes into codRes_enc from residencia where codProv=codprov_enc and codbairro=codbairro_enc and quarteirao=_quarteirao_enc and nr_casa=_nr_casa_enc LIMIT 1;
+			
+			if(codRes_enc is not null) then
+				Begin
+					Insert into encarregado (codEnc,nome_completo,numero_telefone,local_trabalho,profissao,codRes) values (default,_nome_enc,_numero_tf_enc,_local_trab_enc,_profissao_enc,codRes_enc);
+					Select codEnc into codEnc_enc from encarregado where nome_completo=_nome_enc LIMIT 1;
+					Insert into filiacao (codFil,nome_pai,nome_mae,telefone_pai,telefone_mae,profissao_pai,profissao_mae,local_trabalho_pai,local_trabalho_mae) values (default,_nome_pai,_nome_mae,_telefone_pai,_telefone_mae,_profissao_pai,_profissao_mae,_local_trabalho_pai,_local_trabalho_mae);
+					Select codFil into codFil_enc from filiacao where telefone_pai=_telefone_pai and telefone_mae=_telefone_mae LIMIT 1;
+					Select codCand into codCand_al from Candidato_Aluno where nome_completo=nome;
+					Select turno into _turno from candidato_Aluno where nome_completo=nome;
+					
+					if((codEnc_enc is not null) && (codFil_enc is not null) && (codCand_al is not null)) then
+						Begin
+							Insert into aluno (codAl,codP,turno,codEnc,codFil,codCand) values (4,codP_p,_turno,codEnc_enc,codFil_enc,codCand_al);
+							Select codAl into codal_m from aluno where codP=codp_p; 
+							if(codal_m is not null) then
+								Select codclass into codclass_al from classe where classe=_classe and turno=_turno;
+								Insert into aluno_classe (codAl,codClass, ano) values (codal_m,codclass_al,year(curdate()));
+									
+								Select codMatr into codmatr_al from matricula where year(dataF)=year(curdate()) LIMIT 1;
+								Insert into aluno_matricula (codAl,codMatr,data) values (codal_m,codmatr_al,curdate()); 
+								if((codclass_al is not null) && (codmatr_al is not null)) then
+									Select 'Aluno Matriculado com sucesso';
+								else
+									Select 'Erro no codclass_al' as Mensagem;
+									delete from pessoa where codp=codp_p;
+									delete from residencia where codres=codres_enc;
+									delete from encarregado where codEnc=codenc_enc;
+									delete from filiacao where codFil=codFil_enc;
+									delete from aluno where codal=codal_m;
+									delete from aluno_classe where codal=codal_m;
+									delete from aluno_matricula where codal=codal_m;		
+								End if;
+							else
+								Begin
+									Select 'Erro no codal_m' as Mensagem;
+									delete from pessoa where codp=codp_p;
+									delete from residencia where codres=codres_enc;
+									delete from encarregado where codEnc=codenc_enc;
+									delete from filiacao where codFil=codFil_enc;
+									delete from aluno where codal=codal_m;
+								End;
+
+							End if;	
+						End;
+					else
+						Begin
+							Select 'Erro no codEnc_enc codFil_enc e CodCand_al' as Mensagem;
+							delete from pessoa where codp=codp_p;
+							delete from residencia where codres=codres_enc;
+							delete from encarregado where codEnc=codenc_enc;
+							delete from filiacao where codFil=codFil_enc;
+						End;
+						
+					End if;			
+				End;
+			else
+				Begin
+					Select 'Erro no codRes_enc' as Mensagem;
+					delete from pessoa where codp=codp_p;
+					delete from residencia where codres=codres_enc;
+				End;
+			End if;
+		End;	
+	else	
+		Begin
+			Select 'Erro no codP_p' as Mensagem;
+			delete from pessoa where codp=codp_p;
+		End;
+	End if;
+End;
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

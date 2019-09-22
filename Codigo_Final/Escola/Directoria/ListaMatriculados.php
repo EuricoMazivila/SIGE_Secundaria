@@ -1,6 +1,11 @@
 <?php
-	$local='esca a';//$_SESSION['Nome_Escola'];
-    $usuario='usuario b';//$_SESSION['nome_usuario'];
+    session_start();
+    if(!(isset($_SESSION['login']['id_User']))){
+         header('Location: ../');
+    }elseif($_SESSION['login']['Nivel_Acesso']=='Directoria') {
+        $local=$_SESSION['login']['Nome_Local'];
+        $usuario=$_SESSION['login']['nome_usuario'];
+        $id_local=$_SESSION['login']['id_Local'];
     $titulo='Lista de Matriculados'; //esse e o titulo
     $metadados='Configuracao\metadados_Externo.php';//esse e o metadados
     $menu='main_menu_Secretaria.php';//esse e o menu
@@ -9,5 +14,8 @@
     $rodape='footer.php';//especificar a url do footer
     $scriptAdd='scr8*pts_Lista_Matriculados.php';
     //Aqui pode ficar as dependencias de hader como verificar se ja fez login
-    include('../../Templete/Templete.php'); 
+    include('../../Templete/Templete.php');
+}else{
+    echo 'Nao Tem permissao Para aceder essa Funcionalidade';
+} 
 ?>
