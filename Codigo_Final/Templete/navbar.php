@@ -1,4 +1,4 @@
-<div class="fixed-top bg-nav">
+<div class="fixed-top bg-nav espacamento">
     <div>
         <button class="btn-menu bg-nav menu-sm">
             <i class="fa fa-bars fa-lg"></i></button>

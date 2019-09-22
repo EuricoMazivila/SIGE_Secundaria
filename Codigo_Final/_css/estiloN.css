@@ -8,7 +8,12 @@
   ul, ol, li {
         list-style: none;
   }
-
+.espa{
+  margin-left: 20px;
+  font-family: Imprint MT Shadow;
+  max-width: 75%;
+  color: rgb(61, 112, 177);
+}
 
   .usermov{
     margin-right: 25px;

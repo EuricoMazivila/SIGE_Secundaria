@@ -6,9 +6,9 @@
     <!--Esta-se a utilizar o bootstrap.css e min ao mesmo tempo porque -->
     <link rel="stylesheet" href="../../bootstrap/_css/bootstrap.min.css">
     <link rel="stylesheet" href="../../fontawesome-free-5.8.2-web/css/all.css">
-    <link rel="stylesheet" href="../../_css/menu.css">
+    <link rel="stylesheet" href="../../_css/menu1.css">
 
-    <link rel="stylesheet" href="../../_css/estiloO.css">
+    <link rel="stylesheet" href="../../_css/estilo.css">
     <link rel="stylesheet" href="../../_css/estiloX.css">
     <link rel="stylesheet" href="../../_css/Teste.css">
     <link rel="stylesheet" href="../../_css/Popupi.css">

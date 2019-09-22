@@ -1,0 +1,151 @@
+
+.menu-color{
+    background:#0a8485;
+}
+
+.baixo{
+    padding-bottom: 50px;
+}
+
+
+.menu { width: 100%; 
+    height: 100%; position: fixed; background-color: rgba(0,0,0,0.9); top: 0; left: 0;}
+
+#menu-Candidado{
+   
+    top: 10px;
+    position: fixed;
+    left: 2%; 
+    right: 2%;
+    height: 100%;
+   
+    bottom: 5%;
+}
+#lect {
+    font-family: cambria math;
+    font-size: 100%;
+    margin-left: 80%;
+}
+
+.menu-sm{
+    display: block;
+}
+.menu-md{
+    display: none;
+}
+
+.top-margin{
+    margin-top: 50px;
+    margin-bottom: 50px;
+   /* background: blueviolet;*/
+   
+}
+
+.breadcrumb > li + li:before { 
+    color: #CCCCCC; 
+    content: "/ "; 
+   
+}
+
+.breadcrumb {
+    
+}
+#lect {
+    font-family: cambria math;
+    font-size: 100%;
+    margin-left: 80%;
+}
+
+
+
+  .menu-small .fa-2x  {
+    color:  #ffffff;
+  }
+
+.logo {width: 56px; height: 56px; float: left; background: url(../img/logo-mobile.png) center center/56px no-repeat;
+    font-size: 0;}
+    .btn-menu {width: 56px; height: 56px; float: right; text-align: center; color: #fff; border-radius:56px; cursor: pointer;}
+    
+
+@media (min-width: 360px) {
+    .top-margin{
+        margin-top: 40px;
+        margin-bottom: 40px;
+       
+    }
+    
+}
+@media (min-width: 576px) {
+    .menuS{
+        display: block !important;
+    }
+    .menuT{
+        display: block !important;
+    }
+    
+    #menu-Candidado{
+    display: block;
+        top: 10px;
+         position: fixed;
+         left: 2%; 
+         right: 2%;
+         height: 100%;
+        
+         bottom: 5%;
+     }
+    .menuT{display: block;}
+    .top-margin{
+        margin-top: 70px;
+        margin-bottom: 50px;
+       
+    }
+   
+    .menu-sm{
+        display: none;
+    }
+    .menu-md{
+        display: block;
+    }
+
+    
+    #menu-Candidado{
+        display: block;
+       
+        position: fixed;
+        left: 0; 
+        height: 100%;
+       
+    }
+    
+}
+@media (min-width: 768px) {
+    
+    
+    .menu-sm{
+        display: none;
+    }
+    .menu-md{
+        display: block;
+    }
+    .top-margin{
+        margin-top: 70px;
+        margin-bottom: 50px;
+       
+    }
+    
+    #menu-Candidado{
+        display: block;
+        
+        position: fixed;
+        left: 0; 
+        height: 100%;
+      
+    }
+    
+}
+@media (min-width:  992px) {
+    
+}
+@media (min-width: 1200px) {
+    
+}

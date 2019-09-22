@@ -23,9 +23,6 @@
                                         <label for="inputSobrenome">Apelido</label>
                                         <?php
                                             include("../../Dao/conexao.php");
-
-                                            $id_user=$_SESSION['id_User'];
-
                                             //Estágio 1: Preparação
                                             $query="SELECT Apelido from pessoa where id_Pessoa=?";
                                             $stmt=$conexao->prepare($query);
@@ -66,9 +63,6 @@
                                         <label for="inputNome">Outros Nomes</label>
                                         <?php
                                             include("../../Dao/conexao.php");
-
-                                            $id_user=$_SESSION['id_User'];
-
                                             //Estágio 1: Preparação
                                             $query="SELECT Nome from pessoa where id_Pessoa=?";
                                             $stmt=$conexao->prepare($query);
@@ -735,7 +729,6 @@
                 <!---->
             </div>
             <input type="submit" name="concluir">
-
             <!-- <a id="matriculate" href="ReverDados.php" class="btn btn-success">Concluir</a>-->
                 <!--<button class="btn btn-success" id="matriculate">Submeter</button>-->
         </form>

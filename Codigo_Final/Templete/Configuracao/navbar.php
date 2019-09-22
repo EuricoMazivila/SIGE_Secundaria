@@ -1,25 +1,24 @@
-<div class="fixed-top bg-nav">
+<div class="fixed-top bg-nav bottom-margin">
     <div>
         <button class="btn-menu bg-nav menu-sm">
             <i class="fa fa-bars fa-lg"></i></button>
     </div>
     <nav class="navbar navbar-default" role="navigation">
-        <div class="navbar-header navbar-right">
+        <div class="navbar-header navbar-right mb-3">
             <a class="navbar-brand h1 mb-0" href="#">SIGE</a>
         </div>
-
-        <div class="navbar-center">
-            <span class="i-color-white i-tamanho">
+        <div>
+            <span class="i-color-white i-tamanho ">
                 <!--icone de bell -->
-                <i class="fas fa-bell i-tamanho "></i>
+                <i class="fas fa-bell md-2"></i>
             </span>
 
-            <span class="i-color-white i-tamanho">
+            <span class="i-color-white i-tamanho ">
                 <!--icone de envelope  -->
-                <i class="fas fa-envelope i-tamanho"></i>
+                <i class="fas fa-envelope"></i>
             </span>
-            <span class="i-color-white i-tamanho">
-                <?php echo $local;?>
+            <span class="i-color-white">
+                
             </span>
         </div>
    
@@ -34,12 +33,14 @@
                                 <div class="u-img"><img src="../../uploads/call-nerds.png" alt="user"></div>
                                 <div class="u-text">
                                   <h6><?php echo $usuario; ?></h6>
-                                    <p class="text-muted vee"><?php echo $email;?></p>
+                                    <h3 class="text-muted vee"><?php echo $email;?></h3>
+
                                 </div>
                               </div>
                             </li>
-
+                            <p class="espa" align="center"><?php echo $local;?></p>
                             <li role="separator" class="divider"></li>
+
                             <li><a href="#"><i class=" fas fa-user-circle ti-user"></i> My Profile</a></li>
                              <li role="separator" class="divider"></li>
                             <li><a href="#"><i class="fas fa-cogs o ti-email"></i> Inbox</a></li>
