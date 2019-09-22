@@ -48,9 +48,7 @@
         require_once("conexao.php");      
         //Estágio 1: Preparação
         //SELECT * FROM `usuario`,pessoa WHERE usuario.id_User=pessoa.id_Pessoa
-
-        $query="SELECT pessoa.id_Pessoa, concat(pessoa.Nome,' ',pessoa.Apelido) as 'Nome_Completo',usuario.id_User,usuario.Username,usuario.Senha,usuario.Estado,usuario.Nivel_Acesso,usuario.Local,usuario.id_Local,usuario.Nome_Local FROM pessoa,`usuario` WHERE pessoa.id_Pessoa=usuario.id_User and usuario.Username=? and usuario.Senha=?;";
-
+        $query="SELECT pessoa.id_Pessoa, concat(pessoa.Nome,' ',pessoa.Apelido) as 'Nome_Completo',usuario.id_User,usuario.Username,usuario.Senha,usuario.Estado,usuario.Nivel_Acesso,usuario.Local,usuario.id_Local,usuario.Nome_Local, contacto.Email FROM pessoa,`usuario`,contacto WHERE pessoa.id_Pessoa=usuario.id_User and usuario.Username=? and usuario.Senha=?;";
         $stmt=$conexao->prepare($query);
         if(!$stmt){
             echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
@@ -89,7 +87,6 @@
             $_SESSION['login']['id_Local']=$linha['id_Local'];
             $_SESSION['login']['Nome_Local']=$linha['Nome_Local'];
             $_SESSION['login']['Estado']=$linha['Estado'];
-
             $_SESSION['login']['email_usuario']=$linha['Email'];
             
         }
