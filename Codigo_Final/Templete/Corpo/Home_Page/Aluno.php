@@ -8,7 +8,7 @@
  <div class="col-md-12">
     <div class="row mt-3">
 
-      <div class="col-lg-3 col-12 col-md-1 col-sm-10 offset-sm-1">
+      <div class="col-lg-3 col-12 col-md-5 col-sm-10 offset-sm-1">
         <div class="card first card-icon-bg card-icon-bg-primary o-hidden mb-4">
           <div class="card-body text-center">
             <i class="fa fa-user-times"></i>
@@ -20,7 +20,7 @@
         </div>
       </div>
 
-      <div class="col-lg-3 col-12 col-md-1 col-sm-10">
+      <div class="col-lg-3 col-12 col-md-5 col-sm-10 offset-lg-0 offset-sm-1">
         <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
           <div class="card-body text-center">
             <i class="fa fa-pencil-ruler"></i>
@@ -32,7 +32,7 @@
         </div>
       </div>
 
-      <div class="col-lg-3 col-12 col-md-1 col-sm-10">
+      <div class="col-lg-3 col-12 col-md-5 col-sm-10 offset-lg-0 offset-sm-1">
         <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
           <div class="card-body text-center">
             <i class="fa fa-balance-scale"></i>
@@ -50,7 +50,7 @@
 
     <div class="row very">
       <div class="col-md-1"></div>
-      <div class="col-md-7">
+      <div class="col-10 col-lg-6 col-sm-10 col-md-10 offset-md-0 offset-sm-1 offset-1 offset-lg-0 mt-lg-4">
         
         <div class="table-responsive tabela">
             <table class="table table-fixed"> 
@@ -140,8 +140,8 @@
                 </table> 
               </div>  
       </div>  
-        <div class="col-md-3">
-          <div class="table-responsive tabela offset-md-1 mt-5 mt-sm-0">
+        <div class="col-sm-12 col-lg-5">
+          <div class="table-responsive tabela col-sm-11 offset-sm-1 offset-md-1 mt-5 mt-sm-4 offset-lg-0 col-lg-10 mt-lg-4">
           <table class="table table-fixed">
             <caption>  </caption>
             <thead class="my1">
@@ -168,7 +168,7 @@
     </div>
 
        <div class = "row mt-5 ">
-        <div class="col-md-10 offset-md-1">
+        <div class=" col-10 col-sm-10 offset-sm-1 col-md-10 offset-1">
           <div id="containerD" style=""></div>
             <script src="../../_js/Grafico_Aluno.js"></script>
           </div>
