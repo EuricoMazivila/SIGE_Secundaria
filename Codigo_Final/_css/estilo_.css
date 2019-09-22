@@ -10,6 +10,11 @@
     bottom: 0;
 }
 
+.borderless{
+    border:none;
+    max-width:31%;
+}
+
 #matriculate {
    float: right;
    margin-right: 2%;

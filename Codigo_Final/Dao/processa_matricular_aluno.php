@@ -41,7 +41,7 @@
         echo 'Profissao Encarregado '.$profissao_enc=filtraEntrada($conexao,$_POST['profissaoEnc']).'<br><br>';
         
        // echo 'Foto: '.$foto=upload_imagem();
-        // matricular_aluno();
+        matricular_aluno();
     }
 
     //Validacao dos dados Preenchidos em Campos de formulario 
@@ -91,22 +91,28 @@
 
    //Funcao Matricular Novo Aluno
     function matricular_aluno(){
-        require_once("conexao.php");
+        include("conexao.php");
         
         //Estágio 1: Preparação
-        $query="Call addAluno_matriculado(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";               
+        //`;
+//$query="Call addAluno_matriculado(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        $query=" SELECT `Regista_Candidato_Matricula_Escola`(?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) AS `Regista_Candidato_Matricula_Escola";               
         $stmt=$conexao->prepare($query);
         if(!$stmt){
             echo "Preparação falhou: (" . $conexao->errno . ")" . $conexao->error;
         }
 
-        //Pessoa        
+        //Pessoa  
+        $id_candidato=filtraEntrada($conexao,$_POST['id_candidado']);
+        $id_escola=filtraEntrada($conexao,$_POST['id_escola']);      
         $apelido=filtraEntrada($conexao,$_POST['apelido']);
         $nomes=filtraEntrada($conexao,$_POST['nome']);
         $pais_nas=filtraEntrada($conexao,$_POST['pais_nas']);
         $provincia_nas=filtraEntrada($conexao,$_POST['provincia_nas']);
         $distrito_nas=filtraEntrada($conexao,$_POST['distrito_nas']);
         $data_nascimento=filtraEntrada($conexao,$_POST['data_nas']);
+        $_tipoBi=filtraEntrada($conexao,$_POST['_tipoBi']);
         $bi=filtraEntrada($conexao,$_POST['nrBI']);
         $local_emissao=filtraEntrada($conexao,$_POST['local_em']);
         $data_em=filtraEntrada($conexao,$_POST['dataEmissao']);
@@ -141,16 +147,9 @@
         $profissao_enc=filtraEntrada($conexao,$_POST['profissaoEnc']);
         
         $foto=upload_imagem();
-
-        // Estágio 2: Associação dos parâmetros (bind)
-        $bind=$stmt->bind_param("ssssssssssssssssiississsisssissssss", 
-        $apelido,$nomes,$pais_nas,$provincia_nas,$distrito_nas, 
-        $data_nascimento,$bi,$local_emissao,$data_em,$sexo,$estado_civil,
-        $provincia_res,$distrito_res,$bairro,$av_ou_rua,$quarteirao,$nr_casa,
-        $numero_tf,$email,$nome_pai,$telefone_pai,$local_trabalho_pai,
-        $profissao_pai,$nome_mae,$telefone_mae,$local_trabalho_mae,$profissao_mae,
-        $nome_enc,$numero_tf_enc,$provincia_enc,$distrito_enc,$bairro_enc,
-        $av_ou_rua_enc,$local_trab_enc,$profissao_enc);
+        $bind=$stmt->bind_param('issssssssssisiisisisssissssssisi',$id_escola,$id_candidato,$nomes,$apelido,$sexo,$estado_civil,$data_nascimento,$_tipoBi,$bi,
+        $data_em,$local_emissao,$bairro,$av_ou_rua,$quarteirao,$nr_casa,$email,$numero_tf,$nome_pai,$telefone_pai,$local_trabalho_pai,
+        $profissao_pai,$nome_mae,$telefone_mae,$local_trabalho_mae,$profissao_mae,$nome_enc,$numero_tf_enc,$local_trab_enc,$profissao_enc,$bairro_enc,$av_ou_rua_enc,$distrito_nas);
 
        // $foto=filtraEntrada($conexao,$_POST['']);
         
@@ -199,13 +198,28 @@
         if(!$bind){
             echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;
         }
-
+        
         // Estágio 3: execução
         if(!$stmt->execute()){
             echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
         }else{
+            $res=$stmt->get_result();
+        if(!$res){
+            echo "A Obtenção do conjunto de resultados falhou: (" . $stmt->errno . ")" . $stmt->error;
+        }
+
+        $linhas=$res->num_rows;
+            if($linhas>0){
+            for($j=0; $j<$linhas; ++$j){
+                $res->data_seek($j);
+                $linha=$res->fetch_assoc();
+            
+            echo $linha['Regista_Candidato_Matricula_Escola'];
+           }
+            
+        }
             echo "Registado Com Sucesso";   
-            header("Location: ../Templete/corpo/corpoReverDados.php");
+          //  header("Location: ../Templete/corpo/corpoReverDados.php");
         }   
 
         $stmt->close();

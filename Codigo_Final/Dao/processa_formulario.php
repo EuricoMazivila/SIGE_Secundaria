@@ -49,4 +49,5 @@
             echo'<option value="'.$row_sub_cat['id_Bairro'].'">'.utf8_encode($row_sub_cat['Nome']).'</option>';
         }
     }
+
 ?>
