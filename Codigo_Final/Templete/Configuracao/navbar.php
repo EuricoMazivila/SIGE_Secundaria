@@ -47,7 +47,7 @@
                             <li role="separator" class="divider"></li>
                             <li><a href="#"><i class="fas fa-power-off ti-settings"></i> Account Setting</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="fas fa-power-off"></i> Logout</a></li>
+                            <li><a href="../../Autenticacao/Login/Login_Principal.php"><i class="fas fa-power-off"></i> Logout</a></li>
                           </ul>
                       </div>
                 </li>  

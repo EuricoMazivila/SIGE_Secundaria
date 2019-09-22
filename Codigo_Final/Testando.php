@@ -3,7 +3,7 @@
     $metadados='metadados.php';//esse e o metadados
     $menu='main_menu_Secretaria.php';//esse e o menu
     $corpo='Corpo/corpo_testando.php';//esse e o corpo
-    $navBar='navbar.php';//essa e o nav bar
+    $navBar='Configuracao/navbar.php';//essa e o nav bar
     $rodape='footer.php';//especificar a url do footer
     $scriptAdd='scripts_add_candidato.php';
 
