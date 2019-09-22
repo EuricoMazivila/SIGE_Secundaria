@@ -7,18 +7,19 @@
         $usuario=$_SESSION['login']['nome_usuario'];
         $id_local=$_SESSION['login']['id_Local'];
 
-         $email=$_SESSION['login']['email_usuario'];
+        $email=$_SESSION['login']['email_usuario'];
 
-        $titulo='Matricula_Step 1'; //esse e o titulo
+    $titulo='Home Page Secretaria'; //esse e o titulo
     $metadados='Configuracao\metadados_Externo.php';//esse e o metadados
     $menu='main_menu_Secretaria.php';//esse e o menu
-    $corpo='Corpo/corpo_Matricula_Step 1.php';//esse e o corpo
+    $corpo='Corpo/Home_Page/Secretaria.php';//esse e o corpo
     $navBar='Configuracao\navbar.php';//essa e o nav bar
     $rodape='footer.php';//especificar a url do footer
     $scriptAdd='';
+
     //Aqui pode ficar as dependencias de hader como verificar se ja fez login
-     include('../../Templete/Templete.php'); 
-    }else{
-        echo 'Nao Tem permissao Para aceder essa Funcionalidade';
-    }
+    include('../../Templete/Templete.php'); 
+}else{
+    echo 'Nao Tem permissao Para aceder essa Funcionalidade';
+}  
 ?>

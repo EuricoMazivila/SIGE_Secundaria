@@ -7,6 +7,9 @@
         $usuario=$_SESSION['login']['nome_usuario'];
         $id_local=$_SESSION['login']['id_Local'];
         $titulo='Registar Candidato'; //esse e o titulo
+
+         $email=$_SESSION['login']['email_usuario'];
+
     $metadados='Configuracao\metadados_Externo.php';//esse e o metadados
     $menu='main_menu_Secretaria.php';//esse e o menu
     $corpo='Corpo/corpo_registar_candidato.php';//esse e o corpo

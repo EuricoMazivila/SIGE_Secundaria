@@ -23,6 +23,7 @@
                                         <label for="inputSobrenome">Apelido</label>
                                         <?php
                                             include("../../Dao/conexao.php");
+                                        
                                             //Estágio 1: Preparação
                                             $query="SELECT Apelido from pessoa where id_Pessoa=?";
                                             $stmt=$conexao->prepare($query);
