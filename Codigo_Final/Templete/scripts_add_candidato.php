@@ -12,15 +12,15 @@
 <script src="_js/busca_candidatos_registados.js"></script>
 
 <script type="text/javascript">
-		$(function(){
-			$('#id_distrito').change(function(){
-				if( $(this).val() ) {
-					$.post('../../Dao/processa_candidato.php', { buscaescola:  $(this).val() }, function (data) {
-            		//retorna as opcoes da busca no banco de dados
-            		$('#id_escola').html(data);});
-				} else {
-					$('#id_escola').html('<option value="">– Selecione a escola de origem –</option>');
-				}
-			});
+	$(function(){
+		$('#id_distrito').change(function(){
+			if( $(this).val() ) {
+				$.post('../../Dao/processa_candidato.php', { buscaescola:  $(this).val() }, function (data) {
+				//retorna as opcoes da busca no banco de dados
+				$('#id_escola').html(data);});
+			} else {
+				$('#id_escola').html('<option value="">– Selecione a escola de origem –</option>');
+			}
 		});
-	</script>
+	});
+</script>

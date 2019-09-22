@@ -22,14 +22,35 @@
                 <?php echo $local;?>
             </span>
         </div>
-        <div class="navbar-left form-group">
+   
 
-            <select class="form-control">
-                <option><?php echo $usuario; ?></option>
-                <option>Sobre nos</option>
-                <option>Sair</option>
-            </select>
+            <div class="usermov">      
+                <li class="nav-item dropdown show">
+                    <a class="nav-link dropdown- text-muted" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><img src="../../uploads/call-nerds.png" alt="user" class="profile-pic"></a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <ul class="dropdown-user">
+                            <li>
+                              <div class="dw-user-box">
+                                <div class="u-img"><img src="../../uploads/call-nerds.png" alt="user"></div>
+                                <div class="u-text">
+                                  <h6><?php echo $usuario; ?></h6>
+                                    <p class="text-muted vee"><?php echo $email;?></p>
+                                </div>
+                              </div>
+                            </li>
 
-        </div>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#"><i class=" fas fa-user-circle ti-user"></i> My Profile</a></li>
+                             <li role="separator" class="divider"></li>
+                            <li><a href="#"><i class="fas fa-cogs o ti-email"></i> Inbox</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#"><i class="fas fa-power-off ti-settings"></i> Account Setting</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#"><i class="fas fa-power-off"></i> Logout</a></li>
+                          </ul>
+                      </div>
+                </li>  
+            </div>
     </nav>
 </div>
+

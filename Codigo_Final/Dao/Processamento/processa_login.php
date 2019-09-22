@@ -1,5 +1,5 @@
 <?php
-
+    session_start();
     //Login Principal
     if(isset($_POST['login']) && isset($_POST['inputUsuario']) && isset($_POST['inputSenha'])){
         iniciarSessao_principal();
@@ -47,7 +47,8 @@
         //require_once("conexao.php");
         require_once("conexao.php");      
         //Estágio 1: Preparação
-        $query="SELECT pessoa.id_Pessoa,concat(pessoa.Nome,' ',pessoa.Apelido) as NomeCompleto, usuario.id_User,usuario.Username, usuario.Senha,usuario.Estado,usuario.Acesso_Distrital,usuario.Acesso_Escola,usuario.Acesso_Convidado  FROM pessoa, `usuario` WHERE pessoa.id_Pessoa=usuario.id_User and usuario.Username=? and usuario.Senha=?";
+        //SELECT * FROM `usuario`,pessoa WHERE usuario.id_User=pessoa.id_Pessoa
+        $query="SELECT pessoa.id_Pessoa, concat(pessoa.Nome,' ',pessoa.Apelido) as 'Nome_Completo',usuario.id_User,usuario.Username,usuario.Senha,usuario.Estado,usuario.Nivel_Acesso,usuario.Local,usuario.id_Local,usuario.Nome_Local, contacto.Email FROM pessoa,`usuario`,contacto WHERE pessoa.id_Pessoa=usuario.id_User and usuario.Username=? and usuario.Senha=?;";
         $stmt=$conexao->prepare($query);
         if(!$stmt){
             echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
@@ -77,28 +78,32 @@
             for($j=0; $j<$linhas; ++$j){
                 $res->data_seek($j);
                 $linha=$res->fetch_assoc();
-            session_start();
-            $_SESSION['id_User']=$linha['id_User'];
-            $_SESSION['id_Pessoa']=$linha['id_Pessoa'];
-            $_SESSION['nome_usuario']=$linha['NomeCompleto'];
-            $_SESSION['Acesso_Distrital']=$linha['Acesso_Distrital'];
-            $_SESSION['Acesso_Escola']=$linha['Acesso_Escola'];
-            $_SESSION['Estado']=$linha['Estado'];
+            
+            $_SESSION['login']['id_User']=$linha['id_User'];
+            $_SESSION['login']['id_Pessoa']=$linha['id_Pessoa'];
+            $_SESSION['login']['nome_usuario']=$linha['Nome_Completo'];
+            $_SESSION['login']['Nivel_Acesso']=$linha['Nivel_Acesso'];
+            $_SESSION['login']['Local']=$linha['Local'];
+            $_SESSION['login']['id_Local']=$linha['id_Local'];
+            $_SESSION['login']['Nome_Local']=$linha['Nome_Local'];
+            $_SESSION['login']['Estado']=$linha['Estado'];
+            $_SESSION['login']['email_usuario']=$linha['Email'];
             
         }
-
-         if($_SESSION['Acesso_Distrital']=='S'){
-                header('Location: ../../Servico_Distrital/');
+       
+            if($_SESSION['login']['Local']=='Distrito'){
+                echo 'Bem Vindo ao Direcao do '.$_SESSION['Nome_Local'];
+               
             
-            }elseif($_SESSION['Acesso_Escola']=='S'){
+            }elseif($_SESSION['login']['Local']=='Escola'){
                 header('Location: ../../Escola/');
-            }else{
-                header('Location: ../../Escola/Candidato/');
+                echo 'Bem Vindo a escola '.$_SESSION['Nome_Local'];
+               
             }
-            
         }else{
-            session_start();
-            $_SESSION['Falha_Log']="Login Falhou Verifica seus dados";
+           
+            session_destroy();
+           
             header('Location: ../../Autenticacao/Login/Login_Principal.php');
         }
         

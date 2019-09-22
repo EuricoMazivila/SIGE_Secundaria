@@ -63,8 +63,7 @@ session_start();
     function registar_candidato(){
         require_once("conexao.php");
         //Estágio 1: Preparação
-      //  `Regista_Candidato_Escola`(`_Nome`, `_Apelido` , `_Sexo`, `_Estado_Civil` , `_Data_Nascimento` , `_classe_matricular` , `_regime` , `_nome_escola`, `_id_Escola`);
-        $query="select Regista_Candidato_Escola(?,?,?,?,?,?,?,?,?) as 'id_candidato'";
+        $query="CALL addCandidato(?,?,?,?,?,?,?,?)";
         $stmt=$conexao->prepare($query);
         if(!$stmt){
             echo "Preparação falhou: (" . $conexao->errno . ")" . $conexao->error;
@@ -74,14 +73,13 @@ session_start();
         $apelido=filtraEntrada($conexao,$_POST['apelido']);
         $data_nasc=filtraEntrada($conexao,$_POST['datanasc']);
         $sexo=filtraEntrada($conexao,$_POST['sexo']);
-        $estadoC=filtraEntrada($conexao,'Solteiro');
         $classe_matr=filtraEntrada($conexao,$_POST['classe_matr']);
         $regime=filtraEntrada($conexao,$_POST['regime']);
         $escola_origem=filtraEntrada($conexao,$_POST['escola']);
         $escola_destino=filtraEntrada($conexao, $_POST['id_Escola']);
         //$senha="Euro";    
 
-        $bind=$stmt->bind_param("ssssssssi",$nome,$apelido,$sexo,$estadoC,$data_nasc,$classe_matr,$regime,$escola_origem,$escola_destino);
+        $bind=$stmt->bind_param("sssssssi",$nome,$apelido,$data_nasc,$sexo,$classe_matr,$regime,$escola_origem,$escola_destino);
 
         if(!$bind){
             echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;

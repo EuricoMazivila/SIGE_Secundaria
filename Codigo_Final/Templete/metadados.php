@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="bootstrap/_css/bootstrap.min.css">
     <link rel="stylesheet" href="fontawesome-free-5.8.2-web/css/all.css">
     <link rel="stylesheet" href="_css/menu.css">
-
     <link rel="stylesheet" href="_css/estiloO.css">
     <link rel="stylesheet" href="_css/estiloX.css">
     <link rel="stylesheet" href="_css/Teste.css">
@@ -24,7 +23,7 @@
     <link href="jquery/smartwizard/_css/smart_wizardd.css" rel="stylesheet" />
 
     <link href="jquery/smartwizard/_css/smart_wizard_dots.css" rel="stylesheet" />
-    <link rel="stylesheet" href="fileinput/_css/fileinput.css">
+    
 
 
     <!--Tabela Buasca de Candidatos registados sem refresh-->
@@ -40,9 +39,10 @@
     <script src="_js/modules/export-data.js"></script>
     <script src="_js/contador.js"></script> 
 
+    <!--
     <script src="fileinput/_js/fileinput.js"></script>
     <script src="_js/fileinput.js"></script>
-
+    -->
    
     <script src="bootstrap/_js/bootstrap.js"></script>
    <!--Formulario do Candidato-->
