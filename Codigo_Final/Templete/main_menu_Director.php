@@ -224,13 +224,7 @@
 
                             </ul>
                             <ul class="nav navbar-nav nav-justified" role="menu">
-                                <li class="logout">
-                                    <a class="btn btn-default btn-lg btn-block  text-left" href="">
-                                        <span class="i-color-white"> <i class="fa fa-power-off fa-2x i-tamanho"></i>
-                                            Logout
-                                        </span>
-                                    </a>
-                                </li>
+                                
                             </ul>
 
                         </div>
