@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../../_css/estiloO.css">
     <link rel="stylesheet" href="../../_css/estiloX.css">
     <link rel="stylesheet" href="../../_css/Teste.css">
-    <link rel="stylesheet" type="../../text/css" href="_css/Popupi.css">
+    <link rel="stylesheet" href="../../_css/Popupi.css">
     <link rel="stylesheet" href="../../_css/menu-pequeno.css">
     <link rel="stylesheet" href="../../_css/inputDiv.css">
     <link rel="stylesheet" href="../../_css/main-menu.css">
@@ -24,7 +24,7 @@
     <link href="../../jquery/smartwizard/_css/smart_wizardd.css" rel="stylesheet" />
 
     <link href="../../jquery/smartwizard/_css/smart_wizard_dotsc.css" rel="stylesheet" />
-    <link rel="../../stylesheet" href="fileinput/_css/fileinput.css">
+    <link href="../../fileinput/_css/fileinput.css" rel="stylesheet">
 
 
     <!--Tabela Buasca de Candidatos registados sem refresh-->
@@ -41,8 +41,6 @@
     <script src="../../_js/contador.js"></script> 
 
     <script src="../../fileinput/_js/fileinput.js"></script>
-    <script src="../../_js/fileinput.js"></script>
-
     
    <!--Formulario do Candidato-->
    <script src="../../_js/steps_pre_matricula.js"></script>

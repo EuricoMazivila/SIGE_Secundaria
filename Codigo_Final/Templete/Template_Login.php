@@ -18,13 +18,6 @@
 
 <body>
 
-    <div>
-            <?php  
-                 if($navBar!='')
-                   include_once($navBar); 
-             ?>
-         </div>
-
             <!--Aqui Fica o corpo da pagina-->
             <div class="menuT top-margin">
                 <?php

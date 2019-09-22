@@ -1,6 +1,47 @@
 <?php
     if(isset($_POST['concluir'])){
-        matricular_aluno();
+        require_once("conexao.php");
+       echo 'Apelido: '.$apelido=filtraEntrada($conexao,$_POST['apelido']).'<br><br>';
+       echo 'Nomes: '.$nomes=filtraEntrada($conexao,$_POST['nome']).'<br><br>';
+       echo 'Pais Nascimento: '.$pais_nas=filtraEntrada($conexao,$_POST['pais_nas']).'<br><br>';
+       echo 'Provincia Nascimento: '.$provincia_nas=filtraEntrada($conexao,$_POST['provincia_nas']).'<br><br>';
+       echo 'Destrito Nascimento: '.$distrito_nas=filtraEntrada($conexao,$_POST['distrito_nas']).'<br><br>';
+       echo 'Data Nascimento: '.$data_nascimento=filtraEntrada($conexao,$_POST['data_nas']).'<br><br>';
+       echo 'BI: '.$bi=filtraEntrada($conexao,$_POST['nrBI']).'<br><br>';
+       echo 'Local de Emissao: '.$local_emissao=filtraEntrada($conexao,$_POST['local_em']).'<br><br>';
+       echo 'Data de Emissao: '.$data_em=filtraEntrada($conexao,$_POST['dataEmissao']).'<br><br>';
+       echo 'Sexo: '.$sexo=filtraEntrada($conexao,$_POST['sexo']).'<br><br>';
+       echo 'Estado Civil: '.$estado_civil=filtraEntrada($conexao,$_POST['estado_Civil']).'<br><br>';
+        
+       echo 'Provincia de Residencia: '.$provincia_res=filtraEntrada($conexao,$_POST['provincia_res']).'<br><br>';
+       echo 'Distrito de Residencia: '.$distrito_res=filtraEntrada($conexao,$_POST['distrito_res']).'<br><br>';
+       echo 'Bairro de Residencia: '.$bairro=filtraEntrada($conexao,$_POST['bairro_res']).'<br><br>';
+       echo 'Av_ou_rua: '.$av_ou_rua=filtraEntrada($conexao,$_POST['avenida']).'<br><br>';
+       echo 'Quarteirao: '.$quarteirao=filtraEntrada($conexao,$_POST['quarteirao_res']).'<br><br>';
+       echo 'Nr_Casa: '.$nr_casa=filtraEntrada($conexao,$_POST['nrCasa_res']).'<br><br>';
+       echo 'Numero_Telefone: '.$numero_tf=filtraEntrada($conexao,$_POST['nr_Tell']).'<br><br>';
+       echo 'Email: '.$email=filtraEntrada($conexao,$_POST['email']).'<br><br>';
+
+       echo 'Nome Pai: '.$nome_pai=filtraEntrada($conexao,$_POST['nomePai']).'<br><br>';
+       echo 'Telefone do Pai: '.$telefone_pai=filtraEntrada($conexao,$_POST['telefonePai']).'<br><br>';
+       echo 'Local de Trabalho do Pai: '.$local_trabalho_pai=filtraEntrada($conexao,$_POST['localTrabPai']).'<br><br>';
+       echo 'Profissao do Pai: '.$profissao_pai=filtraEntrada($conexao,$_POST['profissaoPai']).'<br><br>';
+       echo 'Nome Mae: '.$nome_mae=filtraEntrada($conexao,$_POST['nomeMae']).'<br><br>';
+       echo 'Telefne Mae: '.$telefone_mae=filtraEntrada($conexao,$_POST['telefoneMae']).'<br><br>';
+       echo 'Local de Trabalho Mae: '.$local_trabalho_mae=filtraEntrada($conexao,$_POST['localTrabMae']).'<br><br>';
+       echo 'Profissao Mae: '.$profissao_mae=filtraEntrada($conexao,$_POST['profissaoMae']).'<br><br>';
+       
+        echo 'Nome encarregado: '.$nome_enc=filtraEntrada($conexao,$_POST['nomeEnc']).'<br><br>';
+        echo 'Numero Telefone encarregado: '.$numero_tf_enc=filtraEntrada($conexao,$_POST['telefoneEnc']).'<br><br>';
+        echo 'Provincia de Encarregado: '.$provincia_enc=filtraEntrada($conexao,$_POST['provinciaEnc']).'<br><br>';
+        echo 'Distrito Encarregado: '.$distrito_enc=filtraEntrada($conexao,$_POST['distritoEnc']).'<br><br>';
+        echo 'Bairro encarregado: '.$bairro_enc=filtraEntrada($conexao,$_POST['moradaEnc']).'<br><br>';
+        echo 'Av ou rua de encarregado: '.$av_ou_rua_enc=filtraEntrada($conexao,$_POST['av_rua_enc']).'<br><br>';
+        echo 'Local de Trabalho Encarregado: '.$local_trab_enc=filtraEntrada($conexao,$_POST['localTrabEnc']).'<br><br>';
+        echo 'Profissao Encarregado '.$profissao_enc=filtraEntrada($conexao,$_POST['profissaoEnc']).'<br><br>';
+        
+       // echo 'Foto: '.$foto=upload_imagem();
+        // matricular_aluno();
     }
 
     //Validacao dos dados Preenchidos em Campos de formulario 
@@ -23,7 +64,7 @@
 
     //Upload de Imagem
     function upload_imagem(){
-        $upload_dir='uploads/';
+        $upload_dir='../uploads/';
 
         //Upload de Imagem
         $imgName=$_FILES['userImage']['name'];
@@ -80,7 +121,6 @@
         $nr_casa=filtraEntrada($conexao,$_POST['nrCasa_res']);
         $numero_tf=filtraEntrada($conexao,$_POST['nr_Tell']);
         $email=filtraEntrada($conexao,$_POST['email']);
-      //  $foto=upload_imagem();
 
         $nome_pai=filtraEntrada($conexao,$_POST['nomePai']);
         $telefone_pai=filtraEntrada($conexao,$_POST['telefonePai']);
@@ -100,6 +140,8 @@
         $local_trab_enc=filtraEntrada($conexao,$_POST['localTrabEnc']);
         $profissao_enc=filtraEntrada($conexao,$_POST['profissaoEnc']);
         
+        $foto=upload_imagem();
+
         // Estágio 2: Associação dos parâmetros (bind)
         $bind=$stmt->bind_param("ssssssssssssssssiississsisssissssss", 
         $apelido,$nomes,$pais_nas,$provincia_nas,$distrito_nas, 
@@ -163,7 +205,7 @@
             echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
         }else{
             echo "Registado Com Sucesso";   
-            header("Location: ../ReverDados.php");
+            header("Location: ../Templete/corpo/corpoReverDados.php");
         }   
 
         $stmt->close();
