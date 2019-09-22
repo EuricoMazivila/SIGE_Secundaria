@@ -1,0 +1,85 @@
+Triggers
+
+//Trigger que actualiza o estado do candidato
+Delimiter //
+Create trigger Actualiza_Estado_Candidato after insert on Aluno
+For each row
+Begin
+	Update candidato_aluno set estado='Matriculado'
+	where new.codCand=candidato_aluno.codCand;
+End;//
+
+//Trigger que Actualiza o total de vagas na matricula
+Delimiter //
+Create trigger Incrementa_Vagas after insert on matricula_classe
+For each row
+Begin
+	Update matricula set matricula.total_vagas=matricula.total_vagas+new.total_vagas
+	where new.codMatr=matricula.codMatr;
+End;//
+
+//Trigger que Actualiza o total de vagas na matricula
+Delimiter //
+Create trigger Actualiza_Vagas after update on matricula_classe
+For each row
+Begin
+	Update matricula set matricula.total_vagas=matricula.total_vagas-old.total_vagas+new.total_vagas
+	where new.codMatr=matricula.codMatr;
+End;//
+
+
+Mudanca de Estado da Matricula
+
+
+Trigger para vagas_preenchidas na classe
+Quando adicionar-se um novo aluno
+
+Esta versão de MariaDB não suporta ainda 'multiple triggers with the same action time and event for one table'
+
+Delimiter //
+Create trigger Actualiza_vagas_preenchidas before insert on aluno
+For each row
+Begin
+	declare codClas int;
+	
+	Select codClass into codClas from aluno_classe where aluno_classe.codAl=new.codAl;
+	if(codClas is not null) then
+		update matricula_classe set total_vagas_preenchidas=total_vagas_preenchidas+1 where matricula_classe.codClass=codClas;
+	End if;
+End; 	
+
+
+//Deletar alguns dados de campos de 
+Delimiter //
+CREATE TRIGGER Deletar_dados_filiacao AFTER DELETE ON aluno_filiacao
+FOR EACH ROW
+Begin
+	DELETE FROM filiacao WHERE codFil=OLD.codFil;
+End;//
+
+
+
+
+delete from encarregado where codEnc=(Select codEnc from aluno where aluno.codal=old.codal);
+
+
+Delimiter //
+Create trigger Deletar_dados_pessoa after delete on pessoa
+For each row
+Begin
+	delete from contacto where codconct=(Select codconct from pessoa where pessoa.codp=old.codp);
+	delete from residencia where codres=(Select codres from pessoa where pessoa.codp=old.codp);
+	delete from bi where bi=(Select bi from pessoa where pessoa.codp=old.codp);
+End;//
+
+
+Deletar dados em tabelas relacionadas isto e quando uma tabela (a que possui a chave )
+
+DELIMITER //
+CREATE TRIGGER Deletar_dados_filiacao AFTER DELETE
+ON aluno_filiacao
+FOR EACH ROW
+BEGIN
+    DELETE FROM filiacao WHERE codFil = OLD.codFil;
+END//
+

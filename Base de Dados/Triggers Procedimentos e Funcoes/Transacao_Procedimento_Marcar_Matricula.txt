@@ -1,0 +1,86 @@
+Marcar Priodo de Matricula
+
+Call addPriodo_Matricula ('2019-01-03','2019-03-10','8',200,150,'9',250,300,'10',100,170,
+'11',130,120,'12',130,110);
+
+
+Delimiter //
+create procedure addPriodo_Matricula (_dataI date, _dataF date,_classe_oita enum('8','9','10','11','12'),_total_vagas_oita_d int,_total_vagas_oita_n int,
+_classe_nona enum('8','9','10','11','12'),_total_vagas_nona_d int,_total_vagas_nona_n int,_classe_dec enum('8','9','10','11','12'),_total_vagas_dec_d int,
+_total_vagas_dec_n int,_classe_decp enum('8','9','10','11','12'),_total_vagas_decp_d int,_total_vagas_decp_n int,_classe_decs enum('8','9','10','11','12'),
+_total_vagas_decs_d int,_total_vagas_decs_n int)
+Begin
+	declare codMa int;
+	declare codClas_oita_d int;
+	declare codClas_oita_n int;
+	declare codClas_nona_d int;
+	declare codClas_nona_n int;
+	declare codClas_dec_d int;
+	declare codClas_dec_n int;
+	declare codClas_decp_d int;
+	declare codClas_decp_n int;
+	declare codClas_decs_d int;
+	declare codClas_decs_n int;
+	
+	Start transaction;
+	if((_dataI>=curdate()) && (_dataF>curdate())) then
+		Begin
+			Insert into matricula (codMatr,dataI,dataF) values (default,_dataI,_dataF);
+			savepoint sp1;
+		End;	
+	else
+		Begin
+			Select 'Datas invalidas' as Mensagem;
+			rollback;
+		End;
+	End if;
+		
+	
+	Select codMatr into codMa from matricula where dataI=_dataI;
+
+	if(codMa is not null) then
+		Begin
+			Select codClass into codClas_oita_d from classe where classe=_classe_oita and turno='diurno'; 
+			Select codClass into codClas_oita_n from classe where classe=_classe_oita and turno='nocturno';
+			Select codClass into codClas_nona_d from classe where classe=_classe_nona and turno='diurno';
+			Select codClass into codClas_nona_n from classe where classe=_classe_nona and turno='nocturno';
+			Select codClass into codClas_dec_d from classe where classe=_classe_dec and turno='diurno';
+			Select codClass into codClas_dec_n from classe where classe=_classe_dec and turno='nocturno';
+			Select codClass into codClas_decp_d from classe where classe=_classe_decp and turno='diurno';
+			Select codClass into codClas_decp_n from classe where classe=_classe_decp and turno='nocturno';
+			Select codClass into codClas_decs_d from classe where classe=_classe_decs and turno='diurno';
+			Select codClass into codClas_decs_n from classe where classe=_classe_decs and turno='nocturno';
+			
+			if((codClas_oita_d is not null) && (codClas_oita_n is not null) && (codClas_nona_d is not null)
+				&& (codClas_nona_n is not null) && (codClas_dec_d is not null) && (codClas_dec_n is not null)
+				&& (codClas_decp_d is not null) && (codClas_decp_n is not null) && (codClas_decs_d is not null)
+				&& (codClas_decs_n is not null)) then
+				Begin
+					Insert into matricula_classe (codMatr,codClass,total_vagas,ano) values (codMa,codClas_oita_d,_total_vagas_oita_d,year(_dataI));
+					Insert into matricula_classe (codMatr,codClass,total_vagas,ano) values (codMa,codClas_oita_n,_total_vagas_oita_n,year(_dataI));
+					Insert into matricula_classe (codMatr,codClass,total_vagas,ano) values (codMa,codClas_nona_d,_total_vagas_nona_d,year(_dataI));
+					Insert into matricula_classe (codMatr,codClass,total_vagas,ano) values (codMa,codClas_nona_n,_total_vagas_nona_n,year(_dataI));
+					Insert into matricula_classe (codMatr,codClass,total_vagas,ano) values (codMa,codClas_dec_d,_total_vagas_dec_d,year(_dataI));
+					Insert into matricula_classe (codMatr,codClass,total_vagas,ano) values (codMa,codClas_dec_n,_total_vagas_dec_n,year(_dataI));
+					Insert into matricula_classe (codMatr,codClass,total_vagas,ano) values (codMa,codClas_decp_d,_total_vagas_decp_d,year(_dataI));
+					Insert into matricula_classe (codMatr,codClass,total_vagas,ano) values (codMa,codClas_decp_n,_total_vagas_decp_n,year(_dataI));
+					Insert into matricula_classe (codMatr,codClass,total_vagas,ano) values (codMa,codClas_decs_d,_total_vagas_decs_d,year(_dataI));
+					Insert into matricula_classe (codMatr,codClass,total_vagas,ano) values (codMa,codClas_decs_n,_total_vagas_decs_n,year(_dataI));
+					commit;	
+					
+				End;
+				
+			else
+				Begin
+					select 'Falha no registo das classes e o total de vagas' as Mensagem;
+					rollback to sp1;
+					rollback;
+				End;
+			End if;
+		End;
+	else
+		Select 'Falha ao registar nova matricula' as Mensagem;
+		rollback to sp1;
+		rollback;
+	End if;
+end;	//

@@ -1,0 +1,59 @@
+Matricular um aluno
+Procedimento Para adicionar uma Pessoa
+
+
+call addPessoa('Eerr','E_tt_1','2000-09-09','Mocambique','Cidade de Maputo','kamubukwana','12791P720218C','Maputo','2014-09-12','F',
+8498234,840234,'E_3','Mocambique','Cidade de Maputo','kamubukwana','Jorge Dimitrov','Av. de Mocambique','43',44,121321);
+
+
+Com Transacao
+
+Delimiter //
+create procedure addPessoa(_apelido varchar(30),_nomes varchar(50),
+_data_nascimento date,_pais_nas varchar(50),_provincia_nas varchar(50),_distrito_nas varchar(50),
+_bi varchar(13),_local_emissao varchar(50),_data_em date,_sexo enum('M','F'),_estado_civil enum('Casado(a)', 'Solteiro(a)'),
+_numero_tf int,_email varchar(50),
+_provincia_res varchar(50),_distrito_res varchar(50),_bairro varchar(50),_av_ou_rua varchar(50),_quarteirao varchar(50),_nr_casa int,_foto blob)
+Begin
+	declare codPais_nas int;
+	declare codProv_nas int;
+	declare coddist_nas int;
+	declare codpais_res int;
+	declare codprov_res int;
+	declare coddist_res int;
+	declare codbairro_res int;
+	declare codres_p int; 
+	declare codp_p int;
+ 	
+	Start transaction;
+	Select codPais into codPais_nas from pais where pais=_pais_nas;
+	Select codProv into codProv_nas from provincia where codpais=codPais_nas and provincia=_provincia_nas;
+	Select coddist into coddist_nas from distrito where codProv=codProv_nas and distrito=_distrito_nas;
+	if((coddist_nas is not null) && (year(curdate())-year(_data_nascimento))>9 && (year(curdate())-year(_data_em))<6) then
+		Begin	
+			Select codPais into codpais_res from pais where pais='Mocambique';
+			Select codProv into codprov_res from provincia where codpais=codpais_res and provincia=_provincia_res;
+			Select coddist into coddist_res from distrito where codProv=codprov_res and distrito=_distrito_res;
+			Select codbairro into codbairro_res from bairro where coddist=coddist_res and bairro=_bairro;
+			if(codbairro_res is not null) then
+				Begin 
+					Insert into pessoa (codp,apelido,nomes,data_nascimento,coddist,sexo,estado_civil,numero_telefone,email,foto) values (default,_apelido,_nomes,_data_nascimento,coddist_nas,_sexo,_estado_civil,_numero_tf,_email,_foto);	
+					Select codp into codp_p from pessoa where nomes=_nomes and apelido=_apelido;
+					Insert into bi (codp,bi,local_emissao,data_emissao) values (codp_p,_bi,_local_emissao,_data_em);
+					Insert into residencia_pessoa (codRes,codP,codProv,codbairro,av_ou_rua,quarteirao,nr_casa) values (default,codp_p,codprov_res,codbairro_res,_av_ou_rua,_quarteirao,_nr_casa);
+					commit;
+				End;
+			else
+				Begin
+					Select 'Erro do codBairro' as Mensagem;
+					rollback;
+				End;
+			End if;	
+		End;
+	else
+		Begin	
+			select 'Erro de codigo de distrito' as Mensagem;
+			rollback;
+		End;	
+	End if;
+End; //

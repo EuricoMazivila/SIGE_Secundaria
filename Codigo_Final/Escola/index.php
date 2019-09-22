@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-if(isset($_SESSION['id_User'])){
-    require_once('../Dao/Busca_Pesquisa/busca_escola.php');
-    busca_escola_Acesso_User();
-    if(isset($_SESSION['id_Escola']) && isset($_SESSION['Tipo']) && isset($_SESSION['Nome_Escola']) ){
-        switch ($_SESSION['Tipo']) {
+if(isset($_SESSION['login']['id_User'])){
+    echo 'login';
+    echo  $_SESSION['login']['id_User'].' '.$_SESSION['login']['nome_usuario'].' '. $_SESSION['login']['Nivel_Acesso'].' '.$_SESSION['login']['Local'].' '.$_SESSION['login']['id_Local'].' '.$_SESSION['login']['Nome_Local'].' '.$_SESSION['login']['Estado'];
+  // /* if(isset($_SESSION['id_User']) && isset($_SESSION['Tipo']) && isset($_SESSION['Nome_Escola']) ){
+        switch ($_SESSION['login']['Nivel_Acesso']) {
             case 'Aluno':
                 header('Location: Aluno/');
             break;
@@ -29,9 +29,10 @@ if(isset($_SESSION['id_User'])){
                 echo 'NAO POSSUI PERMICAO';
             break;
         }
-    }
+   // }
 }else{
-        header('Location: ../Autenticacao/Login/Login_Principal.php');
+    
+   header('Location: ../Autenticacao/Login/Login_Principal.php');
 }
 
 

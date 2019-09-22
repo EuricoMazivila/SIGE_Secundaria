@@ -51,7 +51,7 @@
                             echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
                         }
 
-                        $id_escola=$_SESSION['id_Escola'];
+                        $id_escola=$id_local;
                         $bind=$stmt->bind_param("i",$id_escola);
                 
                         // Estágio 2: execução
