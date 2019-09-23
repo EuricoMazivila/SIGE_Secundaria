@@ -18,7 +18,18 @@
                         require_once("../../Dao/conexao.php");
                         
                         //Estágio 1: Preparação
-                        $query="SELECT pessoa.Nome,pessoa.Apelido,pessoa.Sexo,pessoa.Estado_Civil,pessoa.Data_Nascimento FROM `pessoa` WHERE pessoa.id_Pessoa=? ";
+                        /*$query="SELECT pessoa.Nome,pessoa.Apelido,pessoa.Sexo,pessoa.Estado_Civil,pessoa.Data_Nascimento, 
+                        filiacao_aluno_dados_nat.Distrito as 'Distrito_Nasc', filiacao_aluno_dados_nat.Provincia 
+                        as 'Provincia_Nasc', filiacao_aluno_dados_nat.Pais as 'Pais_nasc', 
+                        filiacao_aluno_dados_nat.nome_pai,filiacao_aluno_dados_nat.telefone_pai,
+                        filiacao_aluno_dados_nat.local_trabalho_pai,filiacao_aluno_dados_nat.nome_mae,
+                        filiacao_aluno_dados_nat.telefone_mae,filiacao_aluno_dados_nat.local_trabalho_mae, 
+                        filiacao_aluno_dados_nat.profissao_mae FROM `pessoa`,filiacao_aluno_dados_nat WHERE filiacao_aluno_dados_nat.id_aluno=pessoa.id_Pessoa and pessoa.id_Pessoa=?  ";
+                        */
+                        
+                        $query="SELECT pessoa.Nome,pessoa.Apelido,pessoa.Sexo,pessoa.Estado_Civil,pessoa.Data_Nascimento, 
+                        filiacao_aluno_dados_nat.Distrito as 'Distrito_Nasc', filiacao_aluno_dados_nat.Provincia 
+                        as 'Provincia_Nasc', filiacao_aluno_dados_nat.Pais as 'Pais_nasc'FROM `pessoa`,filiacao_aluno_dados_nat WHERE filiacao_aluno_dados_nat.id_aluno=pessoa.id_Pessoa and pessoa.id_Pessoa=?  ";
                         
                         $stmt=$conexao->prepare($query);
                         if(!$stmt){
@@ -52,12 +63,25 @@
                $apelido= $linha['Apelido'];
                $sexo= $linha['Sexo'];
                $datanasc= $linha['Data_Nascimento'];
+               $distritoN= $linha['Distrito_Nasc'];
+               $ProvinciaN= $linha['Provincia_Nasc'];
+               $paisN= $linha['Pais_nasc'];
                $estadoC= $linha['Estado_Civil'];
+         
            
             
         }
         }else{
-            $nome= 'Nome';
+            $nome= '';
+            $apelido='';
+            $sexo='';
+            $datanasc='';
+            $estadoC='';
+       
+            $distritoN= 'sfsf';
+            $ProvinciaN='';
+            $paisN= '';
+ 
     }
        
         $stmt->close();

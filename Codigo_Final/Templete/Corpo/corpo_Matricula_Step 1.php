@@ -44,17 +44,17 @@ include('buscar_dados_aluno_matriculado.php');
                     </div>
                     <div class="form-group col-xs-12 col-sm-10 col-md-12 col-lg-12">
                         <label for="inputProvincia">Província de Nascimento</label>
-                        <input list="Provincia" class="form-control"  value='<?php echo $nome;?>' id="inputProvincia"
+                        <input list="Provincia" class="form-control"  value='<?php echo $ProvinciaN;?>' id="inputProvincia"
                         placeholder="Seleciona a Provincia">
                     </div>
                     <div class="form-group col-xs-12 col-sm-10 col-md-12 col-lg-12">
                         <label for="inputDistrito">Distrito de Nascimento</label>
-                        <input list="Distrito" class="form-control" id="inputDistrito"  value='<?php echo $nome;?>'
+                        <input list="Distrito" class="form-control" id="inputDistrito"  value='<?php echo $distritoN;?>'
                                     placeholder="Seleciona o Distrito">
                     </div>
                     <div class="form-group col-xs-12 col-sm-10 col-md-12 col-lg-12">
                         <label for="inputDataNascimnto">Data de Nascimento</label>
-                        <input type="date" name="" id="inputDataNascimnto" name="" class="form-control" value='<?php echo $nome;?>'> 
+                        <input type="date" name="" id="inputDataNascimnto" name="" class="form-control" value='<?php echo $datanasc;?>'> 
                     </div>
                     <div class="form-group col-xs-12 col-sm-10 col-md-12 col-lg-12">
                         <label for="inputBI">Tipo de Documento de Identificação</label>
