@@ -36,9 +36,9 @@
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row col-sm-4 col-md-4">
                 <label for="tipo">Tipo de Matricula</label>
-                <select class="form-control " name="tipo" id="tipo" required>
+                <select class="form-control" name="tipo" id="tipo" required>
                     <option value="">Seleciona o tipo de Matricula</option>
                     <option>Normal</option>
                     <option>Renovacao</option>

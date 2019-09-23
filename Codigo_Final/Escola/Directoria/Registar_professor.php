@@ -10,7 +10,7 @@
 
     $titulo='Registar turma'; //esse e o titulo
     $metadados='Configuracao\metadados_Externo.php';//esse e o metadados
-    $menu='main_menu_Secretaria.php';//esse e o menu
+    $menu='main_menu_Director.php';//esse e o menu
     $corpo='Corpo/corpo_registar_professor.php';//esse e o corpo
     $navBar='Configuracao\navbar.php';//essa e o nav bar
     $rodape='footer.php';//especificar a url do footer

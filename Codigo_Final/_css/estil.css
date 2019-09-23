@@ -9,6 +9,10 @@
     float: right;
     bottom: 0;
 }
+.borderless{
+    border:none;
+    max-width:31%;
+}
 
 .escondido, .apagado {
     display: none;
