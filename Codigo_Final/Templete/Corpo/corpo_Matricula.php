@@ -140,6 +140,7 @@
             </div>
         </div>
     </div>
+    <!--
     <div class="row" id="graficos">
         <div class="mt-5 col-12 ">
             <h3 class="text-center">Graficos Estatisticos</h3>
@@ -157,8 +158,9 @@
             </div>
         </div>
     </div>
+    -->
 </div>
-
+<!--
 <div class="">
    
 <nav class="menu-small menu-md">
@@ -193,7 +195,7 @@
     <div id="containerB" style=""></div>
     <script src="_js/Grafico_Barras.js"></script>
 </div>
-
+-->
 </div>
 <script >
         $(function(){

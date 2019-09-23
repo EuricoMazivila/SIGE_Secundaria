@@ -63,8 +63,10 @@
                         placeholder="Pesquise nome do candidato">
                 </div>
             </div>
+            
         </form>
-        <div class="table-responsive" id="resultado">
+        
+        <div class="table-responsive mt-5" id="resultado">
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -141,6 +143,7 @@
             </table>
         </div>
     </div>
+    <!--
     <div class="row" id="graficos">
         <div class="mt-5 col-12 ">
             <h3 class="text-center">Graficos Estatisticos</h3>
@@ -155,9 +158,9 @@
             <div id="containerB" class="contaGrafico">
             </div>
         </div>
-    </div>
+    </div>-->
 </div>
-
+<!--
 <div class="">
     <nav class="menu-small menu-md">
         <ul>
@@ -191,11 +194,12 @@
     <div id="containerB" style=""></div>
     
 </div>
-
+-->
 </div>
-
+<!--
 <script src="_js/Grafico_Barras.js"></script>
 
 <script src="_js/Grafico_Pizza.js"></script>
 
 <script src="_js/Grafico_Barras.js"></script>
+-->

@@ -18,6 +18,7 @@
                 <i class="fa fa-search form-group col-1"></i>
                 <input class="form-group col-11 pesquisa" id="nome_candidato" name="nome_candidato_m" type="search" required placeholder="Pesquise nome do pré-matriculado">
             </div>
+            <input type="hidden" name="id_escola" value=<?php echo $id_local;?>>
 
             <a class="btn btn-primary offset-sm-3 col-sm-1 mt-2" href="">
                 <span class="i-color-white"> <i class="fas fa-print "></i>
@@ -27,7 +28,7 @@
         </div>
     </form>    
 
-    <div class="form-row">
+    <div class="form-row mt-5">
 
     	<div class="table-responsive" id="resultado">
             <table class="table table-hover offset-md-1 col-md-10" id="table">

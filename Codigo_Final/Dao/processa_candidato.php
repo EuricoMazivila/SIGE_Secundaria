@@ -173,7 +173,7 @@ session_start();
         require_once("conexao.php");
 
         //Estágio 1: Preparação
-        $query="SELECT id_candidato, concat(Nome,' ',Apelido) as nome_completo,estado,regime,classe_matricular from candidatos where (Nome like ? or Apelido  like ?) and ano and id_escola=? and estado='cadastrado'";
+        $query="SELECT id_candidato, concat(Nome,' ',Apelido) as nome_completo,estado,regime,classe_matricular from candidatos where (Nome like ? or Apelido  like ?) and id_escola=? and estado='cadastrado'";
 
         $stmt=$conexao->prepare($query);
         if(!$stmt){
@@ -183,8 +183,7 @@ session_start();
         // Estágio 2: Associação dos parâmetros (bind)
         $nome=filtraEntrada($conexao,$_POST['nome_candidato_m']);
         $nome="%{$nome}%";
-        
-        $id_escola=$_SESSION['id_Escola'];
+        $id_escola=filtraEntrada($conexao,$_POST['id_escola']);;
 
         $bind=$stmt->bind_param("ssi",$nome,$nome,$id_escola);
 

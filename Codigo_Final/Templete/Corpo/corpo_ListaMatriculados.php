@@ -57,7 +57,7 @@
                 </div>
             </div>
         </form>
-        <div class="table-responsive" id="resultado">
+        <div class="table-responsive mt-5" id="resultado">
             <table class="table table-hover">
                 <thead>
                     <tr>
