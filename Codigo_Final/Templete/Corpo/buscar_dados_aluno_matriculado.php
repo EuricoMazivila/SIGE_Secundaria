@@ -1,4 +1,4 @@
-<<?php 
+<?php
                     function filtraEntrada($conexao,$dado){
                         //remove espacoes no inicio e
                         //no final da string
@@ -18,15 +18,16 @@
                         require_once("../../Dao/conexao.php");
                         
                         //Estágio 1: Preparação
-                        $query="SELECT id_candidato,concat(Nome,' ',Apelido)  as nome_completo,regime,classe_matricular from candidatos where ano=year(curdate()) and id_escola=?";
+                        $query="SELECT pessoa.Nome,pessoa.Apelido,pessoa.Sexo,pessoa.Estado_Civil,pessoa.Data_Nascimento FROM `pessoa` WHERE pessoa.id_Pessoa=? ";
                         
                         $stmt=$conexao->prepare($query);
                         if(!$stmt){
                             echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
                         }
-                        $Username= filtraEntrada($conexao,$id_local);
+                        //$Username= filtraEntrada($conexao,$id_local);
+                        
        
-                        $bind=$stmt->bind_param("i", $Username);
+                        $bind=$stmt->bind_param("s",  $id_user);
                         if(!$bind){
                             echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;
                         }
@@ -41,16 +42,26 @@
                         if(!$res){
                             echo "A Obtenção do conjunto de resultados falhou: (" . $stmt->errno . ")" . $stmt->error;
                         }
-            
                         $linhas=$res->num_rows;
-                    
-                        for($j=0; $j<$linhas; ++$j){
-                            $res->data_seek($j);
-                            $linha=$res->fetch_assoc();
-                    ?>
-                <?php/*        <td><?php echo $linha['id_candidato']?></td>
-                        <td><?php echo $linha['nome_completo']?></td>
-                        <td><?php echo $linha['regime']?></td>
-                        <td><?php echo $linha['classe_matricular']?></td>
-                    </tr>*/
-                    ?>
+       
+                    if($linhas>0){
+                    for($j=0; $j<$linhas; ++$j){
+                $res->data_seek($j);
+                $linha=$res->fetch_assoc();
+               $nome= $linha['Nome'];
+               $apelido= $linha['Apelido'];
+               $sexo= $linha['Sexo'];
+               $datanasc= $linha['Data_Nascimento'];
+               $estadoC= $linha['Estado_Civil'];
+           
+            
+        }
+        }else{
+            $nome= 'Nome';
+    }
+       
+        $stmt->close();
+          
+        $conexao->close();
+      
+           

@@ -6,6 +6,7 @@
         $local=$_SESSION['login']['Nome_Local'];
         $usuario=$_SESSION['login']['nome_usuario'];
         $id_local=$_SESSION['login']['id_Local'];
+        $id_user=$_SESSION['login']['id_User'];
 
          $email=$_SESSION['login']['email_usuario'];
 

@@ -1,6 +1,8 @@
 
 
-
+<?php
+include('buscar_dados_aluno_matriculado.php');
+?>
 
 
 
@@ -29,48 +31,48 @@
                     <hr></hr>
                     <div class="form-group col-xs-12 col-sm-10 col-md-12 col-lg-12 mt-4">
                         <label for="inputSobrenome">Apelido</label>
-                        <input type="text" name="apelido" id="inputSobrenome" class="form-control" placeholder="Introduza o Apelido">
+                        <input type="text" name="apelido" id="inputSobrenome" value='<?php echo $apelido;?>'class="form-control" placeholder="Introduza o Apelido">
                     </div>
                     <div class="form-group col-xs-12 col-sm-10 col-md-12 col-lg-12">
                         <label for="inputNome">Nome</label>
-                        <input type="text" name="" id="inputNome" class="form-control" placeholder="Introduza o Nome">
+                        <input type="text" name="" id="inputNome"value='<?php echo $nome;?>' class="form-control" placeholder="Introduza o Nome">
                     </div>
                     <div class="form-group col-xs-12 col-sm-10 col-md-12 col-lg-12">
                         <label for="inputNacionalidade">Nacionalidade</label>
-                        <input list="Nacionalidade" class="form-control" id="inputNacionalidade"
+                        <input list="Nacionalidade" class="form-control" id="inputNacionalidade" value='<?php echo $nome;?>'
                                 placeholder="Seleciona a Nacionalidade">
                     </div>
                     <div class="form-group col-xs-12 col-sm-10 col-md-12 col-lg-12">
                         <label for="inputProvincia">Província de Nascimento</label>
-                        <input list="Provincia" class="form-control" id="inputProvincia"
+                        <input list="Provincia" class="form-control"  value='<?php echo $nome;?>' id="inputProvincia"
                         placeholder="Seleciona a Provincia">
                     </div>
                     <div class="form-group col-xs-12 col-sm-10 col-md-12 col-lg-12">
                         <label for="inputDistrito">Distrito de Nascimento</label>
-                        <input list="Distrito" class="form-control" id="inputDistrito"
+                        <input list="Distrito" class="form-control" id="inputDistrito"  value='<?php echo $nome;?>'
                                     placeholder="Seleciona o Distrito">
                     </div>
                     <div class="form-group col-xs-12 col-sm-10 col-md-12 col-lg-12">
                         <label for="inputDataNascimnto">Data de Nascimento</label>
-                        <input type="date" name="" id="inputDataNascimnto" name="" class="form-control"> 
+                        <input type="date" name="" id="inputDataNascimnto" name="" class="form-control" value='<?php echo $nome;?>'> 
                     </div>
                     <div class="form-group col-xs-12 col-sm-10 col-md-12 col-lg-12">
                         <label for="inputBI">Tipo de Documento de Identificação</label>
-                        <input list="BI" class="form-control" id="inputBI"
+                        <input list="BI" value='<?php echo $nome;?>' class="form-control" id="inputBI"
                                     placeholder="Seleciona o Documento de Identificacao">
                     </div>
                     <div class="form-group col-xs-12 col-sm-10 col-md-12 col-lg-12">
                         <label for="inputBinr">Documento de Identificação Nr</label>
-                        <input type="number" class="form-control" name=" " id="inputBinr"  placeholder="Introduza o nr do documento de identificacao">
+                        <input type="number" value='<?php echo $nome;?>' class="form-control" name=" " id="inputBinr"  placeholder="Introduza o nr do documento de identificacao">
                     </div>
                     <div class="form-group col-xs-12 col-sm-10 col-md-12 col-lg-12">
                         <label for="inputArquivo">Arquivo de Identificação</label>
-                        <input list="EmissaoBI" class="form-control" id="inputArquivo"
+                        <input list="EmissaoBI" value='<?php echo $nome;?>' class="form-control" id="inputArquivo"
                                     placeholder="Local de emissão do BI">
                     </div>
                     <div class="form-group col-xs-12 col-sm-10 col-md-12 col-lg-12">
                         <label for="inputDataEm">Data de Emissão</label>
-                        <input type="date" name="" id="inputDataEm" class="form-control">
+                        <input type="date" value='<?php echo $nome;?>' name="" id="inputDataEm" class="form-control">
                     </div>
                     <div class="form-group col-xs-12 col-sm-10 col-md-12 col-lg-12">
                         <label for="inputSexo">Sexo</label>
@@ -161,12 +163,3 @@
     </datalist>
 
 </div>
-<?php
-<tr>
-
-                    <?php 
-                        } 
-                        $stmt->close();
-                        $conexao->close();
-                        
-                    ?>
