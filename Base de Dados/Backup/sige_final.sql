@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 22-Set-2019 às 04:52
--- Versão do servidor: 10.1.35-MariaDB
--- versão do PHP: 7.2.9
+-- Generation Time: 23-Set-2019 às 02:50
+-- Versão do servidor: 10.1.34-MariaDB
+-- PHP Version: 7.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -117,6 +117,113 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `addCandidato` (`_nomes` VARCHAR(50)
 	end if;
 end$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Marcar_Matricula` (`_id_escola` INT, `_tipo` ENUM('Normal','Renovacao'), `_dataI` DATE, `_dataF` DATE, `_classe_oita` TINYINT(4), `_total_vagas_oita_d` INT, `_total_vagas_oita_n` INT, `_classe_nona` TINYINT(4), `_total_vagas_nona_d` INT, `_total_vagas_nona_n` INT, `_classe_dec` TINYINT(4), `_total_vagas_dec_d` INT, `_total_vagas_dec_n` INT, `_classe_decp` TINYINT(4), `_total_vagas_decp_a_d` INT, `_total_vagas_decp_a_n` INT, `_total_vagas_decp_bb_d` INT, `_total_vagas_decp_bb_n` INT, `_total_vagas_decp_bg_d` INT, `_total_vagas_decp_bg_n` INT, `_total_vagas_decp_c_d` INT, `_total_vagas_decp_c_n` INT, `_classe_decs` TINYINT(4), `_total_vagas_decs_a_d` INT, `_total_vagas_decs_a_n` INT, `_total_vagas_decs_bb_d` INT, `_total_vagas_decs_bb_n` INT, `_total_vagas_decs_bg_d` INT, `_total_vagas_decs_bg_n` INT, `_total_vagas_decs_c_d` INT, `_total_vagas_decs_c_n` INT)  Begin
+	declare _ano year(4);
+	declare id_Mat int;
+	declare Clas_oita int;
+	declare Clas_nona int;
+	declare Clas_dec int;
+	declare Clas_decp_a int;
+	declare Clas_decp_bb int;
+	declare Clas_decp_bg int;
+	declare Clas_decp_c int;
+	declare Clas_decs_a int;
+	declare Clas_decs_bb int;
+	declare Clas_decs_bg int;
+	declare Clas_decs_c int;
+	declare id_matricula_ger int;
+	set id_matricula_ger =  (SELECT Gera_Id_Matricula());
+	
+	Start transaction;
+	if(_dataF>curdate()) then
+		Begin
+			if(month(curdate())>month(_dataI)) then
+				Insert into matricula (id_Matricula,id_Escola,Tipo,Ano,Data_Inicio,Data_Fim,Estado) values (id_matricula_ger,_id_escola,_tipo,year(_dataI),_dataI,_dataF,Default);
+			else
+				Insert into matricula (id_Matricula,id_Escola,Tipo,Ano,Data_Inicio,Data_Fim,Estado) values (id_matricula_ger,_id_escola,_tipo,year(curdate()),_dataI,_dataF,Default);
+			End if;
+		End;	
+	else
+		Begin
+			Select 'Datas invalidas' as Mensagem;
+			rollback;
+		End;
+	End if;
+		
+	
+	Select id_Matricula into id_Mat from matricula where Data_Inicio=_dataI;
+	Select Ano into _ano from matricula where Data_Inicio=_dataI;	
+
+	if(id_Mat is not null) then
+		Begin
+			
+			Select id_Classe into Clas_oita from classe where Classe=_classe_oita and Seccao='Geral'; 
+			Select id_Classe into Clas_nona from classe where Classe=_classe_nona and Seccao='Geral';
+			Select id_Classe into Clas_dec from classe where Classe=_classe_dec and Seccao='Geral';
+
+			Select id_Classe into Clas_decp_a from Classe where classe=_classe_decp and Seccao='Letras';
+			Select id_Classe into Clas_decp_bb from Classe where classe=_classe_decp and Seccao='Biologia';
+			Select id_Classe into Clas_decp_bg from Classe where classe=_classe_decp and Seccao='Geografia';
+			Select id_Classe into Clas_decp_c from Classe where classe=_classe_decp and Seccao='Desenho';
+
+			Select id_Classe into Clas_decs_a from Classe where classe=_classe_decs and Seccao='Letras';
+			Select id_Classe into Clas_decs_bb from Classe where classe=_classe_decs and Seccao='Biologia';
+			Select id_Classe into Clas_decs_bg from Classe where classe=_classe_decs and Seccao='Geografia';
+			Select id_Classe into Clas_decs_c from Classe where classe=_classe_decs and Seccao='Desenho';
+			
+
+			
+			if((Clas_oita is not null) && (Clas_nona is not null) && (Clas_dec is not null)
+				&& (Clas_decp_a is not null) && (Clas_decp_bb is not null)
+				&& (Clas_decp_bg is not null) && (Clas_decp_c is not null)
+				&& (Clas_decs_a is not null)  && (Clas_decs_bb is not null) 
+				&& (Clas_decs_bg is not null) && (Clas_decs_c is not null)) then
+				Begin
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_oita,'Diurno',_total_vagas_oita_d,default,_ano);
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_oita,'Noturno',_total_vagas_oita_n,default,_ano);
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_nona,'Diurno',_total_vagas_nona_d,default,_ano);
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_nona,'Noturno',_total_vagas_nona_n,default,_ano);
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_dec,'Diurno',_total_vagas_dec_d,default,_ano);
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_dec,'Noturno',_total_vagas_dec_n,default,_ano);
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_decp_a,'Diurno',_total_vagas_decp_a_d,default,_ano);
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_decp_a,'Noturno',_total_vagas_decp_a_n,default,_ano);
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_decp_bb,'Diurno',_total_vagas_decp_bb_d,default,_ano);
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_decp_bb,'Noturno',_total_vagas_decp_bb_n,default,_ano);
+
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_decp_bg,'Diurno',_total_vagas_decp_bg_d,default,_ano);
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_decp_bg,'Noturno',_total_vagas_decp_bg_n,default,_ano);
+					
+
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_decp_c,'Diurno',_total_vagas_decp_c_d,default,_ano);
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_decp_c,'Noturno',_total_vagas_decp_c_n,default,_ano);
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_decs_a,'Diurno',_total_vagas_decs_a_d,default,_ano);
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_decs_a,'Noturno',_total_vagas_decs_a_n,default,_ano);
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_decs_bb,'Diurno',_total_vagas_decs_bb_d,default,_ano);
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_decs_bb,'Noturno',_total_vagas_decs_bb_n,default,_ano);
+
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_decs_bg,'Diurno',_total_vagas_decs_bg_d,default,_ano);
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_decs_bg,'Noturno',_total_vagas_decs_bg_n,default,_ano);
+
+
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_decs_c,'Diurno',_total_vagas_decs_c_d,default,_ano);
+					Insert into matricula_classe (id_Matri,id_Matricula,id_Classe,Turno,Total_Vagas,Vagas_Preenchidas,Ano) values (default,id_Mat,Clas_decs_c,'Noturno',_total_vagas_decs_c_n,default,_ano);
+					commit;	
+					
+				End;
+				
+			else
+				Begin
+					select 'Falha no registo das classes e o total de vagas' as Mensagem;
+					rollback;
+				End;
+			End if;
+		End;
+	else
+		Select 'Falha ao registar nova matricula' as Mensagem;
+		rollback;
+	End if;
+end$$
+
 --
 -- Functions
 --
@@ -221,6 +328,27 @@ SELECT COUNT(escola.id_Escola) FROM escola WHERE escola.id_Escola=codG into cod;
 WHILE(cod!=0)do
 set codG=codG+1;
 SELECT COUNT(escola.id_Escola)FROM escola WHERE escola.id_Escola=codG into cod;
+end WHILE;
+
+
+
+
+
+RETURN codG;
+
+end$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `Gera_Id_Matricula` () RETURNS INT(11) NO SQL
+    COMMENT 'Essa Funcao Gera id Pessoa'
+BEGIN
+DECLARE cod int(11);
+DECLARE codG int(11);
+SELECT COUNT(matricula.id_Matricula) into cod FROM matricula;
+set codG= (SELECT YEAR(CURRENT_DATE)*10000+cod)+1;
+SELECT COUNT(matricula.id_Matricula) FROM matricula WHERE matricula.id_Matricula=codG into cod;
+WHILE(cod!=0)do
+set codG=codG+1;
+SELECT COUNT(matricula.id_Matricula)FROM matricula WHERE matricula.id_Matricula=codG into cod;
 end WHILE;
 
 
@@ -400,7 +528,8 @@ INSERT INTO `aluno` (`id_aluno`, `Tipo`) VALUES
 ('2019C0009', 'Candidato'),
 ('2019C0010', 'Candidato'),
 ('2019C0011', 'Candidato'),
-('2019C0012', 'Candidato');
+('2019C0012', 'Candidato'),
+('2019C0013', 'Candidato');
 
 -- --------------------------------------------------------
 
@@ -494,12 +623,33 @@ CREATE TABLE `aluno_interno` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `aluno_matriculado`
+--
+
+CREATE TABLE `aluno_matriculado` (
+  `id_aluno` varchar(9) CHARACTER SET utf8 NOT NULL,
+  `id_escola` int(11) NOT NULL,
+  `Data` date NOT NULL,
+  `id_Matricula` int(11) NOT NULL,
+  `Estado` enum('Pendente','Matriculado') NOT NULL DEFAULT 'Pendente'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `aluno_matriculado`
+--
+
+INSERT INTO `aluno_matriculado` (`id_aluno`, `id_escola`, `Data`, `id_Matricula`, `Estado`) VALUES
+('2019C0008', 20190003, '2019-09-22', 1, 'Pendente');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `bairro`
 --
 
 CREATE TABLE `bairro` (
   `id_Bairro` int(11) NOT NULL,
-  `id_Distriro` int(11) NOT NULL,
+  `id_Distrito` int(11) NOT NULL,
   `Nome` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -507,7 +657,7 @@ CREATE TABLE `bairro` (
 -- Extraindo dados da tabela `bairro`
 --
 
-INSERT INTO `bairro` (`id_Bairro`, `id_Distriro`, `Nome`) VALUES
+INSERT INTO `bairro` (`id_Bairro`, `id_Distrito`, `Nome`) VALUES
 (2, 1, 'Bagamoio'),
 (1, 1, 'Benfica'),
 (3, 2, 'Albazine'),
@@ -576,7 +726,8 @@ INSERT INTO `candidato_aluno` (`id_candidato`, `id_escola`, `classe_matricular`,
 ('2019C0009', 20190003, '11', 'Nocturno', 2019, 'Candidato'),
 ('2019C0010', 20190001, '10', 'Nocturno', 2019, 'Cadastrado'),
 ('2019C0011', 20190001, '10', 'Nocturno', 2019, 'Candidato'),
-('2019C0012', 20190001, '10', 'Nocturno', 2019, 'Candidato');
+('2019C0012', 20190001, '10', 'Nocturno', 2019, 'Candidato'),
+('2019C0013', 20190003, '10', 'Nocturno', 2019, 'Candidato');
 
 --
 -- Acionadores `candidato_aluno`
@@ -617,22 +768,24 @@ INSERT INTO `cargo` (`id_Cargo`, `Designacao`) VALUES
 CREATE TABLE `classe` (
   `id_Classe` tinyint(4) NOT NULL,
   `Classe` tinyint(4) NOT NULL,
-  `Secao` varchar(40) NOT NULL DEFAULT 'Geral'
+  `Seccao` varchar(40) NOT NULL DEFAULT 'Geral'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `classe`
 --
 
-INSERT INTO `classe` (`id_Classe`, `Classe`, `Secao`) VALUES
+INSERT INTO `classe` (`id_Classe`, `Classe`, `Seccao`) VALUES
 (1, 8, 'Geral'),
 (2, 9, 'Geral'),
 (3, 10, 'Geral'),
 (6, 11, 'Biologia'),
 (5, 11, 'Desenho'),
+(10, 11, 'Geografia'),
 (4, 11, 'Letras'),
 (9, 12, 'Biologia'),
 (8, 12, 'Desenho'),
+(11, 12, 'Geografia'),
 (7, 12, 'Letras');
 
 -- --------------------------------------------------------
@@ -659,11 +812,25 @@ INSERT INTO `contacto` (`id_Pessoa`, `Email`, `Nr_Tell`) VALUES
 ('2019C0010', 'vxcvx', 2),
 ('2019C0011', '2019C0011@exemplo', 0),
 ('2019C0012', '2019C0012@exemplo', 0),
+('2019C0013', '2019C0013@exemplo', 0),
 ('2019F0001', 'MazimbeErnes@gmail.com', 887),
 ('2019F0002', 'LuizBernaldo@gmail.com', 0),
 ('2019F0003', 'MazimbeErnesto@gmail.com', 0),
 ('2019F0004', 'GuambeMateus@hotmail.com', 0),
 ('2019F0005', '2019F0005@exemplo', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `dados_distrito`
+-- (See below for the actual view)
+--
+CREATE TABLE `dados_distrito` (
+`id_distrito` int(11)
+,`Distrito` varchar(40)
+,`Provincia` varchar(40)
+,`Pais` varchar(40)
+);
 
 -- --------------------------------------------------------
 
@@ -765,7 +932,8 @@ INSERT INTO `escola_anterior` (`id_Candidato`, `Nome_escola`, `Turma`, `Classe`)
 ('2019C0009', '1 de Junho', 'N/D', '9'),
 ('2019C0010', 'Malhazine', 'N/D', '8'),
 ('2019C0011', 'Infulene Benfica', 'N/D', '8'),
-('2019C0012', 'Heroes Mocambicanos', 'N/D', '8');
+('2019C0012', 'Heroes Mocambicanos', 'N/D', '8'),
+('2019C0013', '1 de Junho', 'N/D', '8');
 
 -- --------------------------------------------------------
 
@@ -775,6 +943,7 @@ INSERT INTO `escola_anterior` (`id_Candidato`, `Nome_escola`, `Turma`, `Classe`)
 
 CREATE TABLE `filiacao_aluno` (
   `id_aluno` varchar(9) CHARACTER SET utf8 NOT NULL,
+  `id_nat` int(11) NOT NULL DEFAULT '1',
   `nome_pai` varchar(50) NOT NULL,
   `telefone_pai` int(11) NOT NULL,
   `local_trabalho_pai` varchar(50) NOT NULL,
@@ -789,8 +958,32 @@ CREATE TABLE `filiacao_aluno` (
 -- Extraindo dados da tabela `filiacao_aluno`
 --
 
-INSERT INTO `filiacao_aluno` (`id_aluno`, `nome_pai`, `telefone_pai`, `local_trabalho_pai`, `profissao_pai`, `nome_mae`, `telefone_mae`, `local_trabalho_mae`, `profissao_mae`) VALUES
-('2019C0010', 'dsfds', 3, 'vcvx', 'cxvx', 'cvxv', 4, 'vxcvx', 'cxvxc');
+INSERT INTO `filiacao_aluno` (`id_aluno`, `id_nat`, `nome_pai`, `telefone_pai`, `local_trabalho_pai`, `profissao_pai`, `nome_mae`, `telefone_mae`, `local_trabalho_mae`, `profissao_mae`) VALUES
+('2019C0007', 1, 'dsfds', 3, 'vcvx', 'cxvx', 'cvxv', 4, 'vxcvx', 'cxvxc'),
+('2019C0009', 1, 'dsfdsf', 0, '', '', '', 0, '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `filiacao_aluno_dados_nat`
+-- (See below for the actual view)
+--
+CREATE TABLE `filiacao_aluno_dados_nat` (
+`id_aluno` varchar(9)
+,`id_nat` int(11)
+,`nome_pai` varchar(50)
+,`telefone_pai` int(11)
+,`local_trabalho_pai` varchar(50)
+,`profissao_pai` varchar(50)
+,`nome_mae` varchar(50)
+,`telefone_mae` int(11)
+,`local_trabalho_mae` varchar(50)
+,`profissao_mae` varchar(50)
+,`id_distrito` int(11)
+,`Distrito` varchar(40)
+,`Provincia` varchar(40)
+,`Pais` varchar(40)
+);
 
 -- --------------------------------------------------------
 
@@ -917,6 +1110,13 @@ CREATE TABLE `matricula` (
   `Estado` enum('Em curso','Pendete','Terminada') NOT NULL DEFAULT 'Pendete'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Extraindo dados da tabela `matricula`
+--
+
+INSERT INTO `matricula` (`id_Matricula`, `id_Escola`, `Tipo`, `Ano`, `Data_Inicio`, `Data_Fim`, `Estado`) VALUES
+(20190001, 20190003, 'Normal', 2019, '2019-10-01', '2020-03-10', 'Pendete');
+
 -- --------------------------------------------------------
 
 --
@@ -926,12 +1126,40 @@ CREATE TABLE `matricula` (
 CREATE TABLE `matricula_classe` (
   `id_Matri` int(11) NOT NULL,
   `id_Matricula` int(11) NOT NULL,
-  `Classe` tinyint(4) NOT NULL,
+  `id_Classe` tinyint(4) NOT NULL,
   `Turno` enum('Diurno','Noturno') NOT NULL,
   `Total_Vagas` int(11) NOT NULL DEFAULT '0',
   `Vagas_Preenchidas` int(11) NOT NULL DEFAULT '0',
   `Ano` year(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `matricula_classe`
+--
+
+INSERT INTO `matricula_classe` (`id_Matri`, `id_Matricula`, `id_Classe`, `Turno`, `Total_Vagas`, `Vagas_Preenchidas`, `Ano`) VALUES
+(67, 20190001, 1, 'Diurno', 1000, 0, 2019),
+(68, 20190001, 1, 'Noturno', 200, 0, 2019),
+(69, 20190001, 2, 'Diurno', 100, 0, 2019),
+(70, 20190001, 2, 'Noturno', 200, 0, 2019),
+(71, 20190001, 3, 'Diurno', 300, 0, 2019),
+(72, 20190001, 3, 'Noturno', 400, 0, 2019),
+(73, 20190001, 4, 'Diurno', 500, 0, 2019),
+(74, 20190001, 4, 'Noturno', 600, 0, 2019),
+(75, 20190001, 6, 'Diurno', 400, 0, 2019),
+(76, 20190001, 6, 'Noturno', 500, 0, 2019),
+(77, 20190001, 10, 'Diurno', 500, 0, 2019),
+(78, 20190001, 10, 'Noturno', 600, 0, 2019),
+(79, 20190001, 5, 'Diurno', 700, 0, 2019),
+(80, 20190001, 5, 'Noturno', 300, 0, 2019),
+(81, 20190001, 7, 'Diurno', 200, 0, 2019),
+(82, 20190001, 7, 'Noturno', 200, 0, 2019),
+(83, 20190001, 9, 'Diurno', 200, 0, 2019),
+(84, 20190001, 9, 'Noturno', 200, 0, 2019),
+(85, 20190001, 11, 'Diurno', 200, 0, 2019),
+(86, 20190001, 11, 'Noturno', 290, 0, 2019),
+(87, 20190001, 8, 'Diurno', 300, 0, 2019),
+(88, 20190001, 8, 'Noturno', 1000, 0, 2019);
 
 -- --------------------------------------------------------
 
@@ -951,6 +1179,22 @@ CREATE TABLE `pais` (
 INSERT INTO `pais` (`id_Pais`, `Nome`) VALUES
 (1, 'Mocambique'),
 (2, 'Africa do Sul');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `periodo_matricula`
+-- (See below for the actual view)
+--
+CREATE TABLE `periodo_matricula` (
+`classe` tinyint(4)
+,`seccao` varchar(40)
+,`turno` enum('Diurno','Noturno')
+,`total_vagas` int(11)
+,`vagas_preenchidas` int(11)
+,`ano` year(4)
+,`id_escola` int(11)
+);
 
 -- --------------------------------------------------------
 
@@ -979,6 +1223,7 @@ INSERT INTO `pessoa` (`id_Pessoa`, `Nome`, `Apelido`, `Sexo`, `Estado_Civil`, `D
 ('2019C0010', 'Yuan', 'Castro', 'F', 'Solteiro', '2019-09-12'),
 ('2019C0011', 'Manuel', 'Januario', 'F', 'Solteiro', '2019-09-04'),
 ('2019C0012', 'Lucas', 'Mbeve', 'F', 'Solteiro', '2019-09-05'),
+('2019C0013', 'Lourenco', 'Jovem', 'F', 'Solteiro', '2019-09-06'),
 ('2019F0001', 'Ernesto', 'Mazimbe', 'M', 'Solteiro', '1990-09-01'),
 ('2019F0002', 'Luiz', 'Bernaldo', 'M', 'Solteiro', '1999-09-01'),
 ('2019F0003', 'Ernesto', 'Mazimbe', 'M', 'Solteiro', '1990-09-01'),
@@ -1143,6 +1388,7 @@ INSERT INTO `user_escola` (`id_User`, `id_Escola`, `Tipo`, `Estado`) VALUES
 ('2019C0010', 20190001, 'Candidato', 'Ativo'),
 ('2019C0011', 20190001, 'Candidato', 'Ativo'),
 ('2019C0012', 20190001, 'Candidato', 'Ativo'),
+('2019C0013', 20190003, 'Candidato', 'Ativo'),
 ('2019F0001', 20190001, 'Secretaria', 'Ativo'),
 ('2019F0002', 20190002, 'Admin', 'Ativo'),
 ('2019F0003', 20190003, 'Directoria', 'Ativo'),
@@ -1192,6 +1438,7 @@ INSERT INTO `usuario` (`id_User`, `Username`, `Senha`, `Email_Instituconal`, `Es
 ('2019C0010', 'Yuan2019C0010', 'Castro', 'Castro.Yuan.2019C0010@sige.ac.mz', 'Ativo', '2019-09-21', 'Candidato', 'Escola', 20190001, 'Escola Secundaria Heroes Mocambicanos'),
 ('2019C0011', 'Manuel2019C0011', 'Januario', 'Januario.Manuel.2019C0011@sige.ac.mz', 'Ativo', '2019-09-21', 'Candidato', 'Escola', 20190001, 'Escola Secundaria Heroes Mocambicanos'),
 ('2019C0012', 'Lucas2019C0012', 'Mbeve', 'Mbeve.Lucas.2019C0012@sige.ac.mz', 'Ativo', '2019-09-21', 'Candidato', 'Escola', 20190001, 'Escola Secundaria Heroes Mocambicanos'),
+('2019C0013', 'Lourenco2019C0013', 'Jovem', 'Jovem.Lourenco.2019C0013@sige.ac.mz', 'Ativo', '2019-09-23', 'Candidato', 'Escola', 20190003, 'Escola Secundaria Infulene Benfica'),
 ('2019F0001', 'Ernesto2019F0001', 'Mazimbe', 'Mazimbe.Ernesto.2019F0001@sige.ac.mz', 'Ativo', '2019-09-21', 'Secretaria', 'Escola', 20190001, 'Escola Secundaria Heroes Mocambicanos'),
 ('2019F0002', 'Luiz2019F0002', 'Bernaldo', 'Bernaldo.Luiz.2019F0002@sige.ac.mz', 'Ativo', '2019-09-21', 'Admin', 'Escola', 20190002, 'Escola Secundaria Malhazine'),
 ('2019F0003', 'Ernesto2019F0003', 'Mazimbe', 'Mazimbe.Ernesto.2019F0003@sige.ac.mz', 'Ativo', '2019-09-21', 'Directoria', 'Escola', 20190003, 'Escola Secundaria Infulene Benfica'),
@@ -1239,6 +1486,7 @@ INSERT INTO `usuario_privilegio_acesso` (`id_usuario`, `id_privilegio`, `Estado`
 ('2019C0010', 1, 'Ativo'),
 ('2019C0011', 1, 'Ativo'),
 ('2019C0012', 1, 'Ativo'),
+('2019C0013', 1, 'Ativo'),
 ('2019F0001', 1, 'Ativo'),
 ('2019F0002', 1, 'Ativo'),
 ('2019F0003', 1, 'Ativo'),
@@ -1262,6 +1510,33 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `candidatos_cadastrados`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `candidatos_cadastrados`  AS  select `candidato_aluno`.`id_candidato` AS `id_candidato`,`candidato_aluno`.`id_escola` AS `id_escola`,`candidato_aluno`.`classe_matricular` AS `classe_matricular`,`candidato_aluno`.`regime` AS `regime`,`candidato_aluno`.`ano` AS `ano`,`pessoa`.`id_Pessoa` AS `id_Pessoa`,`pessoa`.`Nome` AS `Nome`,`pessoa`.`Apelido` AS `Apelido`,`pessoa`.`Sexo` AS `Sexo`,`pessoa`.`Estado_Civil` AS `Estado_Civil`,`pessoa`.`Data_Nascimento` AS `Data_Nascimento` from (`candidato_aluno` join `pessoa`) where (`candidato_aluno`.`id_candidato` = `pessoa`.`id_Pessoa`) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `dados_distrito`
+--
+DROP TABLE IF EXISTS `dados_distrito`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `dados_distrito`  AS  select `distrito`.`id_distrito` AS `id_distrito`,`distrito`.`Nome` AS `Distrito`,`provincia`.`Nome` AS `Provincia`,`pais`.`Nome` AS `Pais` from ((`distrito` join `provincia`) join `pais`) where ((`distrito`.`id_Prov` = `provincia`.`id_Prov`) and (`provincia`.`id_Pais` = `pais`.`id_Pais`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `filiacao_aluno_dados_nat`
+--
+DROP TABLE IF EXISTS `filiacao_aluno_dados_nat`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `filiacao_aluno_dados_nat`  AS  select `filiacao_aluno`.`id_aluno` AS `id_aluno`,`filiacao_aluno`.`id_nat` AS `id_nat`,`filiacao_aluno`.`nome_pai` AS `nome_pai`,`filiacao_aluno`.`telefone_pai` AS `telefone_pai`,`filiacao_aluno`.`local_trabalho_pai` AS `local_trabalho_pai`,`filiacao_aluno`.`profissao_pai` AS `profissao_pai`,`filiacao_aluno`.`nome_mae` AS `nome_mae`,`filiacao_aluno`.`telefone_mae` AS `telefone_mae`,`filiacao_aluno`.`local_trabalho_mae` AS `local_trabalho_mae`,`filiacao_aluno`.`profissao_mae` AS `profissao_mae`,`dados_distrito`.`id_distrito` AS `id_distrito`,`dados_distrito`.`Distrito` AS `Distrito`,`dados_distrito`.`Provincia` AS `Provincia`,`dados_distrito`.`Pais` AS `Pais` from (`filiacao_aluno` join `dados_distrito`) where (`filiacao_aluno`.`id_nat` = `dados_distrito`.`id_distrito`) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `periodo_matricula`
+--
+DROP TABLE IF EXISTS `periodo_matricula`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `periodo_matricula`  AS  select `classe`.`Classe` AS `classe`,`classe`.`Seccao` AS `seccao`,`matricula_classe`.`Turno` AS `turno`,`matricula_classe`.`Total_Vagas` AS `total_vagas`,`matricula_classe`.`Vagas_Preenchidas` AS `vagas_preenchidas`,`matricula_classe`.`Ano` AS `ano`,`matricula`.`id_Escola` AS `id_escola` from ((`matricula_classe` join `classe`) join `matricula`) where ((`matricula_classe`.`id_Classe` = `classe`.`id_Classe`) and (`matricula_classe`.`id_Matricula` = `matricula`.`id_Matricula`)) ;
 
 --
 -- Indexes for dumped tables
@@ -1309,11 +1584,17 @@ ALTER TABLE `aluno_interno`
   ADD KEY `id_Escola` (`id_Escola`);
 
 --
+-- Indexes for table `aluno_matriculado`
+--
+ALTER TABLE `aluno_matriculado`
+  ADD PRIMARY KEY (`id_aluno`,`id_Matricula`);
+
+--
 -- Indexes for table `bairro`
 --
 ALTER TABLE `bairro`
   ADD PRIMARY KEY (`id_Bairro`),
-  ADD UNIQUE KEY `id_Distriro` (`id_Distriro`,`Nome`);
+  ADD UNIQUE KEY `id_Distriro` (`id_Distrito`,`Nome`);
 
 --
 -- Indexes for table `candidato_aluno`
@@ -1333,7 +1614,7 @@ ALTER TABLE `cargo`
 --
 ALTER TABLE `classe`
   ADD PRIMARY KEY (`id_Classe`),
-  ADD UNIQUE KEY `Classe` (`Classe`,`Secao`);
+  ADD UNIQUE KEY `Classe` (`Classe`,`Seccao`);
 
 --
 -- Indexes for table `contacto`
@@ -1373,7 +1654,8 @@ ALTER TABLE `escola_anterior`
 -- Indexes for table `filiacao_aluno`
 --
 ALTER TABLE `filiacao_aluno`
-  ADD PRIMARY KEY (`id_aluno`) USING BTREE;
+  ADD PRIMARY KEY (`id_aluno`) USING BTREE,
+  ADD KEY `id_nat` (`id_nat`);
 
 --
 -- Indexes for table `funcionario`
@@ -1419,7 +1701,7 @@ ALTER TABLE `matricula`
 ALTER TABLE `matricula_classe`
   ADD PRIMARY KEY (`id_Matri`),
   ADD KEY `id_Matricula` (`id_Matricula`),
-  ADD KEY `Classe` (`Classe`);
+  ADD KEY `Classe` (`id_Classe`);
 
 --
 -- Indexes for table `pais`
@@ -1510,7 +1792,7 @@ ALTER TABLE `cargo`
 -- AUTO_INCREMENT for table `classe`
 --
 ALTER TABLE `classe`
-  MODIFY `id_Classe` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_Classe` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `distrito`
@@ -1522,19 +1804,19 @@ ALTER TABLE `distrito`
 -- AUTO_INCREMENT for table `escola`
 --
 ALTER TABLE `escola`
-  MODIFY `id_Escola` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20190006;
+  MODIFY `id_Escola` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20190005;
 
 --
 -- AUTO_INCREMENT for table `matricula`
 --
 ALTER TABLE `matricula`
-  MODIFY `id_Matricula` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_Matricula` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20190002;
 
 --
 -- AUTO_INCREMENT for table `matricula_classe`
 --
 ALTER TABLE `matricula_classe`
-  MODIFY `id_Matri` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_Matri` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `pais`
@@ -1604,10 +1886,16 @@ ALTER TABLE `aluno_interno`
   ADD CONSTRAINT `aluno_interno_ibfk_2` FOREIGN KEY (`id_Escola`) REFERENCES `escola` (`id_Escola`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Limitadores para a tabela `aluno_matriculado`
+--
+ALTER TABLE `aluno_matriculado`
+  ADD CONSTRAINT `aluno_matriculado_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id_aluno`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Limitadores para a tabela `bairro`
 --
 ALTER TABLE `bairro`
-  ADD CONSTRAINT `bairro_ibfk_1` FOREIGN KEY (`id_Distriro`) REFERENCES `distrito` (`id_distrito`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `bairro_ibfk_1` FOREIGN KEY (`id_Distrito`) REFERENCES `distrito` (`id_distrito`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `candidato_aluno`
@@ -1650,7 +1938,8 @@ ALTER TABLE `escola_anterior`
 -- Limitadores para a tabela `filiacao_aluno`
 --
 ALTER TABLE `filiacao_aluno`
-  ADD CONSTRAINT `filiacao_aluno_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id_aluno`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `filiacao_aluno_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id_aluno`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `filiacao_aluno_ibfk_2` FOREIGN KEY (`id_nat`) REFERENCES `distrito` (`id_distrito`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `funcionario`
@@ -1690,7 +1979,7 @@ ALTER TABLE `matricula`
 --
 ALTER TABLE `matricula_classe`
   ADD CONSTRAINT `matricula_classe_ibfk_1` FOREIGN KEY (`id_Matricula`) REFERENCES `matricula` (`id_Matricula`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `matricula_classe_ibfk_2` FOREIGN KEY (`Classe`) REFERENCES `classe` (`id_Classe`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `matricula_classe_ibfk_2` FOREIGN KEY (`id_Classe`) REFERENCES `classe` (`id_Classe`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `provincia`

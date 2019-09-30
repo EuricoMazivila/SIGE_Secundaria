@@ -1,6 +1,0 @@
-Fundo: #F6FBFB
-Footer & header: #9ECBF4
-Botao verde: #00CC66
-Botao laranja: FF6600
-Botao vermelho: #FF0000
-Botao azul: #0066FF

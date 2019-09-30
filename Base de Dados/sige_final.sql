@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 23-Set-2019 às 02:50
--- Versão do servidor: 10.1.34-MariaDB
--- PHP Version: 7.2.8
+-- Generation Time: Sep 23, 2019 at 11:56 AM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.1.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -509,7 +509,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `aluno`
+-- Table structure for table `aluno`
 --
 
 CREATE TABLE `aluno` (
@@ -518,7 +518,7 @@ CREATE TABLE `aluno` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `aluno`
+-- Dumping data for table `aluno`
 --
 
 INSERT INTO `aluno` (`id_aluno`, `Tipo`) VALUES
@@ -534,7 +534,7 @@ INSERT INTO `aluno` (`id_aluno`, `Tipo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `aluno_classe`
+-- Table structure for table `aluno_classe`
 --
 
 CREATE TABLE `aluno_classe` (
@@ -546,7 +546,7 @@ CREATE TABLE `aluno_classe` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `aluno_documento`
+-- Table structure for table `aluno_documento`
 --
 
 CREATE TABLE `aluno_documento` (
@@ -560,7 +560,7 @@ CREATE TABLE `aluno_documento` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `aluno_documento`
+-- Dumping data for table `aluno_documento`
 --
 
 INSERT INTO `aluno_documento` (`id_Aluno`, `Tipo`, `Numero`, `Data_Emissao`, `Local_Emissao`, `Estado`, `Data_Submissao`) VALUES
@@ -571,7 +571,7 @@ INSERT INTO `aluno_documento` (`id_Aluno`, `Tipo`, `Numero`, `Data_Emissao`, `Lo
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `aluno_encarregado`
+-- Table structure for table `aluno_encarregado`
 --
 
 CREATE TABLE `aluno_encarregado` (
@@ -587,7 +587,7 @@ CREATE TABLE `aluno_encarregado` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `aluno_encarregado`
+-- Dumping data for table `aluno_encarregado`
 --
 
 INSERT INTO `aluno_encarregado` (`id_aluno`, `nome_completo`, `numero_telefone`, `local_trabalho`, `profissao`, `id_bairro`, `Avenida_Rua`, `Q`, `Nr_casa`) VALUES
@@ -596,7 +596,7 @@ INSERT INTO `aluno_encarregado` (`id_aluno`, `nome_completo`, `numero_telefone`,
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `aluno_escola`
+-- Table structure for table `aluno_escola`
 --
 
 CREATE TABLE `aluno_escola` (
@@ -610,7 +610,7 @@ CREATE TABLE `aluno_escola` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `aluno_interno`
+-- Table structure for table `aluno_interno`
 --
 
 CREATE TABLE `aluno_interno` (
@@ -623,7 +623,7 @@ CREATE TABLE `aluno_interno` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `aluno_matriculado`
+-- Table structure for table `aluno_matriculado`
 --
 
 CREATE TABLE `aluno_matriculado` (
@@ -635,7 +635,7 @@ CREATE TABLE `aluno_matriculado` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `aluno_matriculado`
+-- Dumping data for table `aluno_matriculado`
 --
 
 INSERT INTO `aluno_matriculado` (`id_aluno`, `id_escola`, `Data`, `id_Matricula`, `Estado`) VALUES
@@ -644,7 +644,7 @@ INSERT INTO `aluno_matriculado` (`id_aluno`, `id_escola`, `Data`, `id_Matricula`
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `bairro`
+-- Table structure for table `bairro`
 --
 
 CREATE TABLE `bairro` (
@@ -654,7 +654,7 @@ CREATE TABLE `bairro` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `bairro`
+-- Dumping data for table `bairro`
 --
 
 INSERT INTO `bairro` (`id_Bairro`, `id_Distrito`, `Nome`) VALUES
@@ -703,7 +703,7 @@ CREATE TABLE `candidatos_cadastrados` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `candidato_aluno`
+-- Table structure for table `candidato_aluno`
 --
 
 CREATE TABLE `candidato_aluno` (
@@ -716,7 +716,7 @@ CREATE TABLE `candidato_aluno` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `candidato_aluno`
+-- Dumping data for table `candidato_aluno`
 --
 
 INSERT INTO `candidato_aluno` (`id_candidato`, `id_escola`, `classe_matricular`, `regime`, `ano`, `Estado`) VALUES
@@ -730,7 +730,7 @@ INSERT INTO `candidato_aluno` (`id_candidato`, `id_escola`, `classe_matricular`,
 ('2019C0013', 20190003, '10', 'Nocturno', 2019, 'Candidato');
 
 --
--- Acionadores `candidato_aluno`
+-- Triggers `candidato_aluno`
 --
 DELIMITER $$
 CREATE TRIGGER `Inserindo_Candidato_Aluno` AFTER INSERT ON `candidato_aluno` FOR EACH ROW INSERT into user_escola (id_User,id_Escola,Tipo) VALUES (new.id_candidato,new.id_escola,'Candidato')
@@ -740,7 +740,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `cargo`
+-- Table structure for table `cargo`
 --
 
 CREATE TABLE `cargo` (
@@ -749,7 +749,7 @@ CREATE TABLE `cargo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `cargo`
+-- Dumping data for table `cargo`
 --
 
 INSERT INTO `cargo` (`id_Cargo`, `Designacao`) VALUES
@@ -762,7 +762,7 @@ INSERT INTO `cargo` (`id_Cargo`, `Designacao`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `classe`
+-- Table structure for table `classe`
 --
 
 CREATE TABLE `classe` (
@@ -772,7 +772,7 @@ CREATE TABLE `classe` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `classe`
+-- Dumping data for table `classe`
 --
 
 INSERT INTO `classe` (`id_Classe`, `Classe`, `Seccao`) VALUES
@@ -791,7 +791,7 @@ INSERT INTO `classe` (`id_Classe`, `Classe`, `Seccao`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `contacto`
+-- Table structure for table `contacto`
 --
 
 CREATE TABLE `contacto` (
@@ -801,7 +801,7 @@ CREATE TABLE `contacto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `contacto`
+-- Dumping data for table `contacto`
 --
 
 INSERT INTO `contacto` (`id_Pessoa`, `Email`, `Nr_Tell`) VALUES
@@ -835,7 +835,7 @@ CREATE TABLE `dados_distrito` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `direcao_distrital`
+-- Table structure for table `direcao_distrital`
 --
 
 CREATE TABLE `direcao_distrital` (
@@ -845,7 +845,7 @@ CREATE TABLE `direcao_distrital` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `direcao_distrital`
+-- Dumping data for table `direcao_distrital`
 --
 
 INSERT INTO `direcao_distrital` (`id_Dir`, `Designacao`, `Total_Escola`) VALUES
@@ -857,7 +857,7 @@ INSERT INTO `direcao_distrital` (`id_Dir`, `Designacao`, `Total_Escola`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `distrito`
+-- Table structure for table `distrito`
 --
 
 CREATE TABLE `distrito` (
@@ -867,7 +867,7 @@ CREATE TABLE `distrito` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `distrito`
+-- Dumping data for table `distrito`
 --
 
 INSERT INTO `distrito` (`id_distrito`, `id_Prov`, `Nome`) VALUES
@@ -879,7 +879,7 @@ INSERT INTO `distrito` (`id_distrito`, `id_Prov`, `Nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `escola`
+-- Table structure for table `escola`
 --
 
 CREATE TABLE `escola` (
@@ -891,7 +891,7 @@ CREATE TABLE `escola` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `escola`
+-- Dumping data for table `escola`
 --
 
 INSERT INTO `escola` (`id_Escola`, `Nome`, `Nivel`, `Pertenca`, `id_Dir`) VALUES
@@ -901,7 +901,7 @@ INSERT INTO `escola` (`id_Escola`, `Nome`, `Nivel`, `Pertenca`, `id_Dir`) VALUES
 (20190004, '1 de Junho', 'Primaria', 'Publica', 3);
 
 --
--- Acionadores `escola`
+-- Triggers `escola`
 --
 DELIMITER $$
 CREATE TRIGGER `Update_Escola_Dados` AFTER UPDATE ON `escola` FOR EACH ROW UPDATE usuario set usuario.Nome_Local=(SELECT concat('Escola ',new.Nivel,' ',new.Nome)),usuario.id_Local=new.id_Escola WHERE usuario.id_Local=old.id_Escola
@@ -911,7 +911,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `escola_anterior`
+-- Table structure for table `escola_anterior`
 --
 
 CREATE TABLE `escola_anterior` (
@@ -922,7 +922,7 @@ CREATE TABLE `escola_anterior` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `escola_anterior`
+-- Dumping data for table `escola_anterior`
 --
 
 INSERT INTO `escola_anterior` (`id_Candidato`, `Nome_escola`, `Turma`, `Classe`) VALUES
@@ -938,7 +938,7 @@ INSERT INTO `escola_anterior` (`id_Candidato`, `Nome_escola`, `Turma`, `Classe`)
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `filiacao_aluno`
+-- Table structure for table `filiacao_aluno`
 --
 
 CREATE TABLE `filiacao_aluno` (
@@ -955,7 +955,7 @@ CREATE TABLE `filiacao_aluno` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `filiacao_aluno`
+-- Dumping data for table `filiacao_aluno`
 --
 
 INSERT INTO `filiacao_aluno` (`id_aluno`, `id_nat`, `nome_pai`, `telefone_pai`, `local_trabalho_pai`, `profissao_pai`, `nome_mae`, `telefone_mae`, `local_trabalho_mae`, `profissao_mae`) VALUES
@@ -988,7 +988,7 @@ CREATE TABLE `filiacao_aluno_dados_nat` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `funcionario`
+-- Table structure for table `funcionario`
 --
 
 CREATE TABLE `funcionario` (
@@ -997,7 +997,7 @@ CREATE TABLE `funcionario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `funcionario`
+-- Dumping data for table `funcionario`
 --
 
 INSERT INTO `funcionario` (`id_Funcionaio`, `carreira`) VALUES
@@ -1010,7 +1010,7 @@ INSERT INTO `funcionario` (`id_Funcionaio`, `carreira`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `funcionario_distrital`
+-- Table structure for table `funcionario_distrital`
 --
 
 CREATE TABLE `funcionario_distrital` (
@@ -1022,7 +1022,7 @@ CREATE TABLE `funcionario_distrital` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `funcionario_distrital`
+-- Dumping data for table `funcionario_distrital`
 --
 
 INSERT INTO `funcionario_distrital` (`id_Funcionario`, `id_distrito`, `id_cargo`, `Estado`, `Data_Cadastro`) VALUES
@@ -1030,7 +1030,7 @@ INSERT INTO `funcionario_distrital` (`id_Funcionario`, `id_distrito`, `id_cargo`
 ('2019F0011', 4, 5, 'Ativo', '2019-09-21');
 
 --
--- Acionadores `funcionario_distrital`
+-- Triggers `funcionario_distrital`
 --
 DELIMITER $$
 CREATE TRIGGER `Inserindo_Funcionario_Distrital` BEFORE INSERT ON `funcionario_distrital` FOR EACH ROW INSERT INTO user_distrital (id_user,id_Dir,Tipo) VALUES(new.id_Funcionario,new.id_distrito,'Distrital')
@@ -1040,7 +1040,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `funcionario_escola`
+-- Table structure for table `funcionario_escola`
 --
 
 CREATE TABLE `funcionario_escola` (
@@ -1053,7 +1053,7 @@ CREATE TABLE `funcionario_escola` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `funcionario_escola`
+-- Dumping data for table `funcionario_escola`
 --
 
 INSERT INTO `funcionario_escola` (`id_Escola`, `id_Funcionario`, `id_Cargo`, `Data_Colocacao`, `Estado`, `Acesso`) VALUES
@@ -1064,7 +1064,7 @@ INSERT INTO `funcionario_escola` (`id_Escola`, `id_Funcionario`, `id_Cargo`, `Da
 (20190004, '2019F0004', 2, '2019-09-21', 'Ativo', 'Admin');
 
 --
--- Acionadores `funcionario_escola`
+-- Triggers `funcionario_escola`
 --
 DELIMITER $$
 CREATE TRIGGER `inserindo_Funcionario_Escola` AFTER INSERT ON `funcionario_escola` FOR EACH ROW INSERT user_escola (id_User,id_Escola,Tipo) VALUES(new.id_Funcionario,new.id_Escola,new.Acesso)
@@ -1074,7 +1074,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `localizacao_escola`
+-- Table structure for table `localizacao_escola`
 --
 
 CREATE TABLE `localizacao_escola` (
@@ -1085,7 +1085,7 @@ CREATE TABLE `localizacao_escola` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `localizacao_escola`
+-- Dumping data for table `localizacao_escola`
 --
 
 INSERT INTO `localizacao_escola` (`id_escola`, `id_bairro`, `Nr`, `Avenida_Rua`) VALUES
@@ -1097,7 +1097,7 @@ INSERT INTO `localizacao_escola` (`id_escola`, `id_bairro`, `Nr`, `Avenida_Rua`)
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `matricula`
+-- Table structure for table `matricula`
 --
 
 CREATE TABLE `matricula` (
@@ -1111,7 +1111,7 @@ CREATE TABLE `matricula` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `matricula`
+-- Dumping data for table `matricula`
 --
 
 INSERT INTO `matricula` (`id_Matricula`, `id_Escola`, `Tipo`, `Ano`, `Data_Inicio`, `Data_Fim`, `Estado`) VALUES
@@ -1120,7 +1120,7 @@ INSERT INTO `matricula` (`id_Matricula`, `id_Escola`, `Tipo`, `Ano`, `Data_Inici
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `matricula_classe`
+-- Table structure for table `matricula_classe`
 --
 
 CREATE TABLE `matricula_classe` (
@@ -1134,7 +1134,7 @@ CREATE TABLE `matricula_classe` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `matricula_classe`
+-- Dumping data for table `matricula_classe`
 --
 
 INSERT INTO `matricula_classe` (`id_Matri`, `id_Matricula`, `id_Classe`, `Turno`, `Total_Vagas`, `Vagas_Preenchidas`, `Ano`) VALUES
@@ -1164,7 +1164,7 @@ INSERT INTO `matricula_classe` (`id_Matri`, `id_Matricula`, `id_Classe`, `Turno`
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `pais`
+-- Table structure for table `pais`
 --
 
 CREATE TABLE `pais` (
@@ -1173,7 +1173,7 @@ CREATE TABLE `pais` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `pais`
+-- Dumping data for table `pais`
 --
 
 INSERT INTO `pais` (`id_Pais`, `Nome`) VALUES
@@ -1199,7 +1199,7 @@ CREATE TABLE `periodo_matricula` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `pessoa`
+-- Table structure for table `pessoa`
 --
 
 CREATE TABLE `pessoa` (
@@ -1212,7 +1212,7 @@ CREATE TABLE `pessoa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `pessoa`
+-- Dumping data for table `pessoa`
 --
 
 INSERT INTO `pessoa` (`id_Pessoa`, `Nome`, `Apelido`, `Sexo`, `Estado_Civil`, `Data_Nascimento`) VALUES
@@ -1231,7 +1231,7 @@ INSERT INTO `pessoa` (`id_Pessoa`, `Nome`, `Apelido`, `Sexo`, `Estado_Civil`, `D
 ('2019F0005', 'Mendesa', 'Cumbe', 'F', 'Casado', '2019-09-01');
 
 --
--- Acionadores `pessoa`
+-- Triggers `pessoa`
 --
 DELIMITER $$
 CREATE TRIGGER `Cria_User` AFTER INSERT ON `pessoa` FOR EACH ROW begin
@@ -1244,7 +1244,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `privilegio_acesso`
+-- Table structure for table `privilegio_acesso`
 --
 
 CREATE TABLE `privilegio_acesso` (
@@ -1254,7 +1254,7 @@ CREATE TABLE `privilegio_acesso` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `privilegio_acesso`
+-- Dumping data for table `privilegio_acesso`
 --
 
 INSERT INTO `privilegio_acesso` (`id_Privilegio`, `Acesso`, `Descricao`) VALUES
@@ -1271,7 +1271,7 @@ INSERT INTO `privilegio_acesso` (`id_Privilegio`, `Acesso`, `Descricao`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `provincia`
+-- Table structure for table `provincia`
 --
 
 CREATE TABLE `provincia` (
@@ -1281,7 +1281,7 @@ CREATE TABLE `provincia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `provincia`
+-- Dumping data for table `provincia`
 --
 
 INSERT INTO `provincia` (`id_Prov`, `id_Pais`, `Nome`) VALUES
@@ -1291,7 +1291,7 @@ INSERT INTO `provincia` (`id_Prov`, `id_Pais`, `Nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `recupera_senha_usuario`
+-- Table structure for table `recupera_senha_usuario`
 --
 
 CREATE TABLE `recupera_senha_usuario` (
@@ -1306,14 +1306,14 @@ CREATE TABLE `recupera_senha_usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `recupera_senha_usuario`
+-- Dumping data for table `recupera_senha_usuario`
 --
 
 INSERT INTO `recupera_senha_usuario` (`id_Solicitacao`, `id_Usuario`, `CodigoRecuperacao`, `Data_Validalidade`, `Senha_Antiga`, `Senha_Nova`, `Tipo_Envio`, `Campo_Envio`) VALUES
 (1, '2019F0005', 829917, '2019-09-22', 'Cumbe', 'Joaquim', 'Email', '2019F0005@exemplo');
 
 --
--- Acionadores `recupera_senha_usuario`
+-- Triggers `recupera_senha_usuario`
 --
 DELIMITER $$
 CREATE TRIGGER `actualizaUsuario` AFTER UPDATE ON `recupera_senha_usuario` FOR EACH ROW UPDATE `usuario` SET `Senha` = new.Senha_Nova WHERE `usuario`.`id_User` = old.id_Usuario
@@ -1323,7 +1323,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `residencia_aluno`
+-- Table structure for table `residencia_aluno`
 --
 
 CREATE TABLE `residencia_aluno` (
@@ -1335,7 +1335,7 @@ CREATE TABLE `residencia_aluno` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `residencia_aluno`
+-- Dumping data for table `residencia_aluno`
 --
 
 INSERT INTO `residencia_aluno` (`id_aluno`, `id_bairro`, `av_ou_rua`, `quarteirao`, `nr_casa`) VALUES
@@ -1345,7 +1345,7 @@ INSERT INTO `residencia_aluno` (`id_aluno`, `id_bairro`, `av_ou_rua`, `quarteira
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `user_distrital`
+-- Table structure for table `user_distrital`
 --
 
 CREATE TABLE `user_distrital` (
@@ -1356,7 +1356,14 @@ CREATE TABLE `user_distrital` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Acionadores `user_distrital`
+-- Dumping data for table `user_distrital`
+--
+
+INSERT INTO `user_distrital` (`id_user`, `id_Dir`, `Tipo`, `Estado`) VALUES
+('2019F0001', 1, 'Admin', 'Ativo');
+
+--
+-- Triggers `user_distrital`
 --
 DELIMITER $$
 CREATE TRIGGER `Inseindo_User_Distital` AFTER INSERT ON `user_distrital` FOR EACH ROW UPDATE usuario set usuario.Local='Distrito',usuario.id_Local=new.id_Dir,usuario.Nivel_Acesso=new.Tipo,usuario.Nome_Local=(SELECT concat('Servico Distrital de ',nome) FROM `distrito` WHERE distrito.id_distrito=new.id_Dir) WHERE usuario.id_User=new.id_User
@@ -1366,7 +1373,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `user_escola`
+-- Table structure for table `user_escola`
 --
 
 CREATE TABLE `user_escola` (
@@ -1377,7 +1384,7 @@ CREATE TABLE `user_escola` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `user_escola`
+-- Dumping data for table `user_escola`
 --
 
 INSERT INTO `user_escola` (`id_User`, `id_Escola`, `Tipo`, `Estado`) VALUES
@@ -1396,7 +1403,7 @@ INSERT INTO `user_escola` (`id_User`, `id_Escola`, `Tipo`, `Estado`) VALUES
 ('2019F0005', 20190003, 'Secretaria', 'Ativo');
 
 --
--- Acionadores `user_escola`
+-- Triggers `user_escola`
 --
 DELIMITER $$
 CREATE TRIGGER `Insercao` AFTER INSERT ON `user_escola` FOR EACH ROW UPDATE usuario set usuario.Local='Escola',usuario.id_Local=new.id_Escola,usuario.Nivel_Acesso=new.Tipo,usuario.Nome_Local=(SELECT concat('Escola ',Nivel,' ',Nome) FROM `escola` WHERE escola.id_Escola=new.id_Escola) WHERE usuario.id_User=new.id_User
@@ -1410,7 +1417,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `usuario`
+-- Table structure for table `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -1427,7 +1434,7 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
 --
--- Extraindo dados da tabela `usuario`
+-- Dumping data for table `usuario`
 --
 
 INSERT INTO `usuario` (`id_User`, `Username`, `Senha`, `Email_Instituconal`, `Estado`, `DataCriacao`, `Nivel_Acesso`, `Local`, `id_Local`, `Nome_Local`) VALUES
@@ -1437,16 +1444,16 @@ INSERT INTO `usuario` (`id_User`, `Username`, `Senha`, `Email_Instituconal`, `Es
 ('2019C0009', 'Tereza2019C0009', 'Mendes', 'Mendes.Tereza.2019C0009@sige.ac.mz', 'Ativo', '2019-09-21', 'Candidato', 'Escola', 20190003, 'Escola Secundaria Infulene Benfica'),
 ('2019C0010', 'Yuan2019C0010', 'Castro', 'Castro.Yuan.2019C0010@sige.ac.mz', 'Ativo', '2019-09-21', 'Candidato', 'Escola', 20190001, 'Escola Secundaria Heroes Mocambicanos'),
 ('2019C0011', 'Manuel2019C0011', 'Januario', 'Januario.Manuel.2019C0011@sige.ac.mz', 'Ativo', '2019-09-21', 'Candidato', 'Escola', 20190001, 'Escola Secundaria Heroes Mocambicanos'),
-('2019C0012', 'Lucas2019C0012', 'Mbeve', 'Mbeve.Lucas.2019C0012@sige.ac.mz', 'Ativo', '2019-09-21', 'Candidato', 'Escola', 20190001, 'Escola Secundaria Heroes Mocambicanos'),
+('2019C0012', 'Lucas', 'Mbeve', 'Mbeve.Lucas.2019C0012@sige.ac.mz', 'Ativo', '2019-09-21', 'Candidato', 'Escola', 20190001, 'Escola Secundaria Heroes Mocambicanos'),
 ('2019C0013', 'Lourenco2019C0013', 'Jovem', 'Jovem.Lourenco.2019C0013@sige.ac.mz', 'Ativo', '2019-09-23', 'Candidato', 'Escola', 20190003, 'Escola Secundaria Infulene Benfica'),
-('2019F0001', 'Ernesto2019F0001', 'Mazimbe', 'Mazimbe.Ernesto.2019F0001@sige.ac.mz', 'Ativo', '2019-09-21', 'Secretaria', 'Escola', 20190001, 'Escola Secundaria Heroes Mocambicanos'),
+('2019F0001', 'Ernesto', 'Mazimbe', 'Mazimbe.Ernesto.2019F0001@sige.ac.mz', 'Ativo', '2019-09-21', 'Distrital', 'Distrito', 1, 'Servico Distrital de Ka Mbucuana'),
 ('2019F0002', 'Luiz2019F0002', 'Bernaldo', 'Bernaldo.Luiz.2019F0002@sige.ac.mz', 'Ativo', '2019-09-21', 'Admin', 'Escola', 20190002, 'Escola Secundaria Malhazine'),
 ('2019F0003', 'Ernesto2019F0003', 'Mazimbe', 'Mazimbe.Ernesto.2019F0003@sige.ac.mz', 'Ativo', '2019-09-21', 'Directoria', 'Escola', 20190003, 'Escola Secundaria Infulene Benfica'),
 ('2019F0004', 'Mateus2019F0004', 'Guambe', 'Guambe.Mateus.2019F0004@sige.ac.mz', 'Ativo', '2019-09-21', 'Admin', 'Escola', 20190004, 'Escola  1 de Junho'),
-('2019F0005', 'Mendesa2019F0005', 'Joaquim', 'Cumbe.Mendesa.2019F0005@sige.ac.mz', 'Ativo', '2019-09-21', 'Secretaria', 'Escola', 20190003, 'Escola Secundaria Infulene Benfica');
+('2019F0005', 'candido', 'Joaquim', 'Cumbe.Mendesa.2019F0005@sige.ac.mz', 'Ativo', '2019-09-21', 'Secretaria', 'Escola', 20190003, 'Escola Secundaria Infulene Benfica');
 
 --
--- Acionadores `usuario`
+-- Triggers `usuario`
 --
 DELIMITER $$
 CREATE TRIGGER `ActualizaCamposDeLocal` AFTER UPDATE ON `usuario` FOR EACH ROW BEGIN
@@ -1465,7 +1472,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `usuario_privilegio_acesso`
+-- Table structure for table `usuario_privilegio_acesso`
 --
 
 CREATE TABLE `usuario_privilegio_acesso` (
@@ -1475,7 +1482,7 @@ CREATE TABLE `usuario_privilegio_acesso` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `usuario_privilegio_acesso`
+-- Dumping data for table `usuario_privilegio_acesso`
 --
 
 INSERT INTO `usuario_privilegio_acesso` (`id_usuario`, `id_privilegio`, `Estado`) VALUES
@@ -1847,114 +1854,114 @@ ALTER TABLE `recupera_senha_usuario`
 --
 
 --
--- Limitadores para a tabela `aluno`
+-- Constraints for table `aluno`
 --
 ALTER TABLE `aluno`
   ADD CONSTRAINT `aluno_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `pessoa` (`id_Pessoa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `aluno_classe`
+-- Constraints for table `aluno_classe`
 --
 ALTER TABLE `aluno_classe`
   ADD CONSTRAINT `aluno_classe_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id_aluno`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `aluno_classe_ibfk_2` FOREIGN KEY (`id_classe`) REFERENCES `classe` (`id_Classe`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `aluno_documento`
+-- Constraints for table `aluno_documento`
 --
 ALTER TABLE `aluno_documento`
   ADD CONSTRAINT `aluno_documento_ibfk_1` FOREIGN KEY (`id_Aluno`) REFERENCES `aluno` (`id_aluno`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `aluno_encarregado`
+-- Constraints for table `aluno_encarregado`
 --
 ALTER TABLE `aluno_encarregado`
   ADD CONSTRAINT `aluno_encarregado_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id_aluno`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `aluno_escola`
+-- Constraints for table `aluno_escola`
 --
 ALTER TABLE `aluno_escola`
   ADD CONSTRAINT `aluno_escola_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id_aluno`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `aluno_escola_ibfk_2` FOREIGN KEY (`id_escola`) REFERENCES `escola` (`id_Escola`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `aluno_interno`
+-- Constraints for table `aluno_interno`
 --
 ALTER TABLE `aluno_interno`
   ADD CONSTRAINT `aluno_interno_ibfk_1` FOREIGN KEY (`id_Aluno`) REFERENCES `aluno` (`id_aluno`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `aluno_interno_ibfk_2` FOREIGN KEY (`id_Escola`) REFERENCES `escola` (`id_Escola`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `aluno_matriculado`
+-- Constraints for table `aluno_matriculado`
 --
 ALTER TABLE `aluno_matriculado`
   ADD CONSTRAINT `aluno_matriculado_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id_aluno`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `bairro`
+-- Constraints for table `bairro`
 --
 ALTER TABLE `bairro`
   ADD CONSTRAINT `bairro_ibfk_1` FOREIGN KEY (`id_Distrito`) REFERENCES `distrito` (`id_distrito`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `candidato_aluno`
+-- Constraints for table `candidato_aluno`
 --
 ALTER TABLE `candidato_aluno`
   ADD CONSTRAINT `candidato_aluno_ibfk_1` FOREIGN KEY (`id_candidato`) REFERENCES `aluno` (`id_aluno`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `candidato_aluno_ibfk_2` FOREIGN KEY (`id_escola`) REFERENCES `escola` (`id_Escola`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `contacto`
+-- Constraints for table `contacto`
 --
 ALTER TABLE `contacto`
   ADD CONSTRAINT `contacto_ibfk_1` FOREIGN KEY (`id_Pessoa`) REFERENCES `pessoa` (`id_Pessoa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `direcao_distrital`
+-- Constraints for table `direcao_distrital`
 --
 ALTER TABLE `direcao_distrital`
   ADD CONSTRAINT `direcao_distrital_ibfk_1` FOREIGN KEY (`id_Dir`) REFERENCES `distrito` (`id_distrito`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `distrito`
+-- Constraints for table `distrito`
 --
 ALTER TABLE `distrito`
   ADD CONSTRAINT `distrito_ibfk_1` FOREIGN KEY (`id_Prov`) REFERENCES `provincia` (`id_Prov`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `escola`
+-- Constraints for table `escola`
 --
 ALTER TABLE `escola`
   ADD CONSTRAINT `escola_ibfk_1` FOREIGN KEY (`id_Dir`) REFERENCES `direcao_distrital` (`id_Dir`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `escola_anterior`
+-- Constraints for table `escola_anterior`
 --
 ALTER TABLE `escola_anterior`
   ADD CONSTRAINT `escola_anterior_ibfk_1` FOREIGN KEY (`id_Candidato`) REFERENCES `candidato_aluno` (`id_candidato`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `filiacao_aluno`
+-- Constraints for table `filiacao_aluno`
 --
 ALTER TABLE `filiacao_aluno`
   ADD CONSTRAINT `filiacao_aluno_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id_aluno`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `filiacao_aluno_ibfk_2` FOREIGN KEY (`id_nat`) REFERENCES `distrito` (`id_distrito`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `funcionario`
+-- Constraints for table `funcionario`
 --
 ALTER TABLE `funcionario`
   ADD CONSTRAINT `funcionario_ibfk_1` FOREIGN KEY (`id_Funcionaio`) REFERENCES `pessoa` (`id_Pessoa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `funcionario_distrital`
+-- Constraints for table `funcionario_distrital`
 --
 ALTER TABLE `funcionario_distrital`
   ADD CONSTRAINT `funcionario_distrital_ibfk_1` FOREIGN KEY (`id_cargo`) REFERENCES `cargo` (`id_Cargo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `funcionario_escola`
+-- Constraints for table `funcionario_escola`
 --
 ALTER TABLE `funcionario_escola`
   ADD CONSTRAINT `funcionario_escola_ibfk_1` FOREIGN KEY (`id_Escola`) REFERENCES `escola` (`id_Escola`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -1962,66 +1969,66 @@ ALTER TABLE `funcionario_escola`
   ADD CONSTRAINT `funcionario_escola_ibfk_3` FOREIGN KEY (`id_Cargo`) REFERENCES `cargo` (`id_Cargo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `localizacao_escola`
+-- Constraints for table `localizacao_escola`
 --
 ALTER TABLE `localizacao_escola`
   ADD CONSTRAINT `localizacao_escola_ibfk_1` FOREIGN KEY (`id_escola`) REFERENCES `escola` (`id_Escola`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `localizacao_escola_ibfk_2` FOREIGN KEY (`id_bairro`) REFERENCES `bairro` (`id_Bairro`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `matricula`
+-- Constraints for table `matricula`
 --
 ALTER TABLE `matricula`
   ADD CONSTRAINT `matricula_ibfk_1` FOREIGN KEY (`id_Escola`) REFERENCES `escola` (`id_Escola`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `matricula_classe`
+-- Constraints for table `matricula_classe`
 --
 ALTER TABLE `matricula_classe`
   ADD CONSTRAINT `matricula_classe_ibfk_1` FOREIGN KEY (`id_Matricula`) REFERENCES `matricula` (`id_Matricula`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `matricula_classe_ibfk_2` FOREIGN KEY (`id_Classe`) REFERENCES `classe` (`id_Classe`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `provincia`
+-- Constraints for table `provincia`
 --
 ALTER TABLE `provincia`
   ADD CONSTRAINT `provincia_ibfk_1` FOREIGN KEY (`id_Pais`) REFERENCES `pais` (`id_Pais`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `recupera_senha_usuario`
+-- Constraints for table `recupera_senha_usuario`
 --
 ALTER TABLE `recupera_senha_usuario`
   ADD CONSTRAINT `recupera_senha_usuario_ibfk_1` FOREIGN KEY (`id_Usuario`) REFERENCES `usuario` (`id_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `residencia_aluno`
+-- Constraints for table `residencia_aluno`
 --
 ALTER TABLE `residencia_aluno`
   ADD CONSTRAINT `residencia_aluno_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id_aluno`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `residencia_aluno_ibfk_2` FOREIGN KEY (`id_bairro`) REFERENCES `bairro` (`id_Bairro`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `user_distrital`
+-- Constraints for table `user_distrital`
 --
 ALTER TABLE `user_distrital`
   ADD CONSTRAINT `user_distrital_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id_User`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_distrital_ibfk_2` FOREIGN KEY (`id_Dir`) REFERENCES `direcao_distrital` (`id_Dir`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `user_escola`
+-- Constraints for table `user_escola`
 --
 ALTER TABLE `user_escola`
   ADD CONSTRAINT `user_escola_ibfk_1` FOREIGN KEY (`id_User`) REFERENCES `usuario` (`id_User`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_escola_ibfk_2` FOREIGN KEY (`id_Escola`) REFERENCES `escola` (`id_Escola`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `usuario`
+-- Constraints for table `usuario`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_User`) REFERENCES `pessoa` (`id_Pessoa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `usuario_privilegio_acesso`
+-- Constraints for table `usuario_privilegio_acesso`
 --
 ALTER TABLE `usuario_privilegio_acesso`
   ADD CONSTRAINT `usuario_privilegio_acesso_ibfk_1` FOREIGN KEY (`id_privilegio`) REFERENCES `privilegio_acesso` (`id_Privilegio`) ON DELETE CASCADE ON UPDATE CASCADE,
