@@ -65,7 +65,7 @@
             </div>
         </form>
         <div class="table-responsive">
-            <table class="table table-hover">
+            <table class="table table-hover mt-3">
                 <thead>
                     <tr>
                         <th>Código</th>
