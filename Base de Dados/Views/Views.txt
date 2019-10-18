@@ -1,8 +1,0 @@
-Classe Turno Total de Vagas Vagas preenchidas
-
-Select classe,turno from classe; 
-Select total_vagas from matricula;
-Select total_vagas_preenchidas from matricula_classe;
-
-Select classe.classe,classe.turno,matricula.total_vagas,matricula_classe.total_vagas_preenchidas,matricula_classe.ano
-from classe,matricula,matricula_classe where classe.codClass=matricula_classe.codClass and matricula.codMatr=matricula_classe.codMatr;
