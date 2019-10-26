@@ -80,8 +80,15 @@
                             <li role="separator" class="divider"></li>
                             <li><a href="#"><i class="fas fa-power-off ti-settings"></i> Account Setting</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href=""><i class="fas fa-power-off"></i> Logout</a></li>
+                            <li><a href="{{ route('logout') }}" >
+                                <i class="fas fa-power-off"></i> Logout</a>
+                            </li>
                             </ul>
+                            <!--
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                            -->
                         </div>
                     </li>  
                 </div>

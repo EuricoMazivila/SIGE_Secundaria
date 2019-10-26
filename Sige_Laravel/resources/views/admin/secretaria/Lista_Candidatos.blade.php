@@ -64,7 +64,7 @@
             </form>
             
             <div class="table-responsive mt-5" id="resultado">
-                <table class="table table-hover">
+                <table class="table table-hover" id="tabela1">
                     <thead>
                         <tr>
                             <th>Código</th>
@@ -74,15 +74,26 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($candidatos as $candidato)
                         <tr>
-                            <td>linha['id_candidato']</td>
-                            <td>linha['nome_completo']</td>
-                            <td>linha['regime']</td>
-                            <td>linha['classe_matricular']</td>
+                            <td>{{ $candidato->id_aluno}}</td>
+                            <td>{{ $candidato->pessoa->Nome }} {{ $candidato->pessoa->Apelido }}</td>
+                            <td>{{ $candidato->candidato->regime }}</td>
+                            <td>{{ $candidato->candidato->classe_matricular }}</td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('plugin/DataTables/datatables.js') }} "></script>  
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            $('#tabela').dataTable();
+        } );
+    </script>                          
+@endpush

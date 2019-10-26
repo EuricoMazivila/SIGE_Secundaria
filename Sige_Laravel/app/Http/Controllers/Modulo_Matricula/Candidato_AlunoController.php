@@ -7,7 +7,12 @@ use App\Http\Controllers\Controller;
 
 class Candidato_AlunoController extends Controller
 {
-    function formulario(){
+    public function __construct(){
+        //obriga a estar logado
+        $this->middleware('auth');
+    }
+
+    public function formulario(){
         return view('admin.candidato_aluno.Formulario');
     }
 }

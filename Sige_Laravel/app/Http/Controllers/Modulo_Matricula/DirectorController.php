@@ -7,19 +7,24 @@ use App\Http\Controllers\Controller;
 
 class DirectorController extends Controller
 {
-    function home(){
+    public function __construct(){
+        //obriga a estar logado
+        $this->middleware('auth');
+    }
+
+    public function home(){
         return view('admin.director.Home_Page_Director');
     }
 
-    function matricula(){
+    public function matricula(){
         return view('admin.director.Matricula');
     }
 
-    function marcarmatricula(){
+    public function marcarmatricula(){
         return view('admin.director.Marcar_Matricula');
     }
 
-    function listamatriculados(){
+    public function listamatriculados(){
         return view('admin.director.Lista_Matriculados');
     }
 

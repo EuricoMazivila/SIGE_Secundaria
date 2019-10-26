@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -19,13 +20,15 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
-
+    
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+
+   // protected $redirectTo = '/Aluno';
+    
 
     /**
      * Create a new controller instance.
@@ -36,4 +39,18 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    function redirectTo(){
+        $userId=Auth::id();
+        if(User::where($userId)->where('Nivel_Acesso','Candidato')){
+            $redirectTo = '/Candidato';
+        }elseif(User::where($userId)->where('Nivel_Acesso','Aluno')){
+            $redirectTo = '/Aluno';
+        }elseif(User::where($userId)->where('Nivel_Acesso','Secretaria')){
+            $redirectTo = '/Secretaria';
+        }elseif(User::where($userId)->where('Nivel_Acesso','Directoria')){
+            $redirectTo = '/Director';
+        }
+    }
+    
 }
