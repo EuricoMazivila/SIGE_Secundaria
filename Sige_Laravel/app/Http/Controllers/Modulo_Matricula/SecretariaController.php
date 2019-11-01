@@ -35,23 +35,8 @@ class SecretariaController extends Controller
         }
         $candidatos=Aluno::with('pessoa')->with('candidato')->get();   
         return view('admin.secretaria.Lista_Candidatos',compact('candidatos'));
-
     }
  
-    public function store(Request $request){
-        
-        $request->validate([
-            'nome' => 'required',
-            'apelido' => 'required',
-            'datanasc' => 'required',
-            'sexo' => 'required',
-            'classe_matr' => 'required',
-            'regime' => 'required',
-            'distrito' => 'required',
-            'escola' => 'required'
-        ]);
-
-<<<<<<< HEAD
     public function registarcandidato(){
         $s=$this->nivel_acesso();
         if($s){
@@ -59,32 +44,6 @@ class SecretariaController extends Controller
         }
         $distritos=Distrito::all();
         return view('admin.secretaria.Registar_Candidato',compact('distritos'));
-=======
-        $pessoa=new Pessoa([
-            'id_Pessoa' => '2019C0014',
-            'nome' => $request->get('nome'),
-            'apelido' => $request->get('apelido'),
-            'sexo' => $request->get('sexo'),
-            'estado_civil' => 'Solteiro',
-            'data_nascimento' => $request->get('datanasc')
-        ]);
-        $pessoa->save();
-        
-        $aluno=$pessoa->aluno()->create([
-            'Tipo'=>'Candidato'
-        ]);
-        $aluno->save();
-        
-        $candidato=$aluno->candidato()->create([
-            'id_escola' => $request->get('escola'),
-            'classe_matricular' => $request->get('classe_matr'),
-            'regime' => $request->get('regime'),
-            'ano' => 2019,
-            'estado' =>'Candidato'
-        ]);
-        $candidato->save();
-        return redirect('/Secretaria/ListaCandidatos')->with('success', 'Candidato Registado!');
->>>>>>> 395f8dcc32f55721a95262455dcf2a1f9c2e47c4
     }
  
     public function store(Request $request){
@@ -100,7 +59,7 @@ class SecretariaController extends Controller
             'escola' => 'required'
         ]);
 
-<<<<<<< HEAD
+
         $pessoa=new Pessoa([
             'id_Pessoa' => '2019C0014',
             'nome' => $request->get('nome'),
@@ -132,36 +91,28 @@ class SecretariaController extends Controller
         if($s){
             return redirect('/login');
         }
-=======
-    public function matricular_step0(){
->>>>>>> 395f8dcc32f55721a95262455dcf2a1f9c2e47c4
         return view('admin.secretaria.Matricular_Step_0');
     }
 
     public function matricular_step1(){
-<<<<<<< HEAD
         $s=$this->nivel_acesso();
         if($s){
             return redirect('/login');
         }
-=======
->>>>>>> 395f8dcc32f55721a95262455dcf2a1f9c2e47c4
+
         return view('admin.secretaria.Matricular_Step_1');
     }
 
     public function matricular_step2(){    
-<<<<<<< HEAD
         $s=$this->nivel_acesso();
         if($s){
             return redirect('/login');
         }
-=======
->>>>>>> 395f8dcc32f55721a95262455dcf2a1f9c2e47c4
+
         return view('admin.secretaria.Matricular_Step_2');
     }
 
     public function matricular_step3(){
-<<<<<<< HEAD
         $s=$this->nivel_acesso();
         if($s){
             return redirect('/login');
@@ -181,8 +132,4 @@ class SecretariaController extends Controller
         return $nivel;
     }
 
-=======
-        return view('admin.secretaria.Matricular_Step_3');
-    }
->>>>>>> 395f8dcc32f55721a95262455dcf2a1f9c2e47c4
 }
