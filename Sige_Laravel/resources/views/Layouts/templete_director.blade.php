@@ -92,15 +92,6 @@
                                     @csrf
                                 </form>
                             @endauth
-                            <li><a href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                                    <i class="fas fa-power-off"></i> Logout</a>
-                            </li>
-                            </ul>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
                         </div>
                     </li>  
                 </div>
