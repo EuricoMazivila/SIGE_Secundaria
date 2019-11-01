@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{{ asset('css/main-menu.css')}}">
     <link rel="stylesheet" href="{{ asset('css/menu-pequeno.css')}}">
     <link rel="stylesheet" href="{{ asset('css/style_templete.css')}}">
-
+    <link rel="stylesheet" href="{{ asset('plugin/DataTables/datatables.css')}}">
     <!-- Optional SmartWizard theme -->
     <link rel="stylesheet" href="{{ asset('js/jquery/smartwizard/css/smart_wizardd.css')}}"/>
     <link rel="stylesheet" href="{{ asset('js/jquery/smartwizard/css/smart_wizard_dots.css')}}"/>
@@ -80,8 +80,15 @@
                             <li role="separator" class="divider"></li>
                             <li><a href="#"><i class="fas fa-power-off ti-settings"></i> Account Setting</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href=""><i class="fas fa-power-off"></i> Logout</a></li>
+                            <li><a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    <i class="fas fa-power-off"></i> Logout</a>
+                            </li>
                             </ul>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                         </div>
                     </li>  
                 </div>

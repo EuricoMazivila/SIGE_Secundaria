@@ -80,8 +80,27 @@
                             <li role="separator" class="divider"></li>
                             <li><a href="#"><i class="fas fa-power-off ti-settings"></i> Account Setting</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href=""><i class="fas fa-power-off"></i> Logout</a></li>
+<<<<<<< HEAD
+                            <li><a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    <i class="fas fa-power-off"></i> Logout</a>
+                            </li>
                             </ul>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+=======
+                            <li><a href="{{ route('logout') }}" >
+                                <i class="fas fa-power-off"></i> Logout</a>
+                            </li>
+                            </ul>
+                            <!--
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                            -->
+>>>>>>> 395f8dcc32f55721a95262455dcf2a1f9c2e47c4
                         </div>
                     </li>  
                 </div>

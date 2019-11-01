@@ -15,7 +15,8 @@
         </div>
 
         <div class="container">
-            <form method="POST" role="form" action="">
+            <form method="POST" role="form" action="{{route('secretaria.registarcandidato.store')}}">
+                @csrf
                 <input type="hidden" name="id_Escola" value='<?php  //echo $id_local;?>'>
                 <div class="form-row">
                     <div class="col-sm-5">
@@ -73,6 +74,9 @@
                         <label for="id_distrito">Distrito da escola de origem</label>
                         <select class="form-control" id="id_distrito" name="distrito" placeholder="Selecione o distrito da escola de origem">
                             <option value="">Selecione o distrito da escola de origem</option>
+                            @foreach($distritos as $distrito)
+                                <option value="{{ $distrito->id_distrito }}">{{ $distrito->Nome}}</option>
+                            @endforeach
                         </select>
                         <div class="help-block with-errors"></div>
                     </div>
@@ -80,6 +84,7 @@
                         <label>Escola de origem</label>
                         <select class="form-control" name="escola" id="id_escola">    
                             <option value="">Selecione a escola de origem</option>
+                            <option value="20190002">Malhazine</option>
                         </select>
                     </div>
                 </div>
