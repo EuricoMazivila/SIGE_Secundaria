@@ -5,7 +5,7 @@ Auth::routes();
 Route::get('/',function(){
     return view('loading');
 });
-*/
+
 
 //Candidato
 Route::group (['middleware' => 'auth'], function(){
