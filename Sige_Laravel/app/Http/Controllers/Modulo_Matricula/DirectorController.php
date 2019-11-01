@@ -16,46 +16,36 @@ class DirectorController extends Controller
     }
 
     public function home(){
-<<<<<<< HEAD
         $s=$this->nivel_acesso();
         if($s){
             return redirect('/login');
         }
-=======
->>>>>>> 395f8dcc32f55721a95262455dcf2a1f9c2e47c4
         return view('admin.director.Home_Page_Director');
     }
 
     public function matricula(){
-<<<<<<< HEAD
         $s=$this->nivel_acesso();
         if($s){
             return redirect('/login');
         }
-=======
->>>>>>> 395f8dcc32f55721a95262455dcf2a1f9c2e47c4
+
         return view('admin.director.Matricula');
     }
 
     public function marcarmatricula(){
-<<<<<<< HEAD
         $s=$this->nivel_acesso();
         if($s){
             return redirect('/login');
         }
-=======
->>>>>>> 395f8dcc32f55721a95262455dcf2a1f9c2e47c4
         return view('admin.director.Marcar_Matricula');
     }
 
     public function listamatriculados(){
-<<<<<<< HEAD
         $s=$this->nivel_acesso();
         if($s){
             return redirect('/login');
         }
-=======
->>>>>>> 395f8dcc32f55721a95262455dcf2a1f9c2e47c4
+
         return view('admin.director.Lista_Matriculados');
     }
 

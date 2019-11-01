@@ -16,13 +16,11 @@ class Candidato_AlunoController extends Controller
     }
 
     public function formulario(){
-<<<<<<< HEAD
         $s=$this->nivel_acesso();
         if($s){
             return redirect('/login');
         }
-=======
->>>>>>> 395f8dcc32f55721a95262455dcf2a1f9c2e47c4
+
         return view('admin.candidato_aluno.Formulario');
     }
 

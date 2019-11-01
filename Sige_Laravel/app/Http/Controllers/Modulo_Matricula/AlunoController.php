@@ -13,8 +13,6 @@ class AlunoController extends Controller
     public function __construct(){
         //obriga a estar logado
         $this->middleware('auth');
-<<<<<<< HEAD
-        
     }
 
     public function home(){
@@ -36,12 +34,6 @@ class AlunoController extends Controller
         }
         return $nivel;
     }
-=======
-    }
 
-    public function home(){
-        return view('admin.aluno.Home_Page_Aluno');
-    }
->>>>>>> 395f8dcc32f55721a95262455dcf2a1f9c2e47c4
     
 }
