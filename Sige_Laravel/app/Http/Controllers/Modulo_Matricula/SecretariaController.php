@@ -18,6 +18,7 @@ class SecretariaController extends Controller
     public function __construct(){
         //obriga a estar logado
         $this->middleware('auth');
+
     }
 
     public function home(){
@@ -59,7 +60,6 @@ class SecretariaController extends Controller
             'escola' => 'required'
         ]);
 
-
         $pessoa=new Pessoa([
             'id_Pessoa' => '2019C0014',
             'nome' => $request->get('nome'),
@@ -99,7 +99,6 @@ class SecretariaController extends Controller
         if($s){
             return redirect('/login');
         }
-
         return view('admin.secretaria.Matricular_Step_1');
     }
 
@@ -108,7 +107,6 @@ class SecretariaController extends Controller
         if($s){
             return redirect('/login');
         }
-
         return view('admin.secretaria.Matricular_Step_2');
     }
 
@@ -131,5 +129,4 @@ class SecretariaController extends Controller
         }
         return $nivel;
     }
-
 }

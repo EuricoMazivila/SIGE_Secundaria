@@ -28,7 +28,6 @@ class DirectorController extends Controller
         if($s){
             return redirect('/login');
         }
-
         return view('admin.director.Matricula');
     }
 
@@ -45,7 +44,6 @@ class DirectorController extends Controller
         if($s){
             return redirect('/login');
         }
-
         return view('admin.director.Lista_Matriculados');
     }
 

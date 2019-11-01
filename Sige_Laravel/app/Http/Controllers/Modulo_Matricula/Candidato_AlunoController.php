@@ -20,7 +20,6 @@ class Candidato_AlunoController extends Controller
         if($s){
             return redirect('/login');
         }
-
         return view('admin.candidato_aluno.Formulario');
     }
 

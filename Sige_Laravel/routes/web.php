@@ -5,6 +5,12 @@ Auth::routes();
 Route::get('/',function(){
     return view('loading');
 });
+*/
+
+//Candidato
+Route::group (['middleware' => 'auth'], function(){
+    Route::get('/Candidato','Modulo_Matricula\\Candidato_AlunoController@formulario')->name('candidato_aluno.formulario');
+}); 
 
 
 //Candidato
@@ -48,5 +54,3 @@ Route::group(['middleware' => 'auth','prefix' => 'Director','namespace' => 'Modu
 Route::group (['middleware' => 'auth'], function(){
     Route::get('/home', 'HomeController@index')->name('home');
 });    
-
-

@@ -34,6 +34,5 @@ class AlunoController extends Controller
         }
         return $nivel;
     }
-
     
 }

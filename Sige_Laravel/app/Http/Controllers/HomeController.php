@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 
-
 class HomeController extends Controller
 {
     /**
@@ -45,6 +44,5 @@ class HomeController extends Controller
         if($nivel_acesso=="Aluno"){
            return redirect('/Aluno');
         }
-
     }
 }
