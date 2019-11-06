@@ -1,7 +1,6 @@
 @extends('Layouts.templete_secretaria')
 @section('titulo','Lista Candidatos')
 
-
 @section('caminho')
     <li><a href="{{ route('secretaria.home') }}">Home</a></li>
     <li><a href="{{ route('secretaria.listacandidatos') }}">Lista de Candidatos</a></li>
