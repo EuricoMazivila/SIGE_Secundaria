@@ -7,8 +7,8 @@
                     <li id="stp1"><a class="step" href="#step-1">Dados Pessoais<br><small>Passo 1</small></a></li>
                     <li id="stp2"><a class="step" href="#step-2">Morada<br><small>Passo 2</small></a></li>
                     <li id="stp3"><a class="step" href="#step-3">Filiação<br><small>Passo 3</small></a></li>
-                    <li id="stp4"><a class="step" href="#step-4">Encarregado<br><small>Passo 4</small></a></li> 
-                    <li id="stp5"><a class="step" href="#step-5">Outros Dados<br><small>Passo 5</small></a></li>  
+                    <li id="stp4"><a class="step" href="#step-4">Encarregado<br><small>Passo 4</small></a></li>
+                    <li id="stp5"><a class="step" href="#step-5">Outros Dados<br><small>Passo 5</small></a></li>
                 </ul>
                 <div>
                     <div id="step-1" class="mt-4">
@@ -22,85 +22,85 @@
                                     <div class="form-group has-feedback col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputSobrenome">Apelido</label>
                                         <?php
-                                            include("../../Dao/conexao.php");
-                                        
-                                            //Estágio 1: Preparação
-                                            $query="SELECT Apelido from pessoa where id_Pessoa=?";
-                                            $stmt=$conexao->prepare($query);
-                                            if(!$stmt){
-                                                echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
-                                            }
-                                    
-                                            // Estágio 2: Associação dos parâmetros (bind)
-                                            $bind=$stmt->bind_param("s",$id_user);
-                                            if(!$bind){
-                                                echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;
-                                            }
-                                    
-                                            // Estágio 3: execução
-                                            if(!$stmt->execute()){
-                                                echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
-                                            }
-                                    
-                                            // Estágio 4: Obtenção de dados
-                                            $res=$stmt->get_result();
-                                            if(!$res){
-                                                echo "A Obtenção do conjunto de resultados falhou: (" . $stmt->errno . ")" . $stmt->error;
-                                            }
-                                    
-                                            if($res->num_rows){
-                                                $linha=$res->fetch_assoc();
-                                                echo '<input type="text" name="apelido" id="inputSobrenome" class="form-control" required 
-                                                placeholder="Introduza o Apelido" value="'.$linha['Apelido'].'" data-error="Por favor, introduza texto" 
+                                        include("../../Dao/conexao.php");
+
+                                        //Estágio 1: Preparação
+                                        $query = "SELECT Apelido from pessoa where id_Pessoa=?";
+                                        $stmt = $conexao->prepare($query);
+                                        if (!$stmt) {
+                                            echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
+                                        }
+
+                                        // Estágio 2: Associação dos parâmetros (bind)
+                                        $bind = $stmt->bind_param("s", $id_user);
+                                        if (!$bind) {
+                                            echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;
+                                        }
+
+                                        // Estágio 3: execução
+                                        if (!$stmt->execute()) {
+                                            echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
+                                        }
+
+                                        // Estágio 4: Obtenção de dados
+                                        $res = $stmt->get_result();
+                                        if (!$res) {
+                                            echo "A Obtenção do conjunto de resultados falhou: (" . $stmt->errno . ")" . $stmt->error;
+                                        }
+
+                                        if ($res->num_rows) {
+                                            $linha = $res->fetch_assoc();
+                                            echo '<input type="text" name="apelido" id="inputSobrenome" class="form-control" required 
+                                                placeholder="Introduza o Apelido" value="' . $linha['Apelido'] . '" data-error="Por favor, introduza texto" 
                                                 data-pattern-error="Texto invalido. Introduza letras de (3-20) caracteres" 
                                                 required pattern="^[a-zA-Z][a-zA-Z-_\.]{2,}$">';
-                                            }
-                                            $stmt->close();
-                                            $conexao->close();
+                                        }
+                                        $stmt->close();
+                                        $conexao->close();
                                         ?>
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12  col-sm-12 col-md-4 offset-1">
                                         <label for="inputNome">Outros Nomes</label>
                                         <?php
-                                            include("../../Dao/conexao.php");
-                                            //Estágio 1: Preparação
-                                            $query="SELECT Nome from pessoa where id_Pessoa=?";
-                                            $stmt=$conexao->prepare($query);
-                                            if(!$stmt){
-                                                echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
-                                            }
-                                    
-                                            // Estágio 2: Associação dos parâmetros (bind)
-                                            
-                                            
-                                            $bind=$stmt->bind_param("s",$id_user);
-                                            if(!$bind){
-                                                echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;
-                                            }
-                                    
-                                            // Estágio 3: execução
-                                            if(!$stmt->execute()){
-                                                echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
-                                            }
-                                    
-                                            // Estágio 4: Obtenção de dados
-                                            $res=$stmt->get_result();
-                                            if(!$res){
-                                                echo "A Obtenção do conjunto de resultados falhou: (" . $stmt->errno . ")" . $stmt->error;
-                                            }
-                                    
-                                            if($res->num_rows){
-                                                $linha=$res->fetch_assoc();
-                                                echo '<input type="text" name="nome" id="inputNome" class="form-control" 
+                                        include("../../Dao/conexao.php");
+                                        //Estágio 1: Preparação
+                                        $query = "SELECT Nome from pessoa where id_Pessoa=?";
+                                        $stmt = $conexao->prepare($query);
+                                        if (!$stmt) {
+                                            echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
+                                        }
+
+                                        // Estágio 2: Associação dos parâmetros (bind)
+
+
+                                        $bind = $stmt->bind_param("s", $id_user);
+                                        if (!$bind) {
+                                            echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;
+                                        }
+
+                                        // Estágio 3: execução
+                                        if (!$stmt->execute()) {
+                                            echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
+                                        }
+
+                                        // Estágio 4: Obtenção de dados
+                                        $res = $stmt->get_result();
+                                        if (!$res) {
+                                            echo "A Obtenção do conjunto de resultados falhou: (" . $stmt->errno . ")" . $stmt->error;
+                                        }
+
+                                        if ($res->num_rows) {
+                                            $linha = $res->fetch_assoc();
+                                            echo '<input type="text" name="nome" id="inputNome" class="form-control" 
                                                 required data-error="Por favor, introduza texto" 
                                                 data-pattern-error="Texto invalido. Introduza letras de a-z (3-20) caracteres" 
-                                                required pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{3,}$" value="'.$linha['Nome'].'" placeholder="Introduza o Nome">';        
-                                            }
-                                
-                                            $stmt->close();
-                                            $conexao->close();
-                                        ?>             
+                                                required pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{3,}$" value="' . $linha['Nome'] . '" placeholder="Introduza o Nome">';
+                                        }
+
+                                        $stmt->close();
+                                        $conexao->close();
+                                        ?>
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
@@ -110,26 +110,26 @@
                                         <label for="inputNacionalidade">Nacionalidade</label>
                                         <select class="form-control" name="pais_nas" id="inputNacionalidade" required placeholder="Seleciona a Nacionalidade">
                                             <option value="">Seleciona a Nacionalidade</option>
-                                            <?php 
-                                                //require_once("../../Dao/conexao.php"); 
-                                                include("../../Dao/conexao.php");
-                                                $query="SELECT id_Pais,Nome from pais";
-                                                $resultado=$conexao->query($query);
-                                                if(!$resultado){
-                                                    echo "Erro";
-                                                }
+                                            <?php
+                                            //require_once("../../Dao/conexao.php"); 
+                                            include("../../Dao/conexao.php");
+                                            $query = "SELECT id_Pais,Nome from pais";
+                                            $resultado = $conexao->query($query);
+                                            if (!$resultado) {
+                                                echo "Erro";
+                                            }
 
-                                                $linhas=$resultado->num_rows;   
+                                            $linhas = $resultado->num_rows;
 
-                                                for($j=0; $j<$linhas; ++$j){
-                                                    $resultado->data_seek($j);
-                                                    $linha=$resultado->fetch_array(MYSQLI_ASSOC);
-                                                    echo '<option value="'.$linha['id_Pais'].'">'.$linha['Nome'].'</option>';
-                                                }
-                                                
-                                                //Fecha a conexao
-                                                $resultado->close();
-                                                $conexao->close();
+                                            for ($j = 0; $j < $linhas; ++$j) {
+                                                $resultado->data_seek($j);
+                                                $linha = $resultado->fetch_array(MYSQLI_ASSOC);
+                                                echo '<option value="' . $linha['id_Pais'] . '">' . $linha['Nome'] . '</option>';
+                                            }
+
+                                            //Fecha a conexao
+                                            $resultado->close();
+                                            $conexao->close();
                                             ?>
                                         </select>
                                         <div class="help-block with-errors text-danger"></div>
@@ -137,7 +137,7 @@
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputProvincia">Província de Nascimento</label>
                                         <select class="form-control" name="provincia_nas" id="inputProvincia" required>
-                                            <option value="">Seleciona a provincia</option>    
+                                            <option value="">Seleciona a provincia</option>
                                         </select>
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
@@ -147,14 +147,13 @@
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputDistrito">Distrito de Nascimento</label>
                                         <select class="form-control" name="distrito_nas" id="inputDistrito" required placeholder="Seleciona o Distrito">
-                                            <option value="">Seleciona o distrito</option> 
+                                            <option value="">Seleciona o distrito</option>
                                         </select>
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputDataNascimnto"> Data de Nascimento</label>
-                                        <input type="date" max="<?php echo (date('Y')-9).'-12-31';?>" data-error="Por favor, introduza data valida" data-pattern-error="Por favor, introduza uma data valida" name="data_nas" id="inputDataNascimnto" name="data_nas"
-                                            class="form-control" required maxlength="10">
+                                        <input type="date" max="<?php echo (date('Y') - 9) . '-12-31'; ?>" data-error="Por favor, introduza data valida" data-pattern-error="Por favor, introduza uma data valida" name="data_nas" id="inputDataNascimnto" name="data_nas" class="form-control" required maxlength="10">
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
@@ -173,7 +172,7 @@
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputBinr">Documento de Identificação Nr</label>
-                                        <input type="text" class="form-control" name="nrBI" id="inputBinr" required placeholder="Introduza o nr do documento de identificacao"  data-pattern-error="Por favor, introduza o texto requerido" data-error="Por favor, introduza texto">
+                                        <input type="text" class="form-control" name="nrBI" id="inputBinr" required placeholder="Introduza o nr do documento de identificacao" data-pattern-error="Por favor, introduza o texto requerido" data-error="Por favor, introduza texto">
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
@@ -183,33 +182,32 @@
                                         <label for="inputArquivo">Arquivo de Identificação</label>
                                         <select class="form-control" name="local_em" id="inputArquivo" required>
                                             <option value="1">Selecione o Arquivo de identificacao</option>
-                                            <?php 
-                                                include("../../Dao/conexao.php");
-                                                $query="SELECT id_Prov,Nome from provincia";
-                                                $resultado=$conexao->query($query);
-                                                if(!$resultado){
-                                                    echo "Erro";
-                                                }
+                                            <?php
+                                            include("../../Dao/conexao.php");
+                                            $query = "SELECT id_Prov,Nome from provincia";
+                                            $resultado = $conexao->query($query);
+                                            if (!$resultado) {
+                                                echo "Erro";
+                                            }
 
-                                                $linhas=$resultado->num_rows;   
+                                            $linhas = $resultado->num_rows;
 
-                                                for($j=0; $j<$linhas; ++$j){
-                                                    $resultado->data_seek($j);
-                                                    $linha=$resultado->fetch_array(MYSQLI_ASSOC);
-                                                    echo '<option value="'.$linha['id_Prov'].'">'.$linha['Nome'].'</option>';
-                                                }
-                                                
-                                                //Fecha a conexao
-                                                $resultado->close();
-                                                $conexao->close();
-                                            ?>   
-                                        </select>    
+                                            for ($j = 0; $j < $linhas; ++$j) {
+                                                $resultado->data_seek($j);
+                                                $linha = $resultado->fetch_array(MYSQLI_ASSOC);
+                                                echo '<option value="' . $linha['id_Prov'] . '">' . $linha['Nome'] . '</option>';
+                                            }
+
+                                            //Fecha a conexao
+                                            $resultado->close();
+                                            $conexao->close();
+                                            ?>
+                                        </select>
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputDataEm">Data de Emissão</label>
-                                        <input type="date" min="<?php echo (date('Y')-9).'-12-31';?>" max="<?php echo (date('Y')).'-12-31';?>" data-error="Por favor, introduza data valida" name="dataEmissao" id="inputDataEm" class="form-control"
-                                            required>
+                                        <input type="date" min="<?php echo (date('Y') - 9) . '-12-31'; ?>" max="<?php echo (date('Y')) . '-12-31'; ?>" data-error="Por favor, introduza data valida" name="dataEmissao" id="inputDataEm" class="form-control" required>
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
@@ -220,46 +218,45 @@
                                         <select class="form-control" name="sexo" id="inputSexo" required>
                                             <option value="">Seleciona o Sexo</option>
                                             <?php
-                                                include("../../Dao/conexao.php");
-                                                
-                                                //Estágio 1: Preparação
-                                                $query="SELECT Nome from pessoa where id_Pessoa=?";
-                                                $stmt=$conexao->prepare($query);
-                                                if(!$stmt){
-                                                    echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
+                                            include("../../Dao/conexao.php");
+
+                                            //Estágio 1: Preparação
+                                            $query = "SELECT Nome from pessoa where id_Pessoa=?";
+                                            $stmt = $conexao->prepare($query);
+                                            if (!$stmt) {
+                                                echo "Preparação Falhou: (" . $conexao->errno . ")" . $conexao->error;
+                                            }
+
+                                            // Estágio 2: Associação dos parâmetros (bind)    
+                                            $bind = $stmt->bind_param("s", $id_user);
+                                            if (!$bind) {
+                                                echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;
+                                            }
+
+                                            // Estágio 3: execução
+                                            if (!$stmt->execute()) {
+                                                echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
+                                            }
+
+                                            // Estágio 4: Obtenção de dados
+                                            $res = $stmt->get_result();
+                                            if (!$res) {
+                                                echo "A Obtenção do conjunto de resultados falhou: (" . $stmt->errno . ")" . $stmt->error;
+                                            }
+
+                                            if ($res->num_rows) {
+                                                $linha = $res->fetch_assoc();
+                                                if ($linha['Sexo'] == 'M') {
+                                                    echo '<option selected value="M">Masculino</option>';
+                                                    echo '<option value="F">Femenino</option>';
+                                                } else {
+                                                    echo '<option value="M">Masculino</option>';
+                                                    echo '<option selected value="F">Femenino</option>';
                                                 }
-                                        
-                                                // Estágio 2: Associação dos parâmetros (bind)    
-                                                $bind=$stmt->bind_param("s",$id_user);
-                                                if(!$bind){
-                                                    echo "Parâmetros de ligação falhou: (" . $stmt->errno . ")" . $stmt->error;
-                                                }
-                                        
-                                                // Estágio 3: execução
-                                                if(!$stmt->execute()){
-                                                    echo "Execução falhou: (" . $stmt->errno . ")" . $stmt->error;
-                                                }
-                                        
-                                                // Estágio 4: Obtenção de dados
-                                                $res=$stmt->get_result();
-                                                if(!$res){
-                                                    echo "A Obtenção do conjunto de resultados falhou: (" . $stmt->errno . ")" . $stmt->error;
-                                                }
-                                        
-                                                if($res->num_rows){
-                                                    $linha=$res->fetch_assoc();
-                                                    if($linha['Sexo']=='M'){
-                                                        echo '<option selected value="M">Masculino</option>';
-                                                        echo '<option value="F">Femenino</option>';
-        
-                                                    }else{
-                                                        echo '<option value="M">Masculino</option>';
-                                                        echo '<option selected value="F">Femenino</option>';       
-                                                    }           
-                                                }
-                                                $stmt->close();
-                                                $conexao->close();
-                                            ?>                                        
+                                            }
+                                            $stmt->close();
+                                            $conexao->close();
+                                            ?>
                                         </select>
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
@@ -333,26 +330,26 @@
                                             <label for="inputProvincia_res">Província</label>
                                             <select class="form-control" name="provincia_res" id="inputProvincia_res" required placeholder="Seleciona a Província">
                                                 <option value="">Seleciona a Provincia</option>
-                                                <?php 
-                                                    include("../../Dao/conexao.php");
-                                                    //include_once("../../Dao/conexao.php");
-                                                    $query="SELECT id_Prov,Nome from provincia";
-                                                    $resultado=$conexao->query($query);
-                                                    if(!$resultado){
-                                                        echo "Erro";
-                                                    }
+                                                <?php
+                                                include("../../Dao/conexao.php");
+                                                //include_once("../../Dao/conexao.php");
+                                                $query = "SELECT id_Prov,Nome from provincia";
+                                                $resultado = $conexao->query($query);
+                                                if (!$resultado) {
+                                                    echo "Erro";
+                                                }
 
-                                                    $linhas=$resultado->num_rows;   
+                                                $linhas = $resultado->num_rows;
 
-                                                    for($j=0; $j<$linhas; ++$j){
-                                                        $resultado->data_seek($j);
-                                                        $linha=$resultado->fetch_array(MYSQLI_ASSOC);
-                                                        echo '<option value="'.$linha['id_Prov'].'">'.$linha['Nome'].'</option>';
-                                                    }
-                                                    
-                                                    //Fecha a conexao
-                                                    $resultado->close();
-                                                    $conexao->close();    
+                                                for ($j = 0; $j < $linhas; ++$j) {
+                                                    $resultado->data_seek($j);
+                                                    $linha = $resultado->fetch_array(MYSQLI_ASSOC);
+                                                    echo '<option value="' . $linha['id_Prov'] . '">' . $linha['Nome'] . '</option>';
+                                                }
+
+                                                //Fecha a conexao
+                                                $resultado->close();
+                                                $conexao->close();
                                                 ?>
                                             </select>
                                             <div class="help-block with-errors text-danger"></div>
@@ -361,7 +358,7 @@
                                             <label for="inputDistrito_res">Distrito</label>
                                             <select class="form-control" name="distrito_res" id="inputDistrito_res" required placeholder="Seleciona o Distrito">
                                                 <option value="">Seleciona o distrito</option>
-                                            </select>    
+                                            </select>
                                             <div class="help-block with-errors text-danger"></div>
                                         </div>
                                     </div>
@@ -378,8 +375,7 @@
                                         </div>
                                         <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                             <label for="inputAvenida">AV/Rua</label>
-                                            <input type="text" data-error="Por favor, introduza texto" data-pattern-error="Texto invalido. Introduza letras de (10-20) caracteres" required pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{10,}$" class="form-control" name="avenida" id="inputAvenida" required
-                                            placeholder="Introduza A Av/Rua">
+                                            <input type="text" data-error="Por favor, introduza texto" data-pattern-error="Texto invalido. Introduza letras de (10-20) caracteres" required pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{10,}$" class="form-control" name="avenida" id="inputAvenida" required placeholder="Introduza A Av/Rua">
                                             <div class="help-block with-errors text-danger"></div>
                                         </div>
                                     </div>
@@ -387,15 +383,12 @@
                                     <div class="row">
                                         <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                             <label for="inputQuarterao">Quarteirão</label>
-                                            <input type="number" class="form-control" data-error="Por favor, introduza valor" required name="quarteirao_res"
-                                                id="inputQuarterao" required
-                                                placeholder="Introduza Numero de Quarteirão">
+                                            <input type="number" class="form-control" data-error="Por favor, introduza valor" required name="quarteirao_res" id="inputQuarterao" required placeholder="Introduza Numero de Quarteirão">
                                             <div class="help-block with-errors text-danger"></div>
                                         </div>
                                         <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                             <label for="inputCasa">Casa Nr</label>
-                                            <input type="number" data-error="Por favor, introduza valor" class="form-control" name="nrCasa_res" id="inputCasa"
-                                                required placeholder="Introduza Numero da casa">
+                                            <input type="number" data-error="Por favor, introduza valor" class="form-control" name="nrCasa_res" id="inputCasa" required placeholder="Introduza Numero da casa">
                                             <div class="help-block with-errors text-danger"></div>
                                         </div>
                                     </div>
@@ -407,14 +400,12 @@
                                     <div class="row">
                                         <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                             <label for="inputTel">Número de Telefone</label>
-                                            <input type="number" data-error="Por favor, introduza valor" class="form-control" name="nr_Tell" id="inputTel"
-                                                required placeholder="Introduza Numero de Telefone">
+                                            <input type="number" data-error="Por favor, introduza valor" class="form-control" name="nr_Tell" id="inputTel" required placeholder="Introduza Numero de Telefone">
                                             <div class="help-block with-errors text-danger"></div>
                                         </div>
                                         <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                             <label for="inputEmail">Email</label>
-                                            <input type="email" class="form-control" data-error="Por favor, introduza valor" name="email" id="inputEmail"
-                                                required placeholder="Introduza o email">
+                                            <input type="email" class="form-control" data-error="Por favor, introduza valor" name="email" id="inputEmail" required placeholder="Introduza o email">
                                             <div class="help-block with-errors text-danger"></div>
                                         </div>
                                     </div>
@@ -432,14 +423,12 @@
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputNomep">Nome do Pai</label>
-                                        <input type="text" data-error="Por favor, introduza texto" data-pattern-error="Texto invalido. Introduza letras de (3-20) caracteres" required pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{3,}$" class="form-control" name="nomePai" id="inputNomep" required
-                                            placeholder="Introduza ">
+                                        <input type="text" data-error="Por favor, introduza texto" data-pattern-error="Texto invalido. Introduza letras de (3-20) caracteres" required pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{3,}$" class="form-control" name="nomePai" id="inputNomep" required placeholder="Introduza ">
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputTelP">Telefone</label>
-                                        <input type="number" data-error="Por favor, introduza valor" required class="form-control" name="telefonePai" id="inputTelp"
-                                            required placeholder="Introduza ">
+                                        <input type="number" data-error="Por favor, introduza valor" required class="form-control" name="telefonePai" id="inputTelp" required placeholder="Introduza ">
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
@@ -449,34 +438,33 @@
                                         <label for="inputLocp">Local de Trabalho</label>
                                         <select class="form-control" name="localTrabPai" id="inputLocp" required placeholder="Introduza">
                                             <option value="">Selecione o local de trabalho</option>
-                                            <?php 
-                                                include("../../Dao/conexao.php");
-                                                //include_once("../../Dao/conexao.php");
-                                                $query="SELECT id_Prov,Nome from provincia";
-                                                $resultado=$conexao->query($query);
-                                                if(!$resultado){
-                                                    echo "Erro";
-                                                }
+                                            <?php
+                                            include("../../Dao/conexao.php");
+                                            //include_once("../../Dao/conexao.php");
+                                            $query = "SELECT id_Prov,Nome from provincia";
+                                            $resultado = $conexao->query($query);
+                                            if (!$resultado) {
+                                                echo "Erro";
+                                            }
 
-                                                $linhas=$resultado->num_rows;   
+                                            $linhas = $resultado->num_rows;
 
-                                                for($j=0; $j<$linhas; ++$j){
-                                                    $resultado->data_seek($j);
-                                                    $linha=$resultado->fetch_array(MYSQLI_ASSOC);
-                                                    echo '<option value="'.$linha['id_Prov'].'">'.$linha['Nome'].'</option>';
-                                                }
-                                                
-                                                //Fecha a conexao
-                                                $resultado->close();
-                                                $conexao->close();
+                                            for ($j = 0; $j < $linhas; ++$j) {
+                                                $resultado->data_seek($j);
+                                                $linha = $resultado->fetch_array(MYSQLI_ASSOC);
+                                                echo '<option value="' . $linha['id_Prov'] . '">' . $linha['Nome'] . '</option>';
+                                            }
+
+                                            //Fecha a conexao
+                                            $resultado->close();
+                                            $conexao->close();
                                             ?>
-                                        <select>
-                                        <div class="help-block with-errors text-danger"></div>
+                                            <select>
+                                                <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputProfp">Profissão</label>
-                                        <input type="text" data-error="Por favor, introduza texto" data-pattern-error="Texto invalido. Introduza letras de (3-20) caracteres" required pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{3,}$" class="form-control" name="profissaoPai" id="inputProfp"
-                                            required placeholder="Introduza ">
+                                        <input type="text" data-error="Por favor, introduza texto" data-pattern-error="Texto invalido. Introduza letras de (3-20) caracteres" required pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{3,}$" class="form-control" name="profissaoPai" id="inputProfp" required placeholder="Introduza ">
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
@@ -485,14 +473,12 @@
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputNomem">Nome da Mãe</label>
-                                        <input type="text" data-error="Por favor, introduza texto" data-pattern-error="Texto invalido. Introduza letras de (3-20) caracteres" required pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{3,}$" class="form-control" name="nomeMae" id="inputNomem" required
-                                            placeholder="Introduza ">
+                                        <input type="text" data-error="Por favor, introduza texto" data-pattern-error="Texto invalido. Introduza letras de (3-20) caracteres" required pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{3,}$" class="form-control" name="nomeMae" id="inputNomem" required placeholder="Introduza ">
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputTelm">Telefone</label>
-                                        <input type="number" data-error="Por favor, introduza valor"  class="form-control" name="telefoneMae" id="inputTelm"
-                                            required placeholder="Introduza ">
+                                        <input type="number" data-error="Por favor, introduza valor" class="form-control" name="telefoneMae" id="inputTelm" required placeholder="Introduza ">
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
@@ -503,33 +489,32 @@
                                         <label for="inputLocm">Local de Trabalho</label>
                                         <select class="form-control" name="localTrabMae" id="inputLocm" required placeholder="Introduza">
                                             <option value="">Selecione o local de trabalho</option>
-                                            <?php 
-                                                include("../../Dao/conexao.php");
-                                                //include_once("../../Dao/conexao.php");
-                                                $query="SELECT id_Prov,Nome from provincia";
-                                                $resultado=$conexao->query($query);
-                                                if(!$resultado){
-                                                    echo "Erro";
-                                                }
+                                            <?php
+                                            include("../../Dao/conexao.php");
+                                            //include_once("../../Dao/conexao.php");
+                                            $query = "SELECT id_Prov,Nome from provincia";
+                                            $resultado = $conexao->query($query);
+                                            if (!$resultado) {
+                                                echo "Erro";
+                                            }
 
-                                                $linhas=$resultado->num_rows;   
+                                            $linhas = $resultado->num_rows;
 
-                                                for($j=0; $j<$linhas; ++$j){
-                                                    $resultado->data_seek($j);
-                                                    $linha=$resultado->fetch_array(MYSQLI_ASSOC);
-                                                    echo '<option value="'.$linha['id_Prov'].'">'.$linha['Nome'].'</option>';
-                                                }
-                                                //Fecha a conexao
-                                                $resultado->close();
-                                                $conexao->close();  
+                                            for ($j = 0; $j < $linhas; ++$j) {
+                                                $resultado->data_seek($j);
+                                                $linha = $resultado->fetch_array(MYSQLI_ASSOC);
+                                                echo '<option value="' . $linha['id_Prov'] . '">' . $linha['Nome'] . '</option>';
+                                            }
+                                            //Fecha a conexao
+                                            $resultado->close();
+                                            $conexao->close();
                                             ?>
-                                        <select>
-                                        <div class="help-block with-errors text-danger"></div>
+                                            <select>
+                                                <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputProfm">Profissão</label>
-                                        <input type="text"  data-error="Por favor, introduza texto" data-pattern-error="Texto invalido. Introduza letras de (3-20) caracteres" required pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{3,}$" class="form-control" name="profissaoMae" id="inputProfm"
-                                            required placeholder="Introduza ">
+                                        <input type="text" data-error="Por favor, introduza texto" data-pattern-error="Texto invalido. Introduza letras de (3-20) caracteres" required pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{3,}$" class="form-control" name="profissaoMae" id="inputProfm" required placeholder="Introduza ">
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
@@ -561,14 +546,12 @@
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputNomeenc">Nome do Encarregado</label>
-                                        <input type="text" data-error="Por favor, introduza texto" data-pattern-error="Texto invalido. Introduza letras de (3-20) caracteres" required pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{3,}$" class="form-control" name="nomeEnc" required
-                                            id="inputNomeenc" placeholder="Introduza ">
+                                        <input type="text" data-error="Por favor, introduza texto" data-pattern-error="Texto invalido. Introduza letras de (3-20) caracteres" required pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{3,}$" class="form-control" name="nomeEnc" required id="inputNomeenc" placeholder="Introduza ">
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputTelEnc">Telefone</label>
-                                        <input type="number" data-error="Por favor, introduza valor" class="form-control" name="telefoneEnc" required
-                                            id="inputTelEnc" placeholder="Introduza ">
+                                        <input type="number" data-error="Por favor, introduza valor" class="form-control" name="telefoneEnc" required id="inputTelEnc" placeholder="Introduza ">
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
@@ -579,23 +562,23 @@
                                         <label for="inputprovincEnc">Provincia de Residencia</label>
                                         <select class="form-control" name="provinciaEnc" id="inputprovincEnc" required placeholder="Selecione uma opcao">
                                             <option value="">Selecione a provincia</option>
-                                            <?php 
-                                                include("../../Dao/conexao.php");
-                                                //include_once("../../Dao/conexao.php");
-                                                $query="SELECT id_Prov,Nome from provincia";
-                                                $resultado=$conexao->query($query);
-                                                if(!$resultado){
-                                                    echo "Erro";
-                                                }
-                                                $linhas=$resultado->num_rows;   
-                                                for($j=0; $j<$linhas; ++$j){
-                                                    $resultado->data_seek($j);
-                                                    $linha=$resultado->fetch_array(MYSQLI_ASSOC);
-                                                    echo '<option value="'.$linha['id_Prov'].'">'.$linha['Nome'].'</option>';
-                                                }
-                                                //Fecha a conexao
-                                                $resultado->close();
-                                                $conexao->close();  
+                                            <?php
+                                            include("../../Dao/conexao.php");
+                                            //include_once("../../Dao/conexao.php");
+                                            $query = "SELECT id_Prov,Nome from provincia";
+                                            $resultado = $conexao->query($query);
+                                            if (!$resultado) {
+                                                echo "Erro";
+                                            }
+                                            $linhas = $resultado->num_rows;
+                                            for ($j = 0; $j < $linhas; ++$j) {
+                                                $resultado->data_seek($j);
+                                                $linha = $resultado->fetch_array(MYSQLI_ASSOC);
+                                                echo '<option value="' . $linha['id_Prov'] . '">' . $linha['Nome'] . '</option>';
+                                            }
+                                            //Fecha a conexao
+                                            $resultado->close();
+                                            $conexao->close();
                                             ?>
                                         </select>
                                         <div class="help-block with-errors text-danger"></div>
@@ -622,8 +605,7 @@
                                     <!--Tirar-->
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputAv">Av/Rua</label>
-                                        <input type="text" data-error="Por favor, introduza texto" data-pattern-error="Texto invalido. Introduza letras de (10-20) caracteres" required pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{10,}$" class="form-control" name="av_rua_enc" id="inputAv" required
-                                            placeholder="Introduza A Av/Rua">
+                                        <input type="text" data-error="Por favor, introduza texto" data-pattern-error="Texto invalido. Introduza letras de (10-20) caracteres" required pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{10,}$" class="form-control" name="av_rua_enc" id="inputAv" required placeholder="Introduza A Av/Rua">
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
@@ -634,33 +616,32 @@
                                         <label for="inputLocenc">Local de Trabalho</label>
                                         <select class="form-control" name="localTrabEnc" required id="inputLocenc" placeholder="Introduza ">
                                             <option value="">Selecione o local de trabalho</option>
-                                            <?php 
-                                                include("../../Dao/conexao.php");
-                                                //include_once("../../Dao/conexao.php");
-                                                $query="SELECT id_Prov,Nome from provincia";
-                                                $resultado=$conexao->query($query);
-                                                if(!$resultado){
-                                                    echo "Erro";
-                                                }
+                                            <?php
+                                            include("../../Dao/conexao.php");
+                                            //include_once("../../Dao/conexao.php");
+                                            $query = "SELECT id_Prov,Nome from provincia";
+                                            $resultado = $conexao->query($query);
+                                            if (!$resultado) {
+                                                echo "Erro";
+                                            }
 
-                                                $linhas=$resultado->num_rows;   
+                                            $linhas = $resultado->num_rows;
 
-                                                for($j=0; $j<$linhas; ++$j){
-                                                    $resultado->data_seek($j);
-                                                    $linha=$resultado->fetch_array(MYSQLI_ASSOC);
-                                                    echo '<option value="'.$linha['id_Prov'].'">'.$linha['Nome'].'</option>';
-                                                }
-                                                //Fecha a conexao
-                                                $resultado->close();
-                                                $conexao->close();  
+                                            for ($j = 0; $j < $linhas; ++$j) {
+                                                $resultado->data_seek($j);
+                                                $linha = $resultado->fetch_array(MYSQLI_ASSOC);
+                                                echo '<option value="' . $linha['id_Prov'] . '">' . $linha['Nome'] . '</option>';
+                                            }
+                                            //Fecha a conexao
+                                            $resultado->close();
+                                            $conexao->close();
                                             ?>
                                         </select>
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-12 col-md-4 offset-1">
                                         <label for="inputProfenc">Profissão</label>
-                                        <input type="text" data-error="Por favor, introduza texto" data-pattern-error="Texto invalido. Introduza letras de (3-20) caracteres" required pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{3,}$" class="form-control" name="profissaoEnc" required
-                                            id="inputProfenc" placeholder="Introduza ">
+                                        <input type="text" data-error="Por favor, introduza texto" data-pattern-error="Texto invalido. Introduza letras de (3-20) caracteres" required pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{3,}$" class="form-control" name="profissaoEnc" required id="inputProfenc" placeholder="Introduza ">
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
@@ -688,7 +669,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>    
+                                            </div>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -703,8 +684,7 @@
                                                         <label for="inputSofd">Sofre de Alguma doença</label>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-3">
-                                                        <select class="form-control" name="_sofre_doenca" id="inputSofd"
-                                                            aria-placeholder="Selecione uma opcao">
+                                                        <select class="form-control" name="_sofre_doenca" id="inputSofd" aria-placeholder="Selecione uma opcao">
                                                             <option>Não</option>
                                                             <option>Sim</option>
                                                         </select>
@@ -715,8 +695,7 @@
                                         <div class="col-xs-12 col-sm-12 col-md-4">
                                             <div class="form-group offset-1">
                                                 <label for="inputInd" id="lab">Em caso afirmativo indique-a</label>
-                                                <textarea class="form-control" rows="5" name="_se_sim" cols="10"
-                                                    id="inputInd"></textarea>
+                                                <textarea class="form-control" rows="5" name="_se_sim" cols="10" id="inputInd"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -728,10 +707,10 @@
                 </div>
                 <!---->
             </div>
-            <input type="hidden" name="id_candidado" value='<?php echo $id_user;?>'>
-            <input type="hidden" name="id_escola" value='<?php echo $id_local;?>'>
+            <input type="hidden" name="id_candidado" value='<?php echo $id_user; ?>'>
+            <input type="hidden" name="id_escola" value='<?php echo $id_local; ?>'>
             <input type="submit" name="concluir">
             <!-- <a id="matriculate" href="ReverDados.php" class="btn btn-success">Concluir</a>-->
-                <!--<button class="btn btn-success" id="matriculate">Submeter</button>-->
+            <!--<button class="btn btn-success" id="matriculate">Submeter</button>-->
         </form>
     </div>

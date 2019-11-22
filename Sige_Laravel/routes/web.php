@@ -2,21 +2,29 @@
 
 Auth::routes();
 
-Route::get('/',function(){
+/*Route::get('/',function(){
     return view('loading');
+});*/
+
+Route::get('/','Controller@index')->name('index');
+Route::get('/about','Controller@about')->name('index.about');
+Route::get('/contact','Controller@contact')->name('index.contact');
+Route::get('/events','Controller@events')->name('index.events');
+Route::get('/gallery','Controller@gallery')->name('index.gallery');
+Route::get('/news','Controller@news')->name('index.news');
+
+
+
+//Candidato
+Route::group (['middleware' => 'auth'], function(){
+    Route::get('/Candidato','Modulo_Matricula\\Candidato_AlunoController@formulario')->name('candidato_aluno.formulario');
 });
 
 
 //Candidato
 Route::group (['middleware' => 'auth'], function(){
     Route::get('/Candidato','Modulo_Matricula\\Candidato_AlunoController@formulario')->name('candidato_aluno.formulario');
-}); 
-
-
-//Candidato
-Route::group (['middleware' => 'auth'], function(){
-    Route::get('/Candidato','Modulo_Matricula\\Candidato_AlunoController@formulario')->name('candidato_aluno.formulario');
-}); 
+});
 
 //Aluno
 Route::group(['middleware' =>'auth','prefix' => 'Aluno','namespace' => 'Modulo_Matricula'], function(){
@@ -29,7 +37,7 @@ Route::group (['middleware' =>'auth',], function(){
 });
 
 
-//Secretaria 
+//Secretaria
 Route::group(['middleware' =>'auth','prefix' => 'Secretaria','namespace' => 'Modulo_Matricula'], function(){
     Route::get('/','SecretariaController@home')->name('secretaria.home');//Para home page de secretaria
     Route::get('/ListaCandidatos','SecretariaController@listacandidatos')->name('secretaria.listacandidatos');
@@ -47,10 +55,10 @@ Route::group(['middleware' => 'auth','prefix' => 'Director','namespace' => 'Modu
     Route::get('/','DirectorController@home')->name('director.home'); //Para home page do director
     Route::get('/Matricula','DirectorController@matricula')->name('director.matricula');
     Route::get('/Matricula/Marcar','DirectorController@marcarmatricula')->name('director.marcarmatricula');
-    Route::get('/Matricula/ListaMatriculados','DirectorController@listamatriculados')->name('director.lista_matriculados');    
+    Route::get('/Matricula/ListaMatriculados','DirectorController@listamatriculados')->name('director.lista_matriculados');
 });
 
 
 Route::group (['middleware' => 'auth'], function(){
     Route::get('/home', 'HomeController@index')->name('home');
-});    
+});

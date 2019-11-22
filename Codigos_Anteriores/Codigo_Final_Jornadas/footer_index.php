@@ -75,6 +75,5 @@
     <script src="js/scripts.min.js"></script>
     <script src="js/main.min.js"></script>
     <script src="sjs/custom.js"></script>
-
   </body>
 </html>

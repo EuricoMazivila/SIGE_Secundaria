@@ -1,15 +1,3 @@
-<link rel="stylesheet" type="text/css" href="_css/styles-merged.css.map">
-<link rel="stylesheet" type="text/css" href="_css/style.css">
-<link rel="stylesheet" type="text/css" href="_css/default-skin/default-skin.css">
-<link rel="stylesheet" type="text/css" href="_css/vendor/animate.css">
-<link rel="stylesheet" type="text/css" href="_css/vendor/default-skin.css">
-<link rel="stylesheet" type="text/css" href="_css/vendor/flexslider.css">
-<link rel="stylesheet" type="text/css" href="_css/vendor/icomoon.css">
-<link rel="stylesheet" type="text/css" href="_css/vendor/magnific-popup.css">
-<link rel="stylesheet" type="text/css" href="_css/vendor/owl.carousel.min.css">
-<link rel="stylesheet" type="text/css" href="_css/vendor/owl.theme.default.min.css">
-<link rel="stylesheet" type="text/css" href="_css/vendor/ophotoswipe.css">
-
 <?php include("header_index.php");?>
       <section class="flexslider">
         <ul class="slides">
@@ -294,9 +282,4 @@
         </div>
       </section>
 
-    
-
-      
-      
-  
       <?php include("footer_index.php");?>
