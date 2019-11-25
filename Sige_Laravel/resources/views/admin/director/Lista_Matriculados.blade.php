@@ -27,7 +27,7 @@
                             $ano=date('Y');
                             echo '<option value="'.($ano+1).'">'.($ano+1).'</option>';
                             echo '<option value="'.$ano.'" selected>'.$ano.'</option>';
-                            
+
                             for ($i=1; $i <10 ; $i++) {
                             echo '<option value="'.($ano-$i).'">'.($ano-$i).'</option>';
                             }
@@ -52,7 +52,7 @@
                 <div class="offset-sm-1 col-sm-10 mt-2">
                     <div class="pesq form-row">
                         <i class="fa fa-search form-group col-1"></i>
-                        <input class="form-group col-11 pesquisa" id="nome_aluno" name="nome_aluno" type="search" 
+                        <input class="form-group col-11 pesquisa" id="nome_aluno" name="nome_aluno" type="search"
                             placeholder="Pesquise nome do aluno">
                     </div>
                 </div>
@@ -68,10 +68,28 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>linha['id_aluno']</td>
-                            <td>linha['Nome_Completo']</td>
-                            <td>linha['Data_R']</td>
-                        </tr> 
+                            <td>2019C0006</td>
+                            <td>Lucas Mariamo</td>
+                            <td>22/02/2019</td>
+                        </tr>
+
+                        <tr>
+                            <td>2019C0007</td>
+                            <td>Lorena Miket</td>
+                            <td>21/02/2019</td>
+                        </tr>
+
+                        <tr>
+                            <td>2019C0008</td>
+                            <td>Olivia Jose	Nocturno</td>
+                            <td>12/02/2019</td>
+                        </tr>
+
+                        <tr>
+                            <td>2019C0009</td>
+                            <td>Tereza Mendes</td>
+                            <td>13/02/2019</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -95,11 +113,11 @@
     <script>
         $('#nome_aluno').focusin(function() {
         $('.pesq').css("box-shadow","0 0 0 0.2rem rgba(0, 123, 255, 0.25)");
-            
+
         });
 
         $('#nome_aluno').focusout(function() {
         $('.pesq').css("box-shadow","none");
         });
-    </script>                            
+    </script>
 @endpush

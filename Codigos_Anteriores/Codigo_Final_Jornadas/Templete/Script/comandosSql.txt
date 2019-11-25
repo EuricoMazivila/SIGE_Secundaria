@@ -1,1 +1,0 @@
-ALTER TABLE `usuario` DROP `Acesso_Aluno`, DROP `Acesso_Professor`, DROP `Acesso_Secretaria`, DROP `Acesso_Convidado`, DROP `Acesso_Candidato`, DROP `Acesso_Adminastrivo`;

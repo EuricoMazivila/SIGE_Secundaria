@@ -26,7 +26,7 @@
                             $ano=date('Y');
                             echo '<option value="'.($ano+1).'">'.($ano+1).'</option>';
                             echo '<option value="'.$ano.'" selected>'.$ano.'</option>';
-                            
+
                             for ($i=1; $i <10 ; $i++) {
                             echo '<option value="'.($ano-$i).'">'.($ano-$i).'</option>';
                             }
@@ -51,12 +51,85 @@
                     <thead>
                         <tr>
                             <th>Classe</th>
-                            <th>Seccao</th>
+                            <!--<th>Seccao</th>-->
                             <th>Turno</th>
                             <th>Total de vagas</th>
                             <th>Vagas preenchidas</th>
                         </tr>
                     </thead>
+                    <tbody>
+                        <tr>
+                            <td>8</td>
+                            <td>Diurno</td>
+                            <td>200</td>
+                            <td>2</td>
+                        </tr>
+
+                        <tr>
+                            <td>8</td>
+                            <td>Noturno</td>
+                            <td>150</td>
+                            <td>4</td>
+                        </tr>
+
+                        <tr>
+                            <td>9</td>
+                            <td>Diurno</td>
+                            <td>200</td>
+                            <td>1</td>
+                        </tr>
+
+                        <tr>
+                            <td>9</td>
+                            <td>Noturno</td>
+                            <td>150</td>
+                            <td>1</td>
+                        </tr>
+
+                        <tr>
+                            <td>10</td>
+                            <td>Diurno</td>
+                            <td>200</td>
+                            <td>2</td>
+                        </tr>
+
+                        <tr>
+                            <td>10</td>
+                            <td>Noturno</td>
+                            <td>150</td>
+                            <td>0</td>
+                        </tr>
+
+                        <tr>
+                            <td>11</td>
+                            <td>Diurno</td>
+                            <td>200</td>
+                            <td>0</td>
+                        </tr>
+
+                        <tr>
+                            <td>11</td>
+                            <td>Noturno</td>
+                            <td>150</td>
+                            <td>0</td>
+                        </tr>
+
+                        <tr>
+                            <td>12</td>
+                            <td>Diurno</td>
+                            <td>200</td>
+                            <td>0</td>
+                        </tr>
+
+                        <tr>
+                            <td>12</td>
+                            <td>Noturno</td>
+                            <td>150</td>
+                            <td>0</td>
+                        </tr>
+
+                    </tbody>
+                    <!--
                     <tbody>
                         <tr>
                             <td>linha['classe']</td>
@@ -66,6 +139,7 @@
                             <td>linha['vagas_preenchidas']</td>
                         </tr>
                     </tbody>
+                -->
                 </table>
             </div>
             <div class="row ">
@@ -89,5 +163,5 @@
         $(function(){
             $('.size').styleddropdown();
         });
-    </script>                        
+    </script>
 @endpush

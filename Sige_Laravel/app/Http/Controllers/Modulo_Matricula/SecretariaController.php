@@ -29,15 +29,15 @@ class SecretariaController extends Controller
         return view('admin.secretaria.Home_Page_Secretaria');
     }
 
-    public function listacandidatos(){  
+    public function listacandidatos(){
         $s=$this->nivel_acesso();
         if($s){
             return redirect('/login');
         }
-        $candidatos=Aluno::with('pessoa')->with('candidato')->get();   
+        $candidatos=Aluno::with('pessoa')->with('candidato')->get();
         return view('admin.secretaria.Lista_Candidatos',compact('candidatos'));
     }
- 
+
     public function registarcandidato(){
         $s=$this->nivel_acesso();
         if($s){
@@ -46,9 +46,9 @@ class SecretariaController extends Controller
         $distritos=Distrito::all();
         return view('admin.secretaria.Registar_Candidato',compact('distritos'));
     }
- 
+
     public function store(Request $request){
-        
+
         $request->validate([
             'nome' => 'required',
             'apelido' => 'required',
@@ -61,7 +61,7 @@ class SecretariaController extends Controller
         ]);
 
         $pessoa=new Pessoa([
-            'id_Pessoa' => '2019C0014',
+            'id_Pessoa' => '2019C0015',
             'nome' => $request->get('nome'),
             'apelido' => $request->get('apelido'),
             'sexo' => $request->get('sexo'),
@@ -69,12 +69,12 @@ class SecretariaController extends Controller
             'data_nascimento' => $request->get('datanasc')
         ]);
         $pessoa->save();
-        
+
         $aluno=$pessoa->aluno()->create([
             'Tipo'=>'Candidato'
         ]);
         $aluno->save();
-        
+
         $candidato=$aluno->candidato()->create([
             'id_escola' => $request->get('escola'),
             'classe_matricular' => $request->get('classe_matr'),
@@ -102,7 +102,7 @@ class SecretariaController extends Controller
         return view('admin.secretaria.Matricular_Step_1');
     }
 
-    public function matricular_step2(){    
+    public function matricular_step2(){
         $s=$this->nivel_acesso();
         if($s){
             return redirect('/login');

@@ -26,7 +26,7 @@
                 </span>
             </a>
         </div>
-    </form>    
+    </form>
 
     <div class="form-row mt-5">
     	<div class="table-responsive" id="resultado">
@@ -41,10 +41,31 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>linha['id_candidato']</td>
-                        <td>linha['nome_completo']</td>
-                        <td>linha['regime']</td>
-                        <td>linha['classe_matricular']</td>
+                        <td>2019C0009</td>
+                        <td>Tereza Mendes</td>
+                        <td>Nocturno</td>
+                        <td>11</td>
+                    </tr>
+
+                    <tr>
+                        <td>2019C0010</td>
+                        <td>Yuan Castro</td>
+                        <td>Nocturno</td>
+                        <td>10</td>
+                    </tr>
+
+                    <tr>
+                        <td>2019C0011</td>
+                        <td>Manuel Januario</td>
+                        <td>Nocturno</td>
+                        <td>10</td>
+                    </tr>
+
+                    <tr>
+                        <td>2019C0012</td>
+                        <td>Lucas Mbeve</td>
+                        <td>Nocturno</td>
+                        <td>10</td>
                     </tr>
                 </tbody>
             </table>
@@ -54,10 +75,10 @@
 
     <div class="size offset-6">
         <ul class="listaa">
-           <li role="button" id="myBtn"><a href="{{ route('secretaria.matricularstep1') }}"><i class="fa fa-eraser fa-2x"></i><span>Matricular aluno</span></a> </li> 
+           <li role="button" id="myBtn"><a href="{{ route('secretaria.matricularstep1') }}"><i class="fa fa-eraser fa-2x"></i><span>Matricular aluno</span></a> </li>
         </ul>
     </div>
-</div>    
+</div>
 @endsection
 
 @push('scripts')
